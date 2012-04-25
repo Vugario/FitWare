@@ -29,7 +29,8 @@ public class Migration {
 	}
 
 	/**
-	 * 
+	 * This method loops through model directory and reads .sql files ready to insert into database
+	 * @see connection to db need to be tested
 	 * @param dir this is the path to the models
 	 */	
 	private static void migrate(File dir)
