@@ -21,10 +21,10 @@ public class Migration {
 	 */
 	public static void run()
 	{
-		String path = System.getProperty(null);
+		String path = System.getProperty("user.dir");
 		//System.out.println(path);
 		path+="/src/model/";
-		
+		//System.out.println(path);
 		migrate(new File(path));
 	}
 
@@ -35,7 +35,7 @@ public class Migration {
 	 */	
 	private static void migrate(File dir)
 	{
-			
+		//System.out.println(dir.getAbsolutePath());		
 		if(dir.isFile()){
 			
 			String filename = dir.toString();
@@ -43,8 +43,9 @@ public class Migration {
 			int extPos = filename.lastIndexOf(".");
 			
 			if(extPos >= 0){
+				
 				if(".sql".equals(filename.substring(extPos))){
-					
+					//System.out.println(dir.getName());
 					try{
 						BufferedReader file = new BufferedReader(new FileReader(dir));
 						
@@ -58,8 +59,8 @@ public class Migration {
 						
 						Manager db = new Manager();
 						
-						db.query(queryStr);
-						
+						db.query(str.toString());
+						//System.out.println(str);
 						file.close();
 
 					}catch(Exception e){

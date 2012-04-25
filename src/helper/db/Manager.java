@@ -30,12 +30,12 @@ public class Manager {
 	{
 		try {
 			
-			//dunno if this is needed, needs to be tested
+			//initiate driver
 			Class.forName("org.postgresql.Driver");
 			
-			dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fitshape", "postgres", "");
+			dbConnection = DriverManager.getConnection("jdbc:postgresql://allen.pb/fitshape", "postgres", "root");
 		} catch (ClassNotFoundException ex) {
-			System.out.println(ex.getMessage());
+			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (SQLException ex) {
 			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -46,13 +46,15 @@ public class Manager {
 		
 		try {
 			Statement stmt = dbConnection.createStatement();
-			result = stmt.executeQuery(query);
+			stmt.executeUpdate(query);
+			//System.out.println(result);
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		}
 		
 		
 	}
+	
 	
 	public Object toObject() throws SQLException
 	{
