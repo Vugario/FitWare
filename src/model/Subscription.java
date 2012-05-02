@@ -4,23 +4,10 @@
  */
 package model;
 
-import helper.db.Model;
-
 /**
  *
  * @author allentje
  */
-public class User extends Model{
-	
-	public User()
-	{
-		
-		//super();
-		//this.read(1);		
-		
-	}
-	
+public class Subscription {
 	
 }
-
-
