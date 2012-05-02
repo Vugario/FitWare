@@ -30,18 +30,23 @@ public class Manager {
 	{
 		try {
 			
-			//initiate driver
+			//initiate driver, The driver nees to be downloaded and included in the librarys
 			Class.forName("org.postgresql.Driver");
 			
 			dbConnection = DriverManager.getConnection("jdbc:postgresql://allen.pb/fitshape", "postgres", "root");
+			
 		} catch (ClassNotFoundException ex) {
-			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger("LET OP mocht je dit zien en je krijgt hierna een null dan moet je de driver installeren: "+Manager.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (SQLException ex) {
 			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 	
-	public void query(String query)
+	/**
+	 * execute querys without a result
+	 * @param query UPDATE, INSERT, CREATE
+	 */
+	public void q(String query)
 	{	
 		
 		try {
@@ -55,6 +60,19 @@ public class Manager {
 		
 	}
 	
+	public ResultSet query(String query)
+	{	
+		
+		try {
+			Statement stmt = dbConnection.createStatement();
+			result = stmt.executeQuery(query);
+			//System.out.println(result);
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		
+		return result;
+	}
 	
 	public Object toObject() throws SQLException
 	{

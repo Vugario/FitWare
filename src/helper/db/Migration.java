@@ -23,7 +23,7 @@ public class Migration {
 	{
 		String path = System.getProperty("user.dir");
 		//System.out.println(path);
-		path+="/src/model/";
+		path += File.separator+"src"+File.separator+"model"+File.separator;
 		//System.out.println(path);
 		migrate(new File(path));
 	}
