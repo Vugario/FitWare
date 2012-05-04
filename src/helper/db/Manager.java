@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import main.ExceptionHandler;
 import main.Settings;
 
 /**
@@ -52,11 +53,13 @@ public class Manager {
 	 * Execute a query without returning a result
 	 * @param query Like UPDATE, INSERT, CREATE, etc.
 	 */
-	public void q(String query) throws SQLException {
-
-		Statement statement = dbConnection.createStatement();
-		statement.executeUpdate(query);
-
+	public void q(String query) {
+		try {
+			Statement statement = dbConnection.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException ex) {
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
+		}
 	}
 
 	/**
@@ -64,9 +67,13 @@ public class Manager {
 	 * @param query Probably a SELECT
 	 * @return The result of the query
 	 */
-	public ResultSet query(String query) throws SQLException {
-
-		Statement statement = dbConnection.createStatement();
-		return statement.executeQuery(query);
+	public ResultSet query(String query) {
+		try {
+			Statement statement = dbConnection.createStatement();
+			return statement.executeQuery(query);
+		} catch (SQLException ex) {
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
+		}
+		return null;
 	}
 }
