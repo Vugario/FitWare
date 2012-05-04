@@ -14,20 +14,16 @@ public class Settings {
 	/**
 	 * The HashMap that contains all settings
 	 */
-	protected static Map<String, String> settings;
+	protected static Map<String, String> settings = new HashMap<String, String>();
 
 	/**
-	 * Initialize this Settings class. Without calling this function, the get()
-	 * method won't return anything.
+	 * Initialize this Settings class.
 	 */
 	public static void init() {
 		// Check if this Settings class is already initialized
-		if (settings.isEmpty()) {
+		if (!settings.isEmpty()) {
 			return;
 		}
-
-		// Initialize the settings map
-		settings = new HashMap<String, String>();
 
 		// Database settings
 		settings.put("db-url", "jdbc:postgresql://db.fitwareonline.nl:5432/fitshape");
@@ -47,6 +43,8 @@ public class Settings {
 	 * @return The value
 	 */
 	public static String get(String name) {
+		Settings.init();
+		
 		return settings.get(name);
 	}
 

@@ -37,9 +37,9 @@ public class Manager {
 			Class.forName("org.postgresql.Driver");
 
 			String url = Settings.get("db-url");
-			String name = Settings.get("db-name");
+			String name = Settings.get("db-user");
 			String password = Settings.get("db-password");
-
+			
 			dbConnection = DriverManager.getConnection(url, name, password);
 
 		} catch (ClassNotFoundException ex) {

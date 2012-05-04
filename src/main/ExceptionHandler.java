@@ -66,6 +66,8 @@ public class ExceptionHandler {
 	 */
 	public void handle(Exception exception) {
 		exceptions.add(exception);
+		
+		exception.printStackTrace();
 	}
 	
 	/**
