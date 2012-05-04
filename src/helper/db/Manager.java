@@ -7,77 +7,66 @@ import java.util.logging.Logger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import main.Settings;
 
-
+/**
+ * This class is used as base class for Model, and thus as base class for all
+ * classes in the Model package
+ */
 public class Manager {
-	
+
 	private Connection dbConnection;
-	private ResultSet result;
-	
+
 	/**
 	 * This method is used to chain after executing query method
 	 * @see This is maybe to much to return and should think about using what we need in loose methods
 	 * @return 
 	 */
-	public ResultSet resultSet(){
+	public ResultSet resultSet() {
 		return resultSet();
-	};
-	
+	}
+
 	/**
-	 * construct opens connection due to there always should be a connection
+	 * Construct opens connection due to there always should be a connection
 	 */
-	public  Manager()
-	{
+	public Manager() {
 		try {
-			
-			//initiate driver, The driver nees to be downloaded and included in the librarys
+			// Initiate driver
+			// The driver needs to be downloaded and included in the librarys
 			Class.forName("org.postgresql.Driver");
-			
-			dbConnection = DriverManager.getConnection("jdbc:postgresql://allen.pb/fitshape", "postgres", "root");
-			
+
+			String url = Settings.get("db-url");
+			String name = Settings.get("db-name");
+			String password = Settings.get("db-password");
+
+			dbConnection = DriverManager.getConnection(url, name, password);
+
 		} catch (ClassNotFoundException ex) {
-			Logger.getLogger("LET OP mocht je dit zien en je krijgt hierna een null dan moet je de driver installeren: "+Manager.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger("LET OP mocht je dit zien en je krijgt hierna een null dan moet je de driver installeren: " + Manager.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (SQLException ex) {
 			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	/**
-	 * execute querys without a result
-	 * @param query UPDATE, INSERT, CREATE
+	 * Execute a query without returning a result
+	 * @param query Like UPDATE, INSERT, CREATE, etc.
 	 */
-	public void q(String query)
-	{	
-		
-		try {
-			Statement stmt = dbConnection.createStatement();
-			stmt.executeUpdate(query);
-			//System.out.println(result);
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
-		
-		
+	public void q(String query) throws SQLException {
+
+		Statement statement = dbConnection.createStatement();
+		statement.executeUpdate(query);
+
 	}
-	
-	public ResultSet query(String query)
-	{	
-		
-		try {
-			Statement stmt = dbConnection.createStatement();
-			result = stmt.executeQuery(query);
-			//System.out.println(result);
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
-		
-		return result;
+
+	/**
+	 * Execute a query and return the result
+	 * @param query Probably a SELECT
+	 * @return The result of the query
+	 */
+	public ResultSet query(String query) throws SQLException {
+
+		Statement statement = dbConnection.createStatement();
+		return statement.executeQuery(query);
 	}
-	
-	public Object toObject() throws SQLException
-	{
-		return result.getObject(null);
-	}
-	
-	
 }
