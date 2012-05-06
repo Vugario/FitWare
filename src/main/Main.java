@@ -7,9 +7,12 @@ public class Main {
 	
     public static void main(String args[]) {
 		
-		//model.User user = new model.User();
+	//model.User user = new model.User();
 		
-		Migration.run();
-		
+	//Migration.run();
+        
+        Application app = new Application();
+        app.setVisible( true );
+        
     }
 }
