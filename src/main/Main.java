@@ -1,18 +1,26 @@
 package main;
 
-import helper.db.Migration;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
-	
-    public static void main(String args[]) {
-		
-	//model.User user = new model.User();
-		
-	//Migration.run();
-        
-        Application app = new Application();
-        app.setVisible( true );
-        
-    }
+	protected static view.Wrapper application;
+
+	public static void main(String args[]) {
+
+		//model.User user = new model.User();
+
+		//Migration.run();
+
+		//Application app = new Application();
+		//app.setVisible( true );
+
+		application = new view.Wrapper();
+		application.setVisible(true);
+
+	}
+
+	public static view.Wrapper getApplication() {
+		return application;
+	}
 }
