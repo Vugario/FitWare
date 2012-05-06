@@ -112,6 +112,12 @@ public class Application extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel34 = new javax.swing.JLabel();
+        jLabelWelcomeUser = new javax.swing.JLabel();
+        jButtonLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -292,16 +298,16 @@ public class Application extends javax.swing.JFrame {
                 .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(jLabel4)
-                        .addContainerGap(808, Short.MAX_VALUE))
+                        .addContainerGap(814, Short.MAX_VALUE))
                     .add(jLabel12)
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(jLabel16)
-                        .addContainerGap(823, Short.MAX_VALUE))
+                        .addContainerGap(829, Short.MAX_VALUE))
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel17)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel18))
-                        .addContainerGap(780, Short.MAX_VALUE))
+                        .addContainerGap(786, Short.MAX_VALUE))
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel14)
@@ -357,7 +363,7 @@ public class Application extends javax.swing.JFrame {
                         .add(577, 577, 577))
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(jButton1)
-                        .addContainerGap(867, Short.MAX_VALUE))))
+                        .addContainerGap(873, Short.MAX_VALUE))))
         );
         pnlProfileLayout.setVerticalGroup(
             pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -424,7 +430,7 @@ public class Application extends javax.swing.JFrame {
                     .add(jTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(45, 45, 45)
                 .add(jButton1)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         Content.add(pnlProfile, "pnlProfile");
@@ -452,7 +458,7 @@ public class Application extends javax.swing.JFrame {
             .add(pnlInvoicesLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(pnlInvoicesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                     .add(jLabel19))
                 .addContainerGap())
         );
@@ -462,7 +468,7 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jLabel19)
                 .add(18, 18, 18)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -491,7 +497,7 @@ public class Application extends javax.swing.JFrame {
             .add(pnlCoursesLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(pnlCoursesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                     .add(jLabel20))
                 .addContainerGap())
         );
@@ -501,7 +507,7 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jLabel20)
                 .add(18, 18, 18)
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -548,17 +554,17 @@ public class Application extends javax.swing.JFrame {
 
         jLabel30.setText("er sprake is van overgewicht, ondergewicht of een gezond gewicht.");
 
-        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24));
         jLabel31.setText("Resultaat");
 
         jLabel32.setText("Uw BMI");
 
         jLabelResultString.setText("ResultString");
 
-        jLabelResultInt.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabelResultInt.setFont(new java.awt.Font("Ubuntu", 1, 18));
         jLabelResultInt.setText("ResultInt");
 
-        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15));
         jButtonCalcBMI.setText("Bereken!");
         jButtonCalcBMI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -617,12 +623,12 @@ public class Application extends javax.swing.JFrame {
                     .add(pnlBMILayout.createSequentialGroup()
                         .add(190, 190, 190)
                         .add(jButtonCalcBMI)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         pnlBMILayout.setVerticalGroup(
             pnlBMILayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlBMILayout.createSequentialGroup()
-                .add(72, 72, 72)
+                .addContainerGap()
                 .add(jLabel21)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel28)
@@ -665,7 +671,7 @@ public class Application extends javax.swing.JFrame {
                     .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(44, 44, 44)
                 .add(jButtonCalcBMI)
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         Content.add(pnlBMI, "pnlBMI");
@@ -703,7 +709,7 @@ public class Application extends javax.swing.JFrame {
                     .add(jLabel1)
                     .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 376, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 172, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 178, Short.MAX_VALUE)
                 .add(pnlDashboardLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 376, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2))
@@ -725,10 +731,57 @@ public class Application extends javax.swing.JFrame {
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 284, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         Content.add(pnlDashboard, "pnlDashboard");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel33.setFont(new java.awt.Font("Ubuntu", 1, 36));
+        jLabel33.setText("Fitshape");
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel34.setText("Welkom,");
+
+        jLabelWelcomeUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelWelcomeUser.setText("User");
+
+        jButtonLogout.setFont(new java.awt.Font("Ubuntu", 0, 10));
+        jButtonLogout.setForeground(new java.awt.Color(0, 38, 255));
+        jButtonLogout.setText("Log uit");
+        jButtonLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel33)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 536, Short.MAX_VALUE)
+                .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jLabel34)
+                        .add(106, 106, 106)
+                        .add(jLabelWelcomeUser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 201, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jButtonLogout, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 121, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jLabel33)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel34)
+                    .add(jLabelWelcomeUser))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                .add(jButtonLogout))
+        );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -737,23 +790,26 @@ public class Application extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(btnProfile, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(btnDashboard, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(btnInvoices, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(btnCourses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(btnBMI))
-                .add(18, 18, 18)
-                .add(Content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
-                .addContainerGap())
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(btnDashboard, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .add(btnProfile, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .add(btnInvoices, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, btnCourses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, btnBMI, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(Content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(Content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
-                    .add(layout.createSequentialGroup()
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(52, 52, 52)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .add(btnDashboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnProfile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -762,7 +818,8 @@ public class Application extends javax.swing.JFrame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnCourses, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnBMI, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(btnBMI, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, Content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -909,6 +966,7 @@ private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JButton btnProfile;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCalcBMI;
+    private javax.swing.JButton jButtonLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -935,6 +993,8 @@ private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -943,8 +1003,10 @@ private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelResultInt;
     private javax.swing.JLabel jLabelResultString;
+    private javax.swing.JLabel jLabelWelcomeUser;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
@@ -957,6 +1019,7 @@ private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
