@@ -11,8 +11,11 @@ public class Main {
 		
 	//Migration.run();
         
-        Application app = new Application();
-        app.setVisible( true );
+  //      Application app = new Application();
+  //      app.setVisible( true );
+    
+                View view = new View();
+        view.setVisible( true );
         
     }
 }

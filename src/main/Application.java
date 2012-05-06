@@ -67,10 +67,11 @@ public class Application extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
+        jLabelClientId = new javax.swing.JLabel();
         pnlInvoices = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -194,6 +195,7 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
+        jTextField5.setText("ddmmjjjj");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -273,21 +275,15 @@ public class Application extends javax.swing.JFrame {
 
         jLabel17.setText("Wachtwoord herhalen");
 
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
-            }
-        });
-
-        jTextField14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField14ActionPerformed(evt);
-            }
-        });
-
         jLabel18.setText("Wachtwoord");
 
         jButton1.setText("Opslaan");
+
+        jPasswordField1.setText("jPasswordField1");
+
+        jPasswordField2.setText("jPasswordField2");
+
+        jLabelClientId.setText("klantnummer");
 
         org.jdesktop.layout.GroupLayout pnlProfileLayout = new org.jdesktop.layout.GroupLayout(pnlProfile);
         pnlProfile.setLayout(pnlProfileLayout);
@@ -298,28 +294,28 @@ public class Application extends javax.swing.JFrame {
                 .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(jLabel4)
-                        .addContainerGap(814, Short.MAX_VALUE))
+                        .addContainerGap(1076, Short.MAX_VALUE))
                     .add(jLabel12)
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(jLabel16)
-                        .addContainerGap(829, Short.MAX_VALUE))
+                        .addContainerGap(1091, Short.MAX_VALUE))
                     .add(pnlProfileLayout.createSequentialGroup()
+                        .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel17)
+                            .add(jLabel18))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel17)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel18))
-                        .addContainerGap(786, Short.MAX_VALUE))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(921, Short.MAX_VALUE))
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel14)
                             .add(jLabel13)
                             .add(pnlProfileLayout.createSequentialGroup()
-                                .add(jLabel15)
-                                .add(88, 88, 88)
-                                .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jTextField14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                                    .add(jTextField13, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                                    .add(jTextField12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)))
-                            .add(jLabel5)
+                                .add(jLabel5)
+                                .add(99, 99, 99)
+                                .add(jLabelClientId))
                             .add(pnlProfileLayout.createSequentialGroup()
                                 .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(pnlProfileLayout.createSequentialGroup()
@@ -359,11 +355,15 @@ public class Application extends javax.swing.JFrame {
                                 .add(18, 18, 18)
                                 .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jTextField9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                    .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(pnlProfileLayout.createSequentialGroup()
+                                .add(jLabel15)
+                                .add(88, 88, 88)
+                                .add(jTextField12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)))
                         .add(577, 577, 577))
                     .add(pnlProfileLayout.createSequentialGroup()
                         .add(jButton1)
-                        .addContainerGap(873, Short.MAX_VALUE))))
+                        .addContainerGap(1135, Short.MAX_VALUE))))
         );
         pnlProfileLayout.setVerticalGroup(
             pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -371,7 +371,9 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jLabel4)
                 .add(18, 18, 18)
-                .add(jLabel5)
+                .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5)
+                    .add(jLabelClientId))
                 .add(18, 18, 18)
                 .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
@@ -423,11 +425,11 @@ public class Application extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel18)
-                    .add(jTextField14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(pnlProfileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel17)
-                    .add(jTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(45, 45, 45)
                 .add(jButton1)
                 .addContainerGap(84, Short.MAX_VALUE))
@@ -458,7 +460,7 @@ public class Application extends javax.swing.JFrame {
             .add(pnlInvoicesLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(pnlInvoicesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1192, Short.MAX_VALUE)
                     .add(jLabel19))
                 .addContainerGap())
         );
@@ -497,7 +499,7 @@ public class Application extends javax.swing.JFrame {
             .add(pnlCoursesLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(pnlCoursesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1192, Short.MAX_VALUE)
                     .add(jLabel20))
                 .addContainerGap())
         );
@@ -623,7 +625,7 @@ public class Application extends javax.swing.JFrame {
                     .add(pnlBMILayout.createSequentialGroup()
                         .add(190, 190, 190)
                         .add(jButtonCalcBMI)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         pnlBMILayout.setVerticalGroup(
             pnlBMILayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -709,7 +711,7 @@ public class Application extends javax.swing.JFrame {
                     .add(jLabel1)
                     .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 376, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 178, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 440, Short.MAX_VALUE)
                 .add(pnlDashboardLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 376, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2))
@@ -760,7 +762,7 @@ public class Application extends javax.swing.JFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel33)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 536, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 792, Short.MAX_VALUE)
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -793,14 +795,14 @@ public class Application extends javax.swing.JFrame {
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(btnDashboard, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .add(btnProfile, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .add(btnInvoices, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .add(btnDashboard, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                            .add(btnProfile, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                            .add(btnInvoices, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, btnCourses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, btnBMI, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(Content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
+                        .add(Content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1216, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -854,66 +856,6 @@ private void btnBMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     this.render( "pnlBMI" );
 }//GEN-LAST:event_btnBMIActionPerformed
 
-private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField1ActionPerformed
-
-private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField2ActionPerformed
-
-private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField3ActionPerformed
-
-private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField4ActionPerformed
-
-private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField5ActionPerformed
-
-private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jRadioButton1ActionPerformed
-
-private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField6ActionPerformed
-
-private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField7ActionPerformed
-
-private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField8ActionPerformed
-
-private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField9ActionPerformed
-
-private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField10ActionPerformed
-
-private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField11ActionPerformed
-
-private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField12ActionPerformed
-
-private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField13ActionPerformed
-
-private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField14ActionPerformed
-
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton3ActionPerformed
@@ -921,6 +863,58 @@ private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private void jButtonCalcBMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcBMIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCalcBMIActionPerformed
+
+        private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField12ActionPerformed
+
+        private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField11ActionPerformed
+
+        private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField10ActionPerformed
+
+        private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField9ActionPerformed
+
+        private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField8ActionPerformed
+
+        private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField7ActionPerformed
+
+        private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField6ActionPerformed
+
+        private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jRadioButton1ActionPerformed
+
+        private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField5ActionPerformed
+
+        private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField4ActionPerformed
+
+        private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField3ActionPerformed
+
+        private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField2ActionPerformed
+
+        private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+
+// TODO add your handling code here:}//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1001,12 +995,15 @@ private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelClientId;
     private javax.swing.JLabel jLabelResultInt;
     private javax.swing.JLabel jLabelResultString;
     private javax.swing.JLabel jLabelWelcomeUser;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
@@ -1026,8 +1023,6 @@ private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
