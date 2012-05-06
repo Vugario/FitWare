@@ -599,12 +599,12 @@ public class Application extends javax.swing.JFrame {
                         .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(pnlBMILayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabelResultString, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 493, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(pnlBMILayout.createSequentialGroup()
                                 .add(jLabel32)
                                 .add(46, 46, 46)
                                 .add(jLabelResultInt))
-                            .add(jLabel31)
-                            .add(jLabelResultString, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 489, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jLabel31)))
                     .add(pnlBMILayout.createSequentialGroup()
                         .addContainerGap()
                         .add(jLabel28))
@@ -617,7 +617,7 @@ public class Application extends javax.swing.JFrame {
                     .add(pnlBMILayout.createSequentialGroup()
                         .add(190, 190, 190)
                         .add(jButtonCalcBMI)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         pnlBMILayout.setVerticalGroup(
             pnlBMILayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
