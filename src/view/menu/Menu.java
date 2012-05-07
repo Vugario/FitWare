@@ -3,7 +3,7 @@
  *
  * Created on May 6, 2012, 3:09:56 PM
  */
-package view;
+package view.menu;
 
 /**
  *

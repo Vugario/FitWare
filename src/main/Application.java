@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 import view.*;
+import view.menu.MemberMenu;
 
 /**
  *
@@ -28,15 +29,25 @@ public class Application extends javax.swing.JFrame {
 		this.content.setLayout(new java.awt.BorderLayout());
 
 		// Create the pages for our applications
+                pages.put("login",       new Login());
 		pages.put("dashboard",   new Dashboard());
 		pages.put("profile",     new Profile());
 		pages.put("invoices",    new Invoices());
 		pages.put("enrollments", new Enrollments());
 		pages.put("bmi",         new Bmi());
 		
-		// And display the Dashboard page
-		this.changeContentPanel("dashboard");
+		// And display the Login page              
+                this.changeContentPanel("login");
+		          
+                
+                
 	}
+        public JPanel getMenu(){
+         // Return the panel
+            return this.menu;
+            
+        }
+         
 
 	/**
 	 * Change content panel
@@ -73,25 +84,33 @@ public class Application extends javax.swing.JFrame {
     private void initComponents() {
 
         header1 = new view.FitshapeTopPanel();
-        menu1 = new view.Menu();
         content = new javax.swing.JPanel();
+        menu = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(150, 50));
         setMinimumSize(new java.awt.Dimension(1000, 700));
-        setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
-        setSize(new java.awt.Dimension(1000, 700));
 
         org.jdesktop.layout.GroupLayout contentLayout = new org.jdesktop.layout.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 838, Short.MAX_VALUE)
+            .add(0, 849, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 595, Short.MAX_VALUE)
+        );
+
+        org.jdesktop.layout.GroupLayout menuLayout = new org.jdesktop.layout.GroupLayout(menu);
+        menu.setLayout(menuLayout);
+        menuLayout.setHorizontalGroup(
+            menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 145, Short.MAX_VALUE)
+        );
+        menuLayout.setVerticalGroup(
+            menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 536, Short.MAX_VALUE)
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -101,8 +120,7 @@ public class Application extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(2, 2, 2)
-                        .add(menu1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(menu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(header1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -115,7 +133,7 @@ public class Application extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(menu1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(menu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -161,6 +179,6 @@ public class Application extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
     private view.FitshapeTopPanel header1;
-    private view.Menu menu1;
+    private javax.swing.JPanel menu;
     // End of variables declaration//GEN-END:variables
 }
