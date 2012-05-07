@@ -1,14 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * Courses.java
  *
  * Created on May 6, 2012, 5:00:03 PM
  */
-package View;
+package hisview;
 
 /**
  *

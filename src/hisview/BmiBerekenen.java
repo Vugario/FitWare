@@ -1,15 +1,10 @@
-package View;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /*
  * BmiBerekenen.java
  *
  * Created on May 6, 2012, 4:56:17 PM
  */
+package hisview;
+
 /**
  *
  * @author vm
@@ -238,15 +233,6 @@ public class BmiBerekenen extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-
-        // TODO add your handling code here:}//GEN-LAST:event_jRadioButton3ActionPerformed
-
-        private void jButtonCalcBMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcBMIActionPerformed
-
-        // TODO add your handling code here:}//GEN-LAST:event_jButtonCalcBMIActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCalcBMI;
     private javax.swing.JLabel jLabel21;
