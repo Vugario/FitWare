@@ -2,7 +2,7 @@ package main;
 
 public class Main {
 
-	protected static myview.Wrapper application;
+	protected static Application application;
 
 	public static void main(String args[]) {
 
@@ -10,15 +10,12 @@ public class Main {
 
 		//Migration.run();
 
-		//Application app = new Application();
-		//app.setVisible( true );
-
-		//application = new myview.Wrapper();
-		//application.setVisible(true);
+		application = new Application();
+		application.setVisible(true);
 		
 	}
 
-	public static myview.Wrapper getApplication() {
+	public static Application getApplication() {
 		return application;
 	}
 }

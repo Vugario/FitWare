@@ -28,7 +28,7 @@ public class ExceptionHandler {
 	/**
 	 * A list with exceptions added to this type
 	 */
-	protected ArrayList<Exception> exceptions;
+	protected ArrayList<Exception> exceptions = new ArrayList<Exception>();
 
 	/**
 	 * Get an instance of ExceptionHandler of the requested type
