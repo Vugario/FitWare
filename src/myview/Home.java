@@ -8,7 +8,7 @@
  *
  * Created on May 6, 2012, 3:13:00 PM
  */
-package view;
+package myview;
 
 /**
  *

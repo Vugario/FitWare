@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 
-	protected static view.Wrapper application;
+	protected static myview.Wrapper application;
 
 	public static void main(String args[]) {
 
@@ -15,12 +15,12 @@ public class Main {
 		//Application app = new Application();
 		//app.setVisible( true );
 
-		application = new view.Wrapper();
+		application = new myview.Wrapper();
 		application.setVisible(true);
 
 	}
 
-	public static view.Wrapper getApplication() {
+	public static myview.Wrapper getApplication() {
 		return application;
 	}
 }

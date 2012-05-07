@@ -8,7 +8,7 @@
  *
  * Created on May 6, 2012, 3:08:25 PM
  */
-package view;
+package myview;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,8 +74,8 @@ public class Wrapper extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        header1 = new view.Header();
-        menu1 = new view.Menu();
+        header1 = new myview.Header();
+        menu1 = new myview.Menu();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -156,7 +156,7 @@ public class Wrapper extends javax.swing.JFrame {
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
-    private view.Header header1;
-    private view.Menu menu1;
+    private myview.Header header1;
+    private myview.Menu menu1;
     // End of variables declaration//GEN-END:variables
 }

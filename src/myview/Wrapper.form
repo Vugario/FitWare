@@ -50,9 +50,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="view.Header" name="header1">
+    <Component class="myview.Header" name="header1">
     </Component>
-    <Component class="view.Menu" name="menu1">
+    <Component class="myview.Menu" name="menu1">
     </Component>
     <Container class="javax.swing.JPanel" name="content">
 
