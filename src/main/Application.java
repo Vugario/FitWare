@@ -77,16 +77,21 @@ public class Application extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(150, 50));
+        setMinimumSize(new java.awt.Dimension(1000, 700));
+        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1000, 700));
 
         org.jdesktop.layout.GroupLayout contentLayout = new org.jdesktop.layout.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 639, Short.MAX_VALUE)
+            .add(0, 838, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 379, Short.MAX_VALUE)
+            .add(0, 595, Short.MAX_VALUE)
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
