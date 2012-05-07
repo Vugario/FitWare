@@ -4,6 +4,7 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 
+<<<<<<< HEAD
 	protected static myview.Wrapper application;
 
 	public static void main(String args[]) {
@@ -15,8 +16,11 @@ public class Main {
 		//Application app = new Application();
 		//app.setVisible( true );
 
-		application = new myview.Wrapper();
-		application.setVisible(true);
+		//application = new myview.Wrapper();
+		//application.setVisible(true);
+		
+		View view = new View();
+        view.setVisible( true );
 
 	}
 
