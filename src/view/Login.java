@@ -10,6 +10,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import main.Application;
 import main.Main;
 import view.menu.MemberMenu;
@@ -50,8 +51,28 @@ public class Login extends javax.swing.JPanel {
         jLabel3.setText("Wachtwoord");
 
         jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPasswordField1MouseClicked(evt);
+            }
+        });
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusGained(evt);
+            }
+        });
 
         jTextField1.setText("Gebruikersnaam");
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButtonLogIn.setText("Inloggen");
         jButtonLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +99,7 @@ public class Login extends javax.swing.JPanel {
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(jButtonLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel1))
-                .addContainerGap(359, Short.MAX_VALUE))
+                .addContainerGap(561, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,12 +116,15 @@ public class Login extends javax.swing.JPanel {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonLogIn)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogInActionPerformed
         // TODO password and username check
+        String username = jTextField1.getText();
+        String password = jPasswordField1.getText();
+        if (username.equals("foo") && password.equals("bar")){
         // After clicking loginbutton paint the menu
         // Paint menu
 
@@ -112,8 +136,31 @@ public class Login extends javax.swing.JPanel {
         application.getMenu().repaint();
         
         // Display dashboard
-        application.changeContentPanel("dashboard");
+        application.changeContentPanel("dashboard");}
+        else {
+            JOptionPane.showMessageDialog(this, "Gebruikersnaam en wachtwoord combinatie is niet bekend.");
+        }
     }//GEN-LAST:event_jButtonLogInActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+   //TODO Remove this one, but how?
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        //Empty the username field on click
+         jTextField1.setText(null);
+    }//GEN-LAST:event_jTextField1MouseClicked
+
+    private void jPasswordField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField1MouseClicked
+        //Empty the password field on click
+          jPasswordField1.setText(null);
+    }//GEN-LAST:event_jPasswordField1MouseClicked
+
+    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+        //Empty the password on focus
+         jPasswordField1.setText(null);
+    }//GEN-LAST:event_jPasswordField1FocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogIn;
     private javax.swing.JLabel jLabel1;
