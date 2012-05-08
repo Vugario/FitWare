@@ -1,15 +1,23 @@
 package main;
 
-import helper.db.Migration;
-
 public class Main {
 
-	
-    public static void main(String args[]) {
-		
-		model.User user = new model.User();
-		user.read(1);
+
+	protected static Application application;
+
+	public static void main(String args[]) {
+
+		//model.User user = new model.User();
+
 		//Migration.run();
+
+		application = new Application();
+		application.setVisible(true);
 		
-    }
+	}
+
+	public static Application getApplication() {
+		return application;
+	}
+
 }

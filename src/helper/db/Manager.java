@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import main.ExceptionHandler;
+import main.Settings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,14 +17,15 @@ import java.util.Map;
 
 
 public class Manager {
-	
+
 	private Connection dbConnection;
+
 	private ResultSet result;
 	private PreparedStatement dbQuery;
 	
 	
 	public Map<String, String> modelDefenition = new HashMap<String, String>();
-	
+
 	/**
 	 * This method is used to chain after executing query method
 	 * @see This is maybe to much to return and should think about using what we need in loose methods
@@ -53,41 +56,41 @@ public class Manager {
 	};
 	
 	/**
-	 * construct opens connection due to there always should be a connection
+	 * Construct opens connection due to there always should be a connection
 	 */
-	public  Manager()
-	{
-		
+	public Manager() {
 		try {
-			
-			//initiate driver, The driver nees to be downloaded and included in the librarys
+			// Initiate driver
+			// The driver needs to be downloaded and included in the librarys
 			Class.forName("org.postgresql.Driver");
+
+			String url = Settings.get("db-url");
+			String name = Settings.get("db-user");
+			String password = Settings.get("db-password");
 			
-			dbConnection = DriverManager.getConnection("jdbc:postgresql://allen.pb/fitshape", "postgres", "root");
-			
+			dbConnection = DriverManager.getConnection(url, name, password);
+
 		} catch (ClassNotFoundException ex) {
-			Logger.getLogger("LET OP mocht je dit zien en je krijgt hierna een null dan moet je de driver installeren: "+Manager.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger("LET OP mocht je dit zien en je krijgt hierna een null dan moet je de driver installeren: " + Manager.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (SQLException ex) {
 			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	/**
-	 * execute querys without a result
-	 * @param query UPDATE, INSERT, CREATE
+	 * Execute a query without returning a result
+	 * @param query Like UPDATE, INSERT, CREATE, etc.
 	 */
 	public void execute(String query)
 	{	
 		
+
 		try {
-			Statement stmt = dbConnection.createStatement();
-			stmt.executeUpdate(query);
-			//System.out.println(result);
+			Statement statement = dbConnection.createStatement();
+			statement.executeUpdate(query);
 		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
-		
-		
 	}
 	
 	public PreparedStatement query(String query)
@@ -97,9 +100,11 @@ public class Manager {
 			Statement stmt = dbConnection.createStatement();
 			dbQuery = dbConnection.prepareStatement(query);
 			//System.out.println(result);
+
 		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
+
 		
 		return dbQuery;
 	}
@@ -152,4 +157,5 @@ public class Manager {
 		}
 	}
 	
+
 }
