@@ -4,6 +4,11 @@
  */
 package helper.db;
 
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -21,10 +26,21 @@ public class Model extends Manager{
 	
 	/**
 	 * Read result by id
+	 * @todo make query dynamic
 	 * @param id
 	 * @return 
 	 */
 	public int read(int id){
+		
+		
+		try {
+			this.query("SELECT * FROM update WHERE ?").setBoolean(1, true);
+		} catch (SQLException ex) {
+			Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		this.result();
+		
 		return 1;
 	}
 

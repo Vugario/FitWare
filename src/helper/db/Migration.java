@@ -8,6 +8,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import helper.db.Manager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import java.lang.StringBuffer;
 
 /**
@@ -21,11 +25,24 @@ public class Migration {
 	 */
 	public static void run()
 	{
-		String path = System.getProperty("user.dir");
-		//System.out.println(path);
-		path += File.separator+"src"+File.separator+"model"+File.separator;
-		//System.out.println(path);
-		migrate(new File(path));
+		
+		Manager db = new Manager();
+		
+		
+		db.execute(
+			"CREATE TABLE IF NOT EXISTS "
+			+ "update("
+			+ "		id serial NOT NULL, model character varying(60), version smallint, CONSTRAINT id PRIMARY KEY (id )"
+			+ ")WITH("
+			+ "		OIDS=FALSE"
+			+ ")");
+
+			String path = System.getProperty("user.dir");
+			
+			path += File.separator+"src"+File.separator+"model"+File.separator;
+			
+			migrate(new File(path));
+
 	}
 
 	/**
@@ -35,6 +52,9 @@ public class Migration {
 	 */	
 	private static void migrate(File dir)
 	{
+		
+		Manager db = new Manager();
+		
 		//System.out.println(dir.getAbsolutePath());		
 		if(dir.isFile()){
 			
@@ -45,8 +65,21 @@ public class Migration {
 			if(extPos >= 0){
 				
 				if(".sql".equals(filename.substring(extPos))){
-					//System.out.println(dir.getName());
-					try{
+
+					try {
+						//check if we need to read file or skip to the next
+						db.query("SELECT * FROM update WHERE model = ?")
+								.setString(1, dir.getParentFile().getName());
+					} catch (SQLException ex) {
+						Logger.getLogger(Migration.class.getName()).log(Level.SEVERE, null, ex);
+					}
+					
+					db.result();
+
+					
+					
+					
+					/*try{
 						BufferedReader file = new BufferedReader(new FileReader(dir));
 						
 						String queryStr;
@@ -57,16 +90,14 @@ public class Migration {
 						}
 						
 						
-						Manager db = new Manager();
-						
-						db.query(str.toString());
+						db.execute(str.toString());
 						//System.out.println(str);
 						file.close();
 
 					}catch(Exception e){
 						System.out.println(e.getMessage());
 						
-					}
+					}*/
 					
 				};	
 			}
