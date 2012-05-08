@@ -101,6 +101,7 @@ public class MemberMenu extends javax.swing.JPanel {
 
 	private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
 		main.Main.getApplication().changeContentPanel("profile");
+                //TODO add sql to fill the profileform
 	}//GEN-LAST:event_jButtonProfileActionPerformed
 
 	private void jButtonInvoicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInvoicesActionPerformed
