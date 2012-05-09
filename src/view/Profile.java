@@ -5,8 +5,9 @@
  */
 package view;
 
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import model.User;
+
 
 /**
  *
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
  */
 public class Profile extends javax.swing.JPanel {
 
+	private User user = new User();
+	
     /** Creates new form Profile */
     public Profile() {
         initComponents();
@@ -61,7 +64,6 @@ public class Profile extends javax.swing.JPanel {
         jPasswordField1 = new javax.swing.JPasswordField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
@@ -120,14 +122,7 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel1.setText("Klantnummer");
 
-        jTextField13.setText("Zoek");
-        jTextField13.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField13FocusGained(evt);
-            }
-        });
-
-        jButton1.setText("Zoek");
+        jButton1.setText("test");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -168,7 +163,10 @@ public class Profile extends javax.swing.JPanel {
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
-                            .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createSequentialGroup()
+                                .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(jButton1))
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                 .add(jPasswordField2)
                                 .add(jPasswordField1)
@@ -185,12 +183,7 @@ public class Profile extends javax.swing.JPanel {
                                 .add(jTextField10))
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField13)
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                        .add(jButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -208,10 +201,7 @@ public class Profile extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel4)
-                    .add(jTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton1))
+                .add(jLabel4)
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
@@ -229,7 +219,8 @@ public class Profile extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
-                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton1))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(60, 60, 60)
@@ -274,7 +265,7 @@ public class Profile extends javax.swing.JPanel {
                     .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(45, 45, 45)
                 .add(profileSaveButton)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -282,13 +273,14 @@ public class Profile extends javax.swing.JPanel {
         // TODO
         //Custom variable declaration, this is easier for the sql statements
         //Name and age data
-        String username, firstname, lastname, subname, birthdate, gender;
+		
+       /* String username, firstname, lastname, subname, birthdate, gender;
         username = jTextField1.getText();
         firstname = jTextField2.getText();
         lastname = jTextField4.getText();
         subname = jTextField3.getText();
         birthdate = jTextField5.getText();
-        
+        */
         // TODO read this into gender:  gender = jRadioButton1.getText;
         System.out.println();
 
@@ -326,24 +318,11 @@ public class Profile extends javax.swing.JPanel {
         
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
-    private void jTextField13FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField13FocusGained
-       jTextField13.setText(null);
-    }//GEN-LAST:event_jTextField13FocusGained
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO SQL query to retrieve member data
-        String search = jTextField13.getText();
-        String sql;
-        
-       // try {
-       
-           sql = "SELECT * FROM lid WHERE lidnummer='" + search + "'";
-        /*}catch (SQLException e){
-            System.err.println(DbManager.SQL_EXCEPTION + e.getMessage());
-            e.printStackTrace(System.err);
-            }*/
-        System.out.println(sql);
-    }//GEN-LAST:event_jButton1ActionPerformed
+	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+		// TODO add your handling code here:
+		jTextField2.setText(user.userDataQuery());
+		
+	}//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -371,7 +350,6 @@ public class Profile extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
