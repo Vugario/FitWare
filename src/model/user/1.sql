@@ -1,6 +1,6 @@
-CREATE TABLE "user6"
+CREATE TABLE IF NOT EXISTS "user"
 (
-  id integer
+	id serial NOT NULL PRIMARY KEY
 )
 WITH (
   OIDS=FALSE

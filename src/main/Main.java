@@ -2,6 +2,7 @@ package main;
 
 public class Main {
 
+
 	protected static Application application;
 
 	public static void main(String args[]) {
@@ -18,4 +19,5 @@ public class Main {
 	public static Application getApplication() {
 		return application;
 	}
+
 }
