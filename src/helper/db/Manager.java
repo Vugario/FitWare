@@ -8,12 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import main.ExceptionHandler;
 import main.Settings;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import java.sql.Array;
 
 
 public class Manager {
@@ -23,39 +21,10 @@ public class Manager {
 	private ResultSet result;
 	private PreparedStatement dbQuery;
 	
-	
-	public Map<String, String> modelDefenition = new HashMap<String, String>();
+	private Array fetch_all[10];
 
-	/**
-	 * This method is used to chain after executing query method
-	 * @see This is maybe to much to return and should think about using what we need in loose methods
-	 * @return 
-	 */
-	public ResultSet result(){
-		try {
-			result = dbQuery.executeQuery();
-				
-			try {
-				
-				while(result.next()){
-					//System.out.println("lol");
-					setData(result);
-				}
-				
-			} catch (SQLException ex) {
-				Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			
-		} catch (SQLException ex) {
-			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-
-		//System.out.println(this.data.toString());
-		return result;
-	};
 	
-	/**
+		/**
 	 * Construct opens connection due to there always should be a connection
 	 */
 	public Manager() {
@@ -76,6 +45,38 @@ public class Manager {
 			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	/**
+	 * This method is used to chain after executing query method
+	 * @see This is maybe to much to return and should think about using what we need in loose methods
+	 * @return 
+	 */
+	public ResultSet result(){
+		try {
+			result = dbQuery.executeQuery();
+				
+			try {
+				
+				while(result.next()){
+					fetch_all = result.getArray("username");
+					//System.out.println(result.getArray("id"));
+					//System.out.println(result.getString("username"));
+					//setData(result);
+				}
+				System.out.println(fetch_all);
+			} catch (SQLException ex) {
+				Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			
+		} catch (SQLException ex) {
+			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+
+		//System.out.println(this.data.toString());
+		return result;
+	};
+	
 
 	/**
 	 * Execute a query without returning a result
@@ -124,18 +125,7 @@ public class Manager {
 	
 	public void setData(ResultSet result)
 	{
-		for(String key : this.modelDefenition.keySet()){
-			try {
-				Data data = (Data)result.getObject(key);
-			} catch (SQLException ex) {
-				Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			System.out.println(data);
-			try {
-				System.out.println(result.getObject(key));
-			} catch (SQLException ex) {
-				Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-			}
+		
 			
 			/*if("numeric".equals(this.modelDefenition.get(key))){
 				try {
@@ -154,7 +144,7 @@ public class Manager {
 					Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}*/
-		}
+		
 	}
 	
 

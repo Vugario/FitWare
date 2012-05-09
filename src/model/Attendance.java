@@ -4,24 +4,10 @@
  */
 package model;
 
-
-import helper.db.Model;
-
-
 /**
  *
  * @author allentje
  */
-public class User extends Model{
-	
-	public User()
-	{
-		this.query("SELECT * FROM \"user\"");
-		this.result();
-		
-	}
-	
+public class Attendance {
 	
 }
-
-
