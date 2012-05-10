@@ -5,11 +5,13 @@
  */
 package main;
 
+import view.barmedewerker.UserOverview;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 import view.*;
-import view.menu.MemberMenu;
+import view.barmedewerker.UserAdd;
+import view.barmedewerker.UserModify;
 
 /**
  *
@@ -18,10 +20,10 @@ import view.menu.MemberMenu;
 public class Application extends javax.swing.JFrame {
 
 	/**
-	 * A HasMap with all pages added to this JFrame
+	 * A HashMap with all pages added to this JFrame
 	 */
 	protected Map<String, JPanel> pages = new HashMap<String, JPanel>();
-	
+
 	/** Creates new form Main */
 	public Application() {
 		initComponents();
@@ -29,25 +31,25 @@ public class Application extends javax.swing.JFrame {
 		this.content.setLayout(new java.awt.BorderLayout());
 
 		// Create the pages for our applications
-                pages.put("login",       new Login());
-		pages.put("dashboard",   new Dashboard());
-		pages.put("profile",     new Profile());
-		pages.put("invoices",    new Invoices());
-		pages.put("enrollments", new Enrollments());
-		pages.put("bmi",         new Bmi());
+		pages.put("login",			new Login());
+		pages.put("dashboard",		new Dashboard());
+		pages.put("profile",		new Profile());
+		pages.put("invoices",		new Invoices());
+		pages.put("enrollments",	new Enrollments());
+		pages.put("bmi",			new Bmi());
+		pages.put("useroverview",	new UserOverview());
+		pages.put("useradd",		new UserAdd());
+		pages.put("usermodify",		new UserModify());
 		
 		// And display the Login page              
-                this.changeContentPanel("login");
-		          
-                
-                
+		this.changeContentPanel("useroverview");
 	}
-        public JPanel getMenu(){
-         // Return the panel
-            return this.menu;
-            
-        }
-         
+
+	public JPanel getMenu() {
+		// Return the panel
+		return this.menu;
+
+	}
 
 	/**
 	 * Change content panel
@@ -58,20 +60,19 @@ public class Application extends javax.swing.JFrame {
 
 		//this.content.setLayout(new java.awt.BorderLayout());
 		JPanel panel = pages.get(pageName);
-		
-		if(panel == null)
-		{
+
+		if (panel == null) {
 			Exception ex = new Exception("Trying to add page that doesn't exist: " + pageName);
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 			return;
 		}
-		
+
 		this.content.removeAll();
 		this.content.add(panel);
 		this.content.revalidate();
 		this.content.repaint();
-		
-		
+
+
 	}
 
 	/** This method is called from within the constructor to
