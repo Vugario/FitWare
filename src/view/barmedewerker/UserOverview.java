@@ -13,7 +13,9 @@ package view.barmedewerker;
 import main.Application;
 
 /**
- *
+ * This is the class to view several users. From this view it's possible to go 
+ * to the UserAdd view or the UserModify view
+ * 
  * @author vm
  */
 public class UserOverview extends javax.swing.JPanel {

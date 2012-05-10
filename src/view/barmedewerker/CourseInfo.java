@@ -11,6 +11,7 @@
 package view.barmedewerker;
 
 /**
+ * This is the view to inquiry detailed information about a course.
  *
  * @author vm
  */

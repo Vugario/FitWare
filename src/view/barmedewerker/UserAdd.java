@@ -1,7 +1,7 @@
 /*
- * Profile.java
+ * UserAdd.java
  *
- * Created on May 7, 2012, 10:52:48 AM
+ * Created on May 10, 2012, 10:52:48 PM
  */
 package view.barmedewerker;
 
@@ -10,8 +10,9 @@ import model.User;
 
 
 /**
+ * This is the class for the view to add a user
  *
- * @author Daan
+ * @author vm
  */
 public class UserAdd extends javax.swing.JPanel {
 

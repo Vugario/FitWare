@@ -11,6 +11,7 @@
 package view.barmedewerker;
 
 /**
+ * This is the view to see a overview of courses.
  *
  * @author vm
  */
