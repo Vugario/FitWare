@@ -11,7 +11,7 @@ public class Manager {
 
 	private Connection dbConnection;
         
-	public ResultSet result;
+	private Statement stmnt;
 	private PreparedStatement dbQuery;
 	
 	public Manager() {
@@ -30,7 +30,7 @@ public class Manager {
 			String password = Settings.get("db-password");
 			
 			dbConnection = DriverManager.getConnection(url, name, password);
-
+			
 		} catch (SQLException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
@@ -44,6 +44,7 @@ public class Manager {
 	{	
 		
 		try {
+			stmnt = dbConnection.createStatement();
 			dbQuery = dbConnection.prepareStatement(query);
 
 		} catch (SQLException ex) {

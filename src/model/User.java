@@ -4,20 +4,19 @@
  */
 package model;
 
-import helper.db.Manager;
+import helper.Annotation.*;
 import helper.db.Model;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
  * @author allentje
  */
-public class User extends Model {
-	
-	String username;
+@Table(name = "user")
+public class User{
+		
 	String firstname;
+	
 	String lastname;
 	String subname;
 	String birthdate;
@@ -31,14 +30,28 @@ public class User extends Model {
 	String postcode;
 	String phonenumber;
 	
+	public User() {}
+	
+	public User(boolean active, int bankaccount) {
+		
+		this.active = active;
+		this.bankaccount = bankaccount;
+		
+	}
+	
+	
+	@Column("active")
 	public boolean isActive() {
+		
 		return active;
+		
 	}
 
 	public void setActive(boolean active) {
 		this.active = active;
 	}
 
+	@Column("bankaccount")
 	public int getBankaccount() {
 		return bankaccount;
 	}
@@ -134,17 +147,8 @@ public class User extends Model {
 	public void setSubname(String subname) {
 		this.subname = subname;
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	
-	public User() {}
+	
 
 	/*public String userDataQuery() {
 
@@ -181,3 +185,4 @@ public class User extends Model {
 		return qresultFirstname;
 	}*/
 }
+

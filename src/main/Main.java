@@ -1,5 +1,8 @@
 package main;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Main {
 
 
@@ -7,12 +10,10 @@ public class Main {
 
 	public static void main(String args[]) {
 
-		model.User user = new model.User();
-		user.read(1);
-		//Migration.run();
-
-		//application = new Application();
-		//application.setVisible(true);
+		model.User user = new model.User(true, 1);
+		helper.AnnotationReader.persist(user);
+		//System.out.println("");
+		//helper.db.Model model = new helper.db.Model();
 		
 	}
 
