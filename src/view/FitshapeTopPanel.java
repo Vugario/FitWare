@@ -30,90 +30,65 @@ public class FitshapeTopPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel34 = new javax.swing.JLabel();
-        jLabelWelcomeUser = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLayeredPaneHeader = new javax.swing.JLayeredPane();
+        jLayeredPaneUser = new javax.swing.JLayeredPane();
+        userIcon = new javax.swing.JLabel();
+        jLabelUsername = new javax.swing.JLabel();
+        jLabelLogout = new javax.swing.JLabel();
+        header = new javax.swing.JLabel();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 68));
+        setMaximumSize(new java.awt.Dimension(1000, 50));
+        setMinimumSize(new java.awt.Dimension(1000, 50));
+        setPreferredSize(new java.awt.Dimension(1000, 50));
 
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jLayeredPaneHeader.setMaximumSize(new java.awt.Dimension(1000, 50));
+        jLayeredPaneHeader.setMinimumSize(new java.awt.Dimension(1000, 50));
+        jLayeredPaneHeader.setPreferredSize(new java.awt.Dimension(1000, 50));
+        jLayeredPaneHeader.setSize(new java.awt.Dimension(1000, 50));
 
-        jLabel34.setText("Welkom,");
+        userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/user_32.png"))); // NOI18N
+        userIcon.setBounds(360, 10, 32, 32);
+        jLayeredPaneUser.add(userIcon, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabelWelcomeUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelWelcomeUser.setText("User");
+        jLabelUsername.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelUsername.setText("<gebruikersnaam>");
+        jLabelUsername.setBounds(21, 7, 330, 16);
+        jLayeredPaneUser.add(jLabelUsername, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel1.setForeground(new java.awt.Color(1, 27, 164));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Uitloggen");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelLogout.setText("<html><u>uitloggen</u></html>");
+        jLabelLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelLogout.setBounds(290, 25, 60, 16);
+        jLayeredPaneUser.add(jLabelLogout, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FitShape_Logo.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
+        jLayeredPaneUser.setBounds(600, 0, 400, 50);
+        jLayeredPaneHeader.add(jLayeredPaneUser, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(397, 397, 397)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel34)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelWelcomeUser)
-                        .addGap(0, 142, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator2)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel34)
-                            .addComponent(jLabelWelcomeUser))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
+        header.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/header.png"))); // NOI18N
+        header.setMaximumSize(new java.awt.Dimension(1008, 50));
+        header.setMinimumSize(new java.awt.Dimension(1008, 50));
+        header.setBounds(0, 0, 1000, 50);
+        jLayeredPaneHeader.add(header, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLayeredPaneHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLayeredPaneHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabelWelcomeUser;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel header;
+    private javax.swing.JLabel jLabelLogout;
+    private javax.swing.JLabel jLabelUsername;
+    private javax.swing.JLayeredPane jLayeredPaneHeader;
+    private javax.swing.JLayeredPane jLayeredPaneUser;
+    private javax.swing.JLabel userIcon;
     // End of variables declaration//GEN-END:variables
 
 }
