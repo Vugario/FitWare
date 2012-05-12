@@ -4,7 +4,7 @@
  */
 
 /*
- * FitshapeTopPanel.java
+ * Header.java
  *
  * Created on May 6, 2012, 8:44:06 PM
  */
@@ -14,12 +14,21 @@ package view;
  *
  * @author vm
  */
-public class FitshapeTopPanel extends javax.swing.JPanel {
+public class Header extends javax.swing.JPanel {
 
-    /** Creates new form FitshapeTopPanel */
-    public FitshapeTopPanel() {
+    /** Creates new form Header */
+    public Header() {
         initComponents();
     }
+	
+	/**
+	 * Set the visibility of the user info at the right side
+	 * 
+	 * @param visible The visibility of the user info
+	 */
+	public void showUserInfo(boolean visible) {
+		this.jLayeredPaneUser.setVisible(visible);
+	}
 
     /** This method is called from within the constructor to
      * initialize the form.

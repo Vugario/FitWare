@@ -58,6 +58,9 @@ public class Application extends javax.swing.JFrame {
 		// Hide the menu
 		this.menu.removeAll();
 		
+		// Hide the user info in the right top
+		this.header.showUserInfo(false);
+		
 		// And display the Login page              
 		this.changeContentPanel("login");
 	}
@@ -112,6 +115,15 @@ public class Application extends javax.swing.JFrame {
 		this.menu.repaint();
 	}
 
+	/**
+	 * Get the header of the application
+	 * 
+	 * @return Header The header currently showed in our application
+	 */
+	public Header getHeader() {
+		return this.header;
+	}
+	
 	/** This method is called from within the constructor to
 	 * initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is
@@ -121,31 +133,31 @@ public class Application extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        header1 = new view.FitshapeTopPanel();
+        header = new view.Header();
         content = new javax.swing.JPanel();
-        dashboard1 = new view.member.Dashboard();
+        dashboard = new view.member.Dashboard();
         menu = new javax.swing.JPanel();
-        memberMenu1 = new view.menu.MemberMenu();
+        memberMenu = new view.menu.MemberMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 700));
         setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
 
-        header1.setBackground(new java.awt.Color(164, 27, 62));
+        header.setBackground(new java.awt.Color(164, 27, 62));
 
         org.jdesktop.layout.GroupLayout contentLayout = new org.jdesktop.layout.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(contentLayout.createSequentialGroup()
-                .add(dashboard1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(dashboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(299, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(contentLayout.createSequentialGroup()
-                .add(dashboard1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(dashboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(215, Short.MAX_VALUE))
         );
 
@@ -153,12 +165,12 @@ public class Application extends javax.swing.JFrame {
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(memberMenu1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(memberMenu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(menuLayout.createSequentialGroup()
-                .add(memberMenu1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(memberMenu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(236, Short.MAX_VALUE))
         );
 
@@ -171,12 +183,12 @@ public class Application extends javax.swing.JFrame {
                 .add(menu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .add(header1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+            .add(header, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(header1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(header, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
@@ -226,9 +238,9 @@ public class Application extends javax.swing.JFrame {
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
-    private view.member.Dashboard dashboard1;
-    private view.FitshapeTopPanel header1;
-    private view.menu.MemberMenu memberMenu1;
+    private view.member.Dashboard dashboard;
+    private view.Header header;
+    private view.menu.MemberMenu memberMenu;
     private javax.swing.JPanel menu;
     // End of variables declaration//GEN-END:variables
 }

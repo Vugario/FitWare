@@ -35,13 +35,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="content" max="32767" attributes="0"/>
           </Group>
-          <Component id="header1" alignment="0" pref="1075" max="32767" attributes="0"/>
+          <Component id="header" alignment="0" pref="1075" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="header1" min="-2" max="-2" attributes="0"/>
+              <Component id="header" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -55,7 +55,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="view.FitshapeTopPanel" name="header1">
+    <Component class="view.Header" name="header">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="3e" green="1b" red="a4" type="rgb"/>
@@ -68,7 +68,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="dashboard1" min="-2" max="-2" attributes="0"/>
+                  <Component id="dashboard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="299" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -76,14 +76,14 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="dashboard1" min="-2" max="-2" attributes="0"/>
+                  <Component id="dashboard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="215" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="view.member.Dashboard" name="dashboard1">
+        <Component class="view.member.Dashboard" name="dashboard">
         </Component>
       </SubComponents>
     </Container>
@@ -92,20 +92,20 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="memberMenu1" min="-2" max="-2" attributes="0"/>
+              <Component id="memberMenu" min="-2" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="memberMenu1" min="-2" max="-2" attributes="0"/>
+                  <Component id="memberMenu" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="236" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="view.menu.MemberMenu" name="memberMenu1">
+        <Component class="view.menu.MemberMenu" name="memberMenu">
         </Component>
       </SubComponents>
     </Container>
