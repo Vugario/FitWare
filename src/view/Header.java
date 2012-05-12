@@ -49,10 +49,10 @@ public class Header extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(1000, 50));
         setMinimumSize(new java.awt.Dimension(1000, 50));
         setPreferredSize(new java.awt.Dimension(1000, 50));
+        setLayout(new java.awt.BorderLayout());
 
         jLayeredPaneHeader.setMaximumSize(new java.awt.Dimension(1000, 50));
         jLayeredPaneHeader.setMinimumSize(new java.awt.Dimension(1000, 50));
-        jLayeredPaneHeader.setPreferredSize(new java.awt.Dimension(1000, 50));
         jLayeredPaneHeader.setSize(new java.awt.Dimension(1000, 50));
 
         userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/user_32.png"))); // NOI18N
@@ -78,18 +78,7 @@ public class Header extends javax.swing.JPanel {
         header.setBounds(0, 0, 1000, 50);
         jLayeredPaneHeader.add(header, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPaneHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPaneHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        add(jLayeredPaneHeader, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel header;

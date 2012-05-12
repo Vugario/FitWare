@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.awt.BorderLayout;
 import view.barmedewerker.UserOverview;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,9 +36,6 @@ public class Application extends javax.swing.JFrame {
 	/** Creates new form Main */
 	public Application() {
 		initComponents();
-
-		this.content.setLayout(new java.awt.BorderLayout());
-		this.menu.setLayout(new java.awt.BorderLayout());
 
 		// Create the pages for our application
 		pages.put("login",			new Login());
@@ -87,10 +85,7 @@ public class Application extends javax.swing.JFrame {
 			return;
 		}
 
-		this.content.removeAll();
-		this.content.add(panel);
-		this.content.revalidate();
-		this.content.repaint();
+		this.content.setViewportView(panel);
 	}
 
 	/**
@@ -110,7 +105,7 @@ public class Application extends javax.swing.JFrame {
 		}
 
 		this.menu.removeAll();
-		this.menu.add(panel);
+		this.menu.add(panel, BorderLayout.WEST);
 		this.menu.revalidate();
 		this.menu.repaint();
 	}
@@ -134,45 +129,27 @@ public class Application extends javax.swing.JFrame {
     private void initComponents() {
 
         header = new view.Header();
-        content = new javax.swing.JPanel();
-        dashboard = new view.member.Dashboard();
         menu = new javax.swing.JPanel();
         memberMenu = new view.menu.MemberMenu();
+        content = new javax.swing.JScrollPane();
+        dashboard = new view.member.Dashboard();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 700));
-        setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
 
         header.setBackground(new java.awt.Color(164, 27, 62));
 
-        org.jdesktop.layout.GroupLayout contentLayout = new org.jdesktop.layout.GroupLayout(content);
-        content.setLayout(contentLayout);
-        contentLayout.setHorizontalGroup(
-            contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(contentLayout.createSequentialGroup()
-                .add(dashboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
-        );
-        contentLayout.setVerticalGroup(
-            contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(contentLayout.createSequentialGroup()
-                .add(dashboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(215, Short.MAX_VALUE))
-        );
+        menu.setLayout(new java.awt.BorderLayout());
+        menu.add(memberMenu, java.awt.BorderLayout.CENTER);
 
-        org.jdesktop.layout.GroupLayout menuLayout = new org.jdesktop.layout.GroupLayout(menu);
-        menu.setLayout(menuLayout);
-        menuLayout.setHorizontalGroup(
-            menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(memberMenu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        );
-        menuLayout.setVerticalGroup(
-            menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(menuLayout.createSequentialGroup()
-                .add(memberMenu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(236, Short.MAX_VALUE))
-        );
+        content.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        content.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        content.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        content.setOpaque(false);
+
+        dashboard.setForeground(new java.awt.Color(204, 0, 0));
+        content.setViewportView(dashboard);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,19 +159,19 @@ public class Application extends javax.swing.JFrame {
                 .add(2, 2, 2)
                 .add(menu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .add(header, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
+                .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE))
+            .add(header, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(header, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(0, 0, 0)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(layout.createSequentialGroup()
-                        .add(menu, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(menu, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
                         .addContainerGap())
-                    .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .add(content, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 631, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -237,7 +214,7 @@ public class Application extends javax.swing.JFrame {
 		});
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel content;
+    private javax.swing.JScrollPane content;
     private view.member.Dashboard dashboard;
     private view.Header header;
     private view.menu.MemberMenu memberMenu;
