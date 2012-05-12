@@ -26,14 +26,14 @@ public class Settings {
 		}
 
 		// Database settings
-//		settings.put("db-url", "jdbc:postgresql://db.fitwareonline.nl:5432/fitshape");
-//		settings.put("db-user", "fitshape");
-//		settings.put("db-password", "");
+		settings.put("db-url", "jdbc:postgresql://db.fitwareonline.nl:5432/fitware");
+		settings.put("db-user", "fitware");
+		settings.put("db-password", "8T3m4577");
 		
 		// Allen's database settings
-		settings.put("db-url", "jdbc:postgresql://allen.pb/fitshape");
-		settings.put("db-user", "postgres");
-		settings.put("db-password", "root");
+//		settings.put("db-url", "jdbc:postgresql://allen.pb/fitshape");
+//		settings.put("db-user", "postgres");
+//		settings.put("db-password", "root");
 	}
 
 	/**

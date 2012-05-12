@@ -10,8 +10,6 @@
  */
 package view;
 
-import javax.swing.JLabel;
-
 /**
  *
  * @author vm
