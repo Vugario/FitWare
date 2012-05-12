@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import view.*;
 import view.barmedewerker.UserAdd;
 import view.barmedewerker.UserModify;
+import view.menu.AdminuserMenu;
+import view.menu.BarmedewerkerMenu;
+import view.menu.MemberMenu;
 
 /**
  *
@@ -23,14 +26,20 @@ public class Application extends javax.swing.JFrame {
 	 * A HashMap with all pages added to this JFrame
 	 */
 	protected Map<String, JPanel> pages = new HashMap<String, JPanel>();
+	
+	/**
+	 * A HashMap with all manus added to this JFrame
+	 */
+	protected Map<String, JPanel> menus = new HashMap<String, JPanel>();
 
 	/** Creates new form Main */
 	public Application() {
 		initComponents();
 
 		this.content.setLayout(new java.awt.BorderLayout());
+		this.menu.setLayout(new java.awt.BorderLayout());
 
-		// Create the pages for our applications
+		// Create the pages for our application
 		pages.put("login",			new Login());
 		pages.put("dashboard",		new Dashboard());
 		pages.put("profile",		new Profile());
@@ -41,8 +50,16 @@ public class Application extends javax.swing.JFrame {
 		pages.put("useradd",		new UserAdd());
 		pages.put("usermodify",		new UserModify());
 		
+		// Create the menus for our application
+		menus.put("member",        new MemberMenu());
+		menus.put("admin",         new AdminuserMenu());
+		menus.put("barmedewerker", new BarmedewerkerMenu());
+		
+		// Hide the menu
+		this.menu.removeAll();
+		
 		// And display the Login page              
-		this.changeContentPanel("useroverview");
+		this.changeContentPanel("login");
 	}
 
 	public JPanel getMenu() {
@@ -71,8 +88,28 @@ public class Application extends javax.swing.JFrame {
 		this.content.add(panel);
 		this.content.revalidate();
 		this.content.repaint();
+	}
 
+	/**
+	 * Change menu panel
+	 * 
+	 * @param menuName The new panel to display
+	 */
+	public final void changeMenuPanel(String menuName) {
 
+		//this.content.setLayout(new java.awt.BorderLayout());
+		JPanel panel = menus.get(menuName);
+
+		if (panel == null) {
+			Exception ex = new Exception("Trying to add menu that doesn't exist: " + menuName);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
+			return;
+		}
+
+		this.menu.removeAll();
+		this.menu.add(panel);
+		this.menu.revalidate();
+		this.menu.repaint();
 	}
 
 	/** This method is called from within the constructor to
@@ -86,7 +123,9 @@ public class Application extends javax.swing.JFrame {
 
         header1 = new view.FitshapeTopPanel();
         content = new javax.swing.JPanel();
+        dashboard1 = new view.member.Dashboard();
         menu = new javax.swing.JPanel();
+        memberMenu1 = new view.menu.MemberMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 700));
@@ -99,22 +138,28 @@ public class Application extends javax.swing.JFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 768, Short.MAX_VALUE)
+            .add(contentLayout.createSequentialGroup()
+                .add(dashboard1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(299, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 595, Short.MAX_VALUE)
+            .add(contentLayout.createSequentialGroup()
+                .add(dashboard1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout menuLayout = new org.jdesktop.layout.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 145, Short.MAX_VALUE)
+            .add(memberMenu1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 536, Short.MAX_VALUE)
+            .add(menuLayout.createSequentialGroup()
+                .add(memberMenu1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -122,21 +167,22 @@ public class Application extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .add(2, 2, 2)
                 .add(menu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(content, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(107, 107, 107))
-            .add(header1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
+                .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(header1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(header1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(menu, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .add(layout.createSequentialGroup()
+                        .add(menu, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .add(content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -180,7 +226,9 @@ public class Application extends javax.swing.JFrame {
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
+    private view.member.Dashboard dashboard1;
     private view.FitshapeTopPanel header1;
+    private view.menu.MemberMenu memberMenu1;
     private javax.swing.JPanel menu;
     // End of variables declaration//GEN-END:variables
 }

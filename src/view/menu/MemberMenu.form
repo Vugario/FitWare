@@ -35,7 +35,7 @@
               <Component id="jButtonEnrollments" linkSize="3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonBmi" linkSize="3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -43,7 +43,12 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="jButtonDashboard">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/icons/home_32.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Dashboard"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDashboardActionPerformed"/>
@@ -51,7 +56,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonProfile">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/icons/user_32.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Mijn gegevens"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonProfileActionPerformed"/>
@@ -59,7 +69,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonInvoices">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/icons/page_text_32.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Mijn facturen"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInvoicesActionPerformed"/>
@@ -67,7 +82,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonEnrollments">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/icons/book_32.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cursussen"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEnrollmentsActionPerformed"/>
@@ -75,7 +95,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonBmi">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/icons/activity_monitor.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="BMI berekenen"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBmiActionPerformed"/>

@@ -31,35 +31,50 @@ public class MemberMenu extends javax.swing.JPanel {
         jButtonEnrollments = new javax.swing.JButton();
         jButtonBmi = new javax.swing.JButton();
 
+        jButtonDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/home_32.png"))); // NOI18N
         jButtonDashboard.setText("Dashboard");
+        jButtonDashboard.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDashboard.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDashboardActionPerformed(evt);
             }
         });
 
+        jButtonProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/user_32.png"))); // NOI18N
         jButtonProfile.setText("Mijn gegevens");
+        jButtonProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonProfile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonProfileActionPerformed(evt);
             }
         });
 
+        jButtonInvoices.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/page_text_32.png"))); // NOI18N
         jButtonInvoices.setText("Mijn facturen");
+        jButtonInvoices.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonInvoices.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonInvoices.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonInvoicesActionPerformed(evt);
             }
         });
 
+        jButtonEnrollments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/book_32.png"))); // NOI18N
         jButtonEnrollments.setText("Cursussen");
+        jButtonEnrollments.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEnrollments.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEnrollments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEnrollmentsActionPerformed(evt);
             }
         });
 
+        jButtonBmi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/activity_monitor.png"))); // NOI18N
         jButtonBmi.setText("BMI berekenen");
+        jButtonBmi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonBmi.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonBmi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBmiActionPerformed(evt);
@@ -88,7 +103,7 @@ public class MemberMenu extends javax.swing.JPanel {
                 .add(jButtonEnrollments)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButtonBmi)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         layout.linkSize(new java.awt.Component[] {jButtonBmi, jButtonDashboard, jButtonEnrollments, jButtonInvoices, jButtonProfile}, org.jdesktop.layout.GroupLayout.VERTICAL);
