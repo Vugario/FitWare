@@ -5,6 +5,9 @@
  */
 package view.menu;
 
+import main.Application;
+import view.Profile;
+
 /**
  *
  * @author Daan
@@ -115,8 +118,13 @@ public class MemberMenu extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonDashboardActionPerformed
 
 	private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
-		main.Main.getApplication().changeContentPanel("profile");
-                //TODO add sql to fill the profileform
+		//TODO add sql to fill the profileform
+				
+		Application application = main.Main.getApplication();
+		application.changeContentPanel("profile");
+		Profile profile = (Profile) application.getPage("profile");
+		profile.loadUserData();
+		
 	}//GEN-LAST:event_jButtonProfileActionPerformed
 
 	private void jButtonInvoicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInvoicesActionPerformed

@@ -23,8 +23,8 @@ public class Profile extends javax.swing.JPanel {
 	}
 
 	public void loadUserData() {
-		User user = new User();
-		System.out.println("johoe");
+		//User user = new User();
+
 		jTextField1.setText(result.getUsername());
 		jTextField2.setText(result.getFirstname());
 		jTextField3.setText(result.getSubname());
@@ -37,7 +37,14 @@ public class Profile extends javax.swing.JPanel {
 		jTextField10.setText(result.getPhonenumber());
 		jTextField12.setText(result.getEmailadress());
 		//jTextField2.setText(result.getFirstname());
-		
+		/*if (result.getGender() == true) {
+			jRadioButton1.setSelected(true);
+		} else {
+			jRadioButton2.setSelected(false);
+		}
+		System.out.println(result.getGender());
+		 */
+		 
 	}
 
 	/** This method is called from within the constructor to
@@ -288,37 +295,12 @@ public class Profile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-		// TODO
-		//Custom variable declaration, this is easier for the sql statements
-		//Name and age data
-
-		/* String username, firstname, lastname, subname, birthdate, gender;
-		username = jTextField1.getText();
-		firstname = jTextField2.getText();
-		lastname = jTextField4.getText();
-		subname = jTextField3.getText();
-		birthdate = jTextField5.getText();
-		 */
-		// TODO read this into gender:  gender = jRadioButton1.getText;
-		System.out.println();
-
-		//Contact data
-		String street, houseNumber, city, postcode, phoneNumber, email, password1, password2;
-
-		street = jTextField6.getText();
-		houseNumber = jTextField8.getText();
-		city = jTextField7.getText();
-		postcode = jTextField9.getText();
-		phoneNumber = jTextField10.getText();
-		email = jTextField12.getText();
-		password1 = jPasswordField1.getText();
-		password2 = jPasswordField2.getText();
-
+		// TODO make an updatesql to upload new settings into database
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextField12.getText().indexOf('@');
 
 		// passwordequal is to check if the two password fields match
-		Boolean passwordequal = password1.equals(password2);
+		Boolean passwordequal = jPasswordField1.equals(jPasswordField2);
 		System.out.println(passwordequal);
 		//System.out.println(password1);
 		//System.out.println(password2);

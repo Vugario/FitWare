@@ -23,7 +23,8 @@ public class User extends Model {
 	String city;
 	String postcode;
 	String phonenumber;
-	String emailadress;
+	String email;
+	Boolean gender;
 
 	public String getCity() {
 		return city;
@@ -90,13 +91,22 @@ public class User extends Model {
 	}
 		
 	public String getEmailadress() {
-		return emailadress;
+		return email;
 	}
 
 	public void setEmailadress(String emailadress) {
-		this.emailadress = emailadress;
+		this.email = emailadress;
+	}
+	
+	/*public Boolean getGender() {
+		return gender;
 	}
 
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}*/
+	
+	
 	public User() {
 		//this.query("SELECT * FROM \"user\"");
 		// this.result();
@@ -116,6 +126,9 @@ public class User extends Model {
 			this.street = this.result.getString("street");
 			this.city = this.result.getString("city");
 			this.postcode = this.result.getString("postcode");
+			this.email = this.result.getString("email");
+			this.phonenumber = this.result.getString("phonenumber");
+			
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
