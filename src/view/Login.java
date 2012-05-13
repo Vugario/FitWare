@@ -132,7 +132,8 @@ public class Login extends javax.swing.JPanel {
 			application.getHeader().showUserInfo(true);
 
 		} else {
-			application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
+			Popup popup = new Popup();
+			popup.showError("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
 		}
     }//GEN-LAST:event_jButtonLogInActionPerformed
 

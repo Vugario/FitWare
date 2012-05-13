@@ -6,12 +6,10 @@
 package main;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import view.barmedewerker.UserOverview;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import view.*;
 import view.barmedewerker.UserAdd;
@@ -34,21 +32,10 @@ public class Application extends javax.swing.JFrame {
 	 * A HashMap with all manus added to this JFrame
 	 */
 	protected Map<String, JPanel> menus = new HashMap<String, JPanel>();
-
-	/**
-	 * The alpha transparant background for popups
-	 */
-	protected JPanel popupBackground;
-	
-	/**
-	 * The popup itself
-	 */
-	protected Popup popup;
 	
 	/** Creates new form Main */
 	public Application() {
 		initComponents();
-		initPopup();
 
 		// Create the pages for our application
 		pages.put("login", new Login());
@@ -75,6 +62,7 @@ public class Application extends javax.swing.JFrame {
 		// And display the Login page              
 		this.changeContentPanel("login");
 	}
+	
 	public JPanel getPage(String pageName){
 		return pages.get("profile");
 	}
@@ -83,6 +71,24 @@ public class Application extends javax.swing.JFrame {
 		// Return the panel
 		return this.menu;
 
+	}
+
+	/**
+	 * Get the header of the application
+	 * 
+	 * @return Header The header currently showed in our application
+	 */
+	public Header getHeader() {
+		return this.header;
+	}
+	
+	/**
+	 * Get the wrapper of the application
+	 * 
+	 * @return wrapper The wrapper that contains all content of our application
+	 */
+	public JLayeredPane getWrapper() {
+		return this.jLayeredPaneWrapper;
 	}
 
 	/**
@@ -124,87 +130,6 @@ public class Application extends javax.swing.JFrame {
 		this.menu.add(panel, BorderLayout.WEST);
 		this.menu.revalidate();
 		this.menu.repaint();
-	}
-
-	/**
-	 * Get the header of the application
-	 * 
-	 * @return Header The header currently showed in our application
-	 */
-	public Header getHeader() {
-		return this.header;
-	}
-
-	/**
-	 * Initialize the popups
-	 */
-	protected final void initPopup() {
-		// Create an alpha-transparent JPanel
-		// Source: http://tips4java.wordpress.com/2009/05/31/backgrounds-with-transparency/
-		this.popupBackground = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				g.setColor(getBackground());
-				g.fillRect(0, 0, getWidth(), getHeight());
-				super.paintComponent(g);
-			}
-		};
-		this.popupBackground.setOpaque(false);
-		this.popupBackground.setBackground(new Color(0, 0, 0, 90));
-		
-		// Set the size to the same size as the application
-		Dimension dimension = this.jLayeredPaneWrapper.getSize();
-		this.popupBackground.setSize(dimension);
-		this.popupBackground.setPreferredSize(dimension);
-		this.popupBackground.setMaximumSize(dimension);
-		this.popupBackground.setMinimumSize(dimension);
-		
-		// Create the popup
-		this.popup = new Popup();
-		
-		// Set the popups size
-		Dimension popupDimension = new Dimension(400, 166);
-		//this.popup.setSize(popupDimension);
-		//this.popup.setPreferredSize(popupDimension);
-		//this.popup.setMaximumSize(popupDimension);
-		//this.popup.setMinimumSize(popupDimension);
-		
-		// Center the popup
-		int posX = (this.popupBackground.getWidth() - this.popup.getWidth()) / 2;
-		int posY = (this.popupBackground.getHeight() - this.popup.getHeight()) / 2;
-		this.popup.setLocation(posX, posY);
-	}
-	
-	/**
-	 * Show a popup
-	 * 
-	 * @param message The message to show
-	 */
-	public final void showPopup(String message) {
-		
-		// Disable all current components
-		// TODO
-		
-		// Set the message
-		this.popup.setMessage(message);
-		
-		// Add the background and popup
-		this.jLayeredPaneWrapper.add(this.popupBackground, new Integer(100));
-		this.jLayeredPaneWrapper.add(this.popup, new Integer(101));
-	}
-	
-	/**
-	 * Hide a popup
-	 */
-	public void hidePopup() {
-		
-		// Remove the background and popup
-		this.jLayeredPaneWrapper.remove(this.popupBackground);
-		this.jLayeredPaneWrapper.remove(this.popup);
-		
-		// Repaint the application
-		this.repaint();
-		
 	}
 
 	/** This method is called from within the constructor to
