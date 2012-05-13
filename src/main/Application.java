@@ -75,6 +75,9 @@ public class Application extends javax.swing.JFrame {
 		// And display the Login page              
 		this.changeContentPanel("login");
 	}
+	public JPanel getPage(String pageName){
+		return pages.get("profile");
+	}
 
 	public JPanel getMenu() {
 		// Return the panel
