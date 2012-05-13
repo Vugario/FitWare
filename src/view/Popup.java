@@ -45,6 +45,7 @@ public class Popup extends javax.swing.JPanel {
         jPanelBorders = new javax.swing.JPanel();
         jLabelFoutmelding = new javax.swing.JLabel();
         jLabelMessage = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jButtonClosePopup = new javax.swing.JButton();
 
         setOpaque(false);
@@ -59,12 +60,15 @@ public class Popup extends javax.swing.JPanel {
         jLabelMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelMessage.setText("<foutmelding bericht komt hier>");
 
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
         jButtonClosePopup.setText("OK");
         jButtonClosePopup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClosePopupActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonClosePopup, new java.awt.GridBagConstraints());
 
         org.jdesktop.layout.GroupLayout jPanelBordersLayout = new org.jdesktop.layout.GroupLayout(jPanelBorders);
         jPanelBorders.setLayout(jPanelBordersLayout);
@@ -73,13 +77,13 @@ public class Popup extends javax.swing.JPanel {
             .add(jPanelBordersLayout.createSequentialGroup()
                 .add(jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanelBordersLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
+                    .add(jPanelBordersLayout.createSequentialGroup()
                         .add(20, 20, 20)
                         .add(jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabelFoutmelding, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
-                    .add(jPanelBordersLayout.createSequentialGroup()
-                        .add(139, 139, 139)
-                        .add(jButtonClosePopup)))
+                            .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                            .add(jLabelFoutmelding, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelBordersLayout.setVerticalGroup(
@@ -88,9 +92,9 @@ public class Popup extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jLabelFoutmelding)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButtonClosePopup)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -121,6 +125,7 @@ public class Popup extends javax.swing.JPanel {
     private javax.swing.JButton jButtonClosePopup;
     private javax.swing.JLabel jLabelFoutmelding;
     private javax.swing.JLabel jLabelMessage;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBorders;
     // End of variables declaration//GEN-END:variables
 }

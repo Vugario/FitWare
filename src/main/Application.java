@@ -161,10 +161,10 @@ public class Application extends javax.swing.JFrame {
 		
 		// Set the popups size
 		Dimension popupDimension = new Dimension(400, 166);
-		this.popup.setSize(popupDimension);
-		this.popup.setPreferredSize(popupDimension);
-		this.popup.setMaximumSize(popupDimension);
-		this.popup.setMinimumSize(popupDimension);
+		//this.popup.setSize(popupDimension);
+		//this.popup.setPreferredSize(popupDimension);
+		//this.popup.setMaximumSize(popupDimension);
+		//this.popup.setMinimumSize(popupDimension);
 		
 		// Center the popup
 		int posX = (this.popupBackground.getWidth() - this.popup.getWidth()) / 2;
