@@ -8,6 +8,7 @@ import helper.db.Model;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.security.action.GetBooleanAction;
 
 /**
  *
@@ -24,7 +25,7 @@ public class User extends Model {
 	String postcode;
 	String phonenumber;
 	String email;
-	Boolean gender;
+	boolean gender;
 
 	public String getCity() {
 		return city;
@@ -98,13 +99,13 @@ public class User extends Model {
 		this.email = emailadress;
 	}
 	
-	/*public Boolean getGender() {
+	public Boolean getGender() {
 		return gender;
 	}
 
 	public void setGender(Boolean gender) {
 		this.gender = gender;
-	}*/
+	}
 	
 	
 	public User() {
@@ -128,7 +129,7 @@ public class User extends Model {
 			this.postcode = this.result.getString("postcode");
 			this.email = this.result.getString("email");
 			this.phonenumber = this.result.getString("phonenumber");
-			
+			this.gender = this.result.getBoolean("gender");
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
