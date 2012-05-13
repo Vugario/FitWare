@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import model.User;
 
@@ -38,9 +39,13 @@ public class Profile extends javax.swing.JPanel {
 		jTextField11.setText(result.getMobilenumber());
 		jTextField12.setText(result.getEmailadress());
 
-		if (result.getGender() == true) {
+		ButtonGroup group = new ButtonGroup();
+		group.add(jRadioButton1);
+		group.add(jRadioButton2);
+		
+		if (result.getGender() == false) {
 			jRadioButton1.setSelected(true);
-		} else {
+		}else if(result.getGender() == true) {
 			jRadioButton2.setSelected(true);
 		}
 		jPasswordField1.setText(result.getPassword());
@@ -90,7 +95,7 @@ public class Profile extends javax.swing.JPanel {
         jPasswordField2 = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel4.setText("Mijn gegevens");
 
         jLabel5.setText("Klantnummer");
@@ -117,7 +122,7 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel11.setText("Woonplaats / postcode");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel12.setText("Contactgegevens");
 
         jLabel13.setText("Telefoonnummer");
@@ -126,7 +131,7 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel15.setText("E-mailadres");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel16.setText("Wachtwoord");
 
         jLabel17.setText("Wachtwoord herhalen");

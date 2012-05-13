@@ -47,11 +47,11 @@ public class Enrollments extends javax.swing.JPanel {
         this.row.addListSelectionListener( new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (! e.getValueIsAdjusting())
+               /* if (! e.getValueIsAdjusting())
                 {
                     Application application = Main.getApplication();
                     application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
-                }
+                }*/
             }
         });
     }

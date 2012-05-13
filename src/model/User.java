@@ -171,7 +171,7 @@ public class User extends Model {
 			this.housenumber = this.result.getString("housenumber");
 			this.username = this.result.getString("username");
 			this.password = this.result.getString("password");
-
+			System.out.println(this.gender);
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
