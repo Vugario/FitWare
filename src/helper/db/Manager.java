@@ -1,10 +1,9 @@
 package helper.db;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import main.ExceptionHandler;
 import main.Settings;
+import java.sql.Statement;
 
 
 public class Manager {
@@ -13,6 +12,7 @@ public class Manager {
         
 	public ResultSet result;
 	private PreparedStatement dbQuery;
+	private Statement stmnt;
 	
 	public Manager() {
 		try {
@@ -30,7 +30,6 @@ public class Manager {
 			String password = Settings.get("db-password");
 			
 			dbConnection = DriverManager.getConnection(url, name, password);
-
 		} catch (SQLException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
@@ -44,8 +43,9 @@ public class Manager {
 	{	
 		
 		try {
-			dbQuery = dbConnection.prepareStatement(query);
-
+			dbQuery = dbConnection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			//stmnt = dbQuery.//.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			
 		} catch (SQLException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
@@ -57,25 +57,26 @@ public class Manager {
 	/**
 	 * Execute a query without returning a result
 	 */
-	public void execute()
+	/*public void execute()
 	{	
 		try {
 			dbQuery.executeUpdate();
 		} catch (SQLException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
-	}
+	}*/
 	
 	/**
 	 * Execute a query returning a resultset
 	 */
-	public ResultSet result() {
+	public void result() {
 		
 		try {
-			return dbQuery.executeQuery();
+			result = dbQuery.executeQuery();
+			
 		} catch (SQLException ex){
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
-			return null;
+		//	return null;
 		}
 	}
 	

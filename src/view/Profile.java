@@ -16,6 +16,7 @@ import model.User;
 public class Profile extends javax.swing.JPanel {
 
 	private User user = new User();
+	private User result = user.readUser(1);
 	
     /** Creates new form Profile */
     public Profile() {

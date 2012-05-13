@@ -7,12 +7,16 @@ public class Main {
 
 	public static void main(String args[]) {
 
-		//model.User user = new model.User();
-
+		//helper.db.Manager dbconnection = new helper.db.Manager();
+		//dbconnection.open();
+		
+		model.User user = new model.User();
+		user.readUser(1);
+		
 		//Migration.run();
 
-		application = new Application();
-		application.setVisible(true);
+		//application = new Application();
+		//application.setVisible(true);
 		
 	}
 

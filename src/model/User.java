@@ -4,9 +4,8 @@
  */
 package model;
 
-import helper.db.Manager;
 import helper.db.Model;
-import java.sql.SQLException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,53 +15,41 @@ import java.util.logging.Logger;
  */
 public class User extends Model {
 
-	String qresultFirstname;
-	String qresultLastname;
-	String qresultSubname;
-	String qresultUsername;
-	String qresultStreet;
-	//String qresultHouseNumber;
-	String qresultCity;
-	String qresultPostcode;
-	String qresultPhonenumber;
+	String firstname;
+	String lastname;
+	String subname;
+	String username;
+	String street;
+	String city;
+	String postcode;
+	String phonenumber;
 
 	public User() {
 		//this.query("SELECT * FROM \"user\"");
 		// this.result();
 	}
 
-	public String userDataQuery() {
-
+	public User readUser(int id) {
 		try {
-			this.query("SELECT * FROM \"user\" WHERE id = ?").setInt(1, 1);
+			this.open();
+			this.query("SELECT * FROM \"user\" WHERE id = 1 LIMIT 1");
+			this.result();
+			this.result.first();
 
-
-		} catch (SQLException ex) {
+			this.firstname = this.result.getString("firstname");
+			this.lastname = this.result.getString("lastname");
+			this.subname = this.result.getString("subname");
+			this.username = this.result.getString("username");
+			this.street = this.result.getString("street");
+			this.city = this.result.getString("city");
+			this.postcode = this.result.getString("postcode");
+			
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		try {
-			this.result = dbQuery.executeQuery();
-		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		try {
-
-			while (result.next()) {
-				qresultFirstname = result.getString("firstname").toString();
-				qresultLastname = result.getString("lastname").toString();
-				qresultSubname = result.getString("subname").toString();
-				qresultUsername = result.getString("username").toString();userDataQuery
-				qresultStreet = result.getString("street").toString();
-				qresultCity = result.getString("city").toString();
-				
-				
-				
-				System.out.println(qresultFirstname +" \n"+ qresultLastname +" \n"+ qresultSubname +" \n"+ qresultUsername +" \n"+ qresultStreet +" \n"+ qresultCity);
-			}
-
-		} catch (SQLException ex) {
-			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return qresultFirstname;
+		
+		return this;
 	}
+	
 }
