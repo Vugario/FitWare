@@ -29,6 +29,7 @@ public class Bmi extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -53,7 +54,7 @@ public class Bmi extends javax.swing.JPanel {
         txtResult = new javax.swing.JLabel();
         jButtonCalcBMI = new javax.swing.JButton();
 
-        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48));
         jLabel21.setText("BMI Berekenen");
 
         jLabel22.setText("Geslacht");
@@ -64,17 +65,19 @@ public class Bmi extends javax.swing.JPanel {
 
         jLabel25.setText("Gewicht");
 
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Man");
 
+        buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Vrouw");
 
-        jAge.setName("txtAge");
+        jAge.setName("txtAge"); // NOI18N
         jScrollPane6.setViewportView(jAge);
 
-        txtLength.setName("txtLength");
+        txtLength.setName("txtLength"); // NOI18N
         jScrollPane7.setViewportView(txtLength);
 
-        jScrollPane8.setName("txtWeight");
+        jScrollPane8.setName("txtWeight"); // NOI18N
         jScrollPane8.setViewportView(txtWeight);
 
         jLabel26.setText("cm");
@@ -89,15 +92,15 @@ public class Bmi extends javax.swing.JPanel {
 
         jLabel30.setText("er sprake is van overgewicht, ondergewicht of een gezond gewicht.");
 
-        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24));
         jLabel31.setText("Resultaat");
 
         txtDescription.setText(" ");
 
-        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18));
         txtResult.setText("Voer uw gegevens in");
 
-        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15));
         jButtonCalcBMI.setText("Bereken!");
         jButtonCalcBMI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +144,7 @@ public class Bmi extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel31)
                             .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtResult, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
                     .addComponent(jLabel28)
                     .addComponent(jLabel29)
                     .addComponent(jLabel30)
@@ -223,6 +226,7 @@ public class Bmi extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonCalcBMIActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextPane jAge;
     private javax.swing.JButton jButtonCalcBMI;
     private javax.swing.JLabel jLabel21;
@@ -247,4 +251,7 @@ public class Bmi extends javax.swing.JPanel {
     private javax.swing.JLabel txtResult;
     private javax.swing.JTextPane txtWeight;
     // End of variables declaration//GEN-END:variables
+
+	
 }
+

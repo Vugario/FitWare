@@ -67,11 +67,6 @@ public class Login extends javax.swing.JPanel {
                 jTextField1MouseClicked(evt);
             }
         });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jButtonLogIn.setText("Inloggen");
         jButtonLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -141,15 +136,6 @@ public class Login extends javax.swing.JPanel {
 		}
     }//GEN-LAST:event_jButtonLogInActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-		//TODO Remove this one, but how?
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
-		//Empty the username field on click
-		jTextField1.setText(null);
-    }//GEN-LAST:event_jTextField1MouseClicked
-
     private void jPasswordField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField1MouseClicked
 		//Empty the password field on click
 		jPasswordField1.setText(null);
@@ -159,6 +145,12 @@ public class Login extends javax.swing.JPanel {
 		//Empty the password on focus
 		jPasswordField1.setText(null);
     }//GEN-LAST:event_jPasswordField1FocusGained
+
+	private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+		//Empty the username field on click
+		jTextField1.setText(null);
+	}//GEN-LAST:event_jTextField1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogIn;
     private javax.swing.JLabel jLabel1;
