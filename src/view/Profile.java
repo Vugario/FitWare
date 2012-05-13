@@ -29,22 +29,22 @@ public class Profile extends javax.swing.JPanel {
 		jTextField2.setText(result.getFirstname());
 		jTextField3.setText(result.getSubname());
 		jTextField4.setText(result.getLastname());
-		//jTextField5.setText(result.getBirthdate());
+		jTextField5.setText(result.getBirthdate());
 		jTextField6.setText(result.getStreet());
 		jTextField7.setText(result.getCity());
-		jTextField8.setText(result.getFirstname());
+		jTextField8.setText(result.getHousenumber());
 		jTextField9.setText(result.getPostcode());
 		jTextField10.setText(result.getPhonenumber());
+		jTextField11.setText(result.getMobilenumber());
 		jTextField12.setText(result.getEmailadress());
-		//jTextField2.setText(result.getFirstname());
-		/*if (result.getGender() == true) {
+
+		if (result.getGender() == true) {
 			jRadioButton1.setSelected(true);
 		} else {
-			jRadioButton2.setSelected(false);
+			jRadioButton2.setSelected(true);
 		}
-		System.out.println(result.getGender());
-		 */
-		 
+		jPasswordField1.setText(result.getPassword());
+		jPasswordField2.setText(result.getPassword());
 	}
 
 	/** This method is called from within the constructor to
@@ -89,7 +89,6 @@ public class Profile extends javax.swing.JPanel {
         jPasswordField1 = new javax.swing.JPasswordField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel4.setText("Mijn gegevens");
@@ -147,13 +146,6 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel1.setText("Klantnummer");
 
-        jButton1.setText("test");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,12 +180,9 @@ public class Profile extends javax.swing.JPanel {
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
-                            .add(layout.createSequentialGroup()
-                                .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(18, 18, 18)
-                                .add(jButton1))
+                            .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(jPasswordField2)
+                                .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                                 .add(jPasswordField1)
                                 .add(jTextField12)
                                 .add(jTextField11)
@@ -244,8 +233,7 @@ public class Profile extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
-                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton1))
+                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(60, 60, 60)
@@ -290,7 +278,7 @@ public class Profile extends javax.swing.JPanel {
                     .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(45, 45, 45)
                 .add(profileSaveButton)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -318,11 +306,7 @@ public class Profile extends javax.swing.JPanel {
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
-	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-		// TODO add your handling code here:
-	}//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

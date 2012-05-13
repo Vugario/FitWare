@@ -19,21 +19,18 @@ public class User extends Model {
 	String firstname;
 	String lastname;
 	String subname;
+	String birthdate;
 	String username;
+	String password;
 	String street;
+	String housenumber;
 	String city;
 	String postcode;
 	String phonenumber;
+	String mobilenumber;
 	String email;
 	boolean gender;
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 
 	public String getFirstname() {
 		return firstname;
@@ -51,6 +48,14 @@ public class User extends Model {
 		this.lastname = lastname;
 	}
 
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+
 	public String getPhonenumber() {
 		return phonenumber;
 	}
@@ -59,13 +64,13 @@ public class User extends Model {
 		this.phonenumber = phonenumber;
 	}
 
-	public String getPostcode() {
-		return postcode;
+	public String getMobilenumber() {
+		return mobilenumber;
 	}
 
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
+	public void setMobilenumber(String mobilenumber) {
+		this.mobilenumber = mobilenumber;
+			}
 
 	public String getStreet() {
 		return street;
@@ -73,6 +78,30 @@ public class User extends Model {
 
 	public void setStreet(String street) {
 		this.street = street;
+	}
+
+	public String getHousenumber() {
+		return housenumber;
+	}
+
+	public void setHousenumber(String street) {
+		this.housenumber = housenumber;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
 
 	public String getSubname() {
@@ -90,7 +119,15 @@ public class User extends Model {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-		
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getEmailadress() {
 		return email;
 	}
@@ -98,16 +135,15 @@ public class User extends Model {
 	public void setEmailadress(String emailadress) {
 		this.email = emailadress;
 	}
-	
-	public Boolean getGender() {
+
+	public boolean getGender() {
 		return gender;
 	}
 
-	public void setGender(Boolean gender) {
+	public void setGender(boolean gender) {
 		this.gender = gender;
 	}
-	
-	
+
 	public User() {
 		//this.query("SELECT * FROM \"user\"");
 		// this.result();
@@ -124,12 +160,17 @@ public class User extends Model {
 			this.lastname = this.result.getString("lastname");
 			this.subname = this.result.getString("subname");
 			this.username = this.result.getString("username");
+			this.birthdate = this.result.getString("birthdate");
 			this.street = this.result.getString("street");
 			this.city = this.result.getString("city");
 			this.postcode = this.result.getString("postcode");
 			this.email = this.result.getString("email");
 			this.phonenumber = this.result.getString("phonenumber");
+			this.mobilenumber = this.result.getString("mobilenumber");
 			this.gender = this.result.getBoolean("gender");
+			this.housenumber = this.result.getString("housenumber");
+			this.username = this.result.getString("username");
+			this.password = this.result.getString("password");
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
