@@ -378,7 +378,7 @@ public class UserAdd extends javax.swing.JPanel {
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		// TODO add your handling code here:
-		jTextField2.setText(user.userDataQuery());
+		//jTextField2.setText(user.userDataQuery());
 			
 	}//GEN-LAST:event_jButton1ActionPerformed
 

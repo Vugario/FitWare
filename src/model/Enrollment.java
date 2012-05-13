@@ -28,10 +28,10 @@ public class Enrollment extends Model {
 	String qresultPhonenumber;
 
 	public Enrollment() {
-            this.query("SELECT * FROM \"user\"");
-            ResultSet result1 = this.result();
+           // this.query("SELECT * FROM \"user\"");
+           // ResultSet result1 = this.result();
             
-            System.out.println( result1.toString() );
+           // System.out.println( result1.toString() );
 	}
         
         

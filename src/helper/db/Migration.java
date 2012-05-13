@@ -29,6 +29,7 @@ public class Migration {
 		Manager db = new Manager();
 		
 		
+		/*
 		db.execute(
 			"CREATE TABLE IF NOT EXISTS "
 			+ "update("
@@ -42,6 +43,7 @@ public class Migration {
 			path += File.separator+"src"+File.separator+"model"+File.separator;
 			
 			migrate(new File(path));
+		 */
 
 	}
 
