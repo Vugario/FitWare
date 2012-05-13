@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String args[]) {
 
 		model.User user = new model.User(true, 1);
-		helper.AnnotationReader.persist(user);
+		//helper.AnnotationReader.persist(user);
 		//System.out.println("");
 		//helper.db.Model model = new helper.db.Model();
 		
