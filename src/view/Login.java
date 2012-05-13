@@ -41,7 +41,7 @@ public class Login extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jButtonLogIn = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setRequestFocusEnabled(false);
 
         jLabel1.setText("Welkom bij FitShape!");
 
@@ -98,7 +98,7 @@ public class Login extends javax.swing.JPanel {
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(jButtonLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel1))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +115,7 @@ public class Login extends javax.swing.JPanel {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonLogIn)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -123,20 +123,21 @@ public class Login extends javax.swing.JPanel {
 		// TODO password and username check
 		String username = jTextField1.getText();
 		String password = jPasswordField1.getText();
+		Application application = Main.getApplication();
+
 		if (username.equals("foo") && password.equals("bar")) {
-			
+
 			// After clicking loginbutton paint the menu
-			Application application = Main.getApplication();
 			application.changeMenuPanel("member");
 
 			// Display dashboard
 			application.changeContentPanel("dashboard");
-			
+
 			// And display user info in the header
 			application.getHeader().showUserInfo(true);
-			
+
 		} else {
-			JOptionPane.showMessageDialog(this, "Gebruikersnaam en wachtwoord combinatie is niet bekend.");
+			application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
 		}
     }//GEN-LAST:event_jButtonLogInActionPerformed
 
