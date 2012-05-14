@@ -76,7 +76,7 @@ public class Application extends javax.swing.JFrame {
 	}
 	
 	public JPanel getPage(String pageName){
-		return pages.get("profile");
+		return pages.get(pageName);
 	}
 
 	public JPanel getMenu() {
