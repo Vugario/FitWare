@@ -6,6 +6,7 @@
 package view.menu;
 
 import main.Application;
+import view.Bmi;
 import view.Profile;
 import view.member.Dashboard;
 
@@ -142,7 +143,10 @@ public class MemberMenu extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonEnrollmentsActionPerformed
 
 	private void jButtonBmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBmiActionPerformed
-            main.Main.getApplication().changeContentPanel("bmi");
+            Application application = main.Main.getApplication();
+            application.changeContentPanel("bmi");
+            Bmi bmi = (Bmi) application.getPage("bmi");
+            bmi.loadUserData();
 	}//GEN-LAST:event_jButtonBmiActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBmi;
