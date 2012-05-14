@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import main.Session;
 import model.User;
@@ -34,20 +35,69 @@ public class Profile extends javax.swing.JPanel {
 		jTextFieldStreetnumber.setText(user.getHousenumber());
 		jTextFieldPostcode.setText(user.getPostcode());
 		jTextFieldPhonenumber.setText(user.getPhonenumber());
-		jTextField11.setText(user.getMobilenumber());
-		jTextField12.setText(user.getEmail());
+		jTextFieldMobilenumber.setText(user.getMobilenumber());
+		jTextFieldEmail.setText(user.getEmail());
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(jRadioButtonGenderMale);
 		group.add(jRadioButtonGenderFemale);
-		
+
 		if (user.getGender() == User.MALE) {
 			jRadioButtonGenderMale.setSelected(true);
-		}else {
+		} else {
 			jRadioButtonGenderFemale.setSelected(true);
 		}
 		jPasswordField1.setText(null);
 		jPasswordField2.setText(null);
+	}
+
+	public void setUserData() {
+		User user = Session.get().getLoggedInUser();
+
+		String username = jTextFieldUsername.getText();
+		user.setUsername(username);
+
+		String firstname = jTextFieldFirstname.getText();
+		user.setFirstname(firstname);
+
+		String subname = jTextFieldSubname.getText();
+		user.setSubname(subname);
+
+		String lastname = jTextFieldLastname.getText();
+		user.setUsername(username);
+
+		String birthdate = jTextFieldBirthdate.getText();
+		user.setUsername(username);
+
+		String street = jTextFieldStreet.getText();
+		user.setStreet(street);
+
+		String city = jTextFieldCity.getText();
+		user.setCity(city);
+
+		String housenumber = jTextFieldStreetnumber.getText();
+		user.setHousenumber(housenumber);
+
+		String postcode = jTextFieldPostcode.getText();
+		user.setPostcode(postcode);
+
+		String phonenumber = jTextFieldPhonenumber.getText();
+		user.setPhonenumber(phonenumber);
+
+		String mobilenumber = jTextFieldMobilenumber.getText();
+		user.setMobilenumber(mobilenumber);
+
+		String email = jTextFieldEmail.getText();
+		user.setEmail(email);
+
+		if (jRadioButtonGenderMale.isSelected() == true) {
+			user.setGender(true);
+		} else {
+			user.setGender(false);
+		}
+		user.save();
+
+
 	}
 
 	/** This method is called from within the constructor to
@@ -82,8 +132,8 @@ public class Profile extends javax.swing.JPanel {
         jTextFieldPhonenumber = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
+        jTextFieldMobilenumber = new javax.swing.JTextField();
+        jTextFieldEmail = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -179,17 +229,15 @@ public class Profile extends javax.swing.JPanel {
                             .add(jTextFieldBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(layout.createSequentialGroup()
-                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(layout.createSequentialGroup()
-                                                .add(jTextFieldFirstname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                            .add(layout.createSequentialGroup()
-                                                .add(jRadioButtonGenderMale)
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                .add(jRadioButtonGenderFemale)))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(layout.createSequentialGroup()
+                                            .add(jTextFieldFirstname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(layout.createSequentialGroup()
+                                            .add(jRadioButtonGenderMale)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(jRadioButtonGenderFemale)))
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldId)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldUsername, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
@@ -198,8 +246,8 @@ public class Profile extends javax.swing.JPanel {
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField2)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField1)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField12)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField11)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldEmail)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldMobilenumber)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                         .add(jTextFieldCity)
@@ -263,11 +311,11 @@ public class Profile extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel14)
-                    .add(jTextField11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextFieldMobilenumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel15)
-                    .add(jTextField12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextFieldEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jLabel16)
                 .add(18, 18, 18)
@@ -287,11 +335,12 @@ public class Profile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-		
+
 		// TODO make an updatesql to upload new settings into database
-		
+		User user = Session.get().getLoggedInUser();
+		user.save();
 		//Check if a @ sign is in the emailadress field
-		int emailcheck = jTextField12.getText().indexOf('@');
+		int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
 		// passwordequal is to check if the two password fields match
 		String password1 = new String(jPasswordField1.getPassword());
@@ -300,7 +349,7 @@ public class Profile extends javax.swing.JPanel {
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
-			
+
 			new Popup().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft.");
 		}
@@ -311,7 +360,6 @@ public class Profile extends javax.swing.JPanel {
 		}
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -333,13 +381,13 @@ public class Profile extends javax.swing.JPanel {
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JRadioButton jRadioButtonGenderFemale;
     private javax.swing.JRadioButton jRadioButtonGenderMale;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextFieldBirthdate;
     private javax.swing.JTextField jTextFieldCity;
+    private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldFirstname;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldLastname;
+    private javax.swing.JTextField jTextFieldMobilenumber;
     private javax.swing.JTextField jTextFieldPhonenumber;
     private javax.swing.JTextField jTextFieldPostcode;
     private javax.swing.JTextField jTextFieldStreet;

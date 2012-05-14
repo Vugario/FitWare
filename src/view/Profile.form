@@ -55,20 +55,17 @@
                           <Component id="jTextFieldBirthdate" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jTextFieldFirstname" min="-2" pref="145" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jTextFieldSubname" min="-2" pref="83" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jRadioButtonGenderMale" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jRadioButtonGenderFemale" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jTextFieldFirstname" min="-2" pref="145" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jTextFieldSubname" min="-2" pref="83" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jRadioButtonGenderMale" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jRadioButtonGenderFemale" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jTextFieldId" alignment="0" max="32767" attributes="1"/>
@@ -81,8 +78,8 @@
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Component id="jPasswordField2" alignment="0" max="32767" attributes="1"/>
                               <Component id="jPasswordField1" alignment="0" max="32767" attributes="1"/>
-                              <Component id="jTextField12" alignment="0" max="32767" attributes="1"/>
-                              <Component id="jTextField11" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jTextFieldEmail" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jTextFieldMobilenumber" alignment="0" max="32767" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jTextFieldCity" alignment="0" max="32767" attributes="1"/>
@@ -166,12 +163,12 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField11" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldMobilenumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField12" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
@@ -286,9 +283,9 @@
         <Property name="text" type="java.lang.String" value="Mobielnummer"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField11">
+    <Component class="javax.swing.JTextField" name="jTextFieldMobilenumber">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField12">
+    <Component class="javax.swing.JTextField" name="jTextFieldEmail">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>

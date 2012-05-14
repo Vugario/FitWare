@@ -8,6 +8,9 @@ import helper.db.Model;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +26,7 @@ public class User extends Model {
 	protected String lastname;
 	protected String subname;
 	protected String birthdate;
+	protected Date bdate;
 	protected boolean gender;
 	protected String email;
 	protected boolean active;
@@ -34,11 +38,11 @@ public class User extends Model {
 	protected String postcode;
 	protected String phonenumber;
 	protected String mobilenumber;
-	
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
-	
-	public User() {}
+
+	public User() {
+	}
 
 	public User readUser(int id) {
 		try {
@@ -64,7 +68,7 @@ public class User extends Model {
 			query.setString(2, password);
 			this.result();
 			this.result.first();
-			
+
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
@@ -74,15 +78,74 @@ public class User extends Model {
 		return this;
 	}
 
+	public void setDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
+		
+		try {
+			bdate = dateFormat.parse(birthdate);
+		} catch (ParseException ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	}
+
+	public void save() {
+		try {
+			this.open();
+
+			boolean passwordChanged = !"".equals(password);
+
+
+			PreparedStatement query = this.query("UPDATE \"user\" SET username = ?,"
+					+ "firstname = ?,"
+					+ "subname = ?,"
+					+ "lastname = ?,"
+					+ "birthdate = ?,"
+					+ "street = ?,"
+					+ "housenumber = ?,"
+					+ "phonenumber = ?,"
+					+ "mobilenumber = ?,"
+					+ "email = ?,"
+					+ "gender = ?,"
+					+ (passwordChanged ? "password = ?" : "")
+					+ "WHERE id = ?");
+			query.setString(1, username.toLowerCase());
+			query.setString(2, firstname);
+			query.setString(3, subname);
+			query.setString(4, lastname);
+			query.setDate(5, bdate);
+			query.setString(6, street);
+			query.setString(7, housenumber);
+			query.setString(8, phonenumber);
+			query.setString(9, mobilenumber);
+			query.setString(10, email);
+			query.setBoolean(11, gender);
+			if (passwordChanged) {
+				query.setString(12, password);
+				query.setInt(13, id);
+			} else {
+				query.setInt(12, id);
+			}
+
+			this.result();
+
+			this.setPropertiesFromResult();
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+	}
+
 	protected void setPropertiesFromResult() {
 		try {
-			
-			// Check if ther is a result
-			if(this.result.getRow() == 0) {
+
+			// Check if there is a result
+			if (this.result.getRow() == 0) {
 				// There is no result, so return without doing anything
 				return;
 			}
-			
+
 			// Fill in all properties
 			this.id = this.result.getInt("id");
 			this.username = this.result.getString("username");
@@ -101,32 +164,32 @@ public class User extends Model {
 			this.postcode = this.result.getString("postcode");
 			this.phonenumber = this.result.getString("phonenumber");
 			this.mobilenumber = this.result.getString("mobilenumber");
-			
+
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	/**
 	 * Get the full name of this user
 	 * 
 	 * @return The full name
 	 */
 	public String getFullName() {
-		
+
 		String fullName = "";
-		
+
 		// Add the firstName
 		fullName += this.getFirstname();
-		
+
 		// Add the subName when needed
-		if(this.getSubname() != null) {
+		if (this.getSubname() != null) {
 			fullName += " " + this.getSubname();
 		}
-		
+
 		// Add the lastName
 		fullName += " " + this.getLastname();
-		
+
 		return fullName;
 	}
 
