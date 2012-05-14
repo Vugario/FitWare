@@ -28,7 +28,7 @@ public class Bmi extends javax.swing.JPanel {
     }
    
     @SuppressWarnings("deprecation")
-    public void loadUserData() throws ParseException {
+    public void loadUserData() {
     User user = Session.get().getLoggedInUser();
     
     		ButtonGroup group = new ButtonGroup();
