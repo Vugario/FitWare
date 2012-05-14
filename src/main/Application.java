@@ -6,6 +6,8 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Point;
 import view.barmedewerker.UserOverview;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +56,7 @@ public class Application extends javax.swing.JFrame {
 		menus.put("barmedewerker", new BarmedewerkerMenu());
 
 		// Hide the menu
-		this.menu.removeAll();
+		this.showMenu(false);
 
 		// Hide the user info in the right top
 		this.header.showUserInfo(false);
@@ -130,6 +132,65 @@ public class Application extends javax.swing.JFrame {
 		this.menu.add(panel, BorderLayout.WEST);
 		this.menu.revalidate();
 		this.menu.repaint();
+	}
+	
+	/**
+	 * Show or hide the menu, and resize the content
+	 * 
+	 * @param showMenu True shows the menu, false hides it
+	 */
+	public final void showMenu(boolean showMenu) {
+		
+		// Find out if the menu is currently shown
+		Boolean menuCurrentlyShown = this.jLayeredPaneWrapper.getIndexOf(this.menu) >= 0;
+		
+		// Check if we uberhaupt have to do something
+		if((showMenu && menuCurrentlyShown) || (!showMenu && !menuCurrentlyShown)) {
+			// Nope, what is wanted is already done
+			return;
+		}
+		
+		// Do the right thing!
+		if(showMenu) {
+			
+			// Make the content smaller
+			int newWidth = this.content.getWidth() - this.menu.getWidth();
+			int newHeight = this.content.getHeight();
+			Dimension newSize = new Dimension(newWidth, newHeight);
+			this.content.setSize(newSize);
+			this.content.setPreferredSize(newSize);
+			this.content.setMaximumSize(newSize);
+			this.content.setMinimumSize(newSize);
+			
+			// Set the content on the correct location
+			Point location = this.content.getLocation();
+			location.translate(this.menu.getWidth(), 0);
+			this.content.setLocation(location);
+			
+			// Add the menu
+			this.jLayeredPaneWrapper.add(this.menu);
+			
+		} else {
+			
+			// Remove the menu
+			this.jLayeredPaneWrapper.remove(this.menu);
+			
+			// Set the content on the correct location
+			this.content.setLocation(this.menu.getLocation());
+			
+			// Make the content wider
+			int newWidth = this.menu.getWidth() + this.content.getWidth();
+			int newHeight = this.content.getHeight();
+			Dimension newSize = new Dimension(newWidth, newHeight);
+			this.content.setSize(newSize);
+			this.content.setPreferredSize(newSize);
+			this.content.setMaximumSize(newSize);
+			this.content.setMinimumSize(newSize);
+		}
+		
+		// Repaint this application
+		this.repaint();
+		
 	}
 
 	/** This method is called from within the constructor to

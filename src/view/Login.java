@@ -34,20 +34,15 @@ public class Login extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jButtonLogIn = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         setRequestFocusEnabled(false);
-
-        jLabel1.setText("Welkom bij FitShape!");
-
-        jLabel2.setText("Gebruikersnaam");
-
-        jLabel3.setText("Wachtwoord");
+        setLayout(new java.awt.GridBagLayout());
 
         jPasswordField1.setText("jPasswordField1");
         jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -61,12 +56,9 @@ public class Login extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.setText("Gebruikersnaam");
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField1MouseClicked(evt);
-            }
-        });
+        jLabel3.setText("Wachtwoord");
+
+        jLabel2.setText("Gebruikersnaam");
 
         jButtonLogIn.setText("Inloggen");
         jButtonLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -75,43 +67,46 @@ public class Login extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jTextField1.setText("Gebruikersnaam");
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                            .addComponent(jButtonLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel1))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField1)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(jButtonLogIn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel1)
-                .addGap(139, 139, 139)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonLogIn)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        add(jPanel1, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogInActionPerformed
@@ -123,6 +118,7 @@ public class Login extends javax.swing.JPanel {
 		if (username.equals("foo") && password.equals("bar")) {
 
 			// After clicking loginbutton paint the menu
+			application.showMenu(true);
 			application.changeMenuPanel("member");
 
 			// Display dashboard
@@ -154,9 +150,9 @@ public class Login extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogIn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
