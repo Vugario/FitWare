@@ -294,9 +294,6 @@ public class Profile extends javax.swing.JPanel {
 
 		// passwordequal is to check if the two password fields match
 		Boolean passwordequal = jPasswordField1.equals(jPasswordField2);
-		System.out.println(passwordequal);
-		//System.out.println(password1);
-		//System.out.println(password2);
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
@@ -306,7 +303,6 @@ public class Profile extends javax.swing.JPanel {
 		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel.
 		if (passwordequal = false) {
 			JOptionPane.showMessageDialog(this, "Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
-			System.out.println("passwordError!!!");
 		}
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed

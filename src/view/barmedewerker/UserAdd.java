@@ -340,7 +340,6 @@ public class UserAdd extends javax.swing.JPanel {
         birthdate = jTextField5.getText();
         */
         // TODO read this into gender:  gender = jRadioButton1.getText;
-        System.out.println();
 
         //Contact data
         String street, houseNumber, city, postcode, phoneNumber, email, password1, password2;
@@ -359,9 +358,6 @@ public class UserAdd extends javax.swing.JPanel {
         
         // passwordequal is to check if the two password fields match
         Boolean passwordequal = password1.equals(password2);
-        System.out.println(passwordequal);
-        //System.out.println(password1);
-        //System.out.println(password2);
 
         //If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
         if (emailcheck < 0) {
@@ -371,7 +367,6 @@ public class UserAdd extends javax.swing.JPanel {
         //passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel.
         if (passwordequal = false) {
             JOptionPane.showMessageDialog(this, "Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
-            System.out.println("passwordError!!!");
         }
         
     }//GEN-LAST:event_profileSaveButtonActionPerformed

@@ -21,7 +21,6 @@ public class Model extends Manager{
 	public Model()
 	{
 		this.table = this.getClass().getSimpleName().toLowerCase();
-		System.out.println(table);
 	}
 	
 	/**
