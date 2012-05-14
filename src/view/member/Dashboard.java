@@ -5,8 +5,6 @@
  */
 package view.member;
 
-import view.*;
-
 /**
  *
  * @author Daan
@@ -129,6 +127,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
