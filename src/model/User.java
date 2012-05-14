@@ -35,6 +35,9 @@ public class User extends Model {
 	protected String phonenumber;
 	protected String mobilenumber;
 	
+	public final static boolean MALE = true;
+	public final static boolean FEMALE = false;
+	
 	public User() {}
 
 	public User readUser(int id) {

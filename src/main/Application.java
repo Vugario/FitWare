@@ -6,6 +6,7 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import view.barmedewerker.UserOverview;
@@ -225,16 +226,18 @@ public class Application extends javax.swing.JFrame {
         menu.setBounds(0, 0, 140, 570);
         jLayeredPaneWrapper.add(menu, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        content.setBackground(new java.awt.Color(238, 238, 238));
         content.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         content.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         content.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        content.setOpaque(false);
+        content.setAutoscrolls(true);
 
         dashboard.setForeground(new java.awt.Color(204, 0, 0));
         content.setViewportView(dashboard);
 
         content.setBounds(140, 0, 860, 650);
         jLayeredPaneWrapper.add(content, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        content.getViewport().setBackground(new Color(238,238,238));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
