@@ -33,6 +33,7 @@ public class MemberMenu extends javax.swing.JPanel {
         jButtonInvoices = new javax.swing.JButton();
         jButtonEnrollments = new javax.swing.JButton();
         jButtonBmi = new javax.swing.JButton();
+        jButtonLogout = new javax.swing.JButton();
 
         jButtonDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/home_32.png"))); // NOI18N
         jButtonDashboard.setText("Dashboard");
@@ -84,6 +85,16 @@ public class MemberMenu extends javax.swing.JPanel {
             }
         });
 
+        jButtonLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/lock_32.png"))); // NOI18N
+        jButtonLogout.setText("Uitloggen");
+        jButtonLogout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonLogout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLogoutActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,6 +104,7 @@ public class MemberMenu extends javax.swing.JPanel {
             .add(jButtonProfile, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
             .add(jButtonEnrollments, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jButtonBmi, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .add(jButtonLogout, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -106,10 +118,12 @@ public class MemberMenu extends javax.swing.JPanel {
                 .add(jButtonEnrollments)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButtonBmi)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jButtonLogout)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(new java.awt.Component[] {jButtonBmi, jButtonDashboard, jButtonEnrollments, jButtonInvoices, jButtonProfile}, org.jdesktop.layout.GroupLayout.VERTICAL);
+        layout.linkSize(new java.awt.Component[] {jButtonBmi, jButtonDashboard, jButtonEnrollments, jButtonInvoices, jButtonLogout, jButtonProfile}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -139,11 +153,16 @@ public class MemberMenu extends javax.swing.JPanel {
 		main.Main.getApplication().changeContentPanel("bmi");
 	}//GEN-LAST:event_jButtonBmiActionPerformed
 
+	private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
+		// TODO add your handling code here:
+	}//GEN-LAST:event_jButtonLogoutActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBmi;
     private javax.swing.JButton jButtonDashboard;
     private javax.swing.JButton jButtonEnrollments;
     private javax.swing.JButton jButtonInvoices;
+    private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonProfile;
     // End of variables declaration//GEN-END:variables
 }

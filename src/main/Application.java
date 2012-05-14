@@ -210,6 +210,7 @@ public class Application extends javax.swing.JFrame {
         dashboard = new view.member.Dashboard();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FitShape - FitWare");
         setMinimumSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
 
@@ -222,7 +223,7 @@ public class Application extends javax.swing.JFrame {
         menu.setLayout(new java.awt.BorderLayout());
         menu.add(memberMenu, java.awt.BorderLayout.CENTER);
 
-        menu.setBounds(0, 0, 140, 373);
+        menu.setBounds(0, 0, 140, 570);
         jLayeredPaneWrapper.add(menu, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         content.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
