@@ -78,6 +78,7 @@ public class Session {
 			
 			// And display user info in the header
 			// TODO
+			application.getHeader().updateUserInfo();
 			application.getHeader().showUserInfo(true);
 			
 			return true;
@@ -100,8 +101,17 @@ public class Session {
 		// 1. Hide the menu
 		application.showMenu(false);
 		// 2. Hide the user info in the right top
-		application.getHeader().showUserInfo(false);
+		application.getHeader().updateUserInfo();
 		// 3. And display the Login page              
 		application.changeContentPanel("login");
+	}
+	
+	/**
+	 * Get the currently logged in User
+	 * 
+	 * @return The currently logged in user
+	 */
+	public User getLoggedInUser() {
+		return this.loggedInUser;
 	}
 }

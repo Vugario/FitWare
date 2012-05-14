@@ -10,6 +10,9 @@
  */
 package view;
 
+import main.Session;
+import model.User;
+
 /**
  *
  * @author vm
@@ -28,6 +31,27 @@ public class Header extends javax.swing.JPanel {
 	 */
 	public void showUserInfo(boolean visible) {
 		this.jLayeredPaneUser.setVisible(visible);
+	}
+	
+	/**
+	 * Update the user info
+	 */
+	public void updateUserInfo() {
+		
+		// Check if a user is logged in
+		User user = Session.get().getLoggedInUser();
+		
+		if(user == null) {
+			// There is no logged in user, so hide the user info
+			this.showUserInfo(false);
+		}
+		else {
+			// Update the user info to the currently logged in user
+			this.jLabelUsername.setText(user.getFullName());
+			// And show the user info
+			this.showUserInfo(true);
+		}
+		
 	}
 
     /** This method is called from within the constructor to
@@ -59,13 +83,21 @@ public class Header extends javax.swing.JPanel {
         userIcon.setBounds(360, 10, 32, 32);
         jLayeredPaneUser.add(userIcon, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLabelUsername.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelUsername.setForeground(new java.awt.Color(255, 255, 255));
         jLabelUsername.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelUsername.setText("<gebruikersnaam>");
         jLabelUsername.setBounds(21, 7, 330, 16);
         jLayeredPaneUser.add(jLabelUsername, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLabelLogout.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLogout.setText("<html><u>uitloggen</u></html>");
         jLabelLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLogoutMouseClicked(evt);
+            }
+        });
         jLabelLogout.setBounds(290, 25, 60, 16);
         jLayeredPaneUser.add(jLabelLogout, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -80,6 +112,11 @@ public class Header extends javax.swing.JPanel {
 
         add(jLayeredPaneHeader, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jLabelLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLogoutMouseClicked
+		Session.get().logOut();
+	}//GEN-LAST:event_jLabelLogoutMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel header;
     private javax.swing.JLabel jLabelLogout;

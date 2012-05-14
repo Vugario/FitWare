@@ -103,6 +103,29 @@ public class User extends Model {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	/**
+	 * Get the full name of this user
+	 * 
+	 * @return The full name
+	 */
+	public String getFullName() {
+		
+		String fullName = "";
+		
+		// Add the firstName
+		fullName += this.getFirstname();
+		
+		// Add the subName when needed
+		if(this.getSubname() != null) {
+			fullName += " " + this.getSubname();
+		}
+		
+		// Add the lastName
+		fullName += " " + this.getLastname();
+		
+		return fullName;
+	}
 
 	public boolean isActive() {
 		return active;
