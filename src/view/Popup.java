@@ -147,6 +147,9 @@ public class Popup extends javax.swing.JPanel {
 		// ...and add the background and popup to it
 		wrapper.add(this.popupBackground, new Integer(100));
 		wrapper.add(this, new Integer(101));
+		
+		// Finaly, focus the 'close' button
+		this.jButtonClosePopup.requestFocusInWindow();
 	}
 	
 	/**
@@ -238,6 +241,11 @@ public class Popup extends javax.swing.JPanel {
                 jButtonClosePopupActionPerformed(evt);
             }
         });
+        jButtonClosePopup.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButtonClosePopupKeyReleased(evt);
+            }
+        });
         jPanel1.add(jButtonClosePopup, new java.awt.GridBagConstraints());
 
         org.jdesktop.layout.GroupLayout jPanelBordersLayout = new org.jdesktop.layout.GroupLayout(jPanelBorders);
@@ -289,6 +297,14 @@ public class Popup extends javax.swing.JPanel {
 	private void jButtonClosePopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClosePopupActionPerformed
 		this.close();
 	}//GEN-LAST:event_jButtonClosePopupActionPerformed
+
+	private void jButtonClosePopupKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonClosePopupKeyReleased
+		// If this is an enter, check the login
+		// The KeyCode for an enter is 10
+		if(evt.getKeyCode() == 10) {
+			this.close();
+		}
+	}//GEN-LAST:event_jButtonClosePopupKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClosePopup;

@@ -37,7 +37,7 @@ public class Profile extends javax.swing.JPanel {
 		jTextField9.setText(result.getPostcode());
 		jTextField10.setText(result.getPhonenumber());
 		jTextField11.setText(result.getMobilenumber());
-		jTextField12.setText(result.getEmailadress());
+		jTextField12.setText(result.getEmail());
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(jRadioButton1);

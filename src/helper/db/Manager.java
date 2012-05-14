@@ -37,7 +37,8 @@ public class Manager {
 	
 	/**
 	 * prepare all querys
-	 * @param query 
+	 * @param query
+	 * @return The prepared statement 
 	 */
 	public PreparedStatement query(String query)
 	{	

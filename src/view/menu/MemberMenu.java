@@ -6,6 +6,7 @@
 package view.menu;
 
 import main.Application;
+import main.Session;
 import view.Profile;
 
 /**
@@ -154,7 +155,7 @@ public class MemberMenu extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonBmiActionPerformed
 
 	private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-		// TODO add your handling code here:
+		Session.get().logOut();
 	}//GEN-LAST:event_jButtonLogoutActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS "user"
-(
-	id serial NOT NULL PRIMARY KEY
-)
-WITH (
-  OIDS=FALSE
-);

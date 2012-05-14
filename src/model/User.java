@@ -6,9 +6,10 @@ package model;
 
 import helper.db.Model;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.security.action.GetBooleanAction;
 
 /**
  *
@@ -16,36 +17,107 @@ import sun.security.action.GetBooleanAction;
  */
 public class User extends Model {
 
-	String firstname;
-	String lastname;
-	String subname;
-	String birthdate;
-	String username;
-	String password;
-	String street;
-	String housenumber;
-	String city;
-	String postcode;
-	String phonenumber;
-	String mobilenumber;
-	String email;
-	boolean gender;
+	protected int id;
+	protected String username;
+	protected String firstname;
+	protected String lastname;
+	protected String subname;
+	protected String birthdate;
+	protected boolean gender;
+	protected String email;
+	protected boolean active;
+	protected String password;
+	protected String bankaccount;
+	protected String street;
+	protected String housenumber;
+	protected String city;
+	protected String postcode;
+	protected String phonenumber;
+	protected String mobilenumber;
+	
+	public User() {}
 
+	public User readUser(int id) {
+		try {
+			this.open();
+			this.query("SELECT * FROM \"user\" WHERE id = ? LIMIT 1").setInt(1, id);
+			this.result();
+			this.result.first();
 
-	public String getFirstname() {
-		return firstname;
+			this.setPropertiesFromResult();
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return this;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public User readByCredentials(String username, String password) {
+		try {
+			this.open();
+			PreparedStatement query = this.query("SELECT * FROM \"user\" WHERE username = ? AND password = MD5(?) LIMIT 1");
+			query.setString(1, username.toLowerCase());
+			query.setString(2, password);
+			this.result();
+			this.result.first();
+			
+			this.setPropertiesFromResult();
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return this;
 	}
 
-	public String getLastname() {
-		return lastname;
+	protected void setPropertiesFromResult() {
+		try {
+			
+			// Check if ther is a result
+			if(this.result.getRow() == 0) {
+				// There is no result, so return without doing anything
+				return;
+			}
+			
+			// Fill in all properties
+			this.id = this.result.getInt("id");
+			this.username = this.result.getString("username");
+			this.firstname = this.result.getString("firstname");
+			this.lastname = this.result.getString("lastname");
+			this.subname = this.result.getString("subname");
+			this.birthdate = this.result.getString("birthdate");
+			this.gender = this.result.getBoolean("gender");
+			this.email = this.result.getString("email");
+			this.active = this.result.getBoolean("active");
+			this.password = this.result.getString("password");
+			this.bankaccount = this.result.getString("bankaccount");
+			this.street = this.result.getString("street");
+			this.housenumber = this.result.getString("housenumber");
+			this.city = this.result.getString("city");
+			this.postcode = this.result.getString("postcode");
+			this.phonenumber = this.result.getString("phonenumber");
+			this.mobilenumber = this.result.getString("mobilenumber");
+			
+		} catch (SQLException ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getBankaccount() {
+		return bankaccount;
+	}
+
+	public void setBankaccount(String bankaccount) {
+		this.bankaccount = bankaccount;
 	}
 
 	public String getBirthdate() {
@@ -56,38 +128,6 @@ public class User extends Model {
 		this.birthdate = birthdate;
 	}
 
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public String getMobilenumber() {
-		return mobilenumber;
-	}
-
-	public void setMobilenumber(String mobilenumber) {
-		this.mobilenumber = mobilenumber;
-			}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getHousenumber() {
-		return housenumber;
-	}
-
-	public void setHousenumber(String street) {
-		this.housenumber = housenumber;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -96,12 +136,92 @@ public class User extends Model {
 		this.city = city;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public boolean getGender() {
+		return gender;
+	}
+
+	public void setGender(boolean gender) {
+		this.gender = gender;
+	}
+
+	public String getHousenumber() {
+		return housenumber;
+	}
+
+	public void setHousenumber(String housenumber) {
+		this.housenumber = housenumber;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getMobilenumber() {
+		return mobilenumber;
+	}
+
+	public void setMobilenumber(String mobilenumber) {
+		this.mobilenumber = mobilenumber;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
 	public String getPostcode() {
 		return postcode;
 	}
 
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	public String getSubname() {
@@ -118,63 +238,5 @@ public class User extends Model {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmailadress() {
-		return email;
-	}
-
-	public void setEmailadress(String emailadress) {
-		this.email = emailadress;
-	}
-
-	public boolean getGender() {
-		return gender;
-	}
-
-	public void setGender(boolean gender) {
-		this.gender = gender;
-	}
-
-	public User() {
-		//this.query("SELECT * FROM \"user\"");
-		// this.result();
-	}
-
-	public User readUser(int id) {
-		try {
-			this.open();
-			this.query("SELECT * FROM \"user\" WHERE id = 1 LIMIT 1");
-			this.result();
-			this.result.first();
-
-			this.firstname = this.result.getString("firstname");
-			this.lastname = this.result.getString("lastname");
-			this.subname = this.result.getString("subname");
-			this.username = this.result.getString("username");
-			this.birthdate = this.result.getString("birthdate");
-			this.street = this.result.getString("street");
-			this.city = this.result.getString("city");
-			this.postcode = this.result.getString("postcode");
-			this.email = this.result.getString("email");
-			this.phonenumber = this.result.getString("phonenumber");
-			this.mobilenumber = this.result.getString("mobilenumber");
-			this.gender = this.result.getBoolean("gender");
-			this.housenumber = this.result.getString("housenumber");
-			this.username = this.result.getString("username");
-			this.password = this.result.getString("password");
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		return this;
 	}
 }

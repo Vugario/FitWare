@@ -55,13 +55,12 @@ public class Application extends javax.swing.JFrame {
 		menus.put("admin", new AdminuserMenu());
 		menus.put("barmedewerker", new BarmedewerkerMenu());
 
-		// Hide the menu
+		// Go to the login page.
+		// 1. Hide the menu
 		this.showMenu(false);
-
-		// Hide the user info in the right top
-		this.header.showUserInfo(false);
-
-		// And display the Login page              
+		// 2. Hide the user info in the right top
+		this.getHeader().showUserInfo(false);
+		// 3. And display the Login page              
 		this.changeContentPanel("login");
 	}
 	
