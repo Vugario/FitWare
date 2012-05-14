@@ -77,7 +77,6 @@ public class Header extends javax.swing.JPanel {
 
         jLayeredPaneHeader.setMaximumSize(new java.awt.Dimension(1000, 50));
         jLayeredPaneHeader.setMinimumSize(new java.awt.Dimension(1000, 50));
-        jLayeredPaneHeader.setSize(new java.awt.Dimension(1000, 50));
 
         userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/user_32.png"))); // NOI18N
         userIcon.setBounds(360, 10, 32, 32);
@@ -87,10 +86,11 @@ public class Header extends javax.swing.JPanel {
         jLabelUsername.setForeground(new java.awt.Color(255, 255, 255));
         jLabelUsername.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelUsername.setText("<gebruikersnaam>");
-        jLabelUsername.setBounds(21, 7, 330, 16);
+        jLabelUsername.setBounds(21, 7, 330, 18);
         jLayeredPaneUser.add(jLabelUsername, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabelLogout.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLogout.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelLogout.setText("<html><u>uitloggen</u></html>");
         jLabelLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,7 +98,7 @@ public class Header extends javax.swing.JPanel {
                 jLabelLogoutMouseClicked(evt);
             }
         });
-        jLabelLogout.setBounds(290, 25, 60, 16);
+        jLabelLogout.setBounds(220, 25, 130, 14);
         jLayeredPaneUser.add(jLabelLogout, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneUser.setBounds(600, 0, 400, 50);
