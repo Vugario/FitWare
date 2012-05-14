@@ -5,6 +5,13 @@
  */
 package view;
 
+import java.text.ParseException;
+import javax.swing.ButtonGroup;
+import main.Session;
+import model.User;
+
+
+
 /**
  *
  * @author vm
@@ -19,7 +26,27 @@ public class Bmi extends javax.swing.JPanel {
     public Bmi() {
         initComponents();
     }
+   
+    @SuppressWarnings("deprecation")
+    public void loadUserData() throws ParseException {
+    User user = Session.get().getLoggedInUser();
+    
+    		ButtonGroup group = new ButtonGroup();
+		group.add(jRadioButton3);
+		group.add(jRadioButton4);
+                
+    if (user.getGender() == User.MALE) {
+			jRadioButton3.setSelected(true);
+		}else {
+			jRadioButton4.setSelected(true);
+		}
 
+
+    
+
+}
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +81,7 @@ public class Bmi extends javax.swing.JPanel {
         txtResult = new javax.swing.JLabel();
         jButtonCalcBMI = new javax.swing.JButton();
 
-        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48));
+        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         jLabel21.setText("BMI Berekenen");
 
         jLabel22.setText("Geslacht");
@@ -67,6 +94,11 @@ public class Bmi extends javax.swing.JPanel {
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Man");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Vrouw");
@@ -92,15 +124,15 @@ public class Bmi extends javax.swing.JPanel {
 
         jLabel30.setText("er sprake is van overgewicht, ondergewicht of een gezond gewicht.");
 
-        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24));
+        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel31.setText("Resultaat");
 
         txtDescription.setText(" ");
 
-        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18));
+        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         txtResult.setText("Voer uw gegevens in");
 
-        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15));
+        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jButtonCalcBMI.setText("Bereken!");
         jButtonCalcBMI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,6 +257,11 @@ public class Bmi extends javax.swing.JPanel {
             txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
         }
     }//GEN-LAST:event_jButtonCalcBMIActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextPane jAge;
