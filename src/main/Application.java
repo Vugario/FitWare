@@ -5,18 +5,21 @@
  */
 package main;
 
+import view.member.Invoices;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import view.barmedewerker.UserOverview;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import view.*;
 import view.barmedewerker.UserAdd;
 import view.barmedewerker.UserModify;
+import view.member.Dashboard;
 import view.menu.AdminuserMenu;
 import view.menu.BarmedewerkerMenu;
 import view.menu.MemberMenu;
@@ -51,6 +54,14 @@ public class Application extends javax.swing.JFrame {
 		pages.put("useradd", new UserAdd());
 		pages.put("usermodify", new UserModify());
 
+		// Hide all pages
+		Iterator iterator = pages.entrySet().iterator();
+		while(iterator.hasNext())
+		{
+			Map.Entry<String, JPanel> entry = (Map.Entry<String, JPanel>)iterator.next();
+			entry.getValue().setVisible(false);
+		}
+		
 		// Create the menus for our application
 		menus.put("member", new MemberMenu());
 		menus.put("admin", new AdminuserMenu());
@@ -80,7 +91,7 @@ public class Application extends javax.swing.JFrame {
 	 * 
 	 * @return Header The header currently showed in our application
 	 */
-	public Header getHeader() {
+	public final Header getHeader() {
 		return this.header;
 	}
 	
@@ -100,7 +111,10 @@ public class Application extends javax.swing.JFrame {
 	 */
 	public final void changeContentPanel(String pageName) {
 
-		//this.content.setLayout(new java.awt.BorderLayout());
+		// Hide the current page
+		this.content.getViewport().getView().setVisible(false);
+		
+		// Get the right page
 		JPanel panel = pages.get(pageName);
 
 		if (panel == null) {
@@ -110,6 +124,7 @@ public class Application extends javax.swing.JFrame {
 		}
 
 		this.content.setViewportView(panel);
+		panel.setVisible(true);
 	}
 
 	/**
