@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.Profile;
 
 /**
  *
@@ -40,6 +41,8 @@ public class User extends Model {
 	protected String mobilenumber;
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
+	
+	protected String category;
 
 	public User() {
 	}
@@ -94,7 +97,8 @@ public class User extends Model {
 			this.open();
 
 			boolean passwordChanged = !"".equals(password);
-
+			Profile profile = new Profile();
+			gender = profile.jRadioButtonGenderMale.isSelected(); //how do i get this state?
 
 			PreparedStatement query = this.query("UPDATE \"user\" SET username = ?,"
 					+ "firstname = ?,"
@@ -328,4 +332,13 @@ public class User extends Model {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 }

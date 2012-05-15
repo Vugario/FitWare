@@ -4,9 +4,10 @@
  * Created on May 10, 2012, 10:52:48 PM
  */
 package view.barmedewerker;
-import javax.swing.JTextField;
 
-import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
+import javax.swing.Popup;
+import main.Session;
 import model.User;
 
 
@@ -24,24 +25,76 @@ public class UserAdd extends javax.swing.JPanel {
         initComponents();
     }
 	
-	public void updateUserData(){
-			
-		jTextFieldID.setText(Integer.toString(user.getId()));
-		jTextFieldUsername.setText(user.getUsername());
-		jTextFieldFirstname.setText(user.getFirstname());
-		jTextFieldSubname.setText(user.getSubname());
-		jTextFieldLastname.setText(user.getLastname());
-		jTextFieldBirthdate.setText(user.getBirthdate());
-		jTextFieldStreet.setText(user.getStreet());
-		jTextFieldCity.setText(user.getCity());
-		jTextFieldStreetnumber.setText(user.getHousenumber());
-		jTextFieldPostcode.setText(user.getPostcode());
-		jTextFieldPhonenumber.setText(user.getPhonenumber());
-		jTextFieldMobilenumber.setText(user.getMobilenumber());
-		jTextFieldEmail.setText(user.getEmail());
+	
+	public void setUserData() {
+		User user = Session.get().getLoggedInUser();
+
+		String username = jTextFieldUsername.getText();
+		user.setUsername(username);
+
+		String firstname = jTextFieldFirstname.getText();
+		user.setFirstname(firstname);
+
+		String subname = jTextFieldSubname.getText();
+		user.setSubname(subname);
+
+		String lastname = jTextFieldLastname.getText();
+		user.setUsername(username);
+
+		String birthdate = jTextFieldBirthdate.getText();
+		user.setUsername(username);
+
+		String street = jTextFieldStreet.getText();
+		user.setStreet(street);
+
+		String city = jTextFieldCity.getText();
+		user.setCity(city);
+
+		String housenumber = jTextFieldStreetnumber.getText();
+		user.setHousenumber(housenumber);
+
+		String postcode = jTextFieldPostcode.getText();
+		user.setPostcode(postcode);
+
+		String phonenumber = jTextFieldPhonenumber.getText();
+		user.setPhonenumber(phonenumber);
+
+		String mobilenumber = jTextFieldMobilenumber.getText();
+		user.setMobilenumber(mobilenumber);
+
+		String email = jTextFieldEmail.getText();
+		user.setEmail(email);
+
+		ButtonGroup groupCategory = new ButtonGroup();
+		groupCategory.add(jRadioButtonYouth);
+		groupCategory.add(jRadioButtonAdult);
+		groupCategory.add(jRadioButtonSenior);
 		
-			
+		ButtonGroup groupGender = new ButtonGroup();
+		groupGender.add(jRadioButtonGenderMale);
+		groupGender.add(jRadioButtonGenderFemale);
+		
+		ButtonGroup groupTime = new ButtonGroup();
+		groupTime.add(jRadioButtonDayTime);
+		groupTime.add(jRadioButtonFullTime);
+		
+		
+		if (jRadioButtonGenderMale.isSelected() == true) {
+			user.setGender(true);
+		} else {
+			user.setGender(false);
 		}
+		 
+		if (jRadioButtonYouth.isSelected() == true) {
+			user.setCategory("youth");
+		} else if (jRadioButtonAdult.isSelected() == true) {
+			user.setCategory("adult");
+		}else {
+			user.setCategory("senior");
+		}
+				
+		user.save();
+	}
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -63,8 +116,8 @@ public class UserAdd extends javax.swing.JPanel {
         jTextFieldBirthdate = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButtonGenderMale = new javax.swing.JRadioButton();
+        jRadioButtonGenderFemale = new javax.swing.JRadioButton();
         jTextFieldStreet = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -87,11 +140,11 @@ public class UserAdd extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
+        jRadioButtonYouth = new javax.swing.JRadioButton();
+        jRadioButtonAdult = new javax.swing.JRadioButton();
+        jRadioButtonSenior = new javax.swing.JRadioButton();
+        jRadioButtonDayTime = new javax.swing.JRadioButton();
+        jRadioButtonFullTime = new javax.swing.JRadioButton();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
@@ -115,9 +168,9 @@ public class UserAdd extends javax.swing.JPanel {
 
         jLabel9.setText("Geslacht");
 
-        jRadioButton1.setText("Man");
+        jRadioButtonGenderMale.setText("Man");
 
-        jRadioButton2.setText("Vrouw");
+        jRadioButtonGenderFemale.setText("Vrouw");
 
         jLabel10.setText("Straat en huisnr");
 
@@ -161,15 +214,15 @@ public class UserAdd extends javax.swing.JPanel {
 
         jLabel3.setText("Abbonnement");
 
-        jRadioButton3.setText("Jeugd (< 18)");
+        jRadioButtonYouth.setText("Jeugd (< 18)");
 
-        jRadioButton4.setText("Volwassenen");
+        jRadioButtonAdult.setText("Volwassenen");
 
-        jRadioButton5.setText("Senioren");
+        jRadioButtonSenior.setText("Senioren");
 
-        jRadioButton6.setText("Alleen overdag (weekdagen)");
+        jRadioButtonDayTime.setText("Alleen overdag (weekdagen)");
 
-        jRadioButton7.setText("Volledig");
+        jRadioButtonFullTime.setText("Volledig");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -240,9 +293,9 @@ public class UserAdd extends javax.swing.JPanel {
                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jTextFieldFirstname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                             .add(layout.createSequentialGroup()
-                                                .add(jRadioButton1)
+                                                .add(jRadioButtonGenderMale)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                .add(jRadioButton2)))
+                                                .add(jRadioButtonGenderFemale)))
                                         .add(10, 10, 10)
                                         .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
@@ -253,14 +306,14 @@ public class UserAdd extends javax.swing.JPanel {
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(layout.createSequentialGroup()
-                                        .add(jRadioButton3)
+                                        .add(jRadioButtonYouth)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                        .add(jRadioButton4))
-                                    .add(jRadioButton6))
+                                        .add(jRadioButtonAdult))
+                                    .add(jRadioButtonDayTime))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jRadioButton7)
-                                    .add(jRadioButton5)))
+                                    .add(jRadioButtonFullTime)
+                                    .add(jRadioButtonSenior)))
                             .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -291,20 +344,20 @@ public class UserAdd extends javax.swing.JPanel {
                     .add(jButton1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jRadioButton2)
-                    .add(jRadioButton1)
+                    .add(jRadioButtonGenderFemale)
+                    .add(jRadioButtonGenderMale)
                     .add(jLabel9))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(jRadioButton3)
-                    .add(jRadioButton4)
-                    .add(jRadioButton5))
+                    .add(jRadioButtonYouth)
+                    .add(jRadioButtonAdult)
+                    .add(jRadioButtonSenior))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(jRadioButton6)
-                    .add(jRadioButton7))
+                    .add(jRadioButtonDayTime)
+                    .add(jRadioButtonFullTime))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
@@ -356,20 +409,23 @@ public class UserAdd extends javax.swing.JPanel {
 		
 		
         //Check if a @ sign is in the emailadress field
-        int emailcheck = jTextField12.getText().indexOf('@');
+        int emailcheck = jTextFieldEmail.getText().indexOf('@');
         
-        // passwordequal is to check if the two password fields match
-        Boolean passwordequal = password1.equals(password2);
+       String password1 = new String(jPasswordField1.getPassword());
+		String password2 = new String(jPasswordField2.getPassword());
+		Boolean passwordequal = password1.equals(password2);
 
-        //If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
-        if (emailcheck < 0) {
-            JOptionPane.showMessageDialog(this, "U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
-                    + "Probeer het nogmaals alstublieft.");
-        }
-        //passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel.
-        if (passwordequal = false) {
-            JOptionPane.showMessageDialog(this, "Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
-        }
+		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
+		if (emailcheck < 0) {
+
+			new Popup().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
+					+ "Probeer het nogmaals alstublieft.");
+		}
+		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
+		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
+		if (!passwordequal) {
+			new Popup().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
+		}
         
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
@@ -402,13 +458,13 @@ public class UserAdd extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
+    private javax.swing.JRadioButton jRadioButtonAdult;
+    private javax.swing.JRadioButton jRadioButtonDayTime;
+    private javax.swing.JRadioButton jRadioButtonFullTime;
+    private javax.swing.JRadioButton jRadioButtonGenderFemale;
+    private javax.swing.JRadioButton jRadioButtonGenderMale;
+    private javax.swing.JRadioButton jRadioButtonSenior;
+    private javax.swing.JRadioButton jRadioButtonYouth;
     private javax.swing.JTextField jTextFieldBirthdate;
     private javax.swing.JTextField jTextFieldCity;
     private javax.swing.JTextField jTextFieldEmail;
@@ -424,4 +480,7 @@ public class UserAdd extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldUsername;
     private javax.swing.JButton profileSaveButton;
     // End of variables declaration//GEN-END:variables
+	
+	
+	
 }

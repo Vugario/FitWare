@@ -353,7 +353,7 @@ public class Profile extends javax.swing.JPanel {
 			new Popup().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft.");
 		}
-		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (jeroen)
+		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
 		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
 		if (!passwordequal) {
 			new Popup().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
