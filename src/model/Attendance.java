@@ -9,5 +9,7 @@ package model;
  * @author allentje
  */
 public class Attendance {
-	
+
+	int id;
+	int enrollmentId;
 }
