@@ -12,11 +12,14 @@ public class Main {
 		
 		//model.User user = new model.User();
 		//user.readUser(1);
-		
+		long timestamp = 1334959260000L;
+		helper.Datetime datetime = new helper.Datetime(timestamp);
+		//datetime.format("yyyy-MM-dd hh:mm");
+		System.out.println(datetime.format2("yyyy-dd"));
 		//Migration.run();
 
-		application = new Application();
-		application.setVisible(true);
+		//application = new Application();
+		//application.setVisible(true);
 		
 	}
 

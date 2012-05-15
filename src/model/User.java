@@ -8,9 +8,10 @@ import helper.db.Model;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.Profile;
@@ -21,24 +22,24 @@ import view.Profile;
  */
 public class User extends Model {
 
-	protected int id;
-	protected String username;
-	protected String firstname;
-	protected String lastname;
-	protected String subname;
-	protected String birthdate;
-	protected Date bdate;
-	protected boolean gender;
-	protected String email;
-	protected boolean active;
-	protected String password;
-	protected String bankaccount;
-	protected String street;
-	protected String housenumber;
-	protected String city;
-	protected String postcode;
-	protected String phonenumber;
+	private int id;
+	private String username;
+	private String firstname;
+	private String lastname;
+	private String subname;
+	private DateFormat birthdate;
+	private boolean gender;
+	private String email;
+	private boolean active;
+	private String password;
+	private String bankaccount;
+	private String street;
+	private String housenumber;
+	private String city;
+	private String postcode;
+	private String phonenumber;
 	protected String mobilenumber;
+	
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
 	
@@ -81,7 +82,7 @@ public class User extends Model {
 		return this;
 	}
 
-	public void setDate() {
+	/*public void setDate() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
 		
 		try {
@@ -90,7 +91,7 @@ public class User extends Model {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
-	}
+	}*/
 
 	public void save() {
 		try {
@@ -98,7 +99,7 @@ public class User extends Model {
 
 			boolean passwordChanged = !"".equals(password);
 			Profile profile = new Profile();
-			gender = profile.jRadioButtonGenderMale.isSelected(); //how do i get this state?
+			//gender = profile.jRadioButtonGenderMale.isSelected(); //how do i get this state?
 
 			PreparedStatement query = this.query("UPDATE \"user\" SET username = ?,"
 					+ "firstname = ?,"
@@ -117,7 +118,7 @@ public class User extends Model {
 			query.setString(2, firstname);
 			query.setString(3, subname);
 			query.setString(4, lastname);
-			query.setDate(5, bdate);
+			query.setTimestamp(14, birthdate.);
 			query.setString(6, street);
 			query.setString(7, housenumber);
 			query.setString(8, phonenumber);
@@ -156,7 +157,7 @@ public class User extends Model {
 			this.firstname = this.result.getString("firstname");
 			this.lastname = this.result.getString("lastname");
 			this.subname = this.result.getString("subname");
-			this.birthdate = this.result.getString("birthdate");
+			this.birthdate = this.result.getTimestamp("birthdate");
 			this.gender = this.result.getBoolean("gender");
 			this.email = this.result.getString("email");
 			this.active = this.result.getBoolean("active");
@@ -217,7 +218,7 @@ public class User extends Model {
 		return birthdate;
 	}
 
-	public void setBirthdate(String birthdate) {
+	public void setBirthdate(DateFormat birthdate) {
 		this.birthdate = birthdate;
 	}
 
