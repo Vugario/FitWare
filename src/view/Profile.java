@@ -97,7 +97,6 @@ public class Profile extends javax.swing.JPanel {
 		}
 		user.save();
 
-
 	}
 
 	/** This method is called from within the constructor to

@@ -14,38 +14,13 @@ import helper.db.*;
  * @author allentje
  */
 public class Subscription extends Model {
-
-	String name;
-	int id;
-	int newAttr;
-	double price;
-	int minimumAge;
-	int maximumAge;
+	String category;
+	String title;
+	String description;
+	boolean gender;
+	int maxAge;
+	int minAge;
 	boolean monthly;
-	boolean subscriptionType;
+	double price;
 
-	public Subscription readSubscription() {
-		try {
-			this.open();
-
-			PreparedStatement query = this.query("SELECT * FROM \"subscription\" WHERE id = ? ").setInt(1, id);
-			this.result();
-
-			this.setPropertiesFromResult();
-
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-		return this;
-
-	}
-
-	public Boolean getSubscriptionType() {
-		return subscriptionType;
-	}
-
-	public void getSubscriptionType(Boolean subscriptionType) {
-		this.subscriptionType = subscriptionType;
-	}
 }

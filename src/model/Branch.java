@@ -10,4 +10,10 @@ package model;
  */
 public class Branch {
 	
+String city;
+String Street;
+String postcode;
+String phonenumber;
+
+	
 }
