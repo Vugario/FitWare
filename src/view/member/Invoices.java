@@ -10,11 +10,7 @@
  */
 package view.member;
 
-import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-import main.Main;
-
+import helper.SearchTable;
 
 /**
  *
@@ -22,20 +18,13 @@ import main.Main;
  */
 public class Invoices extends javax.swing.JPanel {
 
-	protected String searchTerm;
+	protected SearchTable searchTable;
 
 	/** Creates new form Invoices */
 	public Invoices() {
 		initComponents();
-	}
-	
-	/**
-	 * Get the search term
-	 * 
-	 * @return The search term
-	 */
-	public String getSearchTerm() {
-		return searchTerm;
+
+		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonSearch, jButtonReset);
 	}
 
 	/** This method is called from within the constructor to
@@ -86,25 +75,10 @@ public class Invoices extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jTextFieldSearch.setText("zoekterm");
-        jTextFieldSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldSearchFocusGained(evt);
-            }
-        });
 
         jButtonSearch.setText("Zoek");
-        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSearchActionPerformed(evt);
-            }
-        });
 
         jButtonReset.setText("Reset");
-        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonResetActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -145,28 +119,6 @@ public class Invoices extends javax.swing.JPanel {
         jButtonReset.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
 
-	private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusGained
-		if (this.jTextFieldSearch.getText().equals("zoekterm")) {
-			this.jTextFieldSearch.setText(null);
-		}
-	}//GEN-LAST:event_jTextFieldSearchFocusGained
-
-	private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-		this.searchTerm = this.jTextFieldSearch.getText().toLowerCase();
-		this.jButtonReset.setVisible(true);
-
-	}//GEN-LAST:event_jButtonSearchActionPerformed
-
-	private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-		this.searchTerm = null;
-		this.jTextFieldSearch.setText("zoekterm");
-		this.jButtonReset.setVisible(false);
-
-		// TODO: reset the search
-		//DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-		
-		
-	}//GEN-LAST:event_jButtonResetActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonReset;
     private javax.swing.JButton jButtonSearch;
