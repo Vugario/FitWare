@@ -3,12 +3,13 @@
  *
  * Created on May 7, 2012, 10:52:48 AM
  */
-package view;
+package view.member;
 
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import main.Session;
 import model.User;
+import view.Popup;
 
 /**
  *
