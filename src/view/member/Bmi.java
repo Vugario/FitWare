@@ -3,7 +3,7 @@
  *
  * Created on May 6, 2012, 4:56:17 PM
  */
-package view;
+package view.member;
 
 import java.text.ParseException;
 import javax.swing.ButtonGroup;
@@ -81,7 +81,7 @@ public class Bmi extends javax.swing.JPanel {
         txtResult = new javax.swing.JLabel();
         jButtonCalcBMI = new javax.swing.JButton();
 
-        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48));
         jLabel21.setText("BMI Berekenen");
 
         jLabel22.setText("Geslacht");
@@ -124,15 +124,15 @@ public class Bmi extends javax.swing.JPanel {
 
         jLabel30.setText("er sprake is van overgewicht, ondergewicht of een gezond gewicht.");
 
-        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24));
         jLabel31.setText("Resultaat");
 
         txtDescription.setText(" ");
 
-        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18));
         txtResult.setText("Voer uw gegevens in");
 
-        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15));
         jButtonCalcBMI.setText("Bereken!");
         jButtonCalcBMI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
