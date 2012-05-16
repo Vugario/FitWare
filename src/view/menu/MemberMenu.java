@@ -6,8 +6,8 @@
 package view.menu;
 
 import main.Application;
-import view.Bmi;
-import view.Profile;
+import view.member.Bmi;
+import view.member.Profile;
 import view.member.Dashboard;
 
 /**
