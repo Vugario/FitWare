@@ -155,30 +155,6 @@ public class Invoices extends javax.swing.JPanel {
 		this.searchTerm = this.jTextFieldSearch.getText().toLowerCase();
 		this.jButtonReset.setVisible(true);
 
-		// Search the table
-		DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-
-		RowFilter<Object, Object> startsWithAFilter = new RowFilter<Object, Object>() {
-
-			@Override
-			public boolean include(Entry<? extends Object, ? extends Object> entry) {
-				Invoices invoicePage = (Invoices) Main.getApplication().getPage("invoices");
-				String searchterm = invoicePage.getSearchTerm();
-				for (int i = entry.getValueCount() - 1; i >= 0; i--) {
-					if (entry.getStringValue(i).toLowerCase().contains(searchterm)) {
-						// The value starts with "a", include it
-						return true;
-					}
-				}
-				// None of the columns start with "a"; return false so that this
-				// entry is not shown
-				return false;
-			}
-		};
-		
-		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
-		sorter.setRowFilter(startsWithAFilter);
-		this.jTable1.setRowSorter(sorter);
 	}//GEN-LAST:event_jButtonSearchActionPerformed
 
 	private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
