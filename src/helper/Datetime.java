@@ -45,29 +45,8 @@ public class Datetime{
 	public Datetime(Timestamp time){
 		this.timestamp = time.getTime();
 	}
-	
-	
+		
 	public String format(String format){
-		dateFormat = new SimpleDateFormat(format);
-		System.out.println(dateString);
-		try {
-			dateFormat.parse(this.dateString);
-			
-		} catch (ParseException ex) {
-			Logger.getLogger(Datetime.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-		TimeZone tZ = TimeZone.getTimeZone("Europe/Amsterdam");
-
-		dateFormat.setTimeZone(tZ);
-		String diff = dateFormat.format(parsedDate);
-
-		
-		return diff;
-	}
-
-	
-	public String format2(String format){
 		dateFormat = new SimpleDateFormat(format);
 
 		//Timestamp ts2 = Timestamp.valueOf(this.dateString);
@@ -83,6 +62,8 @@ public class Datetime{
 		
 		return diff;
 	}
+	
+	
 	
 	
 	

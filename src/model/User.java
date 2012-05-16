@@ -5,13 +5,11 @@
 package model;
 
 import helper.db.Model;
+import helper.Datetime;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +25,7 @@ public class User extends Model {
 	private String firstname;
 	private String lastname;
 	private String subname;
-	private DateFormat birthdate;
+	private String birthdate;
 	private boolean gender;
 	private String email;
 	private boolean active;
@@ -68,11 +66,17 @@ public class User extends Model {
 		try {
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM \"user\" WHERE username = ? AND password = MD5(?) LIMIT 1");
+			
 			query.setString(1, username.toLowerCase());
 			query.setString(2, password);
 			this.result();
+			
+			//System.exit(0);
+			
 			this.result.first();
-
+//System.out.println(this.result.getString("id"));
+//			System.out.println(this.result.getStatement());
+//			System.exit(0);
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
@@ -118,7 +122,10 @@ public class User extends Model {
 			query.setString(2, firstname);
 			query.setString(3, subname);
 			query.setString(4, lastname);
-			query.setTimestamp(14, birthdate.);
+			
+			//Datetime datetime = new Datetime(birthdate);
+			
+			//query.setTimestamp(14, birthdate);
 			query.setString(6, street);
 			query.setString(7, housenumber);
 			query.setString(8, phonenumber);
@@ -157,7 +164,7 @@ public class User extends Model {
 			this.firstname = this.result.getString("firstname");
 			this.lastname = this.result.getString("lastname");
 			this.subname = this.result.getString("subname");
-			this.birthdate = this.result.getTimestamp("birthdate");
+			this.birthdate = this.result.getString("birthdate");
 			this.gender = this.result.getBoolean("gender");
 			this.email = this.result.getString("email");
 			this.active = this.result.getBoolean("active");
@@ -218,7 +225,7 @@ public class User extends Model {
 		return birthdate;
 	}
 
-	public void setBirthdate(DateFormat birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 

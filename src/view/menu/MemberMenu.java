@@ -6,6 +6,7 @@
 package view.menu;
 
 import main.Application;
+import main.Application2;
 import view.Bmi;
 import view.Profile;
 import view.member.Dashboard;
@@ -118,35 +119,23 @@ public class MemberMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDashboardActionPerformed
-            Application application = main.Main.getApplication();
-            application.changeContentPanel("dashboard");
-            Dashboard dashboard = (Dashboard) application.getPage("dashboard");
-            dashboard.updateUserInfo();
+		Application.getInstance().showPanel(new view.member.Dashboard());
 	}//GEN-LAST:event_jButtonDashboardActionPerformed
 
 	private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
-            //TODO add sql to fill the profileform
-
-            Application application = main.Main.getApplication();
-            application.changeContentPanel("profile");
-            Profile profile = (Profile) application.getPage("profile");
-            profile.loadUserData();
-
+		Application.getInstance().showPanel(new view.Profile());
 	}//GEN-LAST:event_jButtonProfileActionPerformed
 
 	private void jButtonInvoicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInvoicesActionPerformed
-            main.Main.getApplication().changeContentPanel("invoices");
+        Application.getInstance().showPanel(new view.member.Invoices());
 	}//GEN-LAST:event_jButtonInvoicesActionPerformed
 
 	private void jButtonEnrollmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnrollmentsActionPerformed
-            main.Main.getApplication().changeContentPanel("enrollments");
+         Application.getInstance().showPanel(new view.Enrollments());
 	}//GEN-LAST:event_jButtonEnrollmentsActionPerformed
 
 	private void jButtonBmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBmiActionPerformed
-            Application application = main.Main.getApplication();
-            application.changeContentPanel("bmi");
-            Bmi bmi = (Bmi) application.getPage("bmi");
-            bmi.loadUserData();
+		Application.getInstance().showPanel(new view.Bmi());	
 	}//GEN-LAST:event_jButtonBmiActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBmi;

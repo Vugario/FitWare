@@ -9,7 +9,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import main.Application;
+import main.Application2;
 import main.Main;
 
 /**
@@ -32,7 +32,7 @@ public class Enrollments extends javax.swing.JPanel {
         initComponents();
         
         // Get application
-        Application application = Main.getApplication();
+        Application2 application = Main.getApplication();
         
         // Fill the model with example data
         this.model = (DefaultTableModel) jEnrollments.getModel();

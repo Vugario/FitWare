@@ -15,8 +15,10 @@ public class Manager {
 	private Statement stmnt;
 	
 	public Manager() {
+
 		try {
 			Class.forName("org.postgresql.Driver");
+
 		} catch (ClassNotFoundException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
