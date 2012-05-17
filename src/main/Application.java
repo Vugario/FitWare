@@ -9,11 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
+import javax.swing.*;
 import main.Session;
 import model.User;
 
@@ -93,6 +89,23 @@ public final class Application {
 		window.getContentPane().repaint();
 	}
 
+	/**
+	 * method to show popup
+	 * @daan zou je dit kunnen nakijken en verbeteren?
+	 * @param panel 
+	 */
+	public void showPopup(JPanel panel){
+		
+		int posX = (window.getContentPane().getWidth()-panel.getWidth()) / 2;
+		int posY = (window.getContentPane().getHeight()-panel.getHeight()) / 3;
+		
+		PopupFactory factory = PopupFactory.getSharedInstance();
+		Popup popup = factory.getPopup(window.getContentPane(), panel, posX, posY);
+		popup.show();
+	
+	
+	}
+	
 	private void close() {
 		//db.close();
 		window.dispose();
