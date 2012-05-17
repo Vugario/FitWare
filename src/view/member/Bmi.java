@@ -10,8 +10,6 @@ import javax.swing.ButtonGroup;
 import main.Session;
 import model.User;
 
-
-
 /**
  *
  * @author vm
@@ -26,27 +24,46 @@ public class Bmi extends javax.swing.JPanel {
     public Bmi() {
         initComponents();
     }
-   
+
     @SuppressWarnings("deprecation")
     public void loadUserData() {
-    User user = Session.get().getLoggedInUser();
-    
-    		ButtonGroup group = new ButtonGroup();
-		group.add(jRadioButton3);
-		group.add(jRadioButton4);
-                
-    if (user.getGender() == User.MALE) {
-			jRadioButton3.setSelected(true);
-		}else {
-			jRadioButton4.setSelected(true);
-		}
+        User user = Session.get().getLoggedInUser();
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(jRadioButton3);
+        group.add(jRadioButton4);
+
+        if (user.getGender() == User.MALE) {
+            jRadioButton3.setSelected(true);
+        } else {
+            jRadioButton4.setSelected(true);
+        }
+    }
+
+    private void bmiberekenen() {
+        float weight = new Float(txtWeight.getText());
+        float length = new Float(txtLength.getText()) / 100;
 
 
-    
 
-}
-    
-    
+        this.bmi = weight / (length * length);
+
+        txtResult.setText(String.format("Uw BMI is %.2f", this.bmi));
+
+        if (this.bmi < 18.5) {
+            txtDescription.setText("U heeft ondergewicht");
+        }
+        if (this.bmi < 25 && this.bmi > 18.5) {
+            txtDescription.setText("U heeft het ideale gewicht");
+        }
+        if (this.bmi > 25) {
+            txtDescription.setText("U heeft overgewicht");
+        }
+        if (this.bmi > 30) {
+            txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,6 +153,12 @@ public class Bmi extends javax.swing.JPanel {
         });
 
         jLabel1.setText("jaar");
+
+        txtWeight.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtWeightKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -240,27 +263,7 @@ public class Bmi extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCalcBMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcBMIActionPerformed
-        float weight = new Float(txtWeight.getText());        
-        float length = new Float(txtLength.getText()) / 100;
-        
-        
-        
-        this.bmi = weight / (length * length);
-        
-        txtResult.setText(String.format("Uw BMI is %.2f", this.bmi));
-        
-        if (this.bmi < 18.5) {
-            txtDescription.setText("U heeft ondergewicht");
-        }
-        if (this.bmi < 25 && this.bmi > 18.5) {
-            txtDescription.setText("U heeft het ideale gewicht");
-        }
-        if (this.bmi > 25) {
-            txtDescription.setText("U heeft overgewicht");
-        }
-        if (this.bmi > 30) {
-            txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
-        }
+        bmiberekenen();
     }//GEN-LAST:event_jButtonCalcBMIActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
@@ -271,6 +274,13 @@ public class Bmi extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jAgeActionPerformed
 
+    private void txtWeightKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtWeightKeyReleased
+        // If this is an enter, check the login
+        // The KeyCode for an enter is 10
+        if (evt.getKeyCode() == 10) {
+            bmiberekenen();
+        }
+    }//GEN-LAST:event_txtWeightKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField jAge;
@@ -295,7 +305,4 @@ public class Bmi extends javax.swing.JPanel {
     private javax.swing.JLabel txtResult;
     private javax.swing.JTextField txtWeight;
     // End of variables declaration//GEN-END:variables
-
-	
 }
-
