@@ -24,7 +24,7 @@ public class Invoices extends javax.swing.JPanel {
 	public Invoices() {
 		initComponents();
 
-		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonSearch, jButtonReset);
+		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonReset);
 	}
 
 	/** This method is called from within the constructor to
@@ -40,7 +40,6 @@ public class Invoices extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextFieldSearch = new javax.swing.JTextField();
-        jButtonSearch = new javax.swing.JButton();
         jButtonReset = new javax.swing.JButton();
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18));
@@ -75,8 +74,11 @@ public class Invoices extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jTextFieldSearch.setText("zoekterm");
-
-        jButtonSearch.setText("Zoek");
+        jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyTyped(evt);
+            }
+        });
 
         jButtonReset.setText("Reset");
 
@@ -87,19 +89,13 @@ public class Invoices extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addContainerGap(446, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                    .addComponent(jLabel19)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonReset)
-                        .addGap(211, 211, 211))))
+                        .addComponent(jButtonReset)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,19 +105,19 @@ public class Invoices extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearch)
                     .addComponent(jButtonReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        jButtonReset.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jTextFieldSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyTyped
+		// TODO add your handling code here:
+	}//GEN-LAST:event_jTextFieldSearchKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonReset;
-    private javax.swing.JButton jButtonSearch;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

@@ -29,10 +29,6 @@ public class SearchTable {
 	 */
 	protected JTextField searchField;
 	/**
-	 * The search button
-	 */
-	protected JButton searchButton;
-	/**
 	 * The reset button
 	 */
 	protected JButton resetButton;
@@ -64,14 +60,12 @@ public class SearchTable {
 	 * 
 	 * @param table The JTable to search in
 	 * @param searchField The JTextField where the search term is filled in
-	 * @param searchButton The JButton used to trigger the search action
 	 * @param resetButton The JButton used to reset the search action
 	 */
-	public SearchTable(JTable table, JTextField searchField, JButton searchButton, JButton resetButton) {
+	public SearchTable(JTable table, JTextField searchField, JButton resetButton) {
 
 		this.table = table;
 		this.searchField = searchField;
-		this.searchButton = searchButton;
 		this.resetButton = resetButton;
 
 		resetSearchTerm = this.searchField.getText();
@@ -102,19 +96,16 @@ public class SearchTable {
 
 			@Override
 			public void keyReleased(KeyEvent evt) {
-				if (evt.getKeyCode() == 10) {
-					searchFieldEnter(evt);
-				}
+				searchFieldUpdate(evt);
 			}
 		});
-
-		this.searchButton.addActionListener(new ActionListener() {
-
+		
+		this.searchField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent evt) {
-				searchButtonClicked(evt);
-			}
-		});
+            public void keyTyped(KeyEvent evt) {
+                searchFieldUpdate(evt);
+            }
+        });
 
 		this.resetButton.addActionListener(new ActionListener() {
 
@@ -152,22 +143,7 @@ public class SearchTable {
 	 * 
 	 * @param event The KeyEvent object
 	 */
-	protected void searchFieldEnter(KeyEvent event) {
-		// Do the search
-		updateSearch(searchField.getText());
-	}
-
-	/**
-	 * The event handler for resetting the search button
-	 * 
-	 * @param event The ActionEvent object
-	 */
-	protected void searchButtonClicked(ActionEvent event) {
-		// Check if the search term is filled in
-		if (searchField.getText().equals(resetSearchTerm)) {
-			return;
-		}
-
+	protected void searchFieldUpdate(KeyEvent event) {
 		// Do the search
 		updateSearch(searchField.getText());
 	}
@@ -180,9 +156,6 @@ public class SearchTable {
 	protected void updateSearch(String searchTerm) {
 		// Add or update the search term
 		searchTerms.put(model, searchField.getText());
-
-		// Show the reset button
-		resetButton.setVisible(true);
 
 		// Set the row filter
 		sorter.setRowFilter(filter);
@@ -200,9 +173,6 @@ public class SearchTable {
 
 		// Reset the search field
 		searchField.setText(resetSearchTerm);
-
-		// Hide the reset button
-		resetButton.setVisible(false);
 	}
 
 	/**
