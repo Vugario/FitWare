@@ -10,8 +10,6 @@ import javax.swing.ButtonGroup;
 import main.Session;
 import model.User;
 
-
-
 /**
  *
  * @author vm
@@ -26,27 +24,46 @@ public class Bmi extends javax.swing.JPanel {
     public Bmi() {
         initComponents();
     }
-   
+
     @SuppressWarnings("deprecation")
     public void loadUserData() {
-    User user = Session.get().getLoggedInUser();
-    
-    		ButtonGroup group = new ButtonGroup();
-		group.add(jRadioButton3);
-		group.add(jRadioButton4);
-                
-    if (user.getGender() == User.MALE) {
-			jRadioButton3.setSelected(true);
-		}else {
-			jRadioButton4.setSelected(true);
-		}
+        User user = Session.get().getLoggedInUser();
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(jRadioButton3);
+        group.add(jRadioButton4);
+
+        if (user.getGender() == User.MALE) {
+            jRadioButton3.setSelected(true);
+        } else {
+            jRadioButton4.setSelected(true);
+        }
+    }
+
+    private void bmiberekenen() {
+        float weight = new Float(txtWeight.getText());
+        float length = new Float(txtLength.getText()) / 100;
 
 
-    
 
-}
-    
-    
+        this.bmi = weight / (length * length);
+
+        txtResult.setText(String.format("Uw BMI is %.2f", this.bmi));
+
+        if (this.bmi < 18.5) {
+            txtDescription.setText("U heeft ondergewicht");
+        }
+        if (this.bmi < 25 && this.bmi > 18.5) {
+            txtDescription.setText("U heeft het ideale gewicht");
+        }
+        if (this.bmi > 25) {
+            txtDescription.setText("U heeft overgewicht");
+        }
+        if (this.bmi > 30) {
+            txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,12 +81,6 @@ public class Bmi extends javax.swing.JPanel {
         jLabel25 = new javax.swing.JLabel();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jAge = new javax.swing.JTextPane();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        txtLength = new javax.swing.JTextPane();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        txtWeight = new javax.swing.JTextPane();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -80,8 +91,12 @@ public class Bmi extends javax.swing.JPanel {
         txtDescription = new javax.swing.JLabel();
         txtResult = new javax.swing.JLabel();
         jButtonCalcBMI = new javax.swing.JButton();
+        jAge = new javax.swing.JTextField();
+        txtLength = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtWeight = new javax.swing.JTextField();
 
-        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48));
+        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         jLabel21.setText("BMI Berekenen");
 
         jLabel22.setText("Geslacht");
@@ -103,15 +118,6 @@ public class Bmi extends javax.swing.JPanel {
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Vrouw");
 
-        jAge.setName("txtAge"); // NOI18N
-        jScrollPane6.setViewportView(jAge);
-
-        txtLength.setName("txtLength"); // NOI18N
-        jScrollPane7.setViewportView(txtLength);
-
-        jScrollPane8.setName("txtWeight"); // NOI18N
-        jScrollPane8.setViewportView(txtWeight);
-
         jLabel26.setText("cm");
 
         jLabel27.setText("kg");
@@ -124,19 +130,33 @@ public class Bmi extends javax.swing.JPanel {
 
         jLabel30.setText("er sprake is van overgewicht, ondergewicht of een gezond gewicht.");
 
-        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24));
+        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel31.setText("Resultaat");
 
         txtDescription.setText(" ");
 
-        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18));
+        txtResult.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         txtResult.setText("Voer uw gegevens in");
 
-        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15));
+        jButtonCalcBMI.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jButtonCalcBMI.setText("Bereken!");
         jButtonCalcBMI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCalcBMIActionPerformed(evt);
+            }
+        });
+
+        jAge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAgeActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("jaar");
+
+        txtWeight.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtWeightKeyReleased(evt);
             }
         });
 
@@ -158,18 +178,24 @@ public class Bmi extends javax.swing.JPanel {
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel26))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jRadioButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButton4))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel27)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtWeight, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                    .addComponent(jAge, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtLength, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addComponent(jLabel26))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel1))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addComponent(jLabel27)))))
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,22 +230,24 @@ public class Bmi extends javax.swing.JPanel {
                             .addComponent(jLabel22)
                             .addComponent(jRadioButton3)
                             .addComponent(jRadioButton4))
-                        .addGap(18, 18, 18)
+                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel23)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jLabel26))
-                        .addGap(28, 28, 28)
+                                    .addComponent(jAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel24))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel26)
+                                .addComponent(txtLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel25)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel27)
+                                .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel31)
@@ -228,44 +256,36 @@ public class Bmi extends javax.swing.JPanel {
                             .addGap(63, 63, 63)
                             .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(44, 44, 44)
+                .addGap(41, 41, 41)
                 .addComponent(jButtonCalcBMI)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCalcBMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcBMIActionPerformed
-        float weight = new Float(txtWeight.getText());        
-        float length = new Float(txtLength.getText()) / 100;
-        
-        
-        
-        this.bmi = weight / (length * length);
-        
-        txtResult.setText(String.format("Uw BMI is %.2f", this.bmi));
-        
-        if (this.bmi < 18.5) {
-            txtDescription.setText("U heeft ondergewicht");
-        }
-        if (this.bmi < 25 && this.bmi > 18.5) {
-            txtDescription.setText("U heeft het ideale gewicht");
-        }
-        if (this.bmi > 25) {
-            txtDescription.setText("U heeft overgewicht");
-        }
-        if (this.bmi > 30) {
-            txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
-        }
+        bmiberekenen();
     }//GEN-LAST:event_jButtonCalcBMIActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
+    private void jAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAgeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAgeActionPerformed
+
+    private void txtWeightKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtWeightKeyReleased
+        // If this is an enter, check the login
+        // The KeyCode for an enter is 10
+        if (evt.getKeyCode() == 10) {
+            bmiberekenen();
+        }
+    }//GEN-LAST:event_txtWeightKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextPane jAge;
+    private javax.swing.JTextField jAge;
     private javax.swing.JButton jButtonCalcBMI;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -279,16 +299,10 @@ public class Bmi extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel txtDescription;
-    private javax.swing.JTextPane txtLength;
+    private javax.swing.JTextField txtLength;
     private javax.swing.JLabel txtResult;
-    private javax.swing.JTextPane txtWeight;
+    private javax.swing.JTextField txtWeight;
     // End of variables declaration//GEN-END:variables
-
-	
 }
-
