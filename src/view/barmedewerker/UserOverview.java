@@ -10,7 +10,7 @@
  */
 package view.barmedewerker;
 
-import main.Application;
+import main.Application2;
 
 /**
  * This is the class to view several users. From this view it's possible to go 

@@ -1,19 +1,27 @@
 package main;
 
+import javax.swing.SwingUtilities;
+
 public class Main {
-
-
-	protected static Application application;
 
 	public static void main(String args[]) {
 
-		application = new Application();
-		application.setVisible(true);
 		
-	}
+		final Application application = Application.getInstance();
+		SwingUtilities.invokeLater(new Runnable() {
 
-	public static Application getApplication() {
-		return application;
+			@Override
+			public void run() {
+				try {
+					//application.initialize();
+					application.startup();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
+
 	}
 
 }

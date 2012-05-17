@@ -5,6 +5,7 @@
  */
 package view.barmedewerker;
 
+import java.util.Date;
 import javax.swing.ButtonGroup;
 import main.Session;
 import model.User;
@@ -41,7 +42,7 @@ public class UserModify extends javax.swing.JPanel {
 		String lastname = jTextFieldLastname.getText();
 		user.setUsername(username);
 
-		String birthdate = jTextFieldBirthdate.getText();
+		Date birthdate = (Date) jSpinner1.getModel().getValue();
 		user.setUsername(username);
 
 		String street = jTextFieldStreet.getText();
@@ -113,7 +114,6 @@ public class UserModify extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jTextFieldSubname = new javax.swing.JTextField();
         jTextFieldLastname = new javax.swing.JTextField();
-        jTextFieldBirthdate = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jRadioButtonGenderMale = new javax.swing.JRadioButton();
@@ -147,15 +147,10 @@ public class UserModify extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
-        jTextFieldSearch = new javax.swing.JTextField();
-        jButtonSearch = new javax.swing.JButton();
-        jTextFieldAccountNumber = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jTextFieldTNV = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
-        jLabel4.setText("Gebruiker Wijzigen");
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel4.setText("Gebruiker Aanmaken");
 
         jLabel5.setText("Klantnummer");
 
@@ -181,7 +176,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel11.setText("Woonplaats / postcode");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel12.setText("Contactgegevens");
 
         jLabel13.setText("Telefoonnummer");
@@ -190,7 +185,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel15.setText("E-mailadres");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel16.setText("Wachtwoord");
 
         jLabel17.setText("Wachtwoord herhalen");
@@ -253,8 +248,6 @@ public class UserModify extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(profileSaveButton)
-                    .add(jLabel16)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel18)
@@ -282,7 +275,6 @@ public class UserModify extends javax.swing.JPanel {
                             .add(jLabel19))
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextFieldBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
@@ -373,7 +365,7 @@ public class UserModify extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
-                    .add(jTextFieldBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jSpinner1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jRadioButtonGenderFemale)
