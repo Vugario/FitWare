@@ -176,7 +176,7 @@ public class User extends Model {
 			this.firstname = this.result.getString("firstname");
 			this.lastname = this.result.getString("lastname");
 			this.subname = this.result.getString("subname");
-			this.birthdate = this.result.getString("birthdate");
+			this.birthdate = this.result.getTimestamp("birthdate");
 			this.gender = this.result.getBoolean("gender");
 			this.email = this.result.getString("email");
 			this.active = this.result.getBoolean("active");

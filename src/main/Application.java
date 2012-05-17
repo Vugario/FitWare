@@ -48,6 +48,8 @@ public final class Application {
 	
 	public void startup(){
 	
+		
+		
 		window = new JFrame("Fitware");
 		window.setSize(1000, 1000);
 		window.setResizable(false);
@@ -81,8 +83,7 @@ public final class Application {
 		window.getContentPane().add(header, BorderLayout.NORTH);
 	
 		User userSession = Session.get().getLoggedInUser();
-		
-		//System.exit(0);
+
 		if(userSession == null){
 			window.getContentPane().add(new view.Login());
 
