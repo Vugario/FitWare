@@ -46,9 +46,9 @@ public final class Application {
 	}
 	
 	public void startup(){
-		
+	
 		window = new JFrame("Fitware");
-		window.setSize(1000, 600);
+		window.setSize(1000, 1000);
 		window.setResizable(false);
 		window.addWindowListener(new WindowAdapter() {
 			

@@ -55,7 +55,7 @@ public class Session {
 
         // Try to find a user with the given username and password
         User user = new User().readByCredentials(username, password);
-		//System.out.println(user);
+		
 		if(user.getId() > 0){
 			this.loggedInUser = user;
 			return true;

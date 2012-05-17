@@ -7,6 +7,7 @@ package view;
 
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
+import main.Application;
 import main.Session;
 import model.User;
 
@@ -16,27 +17,31 @@ import model.User;
  */
 public class Profile extends javax.swing.JPanel {
 
+	
+	
+	private	User user = new User().readUser(Session.get().getLoggedInUser().getId());
+
+	
 	/** Creates new form Profile */
 	public Profile() {
 		initComponents();
+		loadUserData();
 	}
 
 	public void loadUserData() {
-		User user = Session.get().getLoggedInUser();
-
+		
 		jTextFieldId.setText(Integer.toString(user.getId()));
 		jTextFieldUsername.setText(user.getUsername());
 		jTextFieldFirstname.setText(user.getFirstname());
 		jTextFieldSubname.setText(user.getSubname());
 		jTextFieldLastname.setText(user.getLastname());
-		jTextFieldBirthdate.setText(user.getBirthdate());
+		jTextFieldBirthdate.setText(user.getBirthdate().toString());
 		jTextFieldStreet.setText(user.getStreet());
 		jTextFieldCity.setText(user.getCity());
 		jTextFieldStreetnumber.setText(user.getHousenumber());
 		jTextFieldPostcode.setText(user.getPostcode());
 		jTextFieldPhonenumber.setText(user.getPhonenumber());
 		jTextFieldMobilenumber.setText(user.getMobilenumber());
-		jTextFieldEmail.setText(user.getEmail());
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(jRadioButtonGenderMale);
@@ -47,12 +52,11 @@ public class Profile extends javax.swing.JPanel {
 		} else {
 			jRadioButtonGenderFemale.setSelected(true);
 		}
-		jPasswordField1.setText(null);
-		jPasswordField2.setText(null);
+		jPasswordField1.setText(user.getPassword());
+		jPasswordField2.setText(user.getPassword());
 	}
 
 	public void setUserData() {
-		User user = Session.get().getLoggedInUser();
 
 		String username = jTextFieldUsername.getText();
 		user.setUsername(username);
@@ -67,7 +71,8 @@ public class Profile extends javax.swing.JPanel {
 		user.setUsername(username);
 
 		String birthdate = jTextFieldBirthdate.getText();
-		user.setUsername(username);
+		helper.Datetime datetime = new helper.Datetime(birthdate);	
+		user.setBirthdate(datetime.timestamp());
 
 		String street = jTextFieldStreet.getText();
 		user.setStreet(street);
@@ -95,7 +100,6 @@ public class Profile extends javax.swing.JPanel {
 		} else {
 			user.setGender(false);
 		}
-		user.save();
 
 	}
 
@@ -334,17 +338,19 @@ public class Profile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-
+		setUserData();
+		// passwordequal is to check if the two password fields match
+		/*String password1 = new String(jPasswordField1.getPassword());
+		String password2 = new String(jPasswordField2.getPassword());
+		Boolean passwordequal = password1.equals(password2);*/
+		
 		// TODO make an updatesql to upload new settings into database
-		User user = Session.get().getLoggedInUser();
-		user.save();
+		System.out.println(user.save());
+		System.exit(0);
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
-		// passwordequal is to check if the two password fields match
-		String password1 = new String(jPasswordField1.getPassword());
-		String password2 = new String(jPasswordField2.getPassword());
-		Boolean passwordequal = password1.equals(password2);
+
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
@@ -354,10 +360,12 @@ public class Profile extends javax.swing.JPanel {
 		}
 		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
 		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
-		if (!passwordequal) {
+		/*if (!passwordequal) {
 			new Popup().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
-		}
+		}*/
 
+		Application.getInstance().showPanel(this);
+		
     }//GEN-LAST:event_profileSaveButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -396,3 +404,19 @@ public class Profile extends javax.swing.JPanel {
     private javax.swing.JButton profileSaveButton;
     // End of variables declaration//GEN-END:variables
 }
+
+
+/*
+ * 
+		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
+		if (emailcheck < 0) {
+
+			new Popup().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
+					+ "Probeer het nogmaals alstublieft.");
+		}
+		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
+		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
+		if (!passwordequal) {
+			new Popup().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
+		}
+ */
