@@ -24,8 +24,9 @@ public class Popup extends javax.swing.JPanel {
 	public static final int TYPE_NORMAL = 0;
 	public static final int TYPE_ERROR = 1;
 	public static final int TYPE_NOTICE = 2;
+	public static final int TYPE_SUCCESS = 3;
 	
-	protected static Color[] colors = new Color[3];
+	protected static Color[] colors = new Color[4];
 
 	/**
 	 * The alpha transparant background for popups
@@ -172,6 +173,8 @@ public class Popup extends javax.swing.JPanel {
 			colors[Popup.TYPE_ERROR] = new Color(255, 0, 0);
 			// Blue
 			colors[Popup.TYPE_NOTICE] = new Color(0, 0, 255);
+			// Green
+			colors[Popup.TYPE_SUCCESS] = new Color(0, 255, 0);
 		}
 		
 		// Create an alpha-transparent JPanel
