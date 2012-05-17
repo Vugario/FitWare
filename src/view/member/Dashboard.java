@@ -17,6 +17,8 @@ import model.User;
  */
 public class Dashboard extends javax.swing.JPanel {
 
+	private Purchase purchase = new Purchase();
+	private User user = Session.get().getLoggedInUser();
     /**
      * Creates new form Dashboard
      */
@@ -25,19 +27,19 @@ public class Dashboard extends javax.swing.JPanel {
     }
 
     public void updateUserInfo() {
-        User user = Session.get().getLoggedInUser();
+        
         this.jLabelFullname.setText(user.getFullName());
     }
 	
 	public void latestPurchase (){
-			Purchase purchase = new Purchase();
-	
+			
+		purchase.readLastPurchase(user.getId());
+		
 			System.out.println(purchase.getUser_id());
+			System.out.println(purchase.getDatetime());
+			System.out.println(purchase.getPrice());
+			System.out.println(purchase.getPaymentoption());
 	}
-
-	
-	
-
 
         /**
          * This method is called from within the constructor to initialize the

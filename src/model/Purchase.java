@@ -21,32 +21,37 @@ public class Purchase extends helper.db.Model {
     private Timestamp datetime;
 	private int user_id;
 	private User user = new User();
+	
+	public Purchase(){
 		
-	public Purchase readLastPurchase(){
+	}
+	
+	public Purchase readLastPurchase(int userId){
 		try{
 			this.open();
 			this.query(
-	"SELECT "
-			+ "pur.datetime,"
-			+ "p.name,"
-			+ "pur.quantity*p.price as \"price\""
-	+ "FROM "
-					+ "\"user\" u "
-	+ "JOIN "
-					+ "purchase pur "
-	+ "ON "
-					+ "u.id = pur.user_id "
-	+ "JOIN "
-					+ "product p "
-	+ "ON "
-					+ "p.id = pur.product_id "
-	+ "WHERE u.id = ? "
-	+ "LIMIT "
-					+ "10"
-	).setInt(1, id);
+				"SELECT "
+						+ "pur.datetime, "
+						+ "p.name, "
+						+ "pur.quantity*p.price as \"price\", "
+						+ "pur.user_id "
+				+ "FROM "
+								+ "\"user\" u "
+				+ "JOIN "
+								+ "purchase pur "
+				+ "ON "
+								+ "u.id = pur.user_id "
+				+ "JOIN "
+								+ "product p "
+				+ "ON "
+								+ "p.id = pur.product_id "
+				+ "WHERE u.id = ? "
+				+ "LIMIT "
+								+ "10"
+				).setInt(1, userId);
 			this.result();
-			//this.result.first();
-
+			System.out.println(this.result.getStatement());
+			
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {	
