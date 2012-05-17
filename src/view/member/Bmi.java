@@ -6,6 +6,8 @@
 package view.member;
 
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.ButtonGroup;
 import main.Session;
 import model.User;
@@ -23,6 +25,7 @@ public class Bmi extends javax.swing.JPanel {
      */
     public Bmi() {
         initComponents();
+        
     }
 
     @SuppressWarnings("deprecation")
@@ -38,6 +41,25 @@ public class Bmi extends javax.swing.JPanel {
         } else {
             jRadioButton4.setSelected(true);
         }
+        
+        //Leeftijd uitrekenen:
+        //Dag omzetten in integers
+        String bday = user.getBirthdate();
+
+        int day = Integer.parseInt(bday.substring(8, 10));
+        //Maand omzetten in integers
+        int month = Integer.parseInt(bday.substring(5, 7));
+        
+        //Jaar omzetten in integers
+        int year = Integer.parseInt(bday.substring(0, 4));
+        
+        int age = age(year, month, day);
+        
+        String age2 = Integer.toString(age);
+        
+        jAge.setText(age2);
+
+        
     }
 
     private void bmiberekenen() {
@@ -62,6 +84,18 @@ public class Bmi extends javax.swing.JPanel {
         if (this.bmi > 30) {
             txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
         }
+    }
+    
+    private static int age(int y, int m, int d) {
+        Calendar cal = new GregorianCalendar(y, m, d);
+        Calendar now = new GregorianCalendar();
+        int res = now.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
+        if ((cal.get(Calendar.MONTH) > now.get(Calendar.MONTH))
+                || (cal.get(Calendar.MONTH) == now.get(Calendar.MONTH)
+                && cal.get(Calendar.DAY_OF_MONTH) > now.get(Calendar.DAY_OF_MONTH))) {
+            res--;
+        }
+        return res;
     }
 
     /**
@@ -109,11 +143,6 @@ public class Bmi extends javax.swing.JPanel {
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Man");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Vrouw");
@@ -143,12 +172,6 @@ public class Bmi extends javax.swing.JPanel {
         jButtonCalcBMI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCalcBMIActionPerformed(evt);
-            }
-        });
-
-        jAge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAgeActionPerformed(evt);
             }
         });
 
@@ -266,14 +289,6 @@ public class Bmi extends javax.swing.JPanel {
         bmiberekenen();
     }//GEN-LAST:event_jButtonCalcBMIActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
-
-    private void jAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAgeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jAgeActionPerformed
-
     private void txtWeightKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtWeightKeyReleased
         // If this is an enter, check the login
         // The KeyCode for an enter is 10
@@ -281,6 +296,7 @@ public class Bmi extends javax.swing.JPanel {
             bmiberekenen();
         }
     }//GEN-LAST:event_txtWeightKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField jAge;
