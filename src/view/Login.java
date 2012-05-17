@@ -5,6 +5,7 @@
  */
 package view;
 
+import main.Application;
 import main.Session;
 
 /**
@@ -22,23 +23,14 @@ public class Login extends javax.swing.JPanel {
 	 * Check if the given username and password are correct
 	 */
 	protected void checkLogin() {
-		
+	
 		String username = jTextFieldUsername.getText();
 		String password = new String(jPasswordField.getPassword());
+		if(Session.get().logIn(username, password)){
+			Application.getInstance().showPanel(new view.member.Dashboard());
+		};
 		
-		// Check if all fields are given
-		if (username.equals("") || password.equals("")) {
-			Popup popup = new Popup();
-			popup.showError("U heeft uw gebruikersnaam of wachtwoord niet ingevuld.");
-			return;
-		}
-		
-		if(Session.get().logIn(username, password)) {
-			// Login succesful, reset input fields
-			jTextFieldUsername.setText(null);
-			jPasswordField.setText(null);
-		}
-		
+		return;	
 	}
 
 	/** This method is called from within the constructor to
@@ -68,7 +60,7 @@ public class Login extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
         setLayout(new java.awt.GridBagLayout());
 
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel6.setText("Inloggen");
 
         javax.swing.GroupLayout jPanelHeaderLayout = new javax.swing.GroupLayout(jPanelHeader);

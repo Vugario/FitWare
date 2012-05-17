@@ -21,57 +21,39 @@ public class Datetime{
 	
 	private String dateString;
 	private SimpleDateFormat dateFormat;
-	private long timestamp;
+	private long unixTimestamp;
+	private Timestamp timestamp;
 	private Date parsedDate;
 
 	
 	public Datetime(){
 		
 		this.parsedDate = new Date();
-		this.timestamp = parsedDate.getTime();
+		this.unixTimestamp = parsedDate.getTime();
 	}
 	
 	public Datetime(String dateString){
 	
-		Timestamp ts2 = Timestamp.valueOf(dateString);
-		this.timestamp = ts2.getTime();
+		this.timestamp = Timestamp.valueOf(dateString);
+
+		this.unixTimestamp = timestamp.getTime();
 		
 	}
 	
 	public Datetime(long time){
-		this.timestamp = time;
+		this.unixTimestamp = time;
 	}
 	
 	public Datetime(Timestamp time){
-		this.timestamp = time.getTime();
+		this.unixTimestamp = time.getTime();
 	}
-	
-	
+		
 	public String format(String format){
-		dateFormat = new SimpleDateFormat(format);
-		System.out.println(dateString);
-		try {
-			dateFormat.parse(this.dateString);
-			
-		} catch (ParseException ex) {
-			Logger.getLogger(Datetime.class.getName()).log(Level.SEVERE, null, ex);
-		}
 		
-		TimeZone tZ = TimeZone.getTimeZone("Europe/Amsterdam");
-
-		dateFormat.setTimeZone(tZ);
-		String diff = dateFormat.format(parsedDate);
-
-		
-		return diff;
-	}
-
-	
-	public String format2(String format){
 		dateFormat = new SimpleDateFormat(format);
 
 		//Timestamp ts2 = Timestamp.valueOf(this.dateString);
-		parsedDate = new Date(timestamp);
+		parsedDate = new Date(unixTimestamp);
 
 		TimeZone tZ = TimeZone.getTimeZone("Europe/Amsterdam");
 
@@ -82,6 +64,12 @@ public class Datetime{
 
 		
 		return diff;
+	}
+	
+	public Timestamp timestamp(){
+		
+		return this.timestamp;
+		
 	}
 	
 	

@@ -12,7 +12,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import main.Application;
+import main.Application2;
 import main.Main;
 
 /**
@@ -141,7 +141,7 @@ public class Popup extends javax.swing.JPanel {
 		this.setLocation(posX, posY);
 		
 		// Get the wrapper of our application...
-		Application application = Main.getApplication();
+		Application2 application = Main.getApplication();
 		JLayeredPane wrapper = application.getWrapper();
 		
 		// ...and add the background and popup to it
@@ -158,7 +158,7 @@ public class Popup extends javax.swing.JPanel {
 	protected void close() {
 		
 		// Get the wrapper of our application...
-		Application application = Main.getApplication();
+		Application2 application = Main.getApplication();
 		JLayeredPane wrapper = application.getWrapper();
 		
 		// Remove the background and popup
@@ -198,7 +198,7 @@ public class Popup extends javax.swing.JPanel {
 		this.popupBackground.setBackground(new Color(0, 0, 0, 90));
 		
 		// Set the size to the same size as the application
-		Application application = Main.getApplication();
+		Application2 application = Main.getApplication();
 		Dimension dimension = application.getWrapper().getSize();
 		this.popupBackground.setSize(dimension);
 		this.popupBackground.setPreferredSize(dimension);

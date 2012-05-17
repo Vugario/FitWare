@@ -51,12 +51,19 @@ public class Session {
      */
     public boolean logIn(String username, String password) {
 
-        Application application = Main.getApplication();
+        Application application = Application.getInstance();
 
         // Try to find a user with the given username and password
         User user = new User().readByCredentials(username, password);
-
-        if (user.getId() == 0) {
+		
+		if(user.getId() > 0){
+			this.loggedInUser = user;
+			return true;
+		};
+		
+		//this.loggedInUser = user;
+		
+        /*if (user.getId() == 0) {
             // Login failed
             Popup popup = new Popup();
             popup.showError("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
@@ -84,7 +91,7 @@ public class Session {
             Dashboard dashboard = (Dashboard) application.getPage("dashboard");
             dashboard.updateUserInfo();
             return true;
-        }
+        }*/
 
         return false;
     }
@@ -98,7 +105,7 @@ public class Session {
         this.loggedInUser = null;
 
         // And go to the login page
-        Application application = Main.getApplication();
+        Application2 application = Main.getApplication();
 
         // 1. Hide the menu
         application.showMenu(false);

@@ -15,8 +15,10 @@ public class Manager {
 	private Statement stmnt;
 	
 	public Manager() {
+
 		try {
 			Class.forName("org.postgresql.Driver");
+
 		} catch (ClassNotFoundException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
@@ -58,14 +60,14 @@ public class Manager {
 	/**
 	 * Execute a query without returning a result
 	 */
-	/*public void execute()
+	public void execute()
 	{	
 		try {
 			dbQuery.executeUpdate();
 		} catch (SQLException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
-	}*/
+	}
 	
 	/**
 	 * Execute a query returning a resultset
@@ -73,6 +75,7 @@ public class Manager {
 	public void result() {
 		
 		try {
+			
 			result = dbQuery.executeQuery();
 			
 		} catch (SQLException ex){

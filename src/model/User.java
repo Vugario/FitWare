@@ -5,9 +5,14 @@
 package model;
 
 import helper.db.Model;
+import helper.Datetime;
+import java.sql.Timestamp;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import java.text.DateFormat;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +27,9 @@ public class User extends Model {
 	private String firstname;
 	private String lastname;
 	private String subname;
-	private String birthdate;
+
+	private Timestamp birthdate;
+
 	private boolean gender;
 	private String email;
 	private boolean active;
@@ -62,9 +69,13 @@ public class User extends Model {
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM \"user\" WHERE username = ? AND password = MD5(?) LIMIT 1");
 
+			
 			query.setString(1, username.toLowerCase());
 			query.setString(2, password);
 			this.result();
+
+			this.result.first();
+
 
 			//System.exit(0);
 
@@ -77,7 +88,7 @@ public class User extends Model {
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
+		
 		return this;
 	}
 
@@ -91,7 +102,10 @@ public class User extends Model {
 	}
 	
 	}*/
-	public void save() {
+
+	public boolean save() {
+		
+
 		try {
 			this.open();
 
@@ -110,22 +124,21 @@ public class User extends Model {
 					+ "mobilenumber = ?,"
 					+ "email = ?,"
 					+ "gender = ?,"
-					+ (passwordChanged ? "password = ?" : "")
+					+ (passwordChanged ? "password = MD5(?)" : "")
 					+ "WHERE id = ?");
 			query.setString(1, username.toLowerCase());
 			query.setString(2, firstname);
 			query.setString(3, subname);
 			query.setString(4, lastname);
+			query.setTimestamp(5, birthdate);
 
-			//Datetime datetime = new Datetime(birthdate);
-
-			//query.setTimestamp(14, birthdate);
 			query.setString(6, street);
 			query.setString(7, housenumber);
 			query.setString(8, phonenumber);
 			query.setString(9, mobilenumber);
 			query.setString(10, email);
 			query.setBoolean(11, gender);
+			
 			if (passwordChanged) {
 				query.setString(12, password);
 				query.setInt(13, id);
@@ -133,21 +146,26 @@ public class User extends Model {
 				query.setInt(12, id);
 			}
 
-			this.result();
+			
+			this.execute();
 
-			this.setPropertiesFromResult();
+			//this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
+		return false;
+		
 	}
 
 	protected void setPropertiesFromResult() {
+
 		try {
 
 			// Check if there is a result
 			if (this.result.getRow() == 0) {
+
 				// There is no result, so return without doing anything
 				return;
 			}
@@ -215,11 +233,13 @@ public class User extends Model {
 		this.bankaccount = bankaccount;
 	}
 
-	public String getBirthdate() {
+	public Timestamp getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(String birthdate) {
+
+	public void setBirthdate(Timestamp birthdate) {
+
 		this.birthdate = birthdate;
 	}
 
