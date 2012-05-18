@@ -12,8 +12,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import main.Application2;
-import main.Main;
+import main.Application;
+
 
 /**
  *
@@ -24,8 +24,9 @@ public class Popup extends javax.swing.JPanel {
 	public static final int TYPE_NORMAL = 0;
 	public static final int TYPE_ERROR = 1;
 	public static final int TYPE_NOTICE = 2;
+	public static final int TYPE_SUCCESS = 3;
 	
-	protected static Color[] colors = new Color[3];
+	protected static Color[] colors = new Color[4];
 
 	/**
 	 * The alpha transparant background for popups
@@ -139,14 +140,11 @@ public class Popup extends javax.swing.JPanel {
 		int posX = (this.popupBackground.getWidth() - this.getWidth()) / 2;
 		int posY = (this.popupBackground.getHeight() - this.getHeight()) / 3;
 		this.setLocation(posX, posY);
-		
-		// Get the wrapper of our application...
-		Application2 application = Main.getApplication();
-		JLayeredPane wrapper = application.getWrapper();
+
 		
 		// ...and add the background and popup to it
-		wrapper.add(this.popupBackground, new Integer(100));
-		wrapper.add(this, new Integer(101));
+		add(this.popupBackground, new Integer(100));
+		add(this, new Integer(101));
 		
 		// Finaly, focus the 'close' button
 		this.jButtonClosePopup.requestFocusInWindow();
@@ -156,17 +154,10 @@ public class Popup extends javax.swing.JPanel {
 	 * Hide this popup
 	 */
 	protected void close() {
-		
-		// Get the wrapper of our application...
-		Application2 application = Main.getApplication();
-		JLayeredPane wrapper = application.getWrapper();
-		
 		// Remove the background and popup
-		wrapper.remove(this.popupBackground);
-		wrapper.remove(this);
+		remove(this.popupBackground);
+		remove(this);
 		
-		// Repaint the application
-		application.repaint();
 	}
 	
 	/**
@@ -182,6 +173,8 @@ public class Popup extends javax.swing.JPanel {
 			colors[Popup.TYPE_ERROR] = new Color(255, 0, 0);
 			// Blue
 			colors[Popup.TYPE_NOTICE] = new Color(0, 0, 255);
+			// Green
+			colors[Popup.TYPE_SUCCESS] = new Color(0, 255, 0);
 		}
 		
 		// Create an alpha-transparent JPanel
@@ -198,8 +191,8 @@ public class Popup extends javax.swing.JPanel {
 		this.popupBackground.setBackground(new Color(0, 0, 0, 90));
 		
 		// Set the size to the same size as the application
-		Application2 application = Main.getApplication();
-		Dimension dimension = application.getWrapper().getSize();
+	//	Application application = Application.getInstance().
+		Dimension dimension = new Dimension(100, 100);
 		this.popupBackground.setSize(dimension);
 		this.popupBackground.setPreferredSize(dimension);
 		this.popupBackground.setMaximumSize(dimension);

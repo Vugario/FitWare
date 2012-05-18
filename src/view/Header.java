@@ -10,6 +10,7 @@
  */
 package view;
 
+import main.Application;
 import main.Session;
 import model.User;
 
@@ -115,6 +116,7 @@ public class Header extends javax.swing.JPanel {
 
 	private void jLabelLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLogoutMouseClicked
 		Session.get().logOut();
+		Application.getInstance().showPanel(new view.Login());
 	}//GEN-LAST:event_jLabelLogoutMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
