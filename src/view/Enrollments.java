@@ -35,7 +35,7 @@ public class Enrollments extends javax.swing.JPanel {
     public Enrollments() {
         initComponents();
         
-        this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonSearch, jButtonReset);
+        this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonReset);
         
         // Fill the model with example data
         this.model = (DefaultTableModel) jEnrollments.getModel();
