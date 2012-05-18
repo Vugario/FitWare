@@ -41,6 +41,7 @@ public class Profile extends javax.swing.JPanel {
 		jTextFieldCity.setText(user.getCity());
 		jTextFieldStreetnumber.setText(user.getHousenumber());
 		jTextFieldPostcode.setText(user.getPostcode());
+		jTextFieldEmail.setText(user.getEmail());
 		jTextFieldPhonenumber.setText(user.getPhonenumber());
 		jTextFieldMobilenumber.setText(user.getMobilenumber());
 
