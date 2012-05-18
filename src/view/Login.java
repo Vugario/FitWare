@@ -23,14 +23,25 @@ public class Login extends javax.swing.JPanel {
 	 * Check if the given username and password are correct
 	 */
 	protected void checkLogin() {
-	
+		
 		String username = jTextFieldUsername.getText();
 		String password = new String(jPasswordField.getPassword());
-		if(Session.get().logIn(username, password)){
-			Application.getInstance().showPanel(new view.member.Dashboard());
-		};
 		
-		return;	
+		// Check for empty fields
+		if(username.isEmpty() || password.isEmpty()) {
+			Application.getInstance().showPopup(new PopupError("U heeft uw gebruikersnaam of wachtwoord niet ingevuld"));
+			return;
+		}
+		
+		// Try to login
+		if(Session.get().logIn(username, password)){
+			// Login succesful
+			Application.getInstance().showPanel(new view.member.Dashboard());
+		}
+		else {
+			// Login failed
+			Application.getInstance().showPopup(new PopupError("Gebruikersnaam en wachtwoord combinatie is niet bekend."));
+		}
 	}
 
 	/** This method is called from within the constructor to

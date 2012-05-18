@@ -6,9 +6,6 @@
 package view.menu;
 
 import main.Application;
-import main.Application2;
-
-import view.member.Dashboard;
 
 /**
  *

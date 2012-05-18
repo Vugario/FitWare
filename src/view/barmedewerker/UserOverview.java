@@ -130,9 +130,7 @@ public class UserOverview extends javax.swing.JPanel {
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 		// TODO add new user (go to the profile panel)
-		//main.Main.getApplication().changeContentPanel("useradd");
-		Application.getInstance().showPanel(new view.barmedewerker.UserAdd());
-		
+		Application.getInstance().showPanel(new UserAdd());
 	}//GEN-LAST:event_jButton2ActionPerformed
 
 	private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained

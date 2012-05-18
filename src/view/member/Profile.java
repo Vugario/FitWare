@@ -10,7 +10,7 @@ import javax.swing.ButtonGroup;
 import main.Application;
 import main.Session;
 import model.User;
-import view.Popup;
+import view.PopupError;
 
 /**
  *
@@ -352,19 +352,23 @@ public class Profile extends javax.swing.JPanel {
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
-
+		String password1 = new String(jPasswordField1.getPassword());
+		String password2 = new String(jPasswordField2.getPassword());
+		Boolean passwordequal = password1.equals(password2);
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
 
-			new Popup().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
-					+ "Probeer het nogmaals alstublieft.");
+			Application.getInstance().showPopup(new PopupError(
+					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
+					+ "Probeer het nogmaals alstublieft."));
 		}
 		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
 		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
-		/*if (!passwordequal) {
-			new Popup().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
-		}*/
+		if (!passwordequal) {
+			Application.getInstance().showPopup(new PopupError(
+					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
+		}
 
 		Application.getInstance().showPanel(this);
 		
@@ -413,12 +417,12 @@ public class Profile extends javax.swing.JPanel {
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
 
-			new Popup().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
+			new PopupError().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft.");
 		}
 		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
 		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
 		if (!passwordequal) {
-			new Popup().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
+			new PopupError().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
 		}
  */

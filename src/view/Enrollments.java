@@ -5,12 +5,13 @@
  */
 package view;
 
+import helper.SearchTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import main.Application2;
-import main.Main;
+import main.Session;
+import model.Enrollment;
 
 /**
  *
@@ -26,13 +27,15 @@ public class Enrollments extends javax.swing.JPanel {
      * An individual row to attach the onclick event
      */
     private ListSelectionModel row;
+    private final SearchTable searchTable;
+    
+    private Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
 
     /** Creates new form Enrollments */
     public Enrollments() {
         initComponents();
         
-        // Get application
-        Application2 application = Main.getApplication();
+        this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonReset);
         
         // Fill the model with example data
         this.model = (DefaultTableModel) jEnrollments.getModel();
@@ -47,11 +50,13 @@ public class Enrollments extends javax.swing.JPanel {
         this.row.addListSelectionListener( new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-               /* if (! e.getValueIsAdjusting())
+               if (! e.getValueIsAdjusting())
                 {
-                    Application application = Main.getApplication();
-                    application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
-                }*/
+                    Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
+                    //System.out.println( enrollments.getId() );
+                    //Application application = Main.getApplication();
+                    //application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
+                }
             }
         });
     }
@@ -66,8 +71,11 @@ public class Enrollments extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEnrollments = new javax.swing.JTable();
+        jTextFieldSearch = new javax.swing.JTextField();
+        jButtonSearch = new javax.swing.JButton();
+        jButtonReset = new javax.swing.JButton();
 
-        jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel19.setText("Mijn cursussen");
 
         jEnrollments.setModel(new javax.swing.table.DefaultTableModel(
@@ -88,6 +96,12 @@ public class Enrollments extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jEnrollments);
 
+        jTextFieldSearch.setText("zoekterm");
+
+        jButtonSearch.setText("Zoek");
+
+        jButtonReset.setText("Reset");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +110,16 @@ public class Enrollments extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                    .addComponent(jLabel19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonReset)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,15 +127,25 @@ public class Enrollments extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel19)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearch)
+                    .addComponent(jButtonReset))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jButtonReset.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonReset;
+    private javax.swing.JButton jButtonSearch;
     private javax.swing.JTable jEnrollments;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
 
     private class jLayeredPaneWrapper {
