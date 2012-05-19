@@ -9,7 +9,7 @@ import javax.swing.ButtonGroup;
 import main.Application;
 import main.Session;
 import model.User;
-import view.PopupError;
+import view.popups.ErrorPopup;
 
 
 /**
@@ -439,14 +439,14 @@ public class UserModify extends javax.swing.JPanel {
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
 
-			Application.getInstance().showPopup(new PopupError(
+			Application.getInstance().showPopup(new ErrorPopup(
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
 		}
 		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
 		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
 		if (!passwordequal) {
-			Application.getInstance().showPopup(new PopupError(
+			Application.getInstance().showPopup(new ErrorPopup(
 					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 		}
         

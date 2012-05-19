@@ -1,9 +1,9 @@
 /*
- * PopupError.java
+ * ErrorPopup.java
  *
  * Created on May 13, 2012, 2:37:50 PM
  */
-package view;
+package view.popups;
 
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -14,7 +14,7 @@ import main.Application;
  *
  * @author Daan
  */
-public class PopupError extends javax.swing.JPanel {
+public class ErrorPopup extends javax.swing.JPanel {
 
 	public static final int TYPE_NORMAL = 0;
 	public static final int TYPE_ERROR = 1;
@@ -27,11 +27,11 @@ public class PopupError extends javax.swing.JPanel {
 	protected JPanel popupBackground;
 
 	/**
-	 * Creates new form PopupError
+	 * Creates new form ErrorPopup
 	 * 
 	 * @param message The message to show
 	 */
-	public PopupError(String message) {
+	public ErrorPopup(String message) {
 		super();
 		initComponents();
 		
@@ -70,19 +70,19 @@ public class PopupError extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelBorders = new javax.swing.JPanel();
-        jLabelFoutmelding = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         jLabelMessage = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButtonClosePopup = new javax.swing.JButton();
 
         setOpaque(false);
 
-        jPanelBorders.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 3, true));
+        jPanelBorders.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
 
-        jLabelFoutmelding.setFont(new java.awt.Font("Lucida Grande", 1, 13));
-        jLabelFoutmelding.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelFoutmelding.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFoutmelding.setText("FOUTMELDING");
+        jLabelTitle.setFont(new java.awt.Font("Lucida Grande", 1, 13));
+        jLabelTitle.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitle.setText("FOUTMELDING");
 
         jLabelMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelMessage.setText("<foutmelding bericht komt hier>");
@@ -115,14 +115,14 @@ public class PopupError extends javax.swing.JPanel {
                         .add(20, 20, 20)
                         .add(jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
-                            .add(jLabelFoutmelding, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))))
+                            .add(jLabelTitle, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelBordersLayout.setVerticalGroup(
             jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanelBordersLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabelFoutmelding)
+                .add(jLabelTitle)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -161,8 +161,8 @@ public class PopupError extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonClosePopupKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClosePopup;
-    private javax.swing.JLabel jLabelFoutmelding;
     private javax.swing.JLabel jLabelMessage;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBorders;
     // End of variables declaration//GEN-END:variables
