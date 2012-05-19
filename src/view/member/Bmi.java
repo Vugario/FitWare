@@ -9,8 +9,10 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.ButtonGroup;
+import main.Application;
 import main.Session;
 import model.User;
+import view.popups.ErrorPopup;
 
 /**
  *
@@ -71,7 +73,8 @@ public class Bmi extends javax.swing.JPanel {
         this.bmi = weight / (length * length);
         }
         catch(NumberFormatException nfe){
-            
+            Application.getInstance().showPopup(new ErrorPopup("U heeft niet alle velden ingevuld. \n"
+                    + "Vul deze in en probeer opnieuw."));
         }
         
 
