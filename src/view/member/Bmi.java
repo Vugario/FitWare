@@ -25,11 +25,11 @@ public class Bmi extends javax.swing.JPanel {
      */
     public Bmi() {
         initComponents();
-        
+        loadUserData();   
     }
 
     @SuppressWarnings("deprecation")
-    public void loadUserData() {
+    public final void loadUserData() {
         User user = Session.get().getLoggedInUser();
 
         ButtonGroup group = new ButtonGroup();
@@ -42,9 +42,11 @@ public class Bmi extends javax.swing.JPanel {
             jRadioButton4.setSelected(true);
         }
         
+       
+        
         //Leeftijd uitrekenen:
         //Dag omzetten in integers
-        String bday = user.getBirthdate();
+        String bday = user.getBirthdate().toString();
 
         int day = Integer.parseInt(bday.substring(8, 10));
         //Maand omzetten in integers
