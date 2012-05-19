@@ -66,9 +66,9 @@ public class BarApp extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton1.setText("<html><p align=\"center\"><strong>Broodje Kaas</strong><br>2 sneden / €3,99</p></html>");
-        jButton1.setMaximumSize(new java.awt.Dimension(90, 23));
-        jButton1.setMinimumSize(new java.awt.Dimension(90, 23));
-        jButton1.setPreferredSize(new java.awt.Dimension(90, 23));
+        jButton1.setMaximumSize(new java.awt.Dimension(120, 60));
+        jButton1.setMinimumSize(new java.awt.Dimension(120, 60));
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 60));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -77,11 +77,15 @@ public class BarApp extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton2.setText("<html><p align=\"center\"><strong>Broodje ham-kaas</strong><br>1 pistolet / €2,99</p></html>");
-        jButton2.setMaximumSize(new java.awt.Dimension(90, 23));
-        jButton2.setMinimumSize(new java.awt.Dimension(90, 23));
+        jButton2.setMaximumSize(new java.awt.Dimension(120, 60));
+        jButton2.setMinimumSize(new java.awt.Dimension(120, 60));
+        jButton2.setPreferredSize(new java.awt.Dimension(120, 60));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton3.setText("<html><p align=\"center\"><strong>Tosti</strong><br>1 tosti / €3,99</p></html>");
+        jButton3.setMaximumSize(new java.awt.Dimension(120, 60));
+        jButton3.setMinimumSize(new java.awt.Dimension(120, 60));
+        jButton3.setPreferredSize(new java.awt.Dimension(120, 60));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,9 +95,9 @@ public class BarApp extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -101,9 +105,9 @@ public class BarApp extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                    .addComponent(jButton3))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(490, 490, 490))
         );
 
@@ -282,7 +286,7 @@ public class BarApp extends javax.swing.JPanel {
                 .addComponent(jTabbedPaneRemainder, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
