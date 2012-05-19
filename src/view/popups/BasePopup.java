@@ -35,7 +35,7 @@ abstract public class BasePopup extends javax.swing.JPanel {
 		
 		// Fix newlines
 		message = "<html>" + message + "</html>";
-		message.replaceAll("\n", "<br>");
+		message = message.replaceAll("(\n)", "<br>");
 		
 		// Set the message
 		jLabelMessage.setText(message);
