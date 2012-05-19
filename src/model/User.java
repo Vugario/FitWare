@@ -5,14 +5,9 @@
 package model;
 
 import helper.db.Model;
-import helper.Datetime;
 import java.sql.Timestamp;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import java.text.DateFormat;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,16 +68,7 @@ public class User extends Model {
 			query.setString(1, username.toLowerCase());
 			query.setString(2, password);
 			this.result();
-
 			this.result.first();
-
-
-			//System.exit(0);
-
-			this.result.first();
-//System.out.println(this.result.getString("id"));
-//			System.out.println(this.result.getStatement());
-//			System.exit(0);
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
@@ -92,17 +78,6 @@ public class User extends Model {
 		return this;
 	}
 
-	/*public void setDate() {
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
-	
-	try {
-	bdate = dateFormat.parse(birthdate);
-	} catch (ParseException ex) {
-	Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-	}
-	
-	}*/
-
 	public boolean save() {
 		
 
@@ -110,8 +85,6 @@ public class User extends Model {
 			this.open();
 
 			boolean passwordChanged = !"".equals(password);
-
-			//gender = profile.jRadioButtonGenderMale.isSelected(); //how do i get this state?
 
 			PreparedStatement query = this.query("UPDATE \"user\" SET username = ?,"
 					+ "firstname = ?,"
@@ -148,8 +121,6 @@ public class User extends Model {
 
 			
 			this.execute();
-
-			//this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
