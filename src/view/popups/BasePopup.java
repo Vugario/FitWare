@@ -6,8 +6,8 @@
 package view.popups;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JPanel;
-import javax.swing.Popup;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -32,14 +32,18 @@ abstract public class BasePopup extends javax.swing.JPanel {
 	public BasePopup(String message) {
 		super();
 		initComponents();
-		
+
 		// Fix newlines
-		message = "<html>" + message + "</html>";
+		message = "<html><div style=\"text-align: center;\">" + message + "</div></html>";
 		message = message.replaceAll("(\n)", "<br>");
-		
+
 		// Set the message
 		jLabelMessage.setText(message);
-		
+
+		// Update the size according to the message	
+		Dimension textSize = this.jLabelMessage.getPreferredSize();
+		Dimension popupSize = new Dimension(textSize.width + 100, textSize.height + 170);
+
 		// Give the close button focus
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -48,24 +52,24 @@ abstract public class BasePopup extends javax.swing.JPanel {
 				jButtonClosePopup.requestFocusInWindow();
 			}
 		});
-		
+
 	}
-	
+
 	/**
 	 * Set the color of this popup.
 	 * 
 	 * @param color The color for the title and the border
 	 */
 	protected void setColor(Color color) {
-		
+
 		// Set the border color...
 		Border newBorder = new LineBorder(color, 3, false);
 		this.jPanelBorders.setBorder(newBorder);
-		
+
 		// ...and the title color
 		jLabelTitle.setForeground(color);
 	}
-	
+
 	/**
 	 * Set the title of this popup.
 	 * 
@@ -74,7 +78,7 @@ abstract public class BasePopup extends javax.swing.JPanel {
 	protected void setTitle(String title) {
 		jLabelTitle.setText(title);
 	}
-	
+
 	/**
 	 * Close this popup
 	 */
@@ -131,12 +135,12 @@ abstract public class BasePopup extends javax.swing.JPanel {
                 .add(jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanelBordersLayout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                     .add(jPanelBordersLayout.createSequentialGroup()
                         .add(20, 20, 20)
                         .add(jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
-                            .add(jLabelTitle, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))))
+                            .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jLabelTitle, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelBordersLayout.setVerticalGroup(
@@ -145,7 +149,7 @@ abstract public class BasePopup extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jLabelTitle)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
