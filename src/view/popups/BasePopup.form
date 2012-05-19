@@ -41,9 +41,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder thickness="3">
-              <Color PropertyName="color" blue="ff" green="0" red="0" type="rgb"/>
-            </LineBorder>
+            <LineBorder thickness="3"/>
           </Border>
         </Property>
       </Properties>
@@ -89,11 +87,8 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="13" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="OPMERKING"/>
+            <Property name="text" type="java.lang.String" value="&lt;TITEL&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelMessage">
