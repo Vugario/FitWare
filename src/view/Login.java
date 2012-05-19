@@ -5,6 +5,7 @@
  */
 package view;
 
+import view.popups.ErrorPopup;
 import main.Application;
 import main.Session;
 
@@ -29,7 +30,7 @@ public class Login extends javax.swing.JPanel {
 		
 		// Check for empty fields
 		if(username.isEmpty() || password.isEmpty()) {
-			Application.getInstance().showPopup(new PopupError("U heeft uw gebruikersnaam of wachtwoord niet ingevuld"));
+			Application.getInstance().showPopup(new ErrorPopup("U heeft uw gebruikersnaam of wachtwoord niet ingevuld"));
 			return;
 		}
 		
@@ -40,7 +41,7 @@ public class Login extends javax.swing.JPanel {
 		}
 		else {
 			// Login failed
-			Application.getInstance().showPopup(new PopupError("Gebruikersnaam en wachtwoord combinatie is niet bekend."));
+			Application.getInstance().showPopup(new ErrorPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend."));
 		}
 	}
 
