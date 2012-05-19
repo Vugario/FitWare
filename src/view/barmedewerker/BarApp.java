@@ -45,7 +45,12 @@ public class BarApp extends javax.swing.JPanel {
 
             JButton productButton = new JButton();
             productButton.setFont(new Font("Tahoma", 0, 10));
-            productButton.setText("<html><p align=\"center\"><strong>" + product.getName() + "</strong><br>" + product.getDescription() + " / €" + product.getPrice() + "</p></html>");
+            productButton.setText(
+                    "<html><p align=\"center\">"
+                    + "<strong>" + product.getName() + "</strong><br>"
+                    + product.getDescription() + " / "
+                    + product.getDecoratedPrice() +
+                    "</p></html>");
             productButton.setMaximumSize(new Dimension(120, 60));
             productButton.setMinimumSize(new Dimension(120, 60));
             productButton.setPreferredSize(new Dimension(120, 60));
@@ -101,8 +106,13 @@ public class BarApp extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(830, 599));
         setPreferredSize(new java.awt.Dimension(830, 599));
 
+        jPanelFood.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
         jTabbedPaneRemainder.addTab("Eten", jPanelFood);
+
+        jPanelDrink.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
         jTabbedPaneRemainder.addTab("Drinken", jPanelDrink);
+
+        jPanelActivity.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
         jTabbedPaneRemainder.addTab("Overige", jPanelActivity);
 
         jPanel5.setPreferredSize(new java.awt.Dimension(250, 290));
@@ -201,11 +211,14 @@ public class BarApp extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPaneRemainder, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTabbedPaneRemainder, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

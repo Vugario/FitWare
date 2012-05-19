@@ -102,6 +102,11 @@ public class Product extends Model{
     public double getPrice() {
         return price;
     }
+    
+    public String getDecoratedPrice(){
+        return String.format("€ %.2f", getPrice());
+                
+    }
 
     public void setPrice(double price) {
         this.price = price;
