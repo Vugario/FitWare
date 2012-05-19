@@ -1,18 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import helper.db.Model;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * A user is someone using this application. It can be a member, barmedewerker or
+ * admin.
+ * 
  * @author allentje
  */
 public class User extends Model {
@@ -22,9 +21,7 @@ public class User extends Model {
 	private String firstname;
 	private String lastname;
 	private String subname;
-
 	private Timestamp birthdate;
-
 	private boolean gender;
 	private String email;
 	private boolean active;
@@ -35,10 +32,11 @@ public class User extends Model {
 	private String city;
 	private String postcode;
 	private String phonenumber;
-	protected String mobilenumber;
+	private String mobilenumber;
+	private String category;
+	private ArrayList<Role> roles;
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
-	protected String category;
 
 	public User() {
 	}
@@ -64,7 +62,7 @@ public class User extends Model {
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM \"user\" WHERE username = ? AND password = MD5(?) LIMIT 1");
 
-			
+
 			query.setString(1, username.toLowerCase());
 			query.setString(2, password);
 			this.result();
@@ -74,13 +72,11 @@ public class User extends Model {
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return this;
 	}
 
 	public boolean save() {
-		
-
 		try {
 			this.open();
 
@@ -111,7 +107,7 @@ public class User extends Model {
 			query.setString(9, mobilenumber);
 			query.setString(10, email);
 			query.setBoolean(11, gender);
-			
+
 			if (passwordChanged) {
 				query.setString(12, password);
 				query.setInt(13, id);
@@ -119,7 +115,7 @@ public class User extends Model {
 				query.setInt(12, id);
 			}
 
-			
+
 			this.execute();
 
 		} catch (Exception ex) {
@@ -127,13 +123,10 @@ public class User extends Model {
 		}
 
 		return false;
-		
 	}
 
 	protected void setPropertiesFromResult() {
-
 		try {
-
 			// Check if there is a result
 			if (this.result.getRow() == 0) {
 
@@ -187,6 +180,21 @@ public class User extends Model {
 
 		return fullName;
 	}
+	
+	/**
+	 * Get all Roles for this user
+	 * 
+	 * @return The roles for this user
+	 */
+	public ArrayList<Role> getRoles() {
+		
+		// If roles is empty, fill it.
+		if(roles == null) {
+			roles = Role.readByUserId(id);
+		}
+		
+		return roles;
+	}
 
 	public boolean isActive() {
 		return active;
@@ -207,7 +215,6 @@ public class User extends Model {
 	public Timestamp getBirthdate() {
 		return birthdate;
 	}
-
 
 	public void setBirthdate(Timestamp birthdate) {
 
