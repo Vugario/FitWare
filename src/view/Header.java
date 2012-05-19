@@ -23,6 +23,7 @@ public class Header extends javax.swing.JPanel {
     /** Creates new form Header */
     public Header() {
         initComponents();
+        updateUserInfo();
     }
 	
 	/**
@@ -37,7 +38,7 @@ public class Header extends javax.swing.JPanel {
 	/**
 	 * Update the user info
 	 */
-	public void updateUserInfo() {
+	public final void updateUserInfo() {
 		
 		// Check if a user is logged in
 		User user = Session.get().getLoggedInUser();
