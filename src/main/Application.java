@@ -84,7 +84,7 @@ public final class Application {
 
 		} else {
 			header.showUserInfo(true);
-			window.getContentPane().add(new view.menu.MemberMenu(), BorderLayout.WEST);
+			window.getContentPane().add(new view.menu.BarmedewerkerMenu(), BorderLayout.WEST);
 			window.getContentPane().add(new view.Footer(), BorderLayout.SOUTH);
 		}
 
