@@ -37,7 +37,7 @@ public class Role extends Model{
 			model.query(
 					"SELECT role.* FROM \"role\""
 					+ " INNER JOIN user_role ON role.id = user_role.\"roleID\""
-					+ " WHERE user_role.\"userID\" = ?").setInt(1, userId);
+					+ " WHERE user_role.\"userID\" = ? ORDER BY role.id").setInt(1, userId);
 			model.result();
 			
 			// Loop over all results
