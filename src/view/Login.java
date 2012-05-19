@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.SwingUtilities;
 import view.popups.ErrorPopup;
 import main.Application;
 import main.Session;
@@ -18,6 +19,15 @@ public class Login extends javax.swing.JPanel {
 	/** Creates new form Login */
 	public Login() {
 		initComponents();
+		
+		// Give the username input field focus
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				jTextFieldUsername.requestFocusInWindow();
+			}
+		});
 	}
 	
 	/**
