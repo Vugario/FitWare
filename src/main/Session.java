@@ -49,8 +49,6 @@ public class Session {
      */
     public boolean logIn(String username, String password) {
 
-        Application application = Application.getInstance();
-
         // Try to find a user with the given username and password
         User user = new User().readByCredentials(username, password);
 		

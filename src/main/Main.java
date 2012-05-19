@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String args[]) {
 
-		
+
 		final Application application = Application.getInstance();
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -23,5 +23,4 @@ public class Main {
 		});
 
 	}
-
 }

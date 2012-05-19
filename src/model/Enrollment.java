@@ -4,10 +4,15 @@
  */
 package model;
 
-import helper.db.Manager;
 import helper.db.Model;
-import java.sql.ResultSet;
+import helper.Datetime;
+import java.sql.Timestamp;
+
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import java.text.DateFormat;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,58 +22,52 @@ import java.util.logging.Logger;
  */
 public class Enrollment extends Model {
 
-	String qresultFirstname;
-	String qresultLastname;
-	String qresultSubname;
-	String qresultUsername;
-	String qresultStreet;
-	//String qresultHouseNumber;
-	String qresultCity;
-	String qresultPostcode;
-	String qresultPhonenumber;
+	private int id;
+	private int user_id;
+	private int subscription_id;
+	private Timestamp timestamp;
+        
+        private User user;
+        
+        private Subscription subscription;
 
 	public Enrollment() {
-           // this.query("SELECT * FROM \"user\"");
-           // ResultSet result1 = this.result();
-            
-           // System.out.println( result1.toString() );
 	}
-        
-        
 
-	
-        /*public String userDataQuery() {
-
+	public Enrollment readEnrollmentByUserId(int id) {
 		try {
-			this.query("SELECT * FROM \"user\" WHERE id = ?").setInt(1, 1);
+			this.open();
+			this.query("SELECT * FROM \"enrollment\" e LEFT JOIN \"user\" u ON e.user_id = u.id LEFT JOIN \"subscription\" s ON e.subscription_id = s.id WHERE user_id = ? LIMIT 1").setInt(1, id);
+			this.result();
+			this.result.first();
 
+			this.setPropertiesFromResult();
 
-		} catch (SQLException ex) {
+		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		try {
-			this.result = dbQuery.executeQuery();
-		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
+
+		return this;
+	}
+
+	protected void setPropertiesFromResult() {
+
 		try {
 
-			while (result.next()) {
-				qresultFirstname = result.getString("firstname").toString();
-				qresultLastname = result.getString("lastname").toString();
-				qresultSubname = result.getString("subname").toString();
-				qresultUsername = result.getString("username").toString();userDataQuery
-				qresultStreet = result.getString("street").toString();
-				qresultCity = result.getString("city").toString();
-				
-				
-				
-				System.out.println(qresultFirstname +" \n"+ qresultLastname +" \n"+ qresultSubname +" \n"+ qresultUsername +" \n"+ qresultStreet +" \n"+ qresultCity);
+			// Check if there is a result
+			if (this.result.getRow() == 0) {
+
+				// There is no result, so return without doing anything
+				return;
 			}
 
+			// Fill in all properties
+			this.id = this.result.getInt("id");
+			this.user_id = this.result.getInt("user_id");
+			this.subscription_id = this.result.getInt("subscription_id");
+
 		} catch (SQLException ex) {
-			Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		return qresultFirstname;
-	}*/
+	}
 }
