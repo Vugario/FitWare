@@ -69,23 +69,24 @@ public final class Application {
 
 		JScrollPane scrollpane = new JScrollPane(panel);
 		scrollpane.getVerticalScrollBar().setUnitIncrement(10);
+		scrollpane.setBorder(null);
 
 		view.Header header = new view.Header();
-		header.showUserInfo(false);
 
 		window.getContentPane().removeAll();
 		window.getContentPane().add(scrollpane, BorderLayout.CENTER);
 		window.getContentPane().add(header, BorderLayout.NORTH);
+		window.getContentPane().add(new view.Footer(), BorderLayout.SOUTH);
 
 		User userSession = Session.get().getLoggedInUser();
 
 		if (userSession == null) {
+			header.showUserInfo(false);
 			window.getContentPane().add(new view.Login());
 
 		} else {
 			header.showUserInfo(true);
 			window.getContentPane().add(this.getMenuForLoggedInUser(), BorderLayout.WEST);
-			window.getContentPane().add(new view.Footer(), BorderLayout.SOUTH);
 		}
 
 		window.getContentPane().validate();
