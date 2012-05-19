@@ -65,12 +65,19 @@ public class Bmi extends javax.swing.JPanel {
     }
 
     private void bmiberekenen() {
+        try{
         float weight = new Float(txtWeight.getText());
         float length = new Float(txtLength.getText()) / 100;
-
-
-
         this.bmi = weight / (length * length);
+        }
+        catch(NumberFormatException nfe){
+            
+        }
+        
+
+
+
+        
 
         txtResult.setText(String.format("Uw BMI is %.2f", this.bmi));
 
