@@ -52,7 +52,21 @@ public class Enrollments extends javax.swing.JPanel {
             public void valueChanged(ListSelectionEvent e) {
                if (! e.getValueIsAdjusting())
                 {
-                    Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    int value;
+                    if (!lsm.isSelectionEmpty()) {
+                        int minIndex = lsm.getMinSelectionIndex();
+                        int maxIndex = lsm.getMaxSelectionIndex();
+                        for (int i = minIndex; i <= maxIndex; i++) {
+                            if (lsm.isSelectedIndex(i)) {
+                                value = i;
+                                System.out.println(i);
+                            }
+                        }
+                    }
+                    
+                    System.out.println(value);
+                    //Enrollment enrollments = new Enrollment().readEnrollmentById();
                     //System.out.println( enrollments.getId() );
                     //Application application = Main.getApplication();
                     //application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
