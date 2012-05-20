@@ -11,12 +11,12 @@ import main.Application;
  *
  * @author Daan
  */
-public class BarmedewerkerMenu extends javax.swing.JPanel {
+public class AdminMenu extends javax.swing.JPanel {
 
     /**
      * Creates new form Menu
      */
-    public BarmedewerkerMenu() {
+    public AdminMenu() {
         initComponents();
     }
 
