@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import main.Session;
 import model.Enrollment;
+import model.Subscription;
 
 /**
  *
@@ -53,7 +54,7 @@ public class Enrollments extends javax.swing.JPanel {
                if (! e.getValueIsAdjusting())
                 {
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    int value;
+                    int value = 0;
                     if (!lsm.isSelectionEmpty()) {
                         int minIndex = lsm.getMinSelectionIndex();
                         int maxIndex = lsm.getMaxSelectionIndex();
@@ -65,9 +66,9 @@ public class Enrollments extends javax.swing.JPanel {
                         }
                     }
                     
-                    System.out.println(value);
-                    //Enrollment enrollments = new Enrollment().readEnrollmentById();
-                    //System.out.println( enrollments.getId() );
+                    
+                    Enrollment enrollments = new Enrollment().readEnrollmentById( value );
+                    System.out.println( enrollments.getSubscription().getTitle() );
                     //Application application = Main.getApplication();
                     //application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
                 }
