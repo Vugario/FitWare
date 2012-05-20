@@ -36,7 +36,11 @@ public class Profile extends javax.swing.JPanel {
 		jTextFieldFirstname.setText(user.getFirstname());
 		jTextFieldSubname.setText(user.getSubname());
 		jTextFieldLastname.setText(user.getLastname());
-		jTextFieldBirthdate.setText(user.getBirthdate().toString());
+		
+		helper.Datetime datetime = new helper.Datetime(user.getBirthdate());
+		
+		
+		jTextFieldBirthdate.setText(datetime.format("yyyy-mm-dd"));
 		jTextFieldStreet.setText(user.getStreet());
 		jTextFieldCity.setText(user.getCity());
 		jTextFieldStreetnumber.setText(user.getHousenumber());
