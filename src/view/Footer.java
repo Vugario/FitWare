@@ -39,19 +39,20 @@ public class Footer extends javax.swing.JPanel {
         jLayeredPaneHeader = new javax.swing.JLayeredPane();
         header = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(994, 20));
-        setMinimumSize(new java.awt.Dimension(994, 20));
-        setPreferredSize(new java.awt.Dimension(994, 20));
+        setMaximumSize(new java.awt.Dimension(1000, 20));
+        setMinimumSize(new java.awt.Dimension(1000, 20));
+        setPreferredSize(new java.awt.Dimension(1000, 20));
+        setSize(new java.awt.Dimension(1000, 20));
         setLayout(new java.awt.BorderLayout());
 
-        jLayeredPaneHeader.setMaximumSize(new java.awt.Dimension(994, 20));
-        jLayeredPaneHeader.setMinimumSize(new java.awt.Dimension(994, 20));
+        jLayeredPaneHeader.setMaximumSize(new java.awt.Dimension(1000, 20));
+        jLayeredPaneHeader.setMinimumSize(new java.awt.Dimension(1000, 20));
+        jLayeredPaneHeader.setPreferredSize(new java.awt.Dimension(1000, 20));
         jLayeredPaneHeader.setRequestFocusEnabled(false);
+        jLayeredPaneHeader.setSize(new java.awt.Dimension(1000, 20));
 
         header.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/footer.png"))); // NOI18N
-        header.setMaximumSize(new java.awt.Dimension(994, 20));
-        header.setMinimumSize(new java.awt.Dimension(994, 20));
-        header.setBounds(0, 0, 994, 20);
+        header.setBounds(0, 0, 1000, 20);
         jLayeredPaneHeader.add(header, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         add(jLayeredPaneHeader, java.awt.BorderLayout.CENTER);
