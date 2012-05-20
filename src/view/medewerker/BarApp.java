@@ -27,8 +27,9 @@ import model.User;
  * @author vm
  */
 public class BarApp extends javax.swing.JPanel {
+
 	double totalPrice = 0.00;
-	
+
 	/**
 	 * Creates new form BarApp
 	 */
@@ -43,9 +44,9 @@ public class BarApp extends javax.swing.JPanel {
 			//Set the button for 'Product beheer'
 			jButtonProductmgnt.setVisible(true);
 		}
-		
-		
-		 jListBasket.setModel(new DefaultListModel());
+
+
+		jListBasket.setModel(new DefaultListModel());
 	}
 
 	private void addProductbuttons() {
@@ -71,18 +72,9 @@ public class BarApp extends javax.swing.JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent evt) {
-					// TODO Voeg toe aan basket
-					DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
-						
-					listModel.addElement(product.getName() + " " + product.getDecoratedPrice());
-					totalPrice = totalPrice + product.getPrice();
-					System.out.println(totalPrice);
-					jLabelOrderPrice.setText(String.valueOf(totalPrice));
-					
+					addProductToBasket(product);
 				}
 			});
-
-
 
 			if (product.getType().equals("food")) {
 				jPanelFood.add(productButton);
@@ -92,14 +84,40 @@ public class BarApp extends javax.swing.JPanel {
 				jPanelActivity.add(productButton);
 			}
 		}
-		
+
 
 	}
-	public void addProductToBasket(){
-		// Add products to basket
+
+	public void addProductToBasket(Product product) {
+		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+		listModel.addElement(product);
 		
-			
+		recalculatePrice();
+	}
+	
+	public void removeSelectedProductFromBasket() {
+		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+		int selectedItem = jListBasket.getSelectedIndex();
+		listModel.remove(selectedItem);
+
+		// Recalculate the price
+		recalculatePrice();
+	}
+
+	public void recalculatePrice() {
+		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+
+		// Recalculate the price
+		totalPrice = 0;
+		for (int i = 0; i < listModel.getSize(); i++) {
+			Product product = (Product) listModel.getElementAt(i);
+
+			totalPrice = totalPrice + product.getPrice();
 		}
+		
+		// Update the price in the label
+		jLabelOrderPrice.setText(String.format("€ %.2f", totalPrice));
+	}
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -275,15 +293,8 @@ public class BarApp extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonProductmgntActionPerformed
 
 	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-		// TODO add your handling code here:
-			// TODO Delete selected item
-		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
-		int selectedItem = jListBasket.getSelectedIndex();
-		listModel.remove(selectedItem);
-		listModel.getSize();
-
+		removeSelectedProductFromBasket();
 	}//GEN-LAST:event_jButtonDeleteActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;

@@ -63,9 +63,14 @@ public class Product extends Model{
 	public void update(){
 		String query = "UPDATE product SET ? = ?";
 	}
+	
+	@Override
+	public String toString() {
+		return getName() + " " + getDecoratedPrice();
+	}
 
 	
-	protected void setPropertiesFromResult() {
+	protected final void setPropertiesFromResult() {
 		try {
 
 			// Check if there is a result
