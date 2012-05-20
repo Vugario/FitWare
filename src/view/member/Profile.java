@@ -27,6 +27,12 @@ public class Profile extends javax.swing.JPanel {
 	public Profile() {
 		initComponents();
 		loadUserData();
+		
+		jLabel17.setVisible(false);
+		jLabel18.setVisible(false);
+
+		jPasswordField1.setVisible(false);
+		jPasswordField2.setVisible(false);
 	}
 
 	public void loadUserData() {
@@ -58,8 +64,7 @@ public class Profile extends javax.swing.JPanel {
 		} else {
 			jRadioButtonGenderFemale.setSelected(true);
 		}
-		jPasswordField1.setText(user.getPassword());
-		jPasswordField2.setText(user.getPassword());
+
 	}
 
 	public void setUserData() {
@@ -152,10 +157,11 @@ public class Profile extends javax.swing.JPanel {
         jPasswordField2 = new javax.swing.JPasswordField();
         jTextFieldId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        passwordChanged = new javax.swing.JCheckBox();
 
         setOpaque(false);
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel4.setText("Mijn gegevens");
 
         jLabel5.setText("Klantnummer");
@@ -176,7 +182,7 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel11.setText("Woonplaats / postcode");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel12.setText("Contactgegevens");
 
         jLabel13.setText("Telefoonnummer");
@@ -185,7 +191,7 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel15.setText("E-mailadres");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel16.setText("Wachtwoord");
 
         jLabel17.setText("Wachtwoord herhalen");
@@ -201,7 +207,13 @@ public class Profile extends javax.swing.JPanel {
 
         jTextFieldId.setEnabled(false);
 
-        jLabel1.setText("Laat uw wachtwoord leeg als u het niet wilt veranderen.");
+        jLabel1.setText("Wachtwoord aanpassen?");
+
+        passwordChanged.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordChangedActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -232,9 +244,11 @@ public class Profile extends javax.swing.JPanel {
                             .add(jLabel5)
                             .add(jLabel4)
                             .add(jLabel18)
-                            .add(jLabel17))
+                            .add(jLabel17)
+                            .add(jLabel1))
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(passwordChanged)
                             .add(jTextFieldBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -266,8 +280,7 @@ public class Profile extends javax.swing.JPanel {
                                         .add(jTextFieldPostcode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .add(jTextFieldStreetnumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldPhonenumber)
-                                .add(profileSaveButton))))
-                    .add(jLabel1))
+                                .add(profileSaveButton)))))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -326,9 +339,12 @@ public class Profile extends javax.swing.JPanel {
                     .add(jLabel15)
                     .add(jTextFieldEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
-                .add(jLabel16)
-                .add(18, 18, 18)
-                .add(jLabel1)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel16)
+                        .add(14, 14, 14)
+                        .add(jLabel1))
+                    .add(passwordChanged))
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel18)
@@ -339,8 +355,10 @@ public class Profile extends javax.swing.JPanel {
                     .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(profileSaveButton)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
+
+        passwordChanged.getAccessibleContext().setAccessibleName("passwordChanged");
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
@@ -355,10 +373,19 @@ public class Profile extends javax.swing.JPanel {
 		System.exit(0);
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
-
-		String password1 = new String(jPasswordField1.getPassword());
-		String password2 = new String(jPasswordField2.getPassword());
-		Boolean passwordequal = password1.equals(password2);
+		
+		if(passwordChanged.isEnabled()){
+			String password1 = new String(jPasswordField1.getPassword());
+			String password2 = new String(jPasswordField2.getPassword());
+			Boolean passwordequal = password1.equals(password2);
+			
+			if (!passwordequal) {
+				Application.getInstance().showPopup(new ErrorPopup(
+					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
+			}
+		}
+		
+		
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
@@ -367,16 +394,28 @@ public class Profile extends javax.swing.JPanel {
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
 		}
-		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
-		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
-		if (!passwordequal) {
-			Application.getInstance().showPopup(new ErrorPopup(
-					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
-		}
-
+		
 		Application.getInstance().showPanel(this);
 		
     }//GEN-LAST:event_profileSaveButtonActionPerformed
+
+	private void passwordChangedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordChangedActionPerformed
+		
+		if(passwordChanged.isSelected()){
+			jLabel17.setVisible(true);
+			jLabel18.setVisible(true);
+			
+			jPasswordField1.setVisible(true);
+			jPasswordField2.setVisible(true);
+		}else{
+			jLabel17.setVisible(false);
+			jLabel18.setVisible(false);
+			
+			jPasswordField1.setVisible(false);
+			jPasswordField2.setVisible(false);
+		}
+	}//GEN-LAST:event_passwordChangedActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -411,6 +450,7 @@ public class Profile extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldStreetnumber;
     private javax.swing.JTextField jTextFieldSubname;
     private javax.swing.JTextField jTextFieldUsername;
+    private javax.swing.JCheckBox passwordChanged;
     private javax.swing.JButton profileSaveButton;
     // End of variables declaration//GEN-END:variables
 }
