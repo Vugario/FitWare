@@ -69,23 +69,24 @@ public final class Application {
 
 		JScrollPane scrollpane = new JScrollPane(panel);
 		scrollpane.getVerticalScrollBar().setUnitIncrement(10);
+		scrollpane.setBorder(null);
 
 		view.Header header = new view.Header();
-		header.showUserInfo(false);
 
 		window.getContentPane().removeAll();
 		window.getContentPane().add(scrollpane, BorderLayout.CENTER);
 		window.getContentPane().add(header, BorderLayout.NORTH);
+		window.getContentPane().add(new view.Footer(), BorderLayout.SOUTH);
 
 		User userSession = Session.get().getLoggedInUser();
 
 		if (userSession == null) {
+			header.showUserInfo(false);
 			window.getContentPane().add(new view.Login());
 
 		} else {
 			header.showUserInfo(true);
-			window.getContentPane().add(new view.menu.MemberMenu(), BorderLayout.WEST);
-			window.getContentPane().add(new view.Footer(), BorderLayout.SOUTH);
+			window.getContentPane().add(this.getMenuForLoggedInUser(), BorderLayout.WEST);
 		}
 
 		window.getContentPane().validate();
@@ -140,17 +141,17 @@ public final class Application {
 	public void closePopup() {
 
 		// Get the popup that is on top
-		JPanel popup = popups.get(popups.size()-1);
-		
+		JPanel popup = popups.get(popups.size() - 1);
+
 		// Remove the popup
 		window.getLayeredPane().remove(popup);
 		popups.remove(popup);
-		
+
 		// Remove the semi transparent background if no other popup is visible
-		if(popups.isEmpty()) {
+		if (popups.isEmpty()) {
 			window.getLayeredPane().remove(popupBackground);
 		}
-		
+
 		// Repaint this application
 		window.repaint();
 	}
@@ -162,5 +163,51 @@ public final class Application {
 
 	public static Application getInstance() {
 		return instance;
+	}
+
+	/**
+	 * Get the menu for the currently logged in user
+	 * 
+	 * @return The Menu instance, or null if no user is logged in
+	 */
+	private JPanel getMenuForLoggedInUser() {
+		User user = Session.get().getLoggedInUser();
+
+		// Check if somebody is logged in
+		if (user == null) {
+
+			// Nobody is logged in at the moment
+			return null;
+		}
+
+		// Get all roles of the currently logged in user
+		ArrayList<model.Role> roles = user.getRoles();
+
+		// Find out what the highest role is
+		model.Role role = roles.get(roles.size() - 1);
+
+		// Return the corresponding menu
+		if (role.getTitle().equals("member")) {
+
+			// Return the MemberMenu
+			return new view.menu.MemberMenu();
+
+		} else if (role.getTitle().equals("barmedewerker")) {
+
+			// Return the BarmedewerkerMenu
+			return new view.menu.BarmedewerkerMenu();
+
+		} else if (role.getTitle().equals("admin")) {
+
+			// Does not exist yet:
+			//return new view.menu.AdminMenu();
+			return new view.menu.MemberMenu();
+
+		} else {
+
+			// Fallback to the MemberMenu
+			return new view.menu.MemberMenu();
+
+		}
 	}
 }
