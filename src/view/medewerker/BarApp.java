@@ -34,12 +34,12 @@ public class BarApp extends javax.swing.JPanel {
 		initComponents();
 		addProductbuttons();
 		User user = Session.get().getLoggedInUser();
-		jButtonProductmgnt.setEnabled(false);
+		jButtonProductmgnt.setVisible(false);
 
 		// TODO If user role is !admin then jButtonProductmgnt is not visible
 		if (user.getRoles().get(0).getTitle().equals("admin")) {
 			//Set the button for 'Product beheer'
-			jButtonProductmgnt.setEnabled(true);
+			jButtonProductmgnt.setVisible(true);
 		}
 		System.out.println(user.getRoles().get(0).getTitle());
 	}
