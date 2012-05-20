@@ -27,7 +27,8 @@ import model.User;
  * @author vm
  */
 public class BarApp extends javax.swing.JPanel {
-
+	double totalPrice = 0.00;
+	
 	/**
 	 * Creates new form BarApp
 	 */
@@ -73,8 +74,10 @@ public class BarApp extends javax.swing.JPanel {
 					// TODO Voeg toe aan basket
 					DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 						
-					listModel.addElement(product.getName() + " " /*+ "<html><p align=\"right\">" */+ product.getDecoratedPrice()/* + "</p</html>"*/);
-					
+					listModel.addElement(product.getName() + " " + product.getDecoratedPrice());
+					totalPrice = totalPrice + product.getPrice();
+					System.out.println(totalPrice);
+					jLabelOrderPrice.setText(String.valueOf(totalPrice));
 					
 				}
 			});
@@ -120,8 +123,8 @@ public class BarApp extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListBasket = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
-        jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
+        jButtonDelete = new javax.swing.JButton();
         jButtonProductmgnt = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(830, 599));
@@ -151,9 +154,14 @@ public class BarApp extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jListBasket);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel2.setText("Verwijder:");
+
+        jButtonDelete.setText("Verwijder");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -187,7 +195,9 @@ public class BarApp extends javax.swing.JPanel {
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                             .addComponent(jLabelOrder)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(26, 26, 26)
+                                    .addComponent(jButtonDelete)
+                                    .addGap(45, 45, 45))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -199,7 +209,7 @@ public class BarApp extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButtonDelete)))
                     .addComponent(jLabelOrder))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,11 +273,22 @@ public class BarApp extends javax.swing.JPanel {
 		Application.getInstance().showPanel(new view.admin.BarProductOverview());
 
 	}//GEN-LAST:event_jButtonProductmgntActionPerformed
+
+	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+		// TODO add your handling code here:
+			// TODO Delete selected item
+		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+		int selectedItem = jListBasket.getSelectedIndex();
+		listModel.remove(selectedItem);
+		listModel.getSize();
+
+	}//GEN-LAST:event_jButtonDeleteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonProductmgnt;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelOrder;

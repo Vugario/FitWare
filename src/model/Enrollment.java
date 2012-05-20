@@ -81,6 +81,8 @@ public class Enrollment extends Model {
 			this.setId(this.result.getInt("id"));
 			this.setUser_id(this.result.getInt("user_id"));
 			this.setSubscription_id(this.result.getInt("subscription_id"));
+                        
+                        this.setSubscription( new Subscription( this.getSubscription_id() ) );
 
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
