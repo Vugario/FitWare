@@ -9,26 +9,27 @@ import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author allentje
  */
 public class Purchase extends helper.db.Model {
+
 	int id;
-	private double	price;
+	private double price;
 	private int product_id;
 	private String paymentoption;
 	private short quantity;
-    private Timestamp datetime;
+	private Timestamp datetime;
 	private int user_id;
 	private User user = new User();
-	
-	public Purchase(){
-		
+
+	public Purchase() {
 	}
-	
-	public Purchase readLastPurchase(int userId){
-		try{
+
+	public Purchase readLastPurchase(int userId) {
+		try {
 			this.open();
 			this.query(
 				"SELECT "
@@ -52,52 +53,50 @@ public class Purchase extends helper.db.Model {
 				).setInt(1, userId);
 			this.result();
 			System.out.println(this.result.getStatement());
-			
+
 			this.setPropertiesFromResult();
 
-		} catch (Exception ex) {	
-					
+		} catch (Exception ex) {
+
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		return this;	
+		return this;
 	}
-	
-	public boolean savePurchase(){
+
+	public boolean savePurchase() {
 		//TODO create SQL for to save purchase
 		// Save the purchase into the database
-				try{
+		try {
 			this.open();
 			PreparedStatement query = this.query(
-				"INSERT INTO purchase "
-					+ "(user_id, product_id, price, paymentoption, quantity, datetime)"
-				+ "VALUES"
-					+ "(user_id = ?,"
-					+ " product_id = ?,"
-					+ " price = (SELECT price FROM product WHERE id = product_id),"
-					+ " paymentoption = ?,"
-					+ " quantity = 12,"
-					+ " datetime = now());"
-				);
-			
+					"INSERT INTO purchase "
+						+ "(user_id, product_id, price, paymentoption, quantity, datetime)"
+					+ "VALUES ("
+						+ " ?,"
+						+ " ?,"
+						+ " ?,"
+						+ " ?,"
+						+ " ?,"
+						+ " NOW());");
+
 			query.setInt(1, user_id);
 			query.setInt(2, product_id);
-			query.setString(3, paymentoption);
-			
-				
+			query.setDouble(3, price);
+			query.setString(4, paymentoption);
+			query.setInt(5, quantity);
+
 			this.execute();
-			System.out.println(this.result.getStatement());
-			
-			
-		} catch (Exception ex) {	
-					
+
+		} catch (Exception ex) {
+
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return false;
-		
+
 	}
-	
+
 	protected void setPropertiesFromResult() {
 		try {
 
@@ -115,13 +114,13 @@ public class Purchase extends helper.db.Model {
 			this.price = this.result.getDouble("price");
 			this.quantity = this.result.getShort("quantity");
 			this.user_id = this.result.getInt("user_id");
-			
-			
+
+
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	public Timestamp getDatetime() {
 		return datetime;
 	}
@@ -177,7 +176,4 @@ public class Purchase extends helper.db.Model {
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	
-	
 }
-

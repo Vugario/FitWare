@@ -14,7 +14,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -52,8 +51,8 @@ public class BarApp extends javax.swing.JPanel {
 		ButtonGroup group = new ButtonGroup();
 		group.add(jRadioButtonPayCredit);
 		group.add(jRadioButtonPayCash);
-		
-			
+
+
 	}
 
 	private void addProductbuttons() {
@@ -126,50 +125,68 @@ public class BarApp extends javax.swing.JPanel {
 		jLabelOrderPrice.setText(String.format("€ %.2f", totalPrice));
 
 	}
-	
-	public void searchUser(){
-		//TODO
-		//Search a user and return a result
+
+	public User searchUser() {
+		// Search a user and return a result
+		// TODO: search by name, etc.
 		User user = new User();
 		int id = Integer.parseInt(jTextFieldSearch.getText());
 		user.readUser(id);
+
+		// Choose which user when multiple users are found
+		//user = showSearchPopup();
+
+		// Set the label
 		jLabelCustomerName.setText(user.getFullName());
+
+		// Return the user
+		return user;
 	}
 
 	public void showSearchPopup() {
 		//TODO
 		//Shows a screen when multiple users are found
 	}
-	
-	public void savePurchase(){
-		Purchase purchase = new Purchase();
-		User user = new User();
-		Product product = new Product();
-		
-				
-		
-		//double price = product.getPrice();
-		//purchase.setPrice(price);
-		
-		int product_id = product.getId();
-		purchase.setProduct_id(product_id);
-		
-		
-		if (jRadioButtonPayCash.isSelected()){
-			purchase.setPaymentoption("Cash");
-		}else{
-			purchase.setPaymentoption("Op rekening");
-		}
-		
-		// No idea how to solve this one :short quantity = 
-		short quantity;
-		//purchase.setQuantity(quantity);
 
-		int user_id = Integer.parseInt( jTextFieldSearch.getText());
-		purchase.setUser_id(user_id);
+	public void savePurchase() {
+		// Loop over all products
+		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 		
-		purchase.savePurchase();
-		
+		for (int i = 0; i < listModel.getSize(); i++) {	
+			// Add a purchase for this product
+			Product product = (Product) listModel.getElementAt(i);
+
+			// Create a purchase
+			Purchase purchase = new Purchase();
+			
+			// Set the user
+			int user_id = searchUser().getId();
+			purchase.setUser_id(user_id);
+			
+			// Set the product
+			int product_id = product.getId();
+			purchase.setProduct_id(product_id);
+			
+			// Set the price
+			double price = product.getPrice();
+			purchase.setPrice(price);
+
+			// Set the payment option
+			if (jRadioButtonPayCash.isSelected()) {
+				purchase.setPaymentoption("Cash");
+			} else {
+				purchase.setPaymentoption("Op rekening");
+			}
+			
+			// Set the quantity
+			// For now: add each product 1 time.
+			short quantity = 1;
+			purchase.setQuantity(quantity);
+
+			// Save the purchase
+			purchase.savePurchase();
+		}
+
 	}
 
 	/**
@@ -462,10 +479,9 @@ public class BarApp extends javax.swing.JPanel {
 
 	private void jButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrderActionPerformed
 		// TODO add your handling code here:
-		
+
 		savePurchase();
 	}//GEN-LAST:event_jButtonOrderActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
