@@ -24,6 +24,7 @@ public class Footer extends javax.swing.JPanel {
 	
 
 	
+	
 
 	
 
