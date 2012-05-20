@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import main.Application;
 import main.Session;
@@ -41,7 +42,9 @@ public class BarApp extends javax.swing.JPanel {
 			//Set the button for 'Product beheer'
 			jButtonProductmgnt.setVisible(true);
 		}
-		System.out.println(user.getRoles().get(0).getTitle());
+		
+		
+		 jListBasket.setModel(new DefaultListModel());
 	}
 
 	private void addProductbuttons() {
@@ -50,7 +53,7 @@ public class BarApp extends javax.swing.JPanel {
 
 		for (int i = 0; i < products.size(); i++) {
 
-			Product product = products.get(i);
+			final Product product = products.get(i);
 
 			JButton productButton = new JButton();
 			productButton.setFont(new Font("Tahoma", 0, 10));
@@ -68,6 +71,11 @@ public class BarApp extends javax.swing.JPanel {
 				@Override
 				public void actionPerformed(ActionEvent evt) {
 					// TODO Voeg toe aan basket
+					DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+						
+					listModel.addElement(product.getName() + " " /*+ "<html><p align=\"right\">" */+ product.getDecoratedPrice()/* + "</p</html>"*/);
+					
+					
 				}
 			});
 
@@ -81,9 +89,14 @@ public class BarApp extends javax.swing.JPanel {
 				jPanelActivity.add(productButton);
 			}
 		}
-
+		
 
 	}
+	public void addProductToBasket(){
+		// Add products to basket
+		
+			
+		}
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -105,7 +118,7 @@ public class BarApp extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabelOrderPrice = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jListBasket = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -131,12 +144,12 @@ public class BarApp extends javax.swing.JPanel {
 
         jLabelOrderPrice.setText("jLabelOrderPrice");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jListBasket.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jListBasket);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -259,7 +272,7 @@ public class BarApp extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelOrder;
     private javax.swing.JLabel jLabelOrderPrice;
-    private javax.swing.JList jList1;
+    private javax.swing.JList jListBasket;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelActivity;
     private javax.swing.JPanel jPanelDrink;
