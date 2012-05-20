@@ -4,10 +4,16 @@
  */
 package main;
 
+import helper.PopupMouseListener;
 import helper.db.Manager;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -128,10 +134,10 @@ public final class Application {
 		panel.setLocation(posX, posY);
 		window.getLayeredPane().add(panel, JLayeredPane.POPUP_LAYER);
 
-		// Todo:
 		// Show the GlassPane, so the background panel is 'disabled'
-		// This does not work:
-		//window.getGlassPane().setVisible(true);
+		Component glassPane = window.getGlassPane();
+		glassPane.addMouseListener(new PopupMouseListener(window, panel));
+		glassPane.setVisible(true);
 
 	}
 
@@ -142,6 +148,9 @@ public final class Application {
 
 		// Get the popup that is on top
 		JPanel popup = popups.get(popups.size() - 1);
+
+		// Hide the GlassPane
+		window.getGlassPane().setVisible(false);
 
 		// Remove the popup
 		window.getLayeredPane().remove(popup);
