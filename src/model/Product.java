@@ -4,18 +4,16 @@ import helper.db.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author allentje
- */
 public class Product extends Model{
+	
 	int id;
-        double price;
-        String name;
-        String description;
+	double price;
+	String name;
+    String description;
 	String type;
 	
 	public Product() {	
@@ -52,6 +50,20 @@ public class Product extends Model{
 		return products;
 
 	}
+	
+
+	public void readPerCategory(){
+		String query = "SELECT * FROM product WHERE cs";
+	}
+	
+	public void create(){
+		String query = "INSERT INTO \"product\" () VALUES (?, ?, ?, ?)";
+	}
+	
+	public void update(){
+		String query = "UPDATE product SET ? = ?";
+	}
+
 	
 	protected void setPropertiesFromResult() {
 		try {
@@ -120,5 +132,4 @@ public class Product extends Model{
         this.type = type;
     }
 
-	
 }
