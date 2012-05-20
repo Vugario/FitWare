@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -60,6 +61,41 @@ public class Purchase extends helper.db.Model {
 		}
 
 		return this;	
+	}
+	
+	public boolean savePurchase(){
+		//TODO create SQL for to save purchase
+		// Save the purchase into the database
+				try{
+			this.open();
+			PreparedStatement query = this.query(
+				"INSERT INTO purchase "
+					+ "(user_id, product_id, price, paymentoption, quantity, datetime)"
+				+ "VALUES"
+					+ "(user_id = ?,"
+					+ " product_id = ?,"
+					+ " price = (SELECT price FROM product WHERE id = product_id),"
+					+ " paymentoption = ?,"
+					+ " quantity = 12,"
+					+ " datetime = now());"
+				);
+			
+			query.setInt(1, user_id);
+			query.setInt(2, product_id);
+			query.setString(3, paymentoption);
+			
+				
+			this.execute();
+			System.out.println(this.result.getStatement());
+			
+			
+		} catch (Exception ex) {	
+					
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return false;
+		
 	}
 	
 	protected void setPropertiesFromResult() {

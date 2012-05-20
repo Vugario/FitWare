@@ -14,12 +14,15 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import main.Application;
 import main.Session;
 import model.Product;
+import model.Purchase;
 import model.User;
 
 /**
@@ -45,8 +48,12 @@ public class BarApp extends javax.swing.JPanel {
 			jButtonProductmgnt.setVisible(true);
 		}
 
-
 		jListBasket.setModel(new DefaultListModel());
+		ButtonGroup group = new ButtonGroup();
+		group.add(jRadioButtonPayCredit);
+		group.add(jRadioButtonPayCash);
+		
+			
 	}
 
 	private void addProductbuttons() {
@@ -91,10 +98,10 @@ public class BarApp extends javax.swing.JPanel {
 	public void addProductToBasket(Product product) {
 		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 		listModel.addElement(product);
-		
+
 		recalculatePrice();
 	}
-	
+
 	public void removeSelectedProductFromBasket() {
 		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 		int selectedItem = jListBasket.getSelectedIndex();
@@ -114,9 +121,55 @@ public class BarApp extends javax.swing.JPanel {
 
 			totalPrice = totalPrice + product.getPrice();
 		}
-		
+
 		// Update the price in the label
 		jLabelOrderPrice.setText(String.format("€ %.2f", totalPrice));
+
+	}
+	
+	public void searchUser(){
+		//TODO
+		//Search a user and return a result
+		User user = new User();
+		int id = Integer.parseInt(jTextFieldSearch.getText());
+		user.readUser(id);
+		jLabelCustomerName.setText(user.getFullName());
+	}
+
+	public void showSearchPopup() {
+		//TODO
+		//Shows a screen when multiple users are found
+	}
+	
+	public void savePurchase(){
+		Purchase purchase = new Purchase();
+		User user = new User();
+		Product product = new Product();
+		
+				
+		
+		//double price = product.getPrice();
+		//purchase.setPrice(price);
+		
+		int product_id = product.getId();
+		purchase.setProduct_id(product_id);
+		
+		
+		if (jRadioButtonPayCash.isSelected()){
+			purchase.setPaymentoption("Cash");
+		}else{
+			purchase.setPaymentoption("Op rekening");
+		}
+		
+		// No idea how to solve this one :short quantity = 
+		short quantity;
+		//purchase.setQuantity(quantity);
+
+		int user_id = Integer.parseInt( jTextFieldSearch.getText());
+		purchase.setUser_id(user_id);
+		
+		purchase.savePurchase();
+		
 	}
 
 	/**
@@ -141,9 +194,17 @@ public class BarApp extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListBasket = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
         jButtonDelete = new javax.swing.JButton();
+        jButtonSearchCustomer = new javax.swing.JButton();
+        jTextFieldSearch = new javax.swing.JTextField();
         jButtonProductmgnt = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jRadioButtonPayCash = new javax.swing.JRadioButton();
+        jRadioButtonPayCredit = new javax.swing.JRadioButton();
+        jLabelPayment = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabelCustomerName = new javax.swing.JLabel();
+        jButtonOrder = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(830, 599));
         setPreferredSize(new java.awt.Dimension(830, 599));
@@ -159,11 +220,12 @@ public class BarApp extends javax.swing.JPanel {
 
         jPanel5.setPreferredSize(new java.awt.Dimension(250, 290));
 
+        jLabelOrder.setFont(new java.awt.Font("Arial", 1, 18));
         jLabelOrder.setText("De bestelling");
 
         jLabel1.setText("Prijs:");
 
-        jLabelOrderPrice.setText("jLabelOrderPrice");
+        jLabelOrderPrice.setText("€ 00,00");
 
         jListBasket.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -172,12 +234,29 @@ public class BarApp extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jListBasket);
 
-        jLabel2.setText("Verwijder:");
-
         jButtonDelete.setText("Verwijder");
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
+            }
+        });
+
+        jButtonSearchCustomer.setText("Zoek klant");
+        jButtonSearchCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchCustomerActionPerformed(evt);
+            }
+        });
+
+        jTextFieldSearch.setText("Klantnummer");
+        jTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldSearchActionPerformed(evt);
+            }
+        });
+        jTextFieldSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldSearchFocusGained(evt);
             }
         });
 
@@ -190,51 +269,54 @@ public class BarApp extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelOrderPrice))
+                                .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addGap(116, 116, 116))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(193, 193, 193)
+                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(174, 174, 174))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelOrder)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                            .addComponent(jLabelOrder)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGap(26, 26, 26)
-                                    .addComponent(jButtonDelete)
-                                    .addGap(45, 45, 45))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jLabelOrderPrice)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonDelete, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jTextFieldSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonSearchCustomer)))
+                        .addGap(192, 192, 192)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabelOrder)
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jButtonDelete)))
-                    .addComponent(jLabelOrder))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelOrderPrice)
+                            .addComponent(jLabel1))))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
@@ -242,9 +324,9 @@ public class BarApp extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelOrderPrice)
-                            .addComponent(jLabel1))))
-                .addContainerGap())
+                            .addComponent(jButtonSearchCustomer)
+                            .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(20, 20, 20))
         );
 
         jButtonProductmgnt.setText("Beheer producten");
@@ -254,35 +336,98 @@ public class BarApp extends javax.swing.JPanel {
             }
         });
 
+        jRadioButtonPayCash.setText("Direct betalen");
+
+        jRadioButtonPayCredit.setText("Op rekening zetten");
+        jRadioButtonPayCredit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPayCreditActionPerformed(evt);
+            }
+        });
+
+        jLabelPayment.setText("Afrekenen");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelPayment)
+                            .addComponent(jRadioButtonPayCash)
+                            .addComponent(jRadioButtonPayCredit))
+                        .addContainerGap(220, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jLabelPayment)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButtonPayCash)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonPayCredit)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+
+        jLabelCustomerName.setText("Geen klant geselecteerd");
+
+        jButtonOrder.setText("Bestellen");
+        jButtonOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPaneRemainder, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPaneRemainder, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(91, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonProductmgnt)
-                        .addContainerGap())))
+                        .addGap(159, 159, 159)
+                        .addComponent(jButtonProductmgnt))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabelCustomerName))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(jButtonOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonProductmgnt)
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelCustomerName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonOrder))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonProductmgnt)
-                            .addComponent(jTabbedPaneRemainder, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(264, Short.MAX_VALUE))
+                        .addComponent(jTabbedPaneRemainder, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -295,22 +440,56 @@ public class BarApp extends javax.swing.JPanel {
 	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
 		removeSelectedProductFromBasket();
 	}//GEN-LAST:event_jButtonDeleteActionPerformed
+
+	private void jRadioButtonPayCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPayCreditActionPerformed
+		// TODO add your handling code here:
+	}//GEN-LAST:event_jRadioButtonPayCreditActionPerformed
+
+	private void jTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchActionPerformed
+		// TODO add your handling code here:
+	}//GEN-LAST:event_jTextFieldSearchActionPerformed
+
+	private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusGained
+		// Clear the SearchField on click
+		jTextFieldSearch.setText(null);
+	}//GEN-LAST:event_jTextFieldSearchFocusGained
+
+	private void jButtonSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomerActionPerformed
+		// TODO
+		// Search user by user id
+		searchUser();
+	}//GEN-LAST:event_jButtonSearchCustomerActionPerformed
+
+	private void jButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrderActionPerformed
+		// TODO add your handling code here:
+		
+		savePurchase();
+	}//GEN-LAST:event_jButtonOrderActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonOrder;
     private javax.swing.JButton jButtonProductmgnt;
+    private javax.swing.JButton jButtonSearchCustomer;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelCustomerName;
     private javax.swing.JLabel jLabelOrder;
     private javax.swing.JLabel jLabelOrderPrice;
+    private javax.swing.JLabel jLabelPayment;
     private javax.swing.JList jListBasket;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelActivity;
     private javax.swing.JPanel jPanelDrink;
     private javax.swing.JPanel jPanelFood;
+    private javax.swing.JRadioButton jRadioButtonPayCash;
+    private javax.swing.JRadioButton jRadioButtonPayCredit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPaneRemainder;
+    private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
 }
