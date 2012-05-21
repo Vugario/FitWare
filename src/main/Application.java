@@ -75,7 +75,10 @@ public final class Application {
 
 		JScrollPane scrollpane = new JScrollPane(panel);
 		scrollpane.getVerticalScrollBar().setUnitIncrement(10);
+		scrollpane.getHorizontalScrollBar().setEnabled(false);
+
 		scrollpane.setBorder(null);
+
 
 		view.Header header = new view.Header();
 
