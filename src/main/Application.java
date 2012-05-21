@@ -209,8 +209,7 @@ public final class Application {
 		} else if (role.getTitle().equals("admin")) {
 
 			// Does not exist yet:
-			//return new view.menu.AdminMenu();
-			return new view.menu.MemberMenu();
+			return new view.menu.AdminMenu();
 
 		} else {
 
