@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -75,13 +75,12 @@
         <Component class="javax.swing.JTable" name="jEnrollments">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="0">
+              <Table columnCount="5" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Object"/>
                 <Column editable="false" title="Naam" type="java.lang.Object"/>
-                <Column editable="false" title="Type" type="java.lang.Object"/>
                 <Column editable="false" title="Prijs" type="java.lang.Object"/>
-                <Column editable="false" title="Start datum" type="java.lang.Object"/>
-                <Column editable="false" title="Eind datum" type="java.lang.Object"/>
+                <Column editable="false" title="Minimale leeftijd" type="java.lang.Object"/>
+                <Column editable="false" title="Maximale leeftijd" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>

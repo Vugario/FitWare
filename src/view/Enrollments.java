@@ -6,13 +6,17 @@
 package view;
 
 import helper.SearchTable;
+import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import main.Application;
 import main.Session;
 import model.Enrollment;
 import model.Subscription;
+import view.popups.EnrollmentPopup;
+import view.popups.ErrorPopup;
 
 /**
  *
@@ -38,12 +42,16 @@ public class Enrollments extends javax.swing.JPanel {
         
         this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonReset);
         
-        // Fill the model with example data
+        // Retrieve all subscriptions
+        ArrayList<Subscription> items = Subscription.readAll();
+        
+        // Fill the model with data
         this.model = (DefaultTableModel) jEnrollments.getModel();
-        model.insertRow(0,new Object[]{ "1", "Zumba", "pakket", "€ 20", "21-02-2012", "21-05-2012" });
-        model.insertRow(0,new Object[]{ "2", "Lente Jam", "pakket", "€ 25", "21-02-2012", "21-05-2012" });
-        model.insertRow(0,new Object[]{ "3", "Zumba Summer Session", "pakket", "€ 25", "21-02-2012", "21-05-2012" });
-        model.insertRow(0,new Object[]{ "4", "Kickboxing", "pakket", "€ 20", "21-02-2012", "21-05-2012" });
+        for( int i = 0; i < items.size(); i++ )
+        {
+            Subscription item = items.get(i);
+            model.insertRow(0,new Object[]{ item.getId(), item.getTitle(), "€ " + item.getPrice(), item.getMinimumAge(), item.getMaximumAge() });
+        }
         
         // Make a selection listener
         this.row = jEnrollments.getSelectionModel();
@@ -54,23 +62,19 @@ public class Enrollments extends javax.swing.JPanel {
                if (! e.getValueIsAdjusting())
                 {
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    int value = 0;
+                    Object value = 0;
                     if (!lsm.isSelectionEmpty()) {
                         int minIndex = lsm.getMinSelectionIndex();
                         int maxIndex = lsm.getMaxSelectionIndex();
                         for (int i = minIndex; i <= maxIndex; i++) {
                             if (lsm.isSelectedIndex(i)) {
-                                value = i;
-                                System.out.println(i);
+                                value = jEnrollments.getModel().getValueAt(i, 0);
                             }
                         }
                     }
                     
-                    
-                    Enrollment enrollments = new Enrollment().readEnrollmentById( value );
-                    System.out.println( enrollments.getSubscription().getTitle() );
-                    //Application application = Main.getApplication();
-                    //application.showPopup("Gebruikersnaam en wachtwoord combinatie is niet bekend.");
+                    Subscription subscription = new Subscription( Integer.parseInt( value.toString() ) );
+                    Application.getInstance().showPopup(new EnrollmentPopup( "Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription ));
                 }
             }
         });
@@ -90,7 +94,7 @@ public class Enrollments extends javax.swing.JPanel {
         jButtonSearch = new javax.swing.JButton();
         jButtonReset = new javax.swing.JButton();
 
-        jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel19.setText("Mijn cursussen");
 
         jEnrollments.setModel(new javax.swing.table.DefaultTableModel(
@@ -98,11 +102,11 @@ public class Enrollments extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Naam", "Type", "Prijs", "Start datum", "Eind datum"
+                "ID", "Naam", "Prijs", "Minimale leeftijd", "Maximale leeftijd"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -134,7 +138,7 @@ public class Enrollments extends javax.swing.JPanel {
                                 .addComponent(jButtonSearch)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonReset)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 106, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

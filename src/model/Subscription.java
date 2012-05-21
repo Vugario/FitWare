@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.PreparedStatement;
@@ -10,19 +6,20 @@ import java.util.logging.Logger;
 import helper.db.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
- * @author allentje
+ * @author mennowolvers
  */
 public class Subscription extends Model {
         private int id;
-	private String category;
+	private int branchId;
 	private String title;
 	private String description;
 	private boolean gender;
-	private int maxAge;
-	private int minAge;
+	private int maximumAge;
+	private int minimumAge;
 	private boolean monthly;
 	private double price;
 	
@@ -38,9 +35,6 @@ public class Subscription extends Model {
 	
 	public Subscription(int id) {
 		super();
-		
-		this.result = result;
-		this.setPropertiesFromResult();
                 
                 try {
 			this.open();
@@ -55,6 +49,30 @@ public class Subscription extends Model {
 		}
 	}
         
+        public static ArrayList<Subscription> readAll() {
+			
+		ArrayList<Subscription> items = new ArrayList<Subscription>();
+			
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT * FROM subscription");
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				items.add(new Subscription(model.result));
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return items;
+
+	}
+        
         protected void setPropertiesFromResult() {
 		try {
 
@@ -66,12 +84,12 @@ public class Subscription extends Model {
 
 			// Fill in all properties
 			this.setId(this.result.getInt("id"));
-			this.setCategory(this.result.getString("category"));
+			this.setBranchId(this.result.getInt("branchid"));
                         this.setTitle(this.result.getString("title"));
                         this.setDescription(this.result.getString("description"));
                         this.setGender(this.result.getBoolean("gender"));
-                        this.setMaxAge(this.result.getInt("maxafe"));
-                        this.setMinAge(this.result.getInt("minage"));
+                        this.setMaximumAge(this.result.getInt("maximumage"));
+                        this.setMinimumAge(this.result.getInt("minimumage"));
                         this.setMonthly(this.result.getBoolean("monthly"));
                         this.setPrice(this.result.getDouble("price"));
 			
@@ -93,20 +111,6 @@ public class Subscription extends Model {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return the category
-     */
-    public String getCategory() {
-        return category;
-    }
-
-    /**
-     * @param category the category to set
-     */
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     /**
@@ -154,29 +158,29 @@ public class Subscription extends Model {
     /**
      * @return the maxAge
      */
-    public int getMaxAge() {
-        return maxAge;
+    public int getMaximumAge() {
+        return maximumAge;
     }
 
     /**
      * @param maxAge the maxAge to set
      */
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
+    public void setMaximumAge(int maximumAge) {
+        this.maximumAge = maximumAge;
     }
 
     /**
      * @return the minAge
      */
-    public int getMinAge() {
-        return minAge;
+    public int getMinimumAge() {
+        return minimumAge;
     }
 
     /**
      * @param minAge the minAge to set
      */
-    public void setMinAge(int minAge) {
-        this.minAge = minAge;
+    public void setMinimumAge(int minimumAge) {
+        this.minimumAge = minimumAge;
     }
 
     /**
@@ -205,6 +209,20 @@ public class Subscription extends Model {
      */
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    /**
+     * @return the branchId
+     */
+    public int getBranchId() {
+        return branchId;
+    }
+
+    /**
+     * @param branchId the branchId to set
+     */
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
     }
 	
 

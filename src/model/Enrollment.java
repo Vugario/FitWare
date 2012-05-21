@@ -1,17 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import helper.db.Model;
-import helper.Datetime;
 import java.sql.Timestamp;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import java.text.DateFormat;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +48,24 @@ public class Enrollment extends Model {
 			this.open();
 			this.query("SELECT * FROM \"enrollment\" e LEFT JOIN \"user\" u ON e.user_id = u.id LEFT JOIN \"subscription\" s ON e.subscription_id = s.id WHERE e.id = ? LIMIT 1").setInt(1, id);
 			this.result();
+			this.result.first();
+
+			this.setPropertiesFromResult();
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return this;
+	}
+
+	public Enrollment readEnrollmentBySubscriptionIdAndUserId(int id, int user_id) {
+		try {
+			this.open();
+                        PreparedStatement query = this.query("SELECT * FROM \"enrollment\" e LEFT JOIN \"user\" u ON e.user_id = u.id LEFT JOIN \"subscription\" s ON e.subscription_id = s.id WHERE e.id = ? AND e.user_id LIMIT 1");
+                        query.setInt(1, id);
+			query.setInt(2, user_id);
+                        this.result();
 			this.result.first();
 
 			this.setPropertiesFromResult();

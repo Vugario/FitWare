@@ -23,6 +23,7 @@ import main.Session;
 import model.Product;
 import model.Purchase;
 import model.User;
+import view.popups.ErrorPopup;
 
 /**
  *
@@ -103,12 +104,19 @@ public class BarApp extends javax.swing.JPanel {
 	}
 
 	public void removeSelectedProductFromBasket() {
-		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+            try{
+		
+            DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 		int selectedItem = jListBasket.getSelectedIndex();
 		listModel.remove(selectedItem);
 
 		// Recalculate the price
 		recalculatePrice();
+                
+            }
+            catch(ArrayIndexOutOfBoundsException aioobe){
+                Application.getInstance().showPopup(new ErrorPopup("Selecteer eerst een product om te verwijderen."));
+            }
 	}
 
 	public void recalculatePrice() {
