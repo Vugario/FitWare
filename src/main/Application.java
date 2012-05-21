@@ -69,6 +69,7 @@ public final class Application {
 
 		JScrollPane scrollpane = new JScrollPane(panel);
 		scrollpane.getVerticalScrollBar().setUnitIncrement(10);
+		scrollpane.getHorizontalScrollBar().setEnabled(false);
 
 		view.Header header = new view.Header();
 		header.showUserInfo(false);
@@ -126,11 +127,12 @@ public final class Application {
 		int posY = (window.getHeight() - panel.getHeight()) / 3;
 		panel.setLocation(posX, posY);
 		window.getLayeredPane().add(panel, JLayeredPane.POPUP_LAYER);
-
+		window.getRootPane().setEnabled(false);//.setEnabled(false);
+		//window.getLayeredPane().setEnabled(true);
 		// Todo:
 		// Show the GlassPane, so the background panel is 'disabled'
 		// This does not work:
-		//window.getGlassPane().setVisible(true);
+		window.getGlassPane().setVisible(true);
 
 	}
 
