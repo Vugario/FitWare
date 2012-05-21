@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import helper.db.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  */
 public class Subscription extends Model {
         private int id;
-	private String category;
+	private int branchId;
 	private String title;
 	private String description;
 	private boolean gender;
@@ -53,6 +54,30 @@ public class Subscription extends Model {
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+        
+        public static ArrayList<Subscription> readAll() {
+			
+		ArrayList<Subscription> items = new ArrayList<Subscription>();
+			
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT * FROM subscription");
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				items.add(new Subscription(model.result));
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return items;
+
 	}
         
         protected void setPropertiesFromResult() {
@@ -93,20 +118,6 @@ public class Subscription extends Model {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return the category
-     */
-    public String getCategory() {
-        return category;
-    }
-
-    /**
-     * @param category the category to set
-     */
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     /**
@@ -205,6 +216,20 @@ public class Subscription extends Model {
      */
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    /**
+     * @return the branchId
+     */
+    public int getBranchId() {
+        return branchId;
+    }
+
+    /**
+     * @param branchId the branchId to set
+     */
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
     }
 	
 

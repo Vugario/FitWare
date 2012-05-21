@@ -6,6 +6,7 @@
 package view;
 
 import helper.SearchTable;
+import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -38,7 +39,12 @@ public class Enrollments extends javax.swing.JPanel {
         
         this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonReset);
         
-        // Fill the model with example data
+        // Retrieve all subscriptions
+        ArrayList<Subscription> items = Subscription.readAll();
+        
+        System.out.println( items.toArray() );
+        
+        // Fill the model with data
         this.model = (DefaultTableModel) jEnrollments.getModel();
         model.insertRow(0,new Object[]{ "1", "Zumba", "pakket", "€ 20", "21-02-2012", "21-05-2012" });
         model.insertRow(0,new Object[]{ "2", "Lente Jam", "pakket", "€ 25", "21-02-2012", "21-05-2012" });
