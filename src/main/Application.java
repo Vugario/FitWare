@@ -136,20 +136,11 @@ public final class Application {
 		int posY = (window.getHeight() - panel.getHeight()) / 3;
 		panel.setLocation(posX, posY);
 		window.getLayeredPane().add(panel, JLayeredPane.POPUP_LAYER);
-<<<<<<< HEAD
-		window.getRootPane().setEnabled(false);//.setEnabled(false);
-		//window.getLayeredPane().setEnabled(true);
-		// Todo:
-		// Show the GlassPane, so the background panel is 'disabled'
-		// This does not work:
-		window.getGlassPane().setVisible(true);
-=======
 
 		// Show the GlassPane, so the background panel is 'disabled'
 		Component glassPane = window.getGlassPane();
 		glassPane.addMouseListener(new PopupMouseListener(window, panel));
 		glassPane.setVisible(true);
->>>>>>> 5bedae1ab9b2053353517fa52c034e2c1af4e780
 
 	}
 
