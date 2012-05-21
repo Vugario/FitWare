@@ -165,7 +165,7 @@ public final class Application {
 	}
 
 	private void close() {
-		db.close();
+		//db.close();
 		window.dispose();
 	}
 
