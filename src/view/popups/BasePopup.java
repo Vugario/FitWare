@@ -1,47 +1,49 @@
 /*
- * PopupError.java
+ * ErrorPopup.java
  *
  * Created on May 13, 2012, 2:37:50 PM
  */
-package view;
+package view.popups;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import main.Application;
 
 /**
  *
  * @author Daan
  */
-public class PopupError extends javax.swing.JPanel {
+abstract public class BasePopup extends javax.swing.JPanel {
 
-	public static final int TYPE_NORMAL = 0;
-	public static final int TYPE_ERROR = 1;
-	public static final int TYPE_NOTICE = 2;
-	public static final int TYPE_SUCCESS = 3;
-	protected static Color[] colors = new Color[4];
 	/**
 	 * The alpha transparant background for popups
 	 */
 	protected JPanel popupBackground;
 
 	/**
-	 * Creates new form PopupError
+	 * Creates new form ErrorPopup
 	 * 
 	 * @param message The message to show
 	 */
-	public PopupError(String message) {
+	public BasePopup(String message) {
 		super();
 		initComponents();
-		
+
 		// Fix newlines
-		message = "<html>" + message + "</html>";
-		message.replaceAll("\n", "<br>");
-		
+		message = "<html><div style=\"text-align: center;\">" + message + "</div></html>";
+		message = message.replaceAll("(\n)", "<br>");
+
 		// Set the message
 		jLabelMessage.setText(message);
-		
+
+		// Update the size according to the message	
+		Dimension textSize = this.jLabelMessage.getPreferredSize();
+		Dimension popupSize = new Dimension(textSize.width + 100, textSize.height + 170);
+
 		// Give the close button focus
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -50,9 +52,33 @@ public class PopupError extends javax.swing.JPanel {
 				jButtonClosePopup.requestFocusInWindow();
 			}
 		});
-		
+
 	}
-	
+
+	/**
+	 * Set the color of this popup.
+	 * 
+	 * @param color The color for the title and the border
+	 */
+	protected void setColor(Color color) {
+
+		// Set the border color...
+		Border newBorder = new LineBorder(color, 3, false);
+		this.jPanelBorders.setBorder(newBorder);
+
+		// ...and the title color
+		jLabelTitle.setForeground(color);
+	}
+
+	/**
+	 * Set the title of this popup.
+	 * 
+	 * @param title The title for this popup.
+	 */
+	protected void setTitle(String title) {
+		jLabelTitle.setText(title);
+	}
+
 	/**
 	 * Close this popup
 	 */
@@ -70,22 +96,21 @@ public class PopupError extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelBorders = new javax.swing.JPanel();
-        jLabelFoutmelding = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         jLabelMessage = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButtonClosePopup = new javax.swing.JButton();
 
         setOpaque(false);
 
-        jPanelBorders.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 3, true));
+        jPanelBorders.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-        jLabelFoutmelding.setFont(new java.awt.Font("Lucida Grande", 1, 13));
-        jLabelFoutmelding.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelFoutmelding.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFoutmelding.setText("FOUTMELDING");
+        jLabelTitle.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitle.setText("<TITEL>");
 
         jLabelMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelMessage.setText("<foutmelding bericht komt hier>");
+        jLabelMessage.setText("<bericht komt hier>");
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -110,21 +135,21 @@ public class PopupError extends javax.swing.JPanel {
                 .add(jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanelBordersLayout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                     .add(jPanelBordersLayout.createSequentialGroup()
                         .add(20, 20, 20)
                         .add(jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
-                            .add(jLabelFoutmelding, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))))
+                            .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jLabelTitle, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelBordersLayout.setVerticalGroup(
             jPanelBordersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanelBordersLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabelFoutmelding)
+                .add(jLabelTitle)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .add(jLabelMessage, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -161,8 +186,8 @@ public class PopupError extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonClosePopupKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClosePopup;
-    private javax.swing.JLabel jLabelFoutmelding;
     private javax.swing.JLabel jLabelMessage;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBorders;
     // End of variables declaration//GEN-END:variables

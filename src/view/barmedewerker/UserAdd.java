@@ -5,25 +5,68 @@
  */
 package view.barmedewerker;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import main.Application;
 import main.Session;
+import model.Branch;
+import model.Subscription;
 import model.User;
-import view.PopupError;
+import view.popups.ErrorPopup;
 
 /**
  * This is the class for the view to add a user
  *
  * @author vm
  */
-public class UserAdd extends javax.swing.JPanel {
+public final class UserAdd extends javax.swing.JPanel {
 
 	private User user = new User();
 
 	/** Creates new form Profile */
 	public UserAdd() {
 		initComponents();
+
+		//Set the radiobuttons in a group
+		ButtonGroup groupCategory = new ButtonGroup();
+		groupCategory.add(jRadioButtonYouth);
+		groupCategory.add(jRadioButtonAdult);
+		groupCategory.add(jRadioButtonSenior);
+
+		ButtonGroup groupGender = new ButtonGroup();
+		groupGender.add(jRadioButtonGenderMale);
+		groupGender.add(jRadioButtonGenderFemale);
+
+		ButtonGroup groupTime = new ButtonGroup();
+		groupTime.add(jRadioButtonDayTime);
+		groupTime.add(jRadioButtonFullTime);
+		
+		//jComboBox1.setModel(new DefaultComboBoxModel());
+		//uncomment this one when the sql works
+		addBranchToComboBox();
+
 	}
+	
+	public void addBranchToComboBox() {
+		//TODO fix this error: org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
+		//TODO can't find where it makes that much connections, maybe in the While?
+		try {
+			Branch branch = new Branch();
+					
+			//DefaultComboBoxModel comboModel = (DefaultComboBoxModel) jComboBox1.getModel();
+			while(!branch.readBranch().result.isLast())
+			{
+				jComboBox1.addItem(branch.getCity());
+			}	
+		} catch (SQLException ex) {
+			Logger.getLogger(UserAdd.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		}
+	
 
 	public void setUserData() {
 		User user = Session.get().getLoggedInUser();
@@ -64,33 +107,26 @@ public class UserAdd extends javax.swing.JPanel {
 		String email = jTextFieldEmail.getText();
 		user.setEmail(email);
 
-		ButtonGroup groupCategory = new ButtonGroup();
-		groupCategory.add(jRadioButtonYouth);
-		groupCategory.add(jRadioButtonAdult);
-		groupCategory.add(jRadioButtonSenior);
-
-		ButtonGroup groupGender = new ButtonGroup();
-		groupGender.add(jRadioButtonGenderMale);
-		groupGender.add(jRadioButtonGenderFemale);
-
-		ButtonGroup groupTime = new ButtonGroup();
-		groupTime.add(jRadioButtonDayTime);
-		groupTime.add(jRadioButtonFullTime);
-
-
 		if (jRadioButtonGenderMale.isSelected() == true) {
 			user.setGender(true);
 		} else {
 			user.setGender(false);
 		}
-
-		if (jRadioButtonYouth.isSelected() == true) {
-			user.setCategory("youth");
-		} else if (jRadioButtonAdult.isSelected() == true) {
-			user.setCategory("adult");
+		
+		Subscription subscription = new Subscription();
+		
+		/*if (jRadioButtonYouth.isSelected()) {
+			subscription.setCategory("youth");
+		} else if (jRadioButtonAdult.isSelected()) {
+			subscription.setCategory("adult");
 		} else {
-			user.setCategory("senior");
+			subscription.setCategory("senior");
 		}
+		
+		if(jRadioButtonDayTime.isSelected){
+			subscription.set
+		}*/
+		
 
 		user.save();
 	}
@@ -159,12 +195,27 @@ public class UserAdd extends javax.swing.JPanel {
         jLabel6.setText("Gebruikersnaam");
 
         jTextFieldFirstname.setText("voornaam");
+        jTextFieldFirstname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldFirstnameFocusGained(evt);
+            }
+        });
 
         jLabel7.setText("Volledige naam");
 
         jTextFieldSubname.setText("tussenvoegsel");
+        jTextFieldSubname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldSubnameFocusGained(evt);
+            }
+        });
 
         jTextFieldLastname.setText("achternaam");
+        jTextFieldLastname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldLastnameFocusGained(evt);
+            }
+        });
 
         jLabel8.setText("Geboortedatum");
 
@@ -243,8 +294,8 @@ public class UserAdd extends javax.swing.JPanel {
                             .add(jLabel17))
                         .add(22, 22, 22)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-                            .add(jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)))
+                            .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                            .add(jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -293,7 +344,7 @@ public class UserAdd extends javax.swing.JPanel {
                                     .add(jRadioButtonFullTime)
                                     .add(jRadioButtonSenior)))
                             .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(jLabel12)
                         .add(454, 454, 454))
@@ -308,8 +359,8 @@ public class UserAdd extends javax.swing.JPanel {
                             .add(jLabel1))
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextFieldEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-                            .add(jTextFieldMobilenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                            .add(jTextFieldEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                            .add(jTextFieldMobilenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                     .add(jTextFieldCity)
@@ -318,10 +369,10 @@ public class UserAdd extends javax.swing.JPanel {
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jTextFieldPostcode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jTextFieldStreetnumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .add(jTextFieldPhonenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                            .add(jTextFieldPhonenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                             .add(layout.createSequentialGroup()
                                 .add(jTextFieldAccountNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 43, Short.MAX_VALUE)
                                 .add(jLabel20)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jTextFieldTNV, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
@@ -435,18 +486,36 @@ public class UserAdd extends javax.swing.JPanel {
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
 
-			Application.getInstance().showPopup(new PopupError(
+			Application.getInstance().showPopup(new ErrorPopup(
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
 		}
 		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
 		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
 		if (!passwordequal) {
-			Application.getInstance().showPopup(new PopupError(
+			Application.getInstance().showPopup(new ErrorPopup(
 					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 		}
+		setUserData();
+		
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
+
+	private void jTextFieldFirstnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldFirstnameFocusGained
+		// Set the textfield empty on focus
+		jTextFieldFirstname.setText(null);
+
+	}//GEN-LAST:event_jTextFieldFirstnameFocusGained
+
+	private void jTextFieldSubnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSubnameFocusGained
+		// Set the textfield empty on focus
+		jTextFieldSubname.setText(null);
+	}//GEN-LAST:event_jTextFieldSubnameFocusGained
+
+	private void jTextFieldLastnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldLastnameFocusGained
+		// Set the textfield empty on focus
+		jTextFieldLastname.setText(null);
+	}//GEN-LAST:event_jTextFieldLastnameFocusGained
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;

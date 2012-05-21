@@ -4,10 +4,16 @@
  */
 package main;
 
+import helper.PopupMouseListener;
 import helper.db.Manager;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -71,22 +77,25 @@ public final class Application {
 		scrollpane.getVerticalScrollBar().setUnitIncrement(10);
 		scrollpane.getHorizontalScrollBar().setEnabled(false);
 
+		scrollpane.setBorder(null);
+
+
 		view.Header header = new view.Header();
-		header.showUserInfo(false);
 
 		window.getContentPane().removeAll();
 		window.getContentPane().add(scrollpane, BorderLayout.CENTER);
 		window.getContentPane().add(header, BorderLayout.NORTH);
+		window.getContentPane().add(new view.Footer(), BorderLayout.SOUTH);
 
 		User userSession = Session.get().getLoggedInUser();
 
 		if (userSession == null) {
+			header.showUserInfo(false);
 			window.getContentPane().add(new view.Login());
 
 		} else {
 			header.showUserInfo(true);
-			window.getContentPane().add(new view.menu.MemberMenu(), BorderLayout.WEST);
-			window.getContentPane().add(new view.Header(), BorderLayout.SOUTH);
+			window.getContentPane().add(this.getMenuForLoggedInUser(), BorderLayout.WEST);
 		}
 
 		window.getContentPane().validate();
@@ -127,12 +136,20 @@ public final class Application {
 		int posY = (window.getHeight() - panel.getHeight()) / 3;
 		panel.setLocation(posX, posY);
 		window.getLayeredPane().add(panel, JLayeredPane.POPUP_LAYER);
+<<<<<<< HEAD
 		window.getRootPane().setEnabled(false);//.setEnabled(false);
 		//window.getLayeredPane().setEnabled(true);
 		// Todo:
 		// Show the GlassPane, so the background panel is 'disabled'
 		// This does not work:
 		window.getGlassPane().setVisible(true);
+=======
+
+		// Show the GlassPane, so the background panel is 'disabled'
+		Component glassPane = window.getGlassPane();
+		glassPane.addMouseListener(new PopupMouseListener(window, panel));
+		glassPane.setVisible(true);
+>>>>>>> 5bedae1ab9b2053353517fa52c034e2c1af4e780
 
 	}
 
@@ -142,17 +159,20 @@ public final class Application {
 	public void closePopup() {
 
 		// Get the popup that is on top
-		JPanel popup = popups.get(popups.size()-1);
-		
+		JPanel popup = popups.get(popups.size() - 1);
+
+		// Hide the GlassPane
+		window.getGlassPane().setVisible(false);
+
 		// Remove the popup
 		window.getLayeredPane().remove(popup);
 		popups.remove(popup);
-		
+
 		// Remove the semi transparent background if no other popup is visible
-		if(popups.isEmpty()) {
+		if (popups.isEmpty()) {
 			window.getLayeredPane().remove(popupBackground);
 		}
-		
+
 		// Repaint this application
 		window.repaint();
 	}
@@ -164,5 +184,51 @@ public final class Application {
 
 	public static Application getInstance() {
 		return instance;
+	}
+
+	/**
+	 * Get the menu for the currently logged in user
+	 * 
+	 * @return The Menu instance, or null if no user is logged in
+	 */
+	private JPanel getMenuForLoggedInUser() {
+		User user = Session.get().getLoggedInUser();
+
+		// Check if somebody is logged in
+		if (user == null) {
+
+			// Nobody is logged in at the moment
+			return null;
+		}
+
+		// Get all roles of the currently logged in user
+		ArrayList<model.Role> roles = user.getRoles();
+
+		// Find out what the highest role is
+		model.Role role = roles.get(roles.size() - 1);
+
+		// Return the corresponding menu
+		if (role.getTitle().equals("member")) {
+
+			// Return the MemberMenu
+			return new view.menu.MemberMenu();
+
+		} else if (role.getTitle().equals("barmedewerker")) {
+
+			// Return the BarmedewerkerMenu
+			return new view.menu.BarmedewerkerMenu();
+
+		} else if (role.getTitle().equals("admin")) {
+
+			// Does not exist yet:
+			//return new view.menu.AdminMenu();
+			return new view.menu.MemberMenu();
+
+		} else {
+
+			// Fallback to the MemberMenu
+			return new view.menu.MemberMenu();
+
+		}
 	}
 }

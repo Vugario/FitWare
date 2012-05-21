@@ -24,10 +24,10 @@ public class Dashboard extends javax.swing.JPanel {
      */
     public Dashboard() {
         initComponents();
+		updateUserInfo();
     }
 
     public void updateUserInfo() {
-        
         this.jLabelFullname.setText(user.getFullName());
     }
 	
