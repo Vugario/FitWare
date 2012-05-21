@@ -1,6 +1,9 @@
 package view.popups;
 
 import java.awt.Color;
+import main.Session;
+import model.Enrollment;
+import model.Subscription;
 
 /**
  * A simple popup to show subscription data and allow a user to sign in or off
@@ -15,7 +18,13 @@ public class EnrollmentPopup extends DetailPopup {
 		this.setColor(Color.GRAY);
 		this.setTitle("Cursus");
                 
-                System.out.println( data.getClass().getName() );
+                if( "model.Subscription".equals( data.getClass().getName() ) )
+                {
+                    Subscription subscription = (Subscription) data;
+                    Enrollment enrollment = new Enrollment().readEnrollmentBySubscriptionIdAndUserId( subscription.getId(), Session.get().getLoggedInUser().getId() );
+                    
+                    System.out.println( enrollment );
+                }
                 
                 jButtonConfirm.setText("Inschrijven");
 	}
