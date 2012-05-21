@@ -29,6 +29,9 @@ public final class UserAdd extends javax.swing.JPanel {
 	/** Creates new form Profile */
 	public UserAdd() {
 		initComponents();
+		
+		// Empty the combo box
+		jComboBox1.removeAllItems();
 
 		//Set the radiobuttons in a group
 		ButtonGroup groupCategory = new ButtonGroup();

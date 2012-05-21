@@ -67,7 +67,7 @@ public class Branch extends Model {
 
 			// Fill in all properties
 			this.id = this.result.getInt("id");
-			this.city = this.result.getString("street");
+			this.city = this.result.getString("city");
 			this.street = this.result.getString("street");
 			this.postcode = this.result.getString("postcode");
 			this.phonenumber = this.result.getString("phonenumber");
