@@ -18,6 +18,16 @@ import view.popups.ErrorPopup;
  */
 public class Profile extends javax.swing.JPanel {
 
+	boolean passwordChange;
+	
+	public boolean isPasswordChange() {
+		return passwordChange;
+	}
+
+	public void setPasswordChange(boolean passwordChange) {
+		this.passwordChange = passwordChange;
+	}
+	
 	
 	
 	private	User user = new User().readUser(Session.get().getLoggedInUser().getId());
@@ -111,6 +121,9 @@ public class Profile extends javax.swing.JPanel {
 		} else {
 			user.setGender(false);
 		}
+		
+		String id = jTextFieldId.getText();
+		user.setId(Integer.parseInt(id));
 
 	}
 
@@ -370,14 +383,17 @@ public class Profile extends javax.swing.JPanel {
 		
 		// TODO make an updatesql to upload new settings into database
 		System.out.println(user.save());
-		System.exit(0);
+		//System.exit(0);
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
 		
-		if(passwordChanged.isEnabled()){
+		boolean passwordChanged1 = passwordChanged.isSelected();
+		
+		if(passwordChanged.isSelected()){
 			String password1 = new String(jPasswordField1.getPassword());
 			String password2 = new String(jPasswordField2.getPassword());
 			Boolean passwordequal = password1.equals(password2);
+			user.setPassword(password2);
 			
 			if (!passwordequal) {
 				Application.getInstance().showPopup(new ErrorPopup(
@@ -407,6 +423,7 @@ public class Profile extends javax.swing.JPanel {
 			
 			jPasswordField1.setVisible(true);
 			jPasswordField2.setVisible(true);
+			passwordChange = true;
 		}else{
 			jLabel17.setVisible(false);
 			jLabel18.setVisible(false);
