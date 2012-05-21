@@ -3,7 +3,7 @@
  *
  * Created on May 10, 2012, 10:52:48 PM
  */
-package view.barmedewerker;
+package view.medewerker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
