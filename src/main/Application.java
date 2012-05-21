@@ -9,11 +9,7 @@ import helper.db.Manager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -45,7 +41,7 @@ public final class Application {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-
+		db.open();
 		startup();
 
 	}
@@ -169,7 +165,7 @@ public final class Application {
 	}
 
 	private void close() {
-		//db.close();
+		db.close();
 		window.dispose();
 	}
 
