@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.PreparedStatement;
@@ -14,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author allentje
+ * @author mennowolvers
  */
 public class Subscription extends Model {
         private int id;
@@ -22,8 +18,8 @@ public class Subscription extends Model {
 	private String title;
 	private String description;
 	private boolean gender;
-	private int maxAge;
-	private int minAge;
+	private int maximumAge;
+	private int minimumAge;
 	private boolean monthly;
 	private double price;
 	
@@ -39,9 +35,6 @@ public class Subscription extends Model {
 	
 	public Subscription(int id) {
 		super();
-		
-		this.result = result;
-		this.setPropertiesFromResult();
                 
                 try {
 			this.open();
@@ -91,12 +84,12 @@ public class Subscription extends Model {
 
 			// Fill in all properties
 			this.setId(this.result.getInt("id"));
-			this.setCategory(this.result.getString("category"));
+			this.setBranchId(this.result.getInt("branchid"));
                         this.setTitle(this.result.getString("title"));
                         this.setDescription(this.result.getString("description"));
                         this.setGender(this.result.getBoolean("gender"));
-                        this.setMaxAge(this.result.getInt("maxafe"));
-                        this.setMinAge(this.result.getInt("minage"));
+                        this.setMaximumAge(this.result.getInt("maximumage"));
+                        this.setMinimumAge(this.result.getInt("minimumage"));
                         this.setMonthly(this.result.getBoolean("monthly"));
                         this.setPrice(this.result.getDouble("price"));
 			
@@ -165,29 +158,29 @@ public class Subscription extends Model {
     /**
      * @return the maxAge
      */
-    public int getMaxAge() {
-        return maxAge;
+    public int getMaximumAge() {
+        return maximumAge;
     }
 
     /**
      * @param maxAge the maxAge to set
      */
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
+    public void setMaximumAge(int maximumAge) {
+        this.maximumAge = maximumAge;
     }
 
     /**
      * @return the minAge
      */
-    public int getMinAge() {
-        return minAge;
+    public int getMinimumAge() {
+        return minimumAge;
     }
 
     /**
      * @param minAge the minAge to set
      */
-    public void setMinAge(int minAge) {
-        this.minAge = minAge;
+    public void setMinimumAge(int minimumAge) {
+        this.minimumAge = minimumAge;
     }
 
     /**
