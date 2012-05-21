@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.member.Profile;
 
 /**
  * A user is someone using this application. It can be a member, barmedewerker or
@@ -79,8 +80,8 @@ public class User extends Model {
 	public boolean save() {
 		try {
 			this.open();
-
-			boolean passwordChanged = !"".equals(password);
+			Profile profile = new Profile();
+			boolean passwordChanged = profile.isPasswordChange();
 
 			PreparedStatement query = this.query("UPDATE \"user\" SET username = ?,"
 					+ "firstname = ?,"
@@ -114,7 +115,6 @@ public class User extends Model {
 			} else {
 				query.setInt(12, id);
 			}
-
 
 			this.execute();
 

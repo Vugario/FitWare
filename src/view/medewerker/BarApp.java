@@ -100,8 +100,9 @@ public class BarApp extends javax.swing.JPanel {
         DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
         listModel.addElement(product);
 
-        recalculatePrice();
-    }
+		// Recalculate the price
+		recalculatePrice();
+	}
 
     public void removeSelectedProductFromBasket() {
         try {
