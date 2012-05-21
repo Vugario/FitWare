@@ -24,6 +24,7 @@ import model.Product;
 import model.Purchase;
 import model.User;
 import view.popups.ErrorPopup;
+import view.popups.SuccessPopup;
 
 /**
  *
@@ -31,178 +32,193 @@ import view.popups.ErrorPopup;
  */
 public class BarApp extends javax.swing.JPanel {
 
-	double totalPrice = 0.00;
+    double totalPrice = 0.00;
 
-	/**
-	 * Creates new form BarApp
-	 */
-	public BarApp() {
-		initComponents();
-		addProductbuttons();
-		User user = Session.get().getLoggedInUser();
-		jButtonProductmgnt.setVisible(false);
+    /**
+     * Creates new form BarApp
+     */
+    public BarApp() {
+        initComponents();
+        addProductbuttons();
+        User user = Session.get().getLoggedInUser();
+        jButtonProductmgnt.setVisible(false);
 
-		// TODO If user role is !admin then jButtonProductmgnt is not visible
-		if (user.getRoles().get(0).getTitle().equals("admin")) {
-			//Set the button for 'Product beheer'
-			jButtonProductmgnt.setVisible(true);
-		}
+        // TODO If user role is !admin then jButtonProductmgnt is not visible
+        if (user.getRoles().get(0).getTitle().equals("admin")) {
+            //Set the button for 'Product beheer'
+            jButtonProductmgnt.setVisible(true);
+        }
 
-		jListBasket.setModel(new DefaultListModel());
-		ButtonGroup group = new ButtonGroup();
-		group.add(jRadioButtonPayCredit);
-		group.add(jRadioButtonPayCash);
-
-
-	}
-
-	private void addProductbuttons() {
-		ArrayList<Product> products = Product.readAll();
+        jListBasket.setModel(new DefaultListModel());
+        ButtonGroup group = new ButtonGroup();
+        group.add(jRadioButtonPayCredit);
+        group.add(jRadioButtonPayCash);
 
 
-		for (int i = 0; i < products.size(); i++) {
+    }
 
-			final Product product = products.get(i);
-
-			JButton productButton = new JButton();
-			productButton.setFont(new Font("Tahoma", 0, 10));
-			productButton.setText(
-					"<html><p align=\"center\">"
-					+ "<strong>" + product.getName() + "</strong><br>"
-					+ product.getDescription() + " / "
-					+ product.getDecoratedPrice()
-					+ "</p></html>");
-			productButton.setMaximumSize(new Dimension(120, 60));
-			productButton.setMinimumSize(new Dimension(120, 60));
-			productButton.setPreferredSize(new Dimension(120, 60));
-			productButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent evt) {
-					addProductToBasket(product);
-				}
-			});
-
-			if (product.getType().equals("food")) {
-				jPanelFood.add(productButton);
-			} else if (product.getType().equals("drink")) {
-				jPanelDrink.add(productButton);
-			} else {
-				jPanelActivity.add(productButton);
-			}
-		}
+    private void addProductbuttons() {
+        ArrayList<Product> products = Product.readAll();
 
 
-	}
+        for (int i = 0; i < products.size(); i++) {
 
-	public void addProductToBasket(Product product) {
-		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
-		listModel.addElement(product);
+            final Product product = products.get(i);
 
-		recalculatePrice();
-	}
+            JButton productButton = new JButton();
+            productButton.setFont(new Font("Tahoma", 0, 10));
+            productButton.setText(
+                    "<html><p align=\"center\">"
+                    + "<strong>" + product.getName() + "</strong><br>"
+                    + product.getDescription() + " / "
+                    + product.getDecoratedPrice()
+                    + "</p></html>");
+            productButton.setMaximumSize(new Dimension(120, 60));
+            productButton.setMinimumSize(new Dimension(120, 60));
+            productButton.setPreferredSize(new Dimension(120, 60));
+            productButton.addActionListener(new ActionListener() {
 
-	public void removeSelectedProductFromBasket() {
-            try{
-		
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    addProductToBasket(product);
+                }
+            });
+
+            if (product.getType().equals("food")) {
+                jPanelFood.add(productButton);
+            } else if (product.getType().equals("drink")) {
+                jPanelDrink.add(productButton);
+            } else {
+                jPanelActivity.add(productButton);
+            }
+        }
+
+
+    }
+
+    public void addProductToBasket(Product product) {
+        DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+        listModel.addElement(product);
+
+        recalculatePrice();
+    }
+
+    public void removeSelectedProductFromBasket() {
+        try {
+
             DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
-		int selectedItem = jListBasket.getSelectedIndex();
-		listModel.remove(selectedItem);
+            int selectedItem = jListBasket.getSelectedIndex();
+            listModel.remove(selectedItem);
 
-		// Recalculate the price
-		recalculatePrice();
-                
+            // Recalculate the price
+            recalculatePrice();
+
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            Application.getInstance().showPopup(new ErrorPopup("Selecteer eerst een product om te verwijderen."));
+        }
+    }
+
+    public void resetBasket() {
+        DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+        listModel.removeAllElements();
+        recalculatePrice();
+    }
+
+    //  public void resetCustomernumber(){
+    //      if ()
+    //      jTextFieldSearch.setText(null);
+    // }
+    public void recalculatePrice() {
+        DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+
+        // Recalculate the price
+        totalPrice = 0;
+        for (int i = 0; i < listModel.getSize(); i++) {
+            Product product = (Product) listModel.getElementAt(i);
+
+            totalPrice = totalPrice + product.getPrice();
+        }
+
+        // Update the price in the label
+        jLabelOrderPrice.setText(String.format("€ %.2f", totalPrice));
+
+    }
+
+    public User searchUser() {
+        // Search a user and return a result
+        // TODO: search by name, etc.
+        User user = new User();
+        int id = Integer.parseInt(jTextFieldSearch.getText());
+        user.readUser(id);
+
+        // Choose which user when multiple users are found
+        //user = showSearchPopup();
+
+        // Set the label
+        jLabelCustomerName.setText(user.getFullName());
+
+        // Return the user
+        return user;
+    }
+
+    public void showSearchPopup() {
+        //TODO
+        //Shows a screen when multiple users are found
+    }
+
+    public void savePurchase() {
+        // Loop over all products
+        DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+
+        for (int i = 0; i < listModel.getSize(); i++) {
+            // Add a purchase for this product
+            Product product = (Product) listModel.getElementAt(i);
+
+            // Create a purchase
+            Purchase purchase = new Purchase();
+
+            // Set the user
+            int user_id = searchUser().getId();
+            purchase.setUser_id(user_id);
+
+            // Set the product
+            int product_id = product.getId();
+            purchase.setProduct_id(product_id);
+
+            // Set the price
+            double price = product.getPrice();
+            purchase.setPrice(price);
+
+
+
+
+            // Set the payment option
+            if (jRadioButtonPayCash.isSelected()) {
+
+                purchase.setPaymentoption("Cash");
+
+            } else {
+                purchase.setPaymentoption("Op rekening");
             }
-            catch(ArrayIndexOutOfBoundsException aioobe){
-                Application.getInstance().showPopup(new ErrorPopup("Selecteer eerst een product om te verwijderen."));
-            }
-	}
 
-	public void recalculatePrice() {
-		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 
-		// Recalculate the price
-		totalPrice = 0;
-		for (int i = 0; i < listModel.getSize(); i++) {
-			Product product = (Product) listModel.getElementAt(i);
+            // Set the quantity
+            // For now: add each product 1 time.
+            short quantity = 1;
+            purchase.setQuantity(quantity);
 
-			totalPrice = totalPrice + product.getPrice();
-		}
+            // Save the purchase
+            purchase.savePurchase();
+        }
 
-		// Update the price in the label
-		jLabelOrderPrice.setText(String.format("€ %.2f", totalPrice));
+    }
 
-	}
-
-	public User searchUser() {
-		// Search a user and return a result
-		// TODO: search by name, etc.
-		User user = new User();
-		int id = Integer.parseInt(jTextFieldSearch.getText());
-		user.readUser(id);
-
-		// Choose which user when multiple users are found
-		//user = showSearchPopup();
-
-		// Set the label
-		jLabelCustomerName.setText(user.getFullName());
-
-		// Return the user
-		return user;
-	}
-
-	public void showSearchPopup() {
-		//TODO
-		//Shows a screen when multiple users are found
-	}
-
-	public void savePurchase() {
-		// Loop over all products
-		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
-		
-		for (int i = 0; i < listModel.getSize(); i++) {	
-			// Add a purchase for this product
-			Product product = (Product) listModel.getElementAt(i);
-
-			// Create a purchase
-			Purchase purchase = new Purchase();
-			
-			// Set the user
-			int user_id = searchUser().getId();
-			purchase.setUser_id(user_id);
-			
-			// Set the product
-			int product_id = product.getId();
-			purchase.setProduct_id(product_id);
-			
-			// Set the price
-			double price = product.getPrice();
-			purchase.setPrice(price);
-
-			// Set the payment option
-			if (jRadioButtonPayCash.isSelected()) {
-				purchase.setPaymentoption("Cash");
-			} else {
-				purchase.setPaymentoption("Op rekening");
-			}
-			
-			// Set the quantity
-			// For now: add each product 1 time.
-			short quantity = 1;
-			purchase.setQuantity(quantity);
-
-			// Save the purchase
-			purchase.savePurchase();
-		}
-
-	}
-
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
-	@SuppressWarnings("unchecked")
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -457,38 +473,45 @@ public class BarApp extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonProductmgntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductmgntActionPerformed
-		//Load the Baroverview screen to go and manage products
-		Application.getInstance().showPanel(new view.admin.BarProductOverview());
+            //Load the Baroverview screen to go and manage products
+            Application.getInstance().showPanel(new view.admin.BarProductOverview());
 
 	}//GEN-LAST:event_jButtonProductmgntActionPerformed
 
 	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-		removeSelectedProductFromBasket();
+            removeSelectedProductFromBasket();
 	}//GEN-LAST:event_jButtonDeleteActionPerformed
 
 	private void jRadioButtonPayCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPayCreditActionPerformed
-		// TODO add your handling code here:
+            // TODO add your handling code here:
 	}//GEN-LAST:event_jRadioButtonPayCreditActionPerformed
 
 	private void jTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchActionPerformed
-		// TODO add your handling code here:
+            // TODO add your handling code here:
 	}//GEN-LAST:event_jTextFieldSearchActionPerformed
 
 	private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusGained
-		// Clear the SearchField on click
-		jTextFieldSearch.setText(null);
+            // Clear the SearchField on click
+            jTextFieldSearch.setText(null);
 	}//GEN-LAST:event_jTextFieldSearchFocusGained
 
 	private void jButtonSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomerActionPerformed
-		// TODO
-		// Search user by user id
-		searchUser();
+            // TODO
+            // Search user by user id
+            searchUser();
 	}//GEN-LAST:event_jButtonSearchCustomerActionPerformed
 
 	private void jButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrderActionPerformed
-		// TODO add your handling code here:
+            // TODO add your handling code here:
+            try {
+                savePurchase();
+            } catch (NumberFormatException nfe) {
+                jTextFieldSearch.setText(null);
+            }
 
-		savePurchase();
+            resetBasket();
+            Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
+            jTextFieldSearch.setText("Klantnummer");
 	}//GEN-LAST:event_jButtonOrderActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
