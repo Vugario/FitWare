@@ -52,6 +52,12 @@ public class Login extends javax.swing.JPanel {
 		if (Session.get().logIn(username, password)) {
 			User user = Session.get().getLoggedInUser();
 			// Login succesful
+			// Check if the user has überhaupt a role
+			if (user.getRoles().isEmpty()) {
+				// Fall back to the member's view
+				Application.getInstance().showPanel(new view.member.Dashboard());
+			}
+			
 			if (user.getRoles().get(0).getTitle().equals("member")) {
 				//Load the member Dashboard view
 				Application.getInstance().showPanel(new view.member.Dashboard());
