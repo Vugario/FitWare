@@ -27,8 +27,8 @@
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPasswordField2" alignment="0" pref="477" max="32767" attributes="1"/>
-                          <Component id="jPasswordField1" alignment="0" pref="477" max="32767" attributes="1"/>
+                          <Component id="jPasswordField2" alignment="0" pref="481" max="32767" attributes="1"/>
+                          <Component id="jPasswordField1" alignment="0" pref="481" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -95,7 +95,7 @@
                           </Group>
                           <Component id="jComboBox1" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -113,8 +113,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextFieldEmail" alignment="0" pref="470" max="32767" attributes="1"/>
-                          <Component id="jTextFieldMobilenumber" alignment="0" pref="470" max="32767" attributes="1"/>
+                          <Component id="jTextFieldEmail" alignment="0" pref="481" max="32767" attributes="1"/>
+                          <Component id="jTextFieldMobilenumber" alignment="0" pref="481" max="32767" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jTextFieldCity" alignment="0" max="32767" attributes="1"/>
@@ -126,7 +126,7 @@
                                   <Component id="jTextFieldStreetnumber" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jTextFieldPhonenumber" alignment="0" pref="470" max="32767" attributes="1"/>
+                          <Component id="jTextFieldPhonenumber" alignment="0" pref="481" max="32767" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jTextFieldAccountNumber" min="-2" pref="156" max="-2" attributes="0"/>
                               <EmptySpace pref="43" max="32767" attributes="0"/>
@@ -278,6 +278,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="voornaam"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldFirstnameFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -288,11 +291,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="tussenvoegsel"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldSubnameFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldLastname">
       <Properties>
         <Property name="text" type="java.lang.String" value="achternaam"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldLastnameFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldBirthdate">
     </Component>

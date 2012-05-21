@@ -48,6 +48,8 @@ public class BarApp extends javax.swing.JPanel {
 		}
 
 		jListBasket.setModel(new DefaultListModel());
+		
+		//Group the buttons to make it impossible to select two radiobuttons
 		ButtonGroup group = new ButtonGroup();
 		group.add(jRadioButtonPayCredit);
 		group.add(jRadioButtonPayCash);
@@ -90,14 +92,13 @@ public class BarApp extends javax.swing.JPanel {
 				jPanelActivity.add(productButton);
 			}
 		}
-
-
 	}
 
 	public void addProductToBasket(Product product) {
 		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 		listModel.addElement(product);
 
+		// Recalculate the price
 		recalculatePrice();
 	}
 
@@ -133,7 +134,7 @@ public class BarApp extends javax.swing.JPanel {
 		int id = Integer.parseInt(jTextFieldSearch.getText());
 		user.readUser(id);
 
-		// Choose which user when multiple users are found
+		//TODO Choose which user when multiple users are found
 		//user = showSearchPopup();
 
 		// Set the label
@@ -173,9 +174,9 @@ public class BarApp extends javax.swing.JPanel {
 
 			// Set the payment option
 			if (jRadioButtonPayCash.isSelected()) {
-				purchase.setPaymentoption("Cash");
+				purchase.setPaymentoption("Betaald");
 			} else {
-				purchase.setPaymentoption("Op rekening");
+				purchase.setPaymentoption("Niet betaald");
 			}
 			
 			// Set the quantity
