@@ -3,14 +3,13 @@
  *
  * Created on May 10, 2012, 10:52:48 PM
  */
-package view.barmedewerker;
+package view.medewerker;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import main.Application;
 import main.Session;
 import model.Branch;
@@ -30,6 +29,9 @@ public final class UserAdd extends javax.swing.JPanel {
 	/** Creates new form Profile */
 	public UserAdd() {
 		initComponents();
+		
+		// Empty the combo box
+		jComboBox1.removeAllItems();
 
 		//Set the radiobuttons in a group
 		ButtonGroup groupCategory = new ButtonGroup();
@@ -44,29 +46,22 @@ public final class UserAdd extends javax.swing.JPanel {
 		ButtonGroup groupTime = new ButtonGroup();
 		groupTime.add(jRadioButtonDayTime);
 		groupTime.add(jRadioButtonFullTime);
-		
+
 		//jComboBox1.setModel(new DefaultComboBoxModel());
 		//uncomment this one when the sql works
 		addBranchToComboBox();
 
 	}
-	
+
 	public void addBranchToComboBox() {
-		//TODO fix this error: org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
-		//TODO can't find where it makes that much connections, maybe in the While?
-		try {
-			Branch branch = new Branch();
-					
-			//DefaultComboBoxModel comboModel = (DefaultComboBoxModel) jComboBox1.getModel();
-			while(!branch.readBranch().result.isLast())
-			{
-				jComboBox1.addItem(branch.getCity());
-			}	
-		} catch (SQLException ex) {
-			Logger.getLogger(UserAdd.class.getName()).log(Level.SEVERE, null, ex);
+		ArrayList<Branch> branches = Branch.readAll();
+
+		//DefaultComboBoxModel comboModel = (DefaultComboBoxModel) jComboBox1.getModel();
+		for (int i = 0; i < branches.size(); i++) {
+			Branch branch = branches.get(i);
+			jComboBox1.addItem(branch.getCity());
 		}
-		}
-	
+	}
 
 	public void setUserData() {
 		User user = Session.get().getLoggedInUser();
@@ -112,21 +107,21 @@ public final class UserAdd extends javax.swing.JPanel {
 		} else {
 			user.setGender(false);
 		}
-		
+
 		Subscription subscription = new Subscription();
-		
+
 		/*if (jRadioButtonYouth.isSelected()) {
-			subscription.setCategory("youth");
+		subscription.setCategory("youth");
 		} else if (jRadioButtonAdult.isSelected()) {
-			subscription.setCategory("adult");
+		subscription.setCategory("adult");
 		} else {
-			subscription.setCategory("senior");
+		subscription.setCategory("senior");
 		}
 		
 		if(jRadioButtonDayTime.isSelected){
-			subscription.set
+		subscription.set
 		}*/
-		
+
 
 		user.save();
 	}
@@ -497,7 +492,7 @@ public final class UserAdd extends javax.swing.JPanel {
 					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 		}
 		setUserData();
-		
+
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
