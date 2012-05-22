@@ -35,6 +35,7 @@ public class User extends Model {
 	private String phonenumber;
 	private String mobilenumber;
 	private String category;
+	private int role;
 	private ArrayList<Role> roles;
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
@@ -125,6 +126,24 @@ public class User extends Model {
 		return false;
 	}
 
+	public boolean saveUserRole() {
+		try {
+			this.open();
+
+			PreparedStatement query = this.query("INSERT INTO user_role (\"userID\", \"roleID\")"
+					+ "VALUES (SELECT MAX(id) FROM \"user\";), ?);");
+
+			query.setInt(1, role);
+			this.execute();
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+
+		return false;
+
+	}
+
 	protected void setPropertiesFromResult() {
 		try {
 			// Check if there is a result
@@ -180,19 +199,19 @@ public class User extends Model {
 
 		return fullName;
 	}
-	
+
 	/**
 	 * Get all Roles for this user
 	 * 
 	 * @return The roles for this user
 	 */
 	public ArrayList<Role> getRoles() {
-		
+
 		// If roles is empty, fill it.
-		if(roles == null) {
+		if (roles == null) {
 			roles = Role.readByUserId(id);
 		}
-		
+
 		return roles;
 	}
 
@@ -339,5 +358,13 @@ public class User extends Model {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
 	}
 }

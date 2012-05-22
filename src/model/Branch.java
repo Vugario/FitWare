@@ -5,11 +5,13 @@
 package model;
 
 import helper.db.Model;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.medewerker.UserAdd;
 
 /**
  *
@@ -33,6 +35,31 @@ public class Branch extends Model {
 		this.setPropertiesFromResult();
 	}
 
+	/*public int readBranchById() {
+		try {
+			
+			//Set city variable
+			UserAdd useradd = new UserAdd();
+			city = useradd.getjComboBox1().getSelectedItem().toString();
+			
+			
+			// Execute the query
+			this.open();
+			
+			PreparedStatement query = this.query("SELECT id FROM \"branch\" WHERE city = '?' LIMIT 1");
+			
+			query.setString(1, city);
+			
+			this.execute();
+
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return id;
+	}*/
+
 	public static ArrayList<Branch> readAll() {
 
 		ArrayList<Branch> branches = new ArrayList<Branch>();
@@ -47,6 +74,8 @@ public class Branch extends Model {
 			// Loop over all results
 			while (model.result.next()) {
 				branches.add(new Branch(model.result));
+
+
 			}
 
 		} catch (Exception ex) {
@@ -71,6 +100,8 @@ public class Branch extends Model {
 			this.street = this.result.getString("street");
 			this.postcode = this.result.getString("postcode");
 			this.phonenumber = this.result.getString("phonenumber");
+
+
 
 
 		} catch (SQLException ex) {
