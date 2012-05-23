@@ -10,38 +10,32 @@
  */
 package view.admin;
 
+import helper.SearchTable;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
-import main.Session;
 import model.Product;
-import model.User;
 
 /**
  * This is the view for the Overview of the Barporducts
  * @author vm
  */
 public class BarProductOverview extends javax.swing.JPanel {
-
+	
+	protected SearchTable searchTable;
+	
 	/** Creates new form BarProductOverview */
 	public BarProductOverview() {
 		Product product = new Product();
 		initComponents();
-		cleanAndFillComboBox(); //Todo Could someone help me out here?
+		
+		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonReset);
+		
+		
 		product.getTableRowObjects();
 		updateTable();
 	}
 
-	public void cleanAndFillComboBox() {
-		//Remove all the items from the list
-		jComboBox1.removeAllItems();
-
-		//Add the Following items to the list.
-		jComboBox1.addItem("Alles");
-		jComboBox1.addItem("Dranken");
-		jComboBox1.addItem("Eten");
-		jComboBox1.addItem("Overige");
-	}
 	
 	private void updateTable() {
 		DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -67,13 +61,12 @@ public class BarProductOverview extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox();
         jButtonProductAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextFieldSearch = new javax.swing.JTextField();
+        jButtonReset = new javax.swing.JButton();
 
         jButtonProductAdd.setText("+");
         jButtonProductAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +115,10 @@ public class BarProductOverview extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18));
         jLabel1.setText("Product Overzicht");
 
+        jTextFieldSearch.setText("Zoek...");
+
+        jButtonReset.setText("Reset");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,9 +126,11 @@ public class BarProductOverview extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
                         .addComponent(jButtonProductAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                     .addComponent(jLabel1))
@@ -143,8 +142,9 @@ public class BarProductOverview extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonProductAdd))
+                    .addComponent(jButtonProductAdd)
+                    .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReset))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -155,11 +155,13 @@ public class BarProductOverview extends javax.swing.JPanel {
 
 		Application.getInstance().showPanel(new view.admin.BarProductAdd());
 	}//GEN-LAST:event_jButtonProductAddActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonProductAdd;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButtonReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
 }

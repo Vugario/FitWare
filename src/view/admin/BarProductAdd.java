@@ -43,9 +43,10 @@ public class BarProductAdd extends javax.swing.JPanel {
 			type = "drink";
 		}else if(type.equals("Eten")){
 			type = "food";
-		} 
-		
-	
+		} else {
+			type = "other";
+		}
+			
 		product.setType(type);
 		
 		double price = Double.parseDouble(jTextFieldPrice.getText());
