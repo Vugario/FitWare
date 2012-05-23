@@ -145,7 +145,7 @@ public final class UserAdd extends javax.swing.JPanel {
 				role_id = 1;
 			}
 		}
-		user.setRole_id(role_id);
+		user.setRoleId(role_id);
 
 		
 		Subscription subscription = new Subscription();

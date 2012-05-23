@@ -37,7 +37,6 @@ public class User extends Model {
 	private Role role = new Role();
 	private int roleId;
 
-	private ArrayList<Role> roles;
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
 
@@ -52,12 +51,12 @@ public class User extends Model {
 			this.result.first();
 
 			this.setPropertiesFromResult();
-						
-			this.roles = role.readByUserId(this.getId());
 			
 			this.close();
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			this.close();
 		}
 
 		return this;
@@ -72,11 +71,14 @@ public class User extends Model {
 			query.setString(1, username.toLowerCase());
 			query.setString(2, password);
 			this.result();
+			
 			this.result.first();
 			this.setPropertiesFromResult();
-			this.close();
+			
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			this.close();
 		}
 
 		return this;
@@ -162,7 +164,7 @@ public class User extends Model {
 			query.setString(9, mobilenumber);
 			query.setString(10, email);
 			query.setBoolean(11, gender);
-			query.setInt(12, role_id);
+			query.setInt(12, roleId);
 
 			if (passwordChanged) {
 				query.setString(13, password);
@@ -226,7 +228,10 @@ public class User extends Model {
 			this.postcode = this.result.getString("postcode");
 			this.phonenumber = this.result.getString("phonenumber");
 			this.mobilenumber = this.result.getString("mobilenumber");
-			this.role_id = this.result.getInt("role_id");
+			this.roleId = this.result.getInt("role_id");
+			
+			// Set the role
+			this.role = role.readRole(this.getRoleId());
 
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -254,21 +259,6 @@ public class User extends Model {
 		fullName += " " + this.getLastname();
 
 		return fullName;
-	}
-
-	/**
-	 * Get all Roles for this user
-	 * 
-	 * @return The roles for this user
-	 */
-	public Role getRole() {
-
-		// If roles is empty, fill it.
-		if (roles == null) {
-			roles = role.readByUserId(id);
-		}
-
-		return role;
 	}
 
 	public boolean isActive() {

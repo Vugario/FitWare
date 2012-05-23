@@ -61,6 +61,43 @@ public class Role extends Model{
 		return roles;
 
 	}
+	
+	public Role readRole(int roleId) {
+		
+		try {
+			this.open();
+			this.query(
+					"SELECT * FROM \"role\""
+					+ "WHERE id = ? LIMIT 1").setInt(1, roleId);
+			this.result();
+			
+			this.result.first();
+			this.setPropertiesFromResult();
+		}
+		catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return this;
+	}
+	
+	protected void setPropertiesFromResult() {
+		try {
+			// Check if there is a result
+			if (this.result.getRow() == 0) {
+
+				// There is no result, so return without doing anything
+				return;
+			}
+
+			// Fill in all properties
+			this.id = this.result.getInt("id");
+			this.title = this.result.getString("title");
+
+		} catch (SQLException ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
 	public int getId() {
 		return id;
