@@ -11,6 +11,11 @@
 package view.member;
 
 import helper.SearchTable;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import main.Session;
+import model.Invoice;
+import model.User;
 
 /**
  *
@@ -24,7 +29,25 @@ public class Invoices extends javax.swing.JPanel {
 	public Invoices() {
 		initComponents();
 
+		// Update the table with all invoices of the currently logged in user
+		updateTable();
+		
 		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonReset);
+	}
+	
+	private void updateTable() {
+		DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+		User user = Session.get().getLoggedInUser();
+		
+		// First, empty it.
+		model.setRowCount(0);
+		
+		// Secondly, fill it with all invoices
+		ArrayList<Invoice> invoices = Invoice.readByUserId(user.getId());
+		
+		for(Invoice invoice : invoices) {
+			model.addRow(invoice.getTableRowObjects());
+		}
 	}
 
 	/** This method is called from within the constructor to

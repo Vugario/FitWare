@@ -5,16 +5,12 @@
  */
 package view.medewerker;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import main.Application;
 import main.Session;
 import model.Branch;
-import model.Role;
 import model.Subscription;
 import model.User;
 import view.popups.ErrorPopup;
@@ -28,11 +24,10 @@ public final class UserAdd extends javax.swing.JPanel {
 
 	private User user = new User();
 	private User userSession = Session.get().getLoggedInUser();
-	
-	
+
 	/** Creates new form Profile */
 	public UserAdd() {
-		
+
 		initComponents();
 
 		// Empty the combo box
@@ -51,21 +46,28 @@ public final class UserAdd extends javax.swing.JPanel {
 		ButtonGroup groupTime = new ButtonGroup();
 		groupTime.add(jRadioButtonDayTime);
 		groupTime.add(jRadioButtonFullTime);
-		
+
 		ButtonGroup groupUserType = new ButtonGroup();
 		groupUserType.add(jRadioButtonAdmin);
 		groupUserType.add(jRadioButtonBarmedewerker);
 		groupUserType.add(jRadioButtonMember);
-	
-		
-		if(!userSession.getRole().readByUserId(userSession.getId()).get(0).getTitle().equals("admin")){
-			jRadioButtonAdmin.setVisible(false);
-			jRadioButtonBarmedewerker.setVisible(false);
-		};
-		
+
 		//jComboBox1.setModel(new DefaultComboBoxModel());
 		//uncomment this one when the sql works
-		addBranchToComboBox();	
+		addBranchToComboBox();
+
+
+		jRadioButtonAdmin.setVisible(false);
+		jRadioButtonBarmedewerker.setVisible(false);
+		jRadioButtonMember.setVisible(false);
+
+
+		if (userSession.getRole().getTitle().equals("admin")) {
+			jRadioButtonAdmin.setVisible(true);
+			jRadioButtonBarmedewerker.setVisible(true);
+			jRadioButtonMember.setVisible(true);
+
+		}
 
 	}
 
@@ -122,21 +124,25 @@ public final class UserAdd extends javax.swing.JPanel {
 		} else {
 			user.setGender(false);
 		}
-		
-		
-		
-		int role = 1;
 
-		if (jRadioButtonAdmin.isSelected()) {
-			//TODOSet the userType Admin
-			role = 3;
-			
-		} else if (jRadioButtonBarmedewerker.isSelected()) {
-			//TODOSet the userType member
-			role = 2;
+		// Default is role ID 1 (members)
+		int role_id = 1;
+
+		// Only admin users may change the user type
+		if (user.getRole().getTitle().equals("admin")) {
+			if (jRadioButtonAdmin.isSelected()) {
+				//TODOSet the userType Admin
+				role_id = 3;
+
+			} else if (jRadioButtonBarmedewerker.isSelected()) {
+				//TODOSet the userType member
+				role_id = 2;
+			} else if (jRadioButtonMember.isSelected()) {
+				//TODOSet the userType member
+				role_id = 1;
+			}
 		}
-		
-		user.setRoleId(role);
+		user.setRoleId(role_id);
 
 
 		Subscription subscription = new Subscription();
@@ -513,17 +519,17 @@ public final class UserAdd extends javax.swing.JPanel {
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
 		// TODO
 		User user = Session.get().getLoggedInUser();
-		
+
 
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
 		String password1 = new String(jPasswordField1.getPassword());
 		String password2 = new String(jPasswordField2.getPassword());
-		
-		if(password1.equals(password2)){
+
+		if (password1.equals(password2)) {
 			user.setPassword(password1);
-		};
+		}
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
@@ -532,7 +538,7 @@ public final class UserAdd extends javax.swing.JPanel {
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
 		}
-		
+
 		setUserData();
 		user.create();
 
@@ -553,7 +559,6 @@ public final class UserAdd extends javax.swing.JPanel {
 		// Set the textfield empty on focus
 		jTextFieldLastname.setText(null);
 	}//GEN-LAST:event_jTextFieldLastnameFocusGained
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
