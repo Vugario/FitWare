@@ -188,11 +188,8 @@ public final class Application {
 			return null;
 		}
 
-		// Get all roles of the currently logged in user
-		ArrayList<model.Role> roles = user.getRoles();
-
-		// Find out what the highest role is
-		model.Role role = roles.get(roles.size() - 1);
+		// Get the role of the currently logged in user
+		model.Role role = user.getRole();
 
 		// Return the corresponding menu
 		if (role.getTitle().equals("member")) {

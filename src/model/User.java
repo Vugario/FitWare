@@ -4,7 +4,6 @@ import helper.db.Model;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.member.Profile;
@@ -35,8 +34,8 @@ public class User extends Model {
 	private String phonenumber;
 	private String mobilenumber;
 	private String category;
-	private int role;
-	private ArrayList<Role> roles;
+	private int role_id;
+	private Role role;
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
 
@@ -97,6 +96,7 @@ public class User extends Model {
 					+ "mobilenumber = ?,"
 					+ "email = ?,"
 					+ "gender = ?"
+					+ "role_id = ?"
 					+ (passwordChanged ? ", password = MD5(?)" : "")
 					+ "WHERE id = ?"
 				);
@@ -112,12 +112,13 @@ public class User extends Model {
 			query.setString(9, mobilenumber);
 			query.setString(10, email);
 			query.setBoolean(11, gender);
+			query.setInt(12, role_id);
 
 			if (passwordChanged) {
-				query.setString(12, password);
-				query.setInt(13, id);
+				query.setString(13, password);
+				query.setInt(14, id);
 			}else{
-				query.setInt(12, id);
+				query.setInt(13, id);
 			}
 
 			this.execute();
@@ -128,24 +129,6 @@ public class User extends Model {
 		}
 
 		return true;
-	}
-
-	public boolean saveUserRole() {
-		try {
-			this.open();
-
-			PreparedStatement query = this.query("INSERT INTO user_role (\"userID\", \"roleID\")"
-					+ "VALUES (SELECT MAX(id) FROM \"user\";), ?);");
-
-			query.setInt(1, role);
-			this.execute();
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-
-		return false;
-
 	}
 
 	protected void setPropertiesFromResult() {
@@ -175,6 +158,7 @@ public class User extends Model {
 			this.postcode = this.result.getString("postcode");
 			this.phonenumber = this.result.getString("phonenumber");
 			this.mobilenumber = this.result.getString("mobilenumber");
+			this.role_id = this.result.getInt("role_id");
 
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,14 +193,15 @@ public class User extends Model {
 	 * 
 	 * @return The roles for this user
 	 */
-	public ArrayList<Role> getRoles() {
+	public Role getRole() {
 
 		// If roles is empty, fill it.
-		if (roles == null) {
-			roles = Role.readByUserId(id);
+		if (role == null) {
+			role = new Role();
+			role.read(role_id);
 		}
 
-		return roles;
+		return role;
 	}
 
 	public boolean isActive() {
@@ -364,11 +349,11 @@ public class User extends Model {
 		this.category = category;
 	}
 
-	public int getRole() {
-		return role;
+	public int getRole_id() {
+		return role_id;
 	}
 
-	public void setRole(int role) {
-		this.role = role;
+	public void setRole_id(int role_id) {
+		this.role_id = role_id;
 	}
 }

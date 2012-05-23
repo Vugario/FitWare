@@ -5,10 +5,7 @@
  */
 package view.medewerker;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import main.Application;
@@ -47,12 +44,12 @@ public final class UserAdd extends javax.swing.JPanel {
 		ButtonGroup groupTime = new ButtonGroup();
 		groupTime.add(jRadioButtonDayTime);
 		groupTime.add(jRadioButtonFullTime);
-		
+
 		ButtonGroup groupUserType = new ButtonGroup();
 		groupUserType.add(jRadioButtonAdmin);
 		groupUserType.add(jRadioButtonBarmedewerker);
 		groupUserType.add(jRadioButtonMember);
-	
+
 		//jComboBox1.setModel(new DefaultComboBoxModel());
 		//uncomment this one when the sql works
 		addBranchToComboBox();
@@ -63,7 +60,7 @@ public final class UserAdd extends javax.swing.JPanel {
 		jRadioButtonMember.setVisible(false);
 
 
-		if (user.getRoles().get(0).getTitle().equals("admin")) {
+		if (user.getRole().getTitle().equals("admin")) {
 			jRadioButtonAdmin.setVisible(true);
 			jRadioButtonBarmedewerker.setVisible(true);
 			jRadioButtonMember.setVisible(true);
@@ -126,28 +123,27 @@ public final class UserAdd extends javax.swing.JPanel {
 		} else {
 			user.setGender(false);
 		}
+
+		// Default is role ID 1 (members)
+		int role_id = 1;
 		
-		int role = 1;
-		if (user.getRoles().get(0).getTitle().equals("admin")) {
+		// Only admin users may change the user type
+		if (user.getRole().getTitle().equals("admin")) {
 			if (jRadioButtonAdmin.isSelected()) {
-			//TODOSet the userType Admin
-			role = 3;
-			
-		} else if (jRadioButtonBarmedewerker.isSelected()) {
-			//TODOSet the userType member
-			role = 2;
-		} else if (jRadioButtonMember.isSelected()) {
-			//TODOSet the userType member
-			role = 1;
-		}
-		}else {
-			//Barmedewerker only creates members, that's why the role always is 1 = member.
-			role = 1;
-		}
-		user.setRole(role);
-				
+				//TODOSet the userType Admin
+				role_id = 3;
 
+			} else if (jRadioButtonBarmedewerker.isSelected()) {
+				//TODOSet the userType member
+				role_id = 2;
+			} else if (jRadioButtonMember.isSelected()) {
+				//TODOSet the userType member
+				role_id = 1;
+			}
+		}
+		user.setRole_id(role_id);
 
+		
 		Subscription subscription = new Subscription();
 
 		/*if (jRadioButtonYouth.isSelected()) {
@@ -162,7 +158,7 @@ public final class UserAdd extends javax.swing.JPanel {
 		subscription.set
 		}*/
 
-		
+
 		user.save();
 	}
 
@@ -537,7 +533,7 @@ public final class UserAdd extends javax.swing.JPanel {
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
 		// TODO
 		User user = Session.get().getLoggedInUser();
-		
+
 
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
@@ -561,7 +557,6 @@ public final class UserAdd extends javax.swing.JPanel {
 		}
 		setUserData();
 		user.save();
-		user.saveUserRole();
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
