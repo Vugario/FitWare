@@ -64,7 +64,7 @@ public final class UserAdd extends javax.swing.JPanel {
 		jRadioButtonMember.setVisible(false);
 
 
-		if (user.getRole().getTitle().equals("admin")) {
+		if (userSession.getRole().getTitle().equals("admin")) {
 			jRadioButtonAdmin.setVisible(true);
 			jRadioButtonBarmedewerker.setVisible(true);
 			jRadioButtonMember.setVisible(true);
