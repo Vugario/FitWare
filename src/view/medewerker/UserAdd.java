@@ -80,7 +80,6 @@ public final class UserAdd extends javax.swing.JPanel {
 	}
 
 	public void setUserData() {
-		User user = Session.get().getLoggedInUser();
 
 		String username = jTextFieldUsername.getText();
 		user.setUsername(username);
@@ -521,7 +520,10 @@ public final class UserAdd extends javax.swing.JPanel {
 
 		String password1 = new String(jPasswordField1.getPassword());
 		String password2 = new String(jPasswordField2.getPassword());
-		Boolean passwordequal = password1.equals(password2);
+		
+		if(password1.equals(password2)){
+			user.setPassword(password1);
+		};
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
