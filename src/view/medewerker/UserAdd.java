@@ -11,7 +11,6 @@ import javax.swing.JComboBox;
 import main.Application;
 import main.Session;
 import model.Branch;
-import model.Role;
 import model.Subscription;
 import model.User;
 import view.popups.ErrorPopup;
@@ -25,11 +24,10 @@ public final class UserAdd extends javax.swing.JPanel {
 
 	private User user = new User();
 	private User userSession = Session.get().getLoggedInUser();
-	
-	
+
 	/** Creates new form Profile */
 	public UserAdd() {
-		
+
 		initComponents();
 
 		// Empty the combo box
@@ -129,7 +127,7 @@ public final class UserAdd extends javax.swing.JPanel {
 
 		// Default is role ID 1 (members)
 		int role_id = 1;
-		
+
 		// Only admin users may change the user type
 		if (user.getRole().getTitle().equals("admin")) {
 			if (jRadioButtonAdmin.isSelected()) {
@@ -146,7 +144,7 @@ public final class UserAdd extends javax.swing.JPanel {
 		}
 		user.setRoleId(role_id);
 
-		
+
 		Subscription subscription = new Subscription();
 
 		/*if (jRadioButtonYouth.isSelected()) {
@@ -528,10 +526,10 @@ public final class UserAdd extends javax.swing.JPanel {
 
 		String password1 = new String(jPasswordField1.getPassword());
 		String password2 = new String(jPasswordField2.getPassword());
-		
-		if(password1.equals(password2)){
+
+		if (password1.equals(password2)) {
 			user.setPassword(password1);
-		};
+		}
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
@@ -540,7 +538,7 @@ public final class UserAdd extends javax.swing.JPanel {
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
 		}
-		
+
 		setUserData();
 		user.create();
 
@@ -561,7 +559,6 @@ public final class UserAdd extends javax.swing.JPanel {
 		// Set the textfield empty on focus
 		jTextFieldLastname.setText(null);
 	}//GEN-LAST:event_jTextFieldLastnameFocusGained
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
