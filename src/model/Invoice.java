@@ -70,4 +70,14 @@ public class Invoice extends Model{
 		}
 	}
 	
+	public Object[] getTableRowObjects() {
+		return new Object[] {
+			String.format("%4d", id),
+			"April 2012",
+			String.format("€ %.2f", 35.0),
+			"2012-04-30",
+			"Niet bataald"
+		};
+	}
+	
 }
