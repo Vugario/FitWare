@@ -25,6 +25,7 @@ import model.Purchase;
 import model.User;
 import view.popups.ErrorPopup;
 import view.popups.SuccessPopup;
+import main.ExceptionHandler;
 
 /**
  *
@@ -32,6 +33,8 @@ import view.popups.SuccessPopup;
  */
 public class BarApp extends javax.swing.JPanel {
 
+	private int userId;
+	
 	double totalPrice = 0.00;
 
 	/**
@@ -40,10 +43,10 @@ public class BarApp extends javax.swing.JPanel {
 	public BarApp() {
 		initComponents();
 		addProductbuttons();
-		User user = Session.get().getLoggedInUser();
+		User usersession = Session.get().getLoggedInUser();
 
 		// If user role is !admin then jButtonProductmgnt is not visible
-		if (! user.getRole().getTitle().equals("admin")) {
+		if (! usersession.getRole().getTitle().equals("admin")) {
 			jButtonProductmgnt.setVisible(false);
 		}
 
@@ -145,21 +148,26 @@ public class BarApp extends javax.swing.JPanel {
 
 	}
 
-	public User searchUser() {
+	public void searchUser() {
 		// Search a user and return a result
 		// TODO: search by name, etc.
 		User user = new User();
-		int id = Integer.parseInt(jTextFieldSearch.getText());
-		user.readUser(id);
+		
+		try {
+			int id = Integer.parseInt(jTextFieldSearch.getText());
+			user.readUser(id);
+			System.out.println(user.getId());
+			if(user.getId() > 0){
+				userId = user.getId();
+				// Set the label
+				jLabelCustomerName.setText(user.getFullName());
+			}
+		} catch (Exception ex) {
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
+		}
+		
+		
 
-		// Choose which user when multiple users are found
-		//user = showSearchPopup();
-
-		// Set the label
-		jLabelCustomerName.setText(user.getFullName());
-
-		// Return the user
-		return user;
 	}
 
 	public void showSearchPopup() {
@@ -178,11 +186,13 @@ public class BarApp extends javax.swing.JPanel {
 			// Create a purchase
 			Purchase purchase = new Purchase();
 
-            // Set the user
-            int user_id = searchUser().getId();
-            
-                purchase.setUser_id(user_id);
-            
+			if(userId > 0){
+				System.out.println("lol");
+				purchase.setUser_id(userId);
+			}
+			
+			
+			
             // Set the product
             int product_id = product.getId();
             purchase.setProduct_id(product_id);
@@ -528,9 +538,7 @@ public class BarApp extends javax.swing.JPanel {
                     Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
                 }
             } else if (jRadioButtonPayCash.isSelected()) {
-               jTextFieldSearch.setText("0");
-               
-               Integer.parseInt(search);
+
                                             
                 savePurchase();
               
