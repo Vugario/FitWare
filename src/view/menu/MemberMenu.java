@@ -127,7 +127,7 @@ public class MemberMenu extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonInvoicesActionPerformed
 
 	private void jButtonEnrollmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnrollmentsActionPerformed
-         Application.getInstance().showPanel(new view.Enrollments());
+         Application.getInstance().showPanel(new view.member.Enrollments());
 	}//GEN-LAST:event_jButtonEnrollmentsActionPerformed
 
 	private void jButtonBmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBmiActionPerformed
