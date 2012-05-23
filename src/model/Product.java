@@ -1,6 +1,7 @@
 package model;
 
 import helper.db.Model;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,8 +57,22 @@ public class Product extends Model{
 		String query = "SELECT * FROM product WHERE cs";
 	}
 	
-	public void create(){
-		String query = "INSERT INTO \"product\" () VALUES (?, ?, ?, ?)";
+	public boolean create(){
+		try {
+			this.open();
+			PreparedStatement query = this.query("INSERT INTO \"product\" (price, name, description, type) VALUES (?, ?, ?, ?)");
+
+			query.setDouble(1, price);
+			query.setString(2, name);
+			query.setString(3, description);
+			query.setString(4, type);
+		} catch (SQLException ex) {
+			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
+		}
+		this.execute();
+		return true;
+		
 	}
 	
 	public void update(){
