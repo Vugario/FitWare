@@ -3,6 +3,7 @@ package model;
 import helper.db.Model;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +17,6 @@ import view.member.Profile;
  */
 public class User extends Model {
 
-	private int id;
 	private String username;
 	private String firstname;
 	private String lastname;
@@ -26,7 +26,7 @@ public class User extends Model {
 	private String email;
 	private boolean active;
 	private String password;
-	private String bankaccount;
+	private int bankaccount;
 	private String street;
 	private String housenumber;
 	private String city;
@@ -34,8 +34,10 @@ public class User extends Model {
 	private String phonenumber;
 	private String mobilenumber;
 	private String category;
-	private int role_id;
-	private Role role;
+	private Role role = new Role();
+	private int roleId;
+
+	private ArrayList<Role> roles;
 	public final static boolean MALE = true;
 	public final static boolean FEMALE = false;
 
@@ -50,6 +52,9 @@ public class User extends Model {
 			this.result.first();
 
 			this.setPropertiesFromResult();
+						
+			this.roles = role.readByUserId(this.getId());
+			
 			this.close();
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,11 +82,56 @@ public class User extends Model {
 		return this;
 	}
 
-	public boolean save() {
+	public boolean create(){
 		
 		try {
 			this.open();
-			Profile profile = new Profile();
+			
+			PreparedStatement query = this.query(
+					"INSERT INTO "
+					+ "\"user\"(active, username, firstname, subname, lastname, birthdate, street, housenumber, phonenumber, mobilenumber, email, gender, password, bankaccount, city, postcode)"
+					+ "VALUES "
+					+ "(true, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id"
+				);
+
+			query.setString(1, username.toLowerCase());
+			query.setString(2, firstname);
+			query.setString(3, subname);
+			query.setString(4, lastname);
+			query.setTimestamp(5, birthdate);
+			query.setString(6, street);
+			query.setString(7, housenumber);
+			query.setString(8, phonenumber);
+			query.setString(9, mobilenumber);
+			query.setString(10, email);
+			query.setBoolean(11, gender);
+			query.setString(12, password);
+			query.setInt(13, bankaccount);
+			query.setString(14, city);
+			query.setString(15, postcode);
+
+						
+			this.execute();
+			//this.result();
+			//result.first();
+			//System.out.println(result.getInt(1));
+			
+			//this.getId();
+			System.out.println(this.getKey());
+			
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean update() {
+		
+		try {
+			this.open();
+
 			boolean passwordChanged = (this.getPassword() == null ) ? false : true;
 			
 			PreparedStatement query = this.query("UPDATE \"user\" SET "
@@ -131,6 +181,24 @@ public class User extends Model {
 		return true;
 	}
 
+	public boolean saveUserRole() {
+		try {
+			this.open();
+
+			PreparedStatement query = this.query("INSERT INTO user_role (\"userID\", \"roleID\")"
+					+ "VALUES (SELECT MAX(id) FROM \"user\";), ?);");
+
+			query.setInt(1, role.getId());
+			this.execute();
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+
+		return false;
+
+	}
+
 	protected void setPropertiesFromResult() {
 		try {
 			// Check if there is a result
@@ -151,7 +219,7 @@ public class User extends Model {
 			this.email = this.result.getString("email");
 			this.active = this.result.getBoolean("active");
 			this.password = this.result.getString("password");
-			this.bankaccount = this.result.getString("bankaccount");
+			this.bankaccount = this.result.getInt("bankaccount");
 			this.street = this.result.getString("street");
 			this.housenumber = this.result.getString("housenumber");
 			this.city = this.result.getString("city");
@@ -196,9 +264,8 @@ public class User extends Model {
 	public Role getRole() {
 
 		// If roles is empty, fill it.
-		if (role == null) {
-			role = new Role();
-			role.read(role_id);
+		if (roles == null) {
+			roles = role.readByUserId(id);
 		}
 
 		return role;
@@ -212,11 +279,11 @@ public class User extends Model {
 		this.active = active;
 	}
 
-	public String getBankaccount() {
+	public int getBankaccount() {
 		return bankaccount;
 	}
 
-	public void setBankaccount(String bankaccount) {
+	public void setBankaccount(int bankaccount) {
 		this.bankaccount = bankaccount;
 	}
 
@@ -267,14 +334,6 @@ public class User extends Model {
 
 	public void setHousenumber(String housenumber) {
 		this.housenumber = housenumber;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getLastname() {
@@ -349,11 +408,19 @@ public class User extends Model {
 		this.category = category;
 	}
 
-	public int getRole_id() {
-		return role_id;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRole_id(int role_id) {
-		this.role_id = role_id;
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 }

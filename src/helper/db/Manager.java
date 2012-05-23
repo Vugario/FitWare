@@ -1,6 +1,8 @@
 package helper.db;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.ExceptionHandler;
 import main.Settings;
 import java.sql.Statement;
@@ -13,6 +15,8 @@ public class Manager {
 	public ResultSet result;
 	private PreparedStatement dbQuery;
 	private Statement stmnt;
+	
+	private int key;
 	
 	public Manager() {
 
@@ -46,7 +50,7 @@ public class Manager {
 	{	
 		
 		try {
-			dbQuery = dbConnection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			dbQuery = dbConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			//stmnt = dbQuery.//.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 		} catch (SQLException ex) {
@@ -58,16 +62,35 @@ public class Manager {
 	
 	
 	/**
-	 * Execute a query without returning a result
+	 * Execute a query returning the last 
 	 */
 	public void execute()
 	{	
 		try {
-			dbQuery.executeUpdate();
+			dbQuery.execute();
+			
+			/*ResultSet generatedKeys = dbQuery.getGeneratedKeys();
+			
+			if (generatedKeys.next()) {
+				System.out.println("3");
+				key = generatedKeys.getInt(1);
+				
+			}*/
+
 		} catch (SQLException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
+	
+	/**
+	 * gets latest id from table for saving with relations
+	 */
+	public int getKey(){
+		
+		return key;
+
+	}
+
 	
 	/**
 	 * Execute a query returning a resultset
@@ -77,7 +100,6 @@ public class Manager {
 		try {
 			
 			result = dbQuery.executeQuery();
-			
 		} catch (SQLException ex){
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		//	return null;

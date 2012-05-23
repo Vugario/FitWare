@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import main.Application;
 import main.Session;
 import model.Branch;
+import model.Role;
 import model.Subscription;
 import model.User;
 import view.popups.ErrorPopup;
@@ -23,9 +24,12 @@ import view.popups.ErrorPopup;
 public final class UserAdd extends javax.swing.JPanel {
 
 	private User user = new User();
-
+	private User userSession = Session.get().getLoggedInUser();
+	
+	
 	/** Creates new form Profile */
 	public UserAdd() {
+		
 		initComponents();
 
 		// Empty the combo box
@@ -158,8 +162,6 @@ public final class UserAdd extends javax.swing.JPanel {
 		subscription.set
 		}*/
 
-
-		user.save();
 	}
 
 	public JComboBox getjComboBox1() {
@@ -180,7 +182,6 @@ public final class UserAdd extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldUsername = new javax.swing.JTextField();
         jTextFieldFirstname = new javax.swing.JTextField();
@@ -220,7 +221,6 @@ public final class UserAdd extends javax.swing.JPanel {
         jRadioButtonFullTime = new javax.swing.JRadioButton();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
-        jTextFieldID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldAccountNumber = new javax.swing.JTextField();
         jTextFieldTNV = new javax.swing.JTextField();
@@ -230,10 +230,8 @@ public final class UserAdd extends javax.swing.JPanel {
         jRadioButtonAdmin = new javax.swing.JRadioButton();
         jRadioButtonBarmedewerker = new javax.swing.JRadioButton();
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel4.setText("Gebruiker Aanmaken");
-
-        jLabel5.setText("Klantnummer");
 
         jLabel6.setText("Gebruikersnaam");
 
@@ -317,8 +315,6 @@ public final class UserAdd extends javax.swing.JPanel {
 
         jLabel19.setText("Primaire locatie");
 
-        jTextFieldID.setEnabled(false);
-
         jLabel1.setText("Rekeningnummer");
 
         jLabel20.setText("Ter name van");
@@ -350,7 +346,6 @@ public final class UserAdd extends javax.swing.JPanel {
                                         .add(jLabel8))
                                     .add(68, 68, 68)))
                             .add(jLabel9)
-                            .add(jLabel5)
                             .add(jLabel4)
                             .add(jLabel2)
                             .add(jLabel3)
@@ -376,9 +371,7 @@ public final class UserAdd extends javax.swing.JPanel {
                                                 .add(jRadioButtonGenderFemale)))
                                         .add(10, 10, 10)
                                         .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldID)
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldUsername, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jTextFieldLastname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(layout.createSequentialGroup()
@@ -400,8 +393,8 @@ public final class UserAdd extends javax.swing.JPanel {
                             .add(jLabel17))
                         .add(22, 22, 22)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
-                            .add(jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)))
+                            .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                            .add(jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)))
                     .add(jLabel16)
                     .add(layout.createSequentialGroup()
                         .add(jLabel12)
@@ -429,7 +422,7 @@ public final class UserAdd extends javax.swing.JPanel {
                             .add(jTextFieldPhonenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                             .add(layout.createSequentialGroup()
                                 .add(jTextFieldAccountNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 49, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 60, Short.MAX_VALUE)
                                 .add(jLabel20)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jTextFieldTNV, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
@@ -440,11 +433,7 @@ public final class UserAdd extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jLabel4)
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel5)
-                    .add(jTextFieldID, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
+                .add(52, 52, 52)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
                     .add(jTextFieldUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -555,8 +544,9 @@ public final class UserAdd extends javax.swing.JPanel {
 			Application.getInstance().showPopup(new ErrorPopup(
 					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 		}
+		
 		setUserData();
-		user.save();
+		user.create();
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
@@ -575,6 +565,7 @@ public final class UserAdd extends javax.swing.JPanel {
 		// Set the textfield empty on focus
 		jTextFieldLastname.setText(null);
 	}//GEN-LAST:event_jTextFieldLastnameFocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -593,7 +584,6 @@ public final class UserAdd extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -615,7 +605,6 @@ public final class UserAdd extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldCity;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldFirstname;
-    private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldLastname;
     private javax.swing.JTextField jTextFieldMobilenumber;
     private javax.swing.JTextField jTextFieldPhonenumber;

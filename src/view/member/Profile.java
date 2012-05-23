@@ -412,7 +412,7 @@ public class Profile extends javax.swing.JPanel {
 		}
 		
 		
-		if(!user.save()){
+		if(!user.update()){
 			Application.getInstance().showPopup(new ErrorPopup(
 					"gegevens zijn niet goed opgeslagen. \nProbeer het nogmaals alstublieft."));
 		}
