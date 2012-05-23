@@ -84,7 +84,6 @@ public final class UserAdd extends javax.swing.JPanel {
 	}
 
 	public void setUserData() {
-		User user = Session.get().getLoggedInUser();
 
 		String username = jTextFieldUsername.getText();
 		user.setUsername(username);
@@ -529,7 +528,10 @@ public final class UserAdd extends javax.swing.JPanel {
 
 		String password1 = new String(jPasswordField1.getPassword());
 		String password2 = new String(jPasswordField2.getPassword());
-		Boolean passwordequal = password1.equals(password2);
+		
+		if(password1.equals(password2)){
+			user.setPassword(password1);
+		};
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
@@ -537,12 +539,6 @@ public final class UserAdd extends javax.swing.JPanel {
 			Application.getInstance().showPopup(new ErrorPopup(
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
-		}
-		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
-		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
-		if (!passwordequal) {
-			Application.getInstance().showPopup(new ErrorPopup(
-					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 		}
 		
 		setUserData();
