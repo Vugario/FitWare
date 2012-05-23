@@ -30,6 +30,25 @@ public class Invoice extends Model{
 		this.setPropertiesFromResult();
 	}
 	
+	public Invoice readInvoice(int invoiceId) {
+		try {
+			this.open();
+			this.query("SELECT * FROM \"invoice\" WHERE id = ? LIMIT 1").setInt(1, id);
+			this.result();
+			this.result.first();
+
+			this.setPropertiesFromResult();
+			
+			this.close();
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			this.close();
+		}
+
+		return this;
+	}
+	
 	public static ArrayList<Invoice> readByUserId(int userId) {
 			
 		ArrayList<Invoice> invoices = new ArrayList<Invoice>();
