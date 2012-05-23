@@ -51,7 +51,7 @@ public class User extends Model {
 			this.result.first();
 
 			this.setPropertiesFromResult();
-
+			this.close();
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -70,7 +70,7 @@ public class User extends Model {
 			this.result();
 			this.result.first();
 			this.setPropertiesFromResult();
-
+			this.close();
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -79,12 +79,14 @@ public class User extends Model {
 	}
 
 	public boolean save() {
+		
 		try {
 			this.open();
 			Profile profile = new Profile();
-			boolean passwordChanged = profile.isPasswordChange();
-
-			PreparedStatement query = this.query("UPDATE \"user\" SET username = ?,"
+			boolean passwordChanged = (this.getPassword() == null ) ? false : true;
+			
+			PreparedStatement query = this.query("UPDATE \"user\" SET "
+					+ "username = ?,"
 					+ "firstname = ?,"
 					+ "subname = ?,"
 					+ "lastname = ?,"
@@ -94,15 +96,16 @@ public class User extends Model {
 					+ "phonenumber = ?,"
 					+ "mobilenumber = ?,"
 					+ "email = ?,"
-					+ "gender = ?,"
-					+ (passwordChanged ? "password = MD5(?)" : "")
-					+ "WHERE id = ?");
+					+ "gender = ?"
+					+ (passwordChanged ? ", password = MD5(?)" : "")
+					+ "WHERE id = ?"
+				);
+			
 			query.setString(1, username.toLowerCase());
 			query.setString(2, firstname);
 			query.setString(3, subname);
 			query.setString(4, lastname);
 			query.setTimestamp(5, birthdate);
-
 			query.setString(6, street);
 			query.setString(7, housenumber);
 			query.setString(8, phonenumber);
@@ -113,7 +116,7 @@ public class User extends Model {
 			if (passwordChanged) {
 				query.setString(12, password);
 				query.setInt(13, id);
-			} else {
+			}else{
 				query.setInt(12, id);
 			}
 
@@ -121,9 +124,10 @@ public class User extends Model {
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	public boolean saveUserRole() {
