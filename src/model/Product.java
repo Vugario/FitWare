@@ -67,6 +67,25 @@ public class Product extends Model{
 	public void readPerCategory(){
 		String query = "SELECT * FROM product WHERE cs";
 	}
+	
+	public boolean readById(int productId){
+		try {
+			this.open();
+			PreparedStatement query = this.query("SELECT * FROM product WHERE id = ? LIMIT 1");
+			
+			
+			query.setInt(1, productId);
+			
+			
+		} catch (SQLException ex) {
+			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
+		}
+		this.execute();
+			return true;
+	}
+	
+	
 	/**
 	 * @author vm
 	 * @param
@@ -128,10 +147,10 @@ public class Product extends Model{
 	 */
 		public Object[] getTableRowObjects() {
 		
-			
 		return new Object[] {
+			String.format("%04d", id),
 			name,
-			type,
+			this.type,
 			description,
 			String.format("€ %.2f", price)
 		};

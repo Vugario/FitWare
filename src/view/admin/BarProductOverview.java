@@ -12,9 +12,14 @@ package view.admin;
 
 import helper.SearchTable;
 import java.util.ArrayList;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
+import main.Session;
+import model.Enrollment;
 import model.Product;
+import model.Subscription;
+import view.popups.EnrollmentPopup;
 
 /**
  * This is the view for the Overview of the Barporducts
@@ -22,7 +27,10 @@ import model.Product;
  */
 public class BarProductOverview extends javax.swing.JPanel {
 	
-	protected SearchTable searchTable;
+	private ListSelectionModel row;
+	protected DefaultTableModel model;
+	private final SearchTable searchTable;
+	private Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
 	
 	/** Creates new form BarProductOverview */
 	public BarProductOverview() {
@@ -51,6 +59,32 @@ public class BarProductOverview extends javax.swing.JPanel {
 			model.addRow(product.getTableRowObjects());
 		}
 	}
+	
+	private void showProduct() {
+		// Get the currently selected subscription
+		int rowNumber = jTable1.getSelectedRow();
+		String productId = (String) model.getValueAt(rowNumber, 0);
+		Product product = new Product();
+		product.readById(Integer.parseInt(productId));
+		
+		//TODO Set the product data in the view
+		
+		
+		
+
+		// Show BarProductModify
+		Application.getInstance().showPopup(new view.admin.BarProductModify());
+				
+		
+		
+		}
+	
+	/**
+	 * Load the user data to the BarProductModify view
+	 */
+	public void loadProductData(){
+		
+	}
 
 	/** This method is called from within the constructor to
 	 * initialize the form.
@@ -77,37 +111,42 @@ public class BarProductOverview extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Naam", "Type", "Extra", "Prijs"
+                "ID", "Naam", "Type", "Extra", "Prijs"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -155,6 +194,15 @@ public class BarProductOverview extends javax.swing.JPanel {
 
 		Application.getInstance().showPanel(new view.admin.BarProductAdd());
 	}//GEN-LAST:event_jButtonProductAddActionPerformed
+
+	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+		// When there is a double-click do this:
+		
+		if (evt.getClickCount() >= 2) {
+			// Double clicked!
+			showProduct();
+		}
+	}//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonProductAdd;
