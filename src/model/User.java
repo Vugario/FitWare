@@ -93,7 +93,7 @@ public class User extends Model {
 					"INSERT INTO "
 					+ "\"user\"(active, username, firstname, subname, lastname, birthdate, street, housenumber, phonenumber, mobilenumber, email, gender, password, bankaccount, city, postcode)"
 					+ "VALUES "
-					+ "(true, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id"
+					+ "(true, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, MD5(?), ?, ?, ?) RETURNING id"
 				);
 
 			query.setString(1, username.toLowerCase());
