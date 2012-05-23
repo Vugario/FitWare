@@ -93,7 +93,7 @@ public final class UserAdd extends javax.swing.JPanel {
 		user.setSubname(subname);
 
 		String lastname = jTextFieldLastname.getText();
-		user.setUsername(username);
+		user.setLastname(lastname);
 
 		String birthdate = jTextFieldBirthdate.getText();
 		user.setUsername(username);
@@ -129,7 +129,7 @@ public final class UserAdd extends javax.swing.JPanel {
 		int role_id = 1;
 
 		// Only admin users may change the user type
-		if (user.getRole().getTitle().equals("admin")) {
+		if (userSession.getRole().getTitle().equals("admin")) {
 			if (jRadioButtonAdmin.isSelected()) {
 				//TODOSet the userType Admin
 				role_id = 3;
@@ -536,7 +536,8 @@ public final class UserAdd extends javax.swing.JPanel {
 					+ "Probeer het nogmaals alstublieft."));
 		}
 
-		setUserData();
+		this.setUserData();
+		
 		user.create();
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
