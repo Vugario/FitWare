@@ -8,7 +8,18 @@ import java.util.ArrayList;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * This class is used to use define queries for the product table in the database.
+ * 
+ * 
+ * @param id			this is the product id (integer)
+ * @param price			this is the price of the product (double)
+ * @param name			this is the name of the product (String)
+ * @param description	this is the description for the product (String)
+ * @param type			this is the type of the product, either food, drink or other (String)
+ * 
+ * @author vm
+ */
 public class Product extends Model{
 	
 	int id;
@@ -56,7 +67,12 @@ public class Product extends Model{
 	public void readPerCategory(){
 		String query = "SELECT * FROM product WHERE cs";
 	}
-	
+	/**
+	 * @author vm
+	 * @param
+	 * 
+	 * @return returns a true when there are products created, on error it returns false
+	 */
 	public boolean create(){
 		try {
 			this.open();
@@ -84,7 +100,7 @@ public class Product extends Model{
 		return getName() + " " + getDecoratedPrice();
 	}
 
-	
+
 	protected final void setPropertiesFromResult() {
 		try {
 
@@ -105,6 +121,20 @@ public class Product extends Model{
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+	/*
+	 * @author daanvm
+	 * 
+	 */
+		public Object[] getTableRowObjects() {
+		
+			
+		return new Object[] {
+			name,
+			type,
+			description,
+			String.format("€ %.2f", price)
+		};
 	}
 
     public String getDescription() {

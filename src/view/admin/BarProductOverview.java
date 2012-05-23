@@ -10,7 +10,12 @@
  */
 package view.admin;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import main.Application;
+import main.Session;
+import model.Product;
+import model.User;
 
 /**
  * This is the view for the Overview of the Barporducts
@@ -20,9 +25,11 @@ public class BarProductOverview extends javax.swing.JPanel {
 
 	/** Creates new form BarProductOverview */
 	public BarProductOverview() {
+		Product product = new Product();
 		initComponents();
 		cleanAndFillComboBox(); //Todo Could someone help me out here?
-	
+		product.getTableRowObjects();
+		updateTable();
 	}
 
 	public void cleanAndFillComboBox() {
@@ -34,6 +41,21 @@ public class BarProductOverview extends javax.swing.JPanel {
 		jComboBox1.addItem("Dranken");
 		jComboBox1.addItem("Eten");
 		jComboBox1.addItem("Overige");
+	}
+	
+	private void updateTable() {
+		DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+		//User user = Session.get().getLoggedInUser();
+		
+		// First, empty it.
+		model.setRowCount(0);
+		
+		// Secondly, fill it with all products
+		ArrayList<Product> products = Product.readAll();
+		
+		for(Product product : products) {
+			model.addRow(product.getTableRowObjects());
+		}
 	}
 
 	/** This method is called from within the constructor to
@@ -84,9 +106,17 @@ public class BarProductOverview extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Naam", "Type", "Extra", ":Prijs"
+                "Naam", "Type", "Extra", "Prijs"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18));
