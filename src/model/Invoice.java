@@ -1,8 +1,10 @@
 package model;
 
+import helper.Datetime;
 import helper.db.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +15,10 @@ import java.util.logging.Logger;
  */
 public class Invoice extends Model{
 	int id;
-	int user_id;
+	int userID;
+	boolean payed;
+	double amount;
+	Timestamp invoiceDate;
 	
 	public Invoice() {	
 	}
@@ -35,7 +40,7 @@ public class Invoice extends Model{
 			model.open();
 			model.query(
 					"SELECT * FROM invoice"
-					+ " WHERE user_id = ? ORDER BY id").setInt(1, userId);
+					+ " WHERE \"userID\" = ? ORDER BY id").setInt(1, userId);
 			model.result();
 			
 			// Loop over all results
@@ -62,21 +67,30 @@ public class Invoice extends Model{
 
 			// Fill in all properties
 			this.id = this.result.getInt("id");
-			this.user_id = this.result.getInt("user_id");
-			
+			this.userID = this.result.getInt("userid");
+			this.payed = this.result.getBoolean("payed");
+			this.amount = this.result.getDouble("amount");
+			this.invoiceDate = this.result.getTimestamp("invoicedate");
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 	
+	/**
+	 * Get a list of objects that can be used to store this Invoice in a JTable
+	 * @return The row for in a JTable
+	 */
 	public Object[] getTableRowObjects() {
+		
+		Datetime date = new Datetime(invoiceDate);
+		
 		return new Object[] {
-			String.format("%4d", id),
-			"April 2012",
-			String.format("€ %.2f", 35.0),
-			"2012-04-30",
-			"Niet bataald"
+			String.format("%04d", id),
+			date.format("MMMM yyyy"),
+			String.format("€ %.2f", amount),
+			date.format("dd-MM-yyyy"),
+			payed ? "Betaald" : "Niet bataald"
 		};
 	}
 	

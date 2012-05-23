@@ -40,7 +40,7 @@ public class Invoices extends javax.swing.JPanel {
 		User user = Session.get().getLoggedInUser();
 		
 		// First, empty it.
-		jTable1.removeAll();
+		model.setRowCount(0);
 		
 		// Secondly, fill it with all invoices
 		ArrayList<Invoice> invoices = Invoice.readByUserId(user.getId());
