@@ -532,12 +532,6 @@ public final class UserAdd extends javax.swing.JPanel {
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
 		}
-		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
-		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
-		if (!passwordequal) {
-			Application.getInstance().showPopup(new ErrorPopup(
-					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
-		}
 		
 		setUserData();
 		user.create();
