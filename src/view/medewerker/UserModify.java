@@ -96,7 +96,7 @@ public class UserModify extends javax.swing.JPanel {
 			user.setCategory("senior");
 		}
 				
-		user.save();
+		user.update();
 	}
 
     /** This method is called from within the constructor to
