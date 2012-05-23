@@ -89,6 +89,11 @@ public class BarProductAdd extends javax.swing.JPanel {
         jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButtonBack.setText("Terug");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         jButtonSave.setText("Opslaan");
         jButtonSave.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +177,11 @@ public class BarProductAdd extends javax.swing.JPanel {
 		Application.getInstance().showPanel(new view.admin.BarProductOverview());
 			
 	}//GEN-LAST:event_jButtonSaveActionPerformed
+
+	private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+		// Return to overview view
+		Application.getInstance().showPanel(new view.admin.BarProductOverview());
+	}//GEN-LAST:event_jButtonBackActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
