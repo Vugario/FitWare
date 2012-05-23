@@ -30,7 +30,7 @@ public class Enrollments extends javax.swing.JPanel {
 	 */
 	private ListSelectionModel row;
 	private final SearchTable searchTable;
-	private Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
+	private ArrayList<Enrollment> enrollments = Enrollment.readByUserId(Session.get().getLoggedInUser().getId());
 
 	/** Creates new form Enrollments */
 	public Enrollments() {

@@ -112,5 +112,37 @@ public class Invoice extends Model{
 			payed ? "Betaald" : "Niet bataald"
 		};
 	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public Timestamp getInvoiceDate() {
+		return invoiceDate;
+	}
+
+	public void setInvoiceDate(Timestamp invoiceDate) {
+		this.invoiceDate = invoiceDate;
+	}
+
+	public boolean isPayed() {
+		return payed;
+	}
+
+	public void setPayed(boolean payed) {
+		this.payed = payed;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 	
 }
