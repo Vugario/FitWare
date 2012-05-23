@@ -101,6 +101,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -108,9 +111,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="zoekterm"/>
       </Properties>
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldSearchKeyTyped"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonReset">
       <Properties>

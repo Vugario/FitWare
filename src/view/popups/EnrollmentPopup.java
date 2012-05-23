@@ -8,16 +8,13 @@ import java.awt.Color;
  * @author mennowolvers
  */
 public class EnrollmentPopup extends DetailPopup {
-	
+
 	public EnrollmentPopup(String message, Object data) {
 		super(message);
-		
+
 		this.setColor(Color.GRAY);
 		this.setTitle("Cursus");
-                
-                System.out.println( data.getClass().getName() );
-                
-                jButtonConfirm.setText("Inschrijven");
+
+		jButtonConfirm.setText("Inschrijven");
 	}
-	
 }
