@@ -44,7 +44,7 @@ public class Enrollment extends Model {
 			// Execute the query
 			Model model = new Model();
 			model.open();
-			model.query("SELECT * FROM \"enrollment\" e LEFT JOIN \"user\" u ON e.user_id = u.id LEFT JOIN \"subscription\" s ON e.subscription_id = s.id WHERE user_id = ? LIMIT 1").setInt(1, id);
+			model.query("SELECT * FROM \"enrollment\" WHERE user_id = ?").setInt(1, id);
 			model.result();
 			
 			// Loop over all results
