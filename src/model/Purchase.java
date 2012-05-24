@@ -4,9 +4,12 @@
  */
 package model;
 
+import helper.db.Model;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +29,36 @@ public class Purchase extends helper.db.Model {
 	private User user = new User();
 
 	public Purchase() {
+	}
+	
+	public Purchase(ResultSet result) {
+		super();
+		
+		this.result = result;
+		this.setPropertiesFromResult();
+	}
+
+	public static ArrayList<Purchase> readByUserId(int id) {
+		
+		ArrayList<Purchase> purchases = new ArrayList<Purchase>();
+			
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT * FROM \"purchase\" WHERE user_id = ?").setInt(1, id);
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				purchases.add(new Purchase(model.result));
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return purchases;
 	}
 
 	public Purchase readLastPurchase(int userId) {
@@ -68,6 +101,9 @@ public class Purchase extends helper.db.Model {
 		//TODO create SQL for to save purchase
 		// Save the purchase into the database
 		try {
+			
+			boolean availableUser = (user_id > 0 ) ? true : false;
+			System.out.println((availableUser ? ",?" : ""));
 			this.open();
 			PreparedStatement query = this.query(
 					"INSERT INTO purchase "
@@ -78,14 +114,22 @@ public class Purchase extends helper.db.Model {
 						+ " ?,"
 						+ " ?,"
 						+ " ?,"
-						+ " NOW());");
+						+ " NOW()"
+					+ ")");
 
-			query.setInt(1, user_id);
+			if(availableUser){
+				query.setInt(1, user_id);
+			}else{
+				
+				query.setNull(1, java.sql.Types.INTEGER);
+			}
+			
 			query.setInt(2, product_id);
 			query.setDouble(3, price);
 			query.setString(4, paymentoption);
 			query.setInt(5, quantity);
-
+			
+			
 			this.execute();
 
 		} catch (Exception ex) {
