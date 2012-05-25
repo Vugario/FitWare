@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.admin.BarProductModify;
 /**
  * This class is used to use define queries for the product table in the database.
  * 
@@ -31,6 +32,10 @@ public class Product extends Model{
 	public Product() {	
 	}
 	
+	/**
+	 * 
+	 * @param result is the outcome of a query.
+	 */
 	public Product(ResultSet result) {
 		super();
 		
@@ -38,6 +43,10 @@ public class Product extends Model{
 		this.setPropertiesFromResult();
 	}
 	
+	/**
+	 * 
+	 * @return returns an array list of Product
+	 */
 	public static ArrayList<Product> readAll() {
 			
 		ArrayList<Product> products = new ArrayList<Product>();
@@ -68,27 +77,40 @@ public class Product extends Model{
 		String query = "SELECT * FROM product WHERE cs";
 	}
 	
-	public boolean readById(int productId){
+	/**
+	 * 
+	 * @param productId productId is the ID of the selected product in view.admin.BarProductOverview
+	 * @return returns object Product
+	 * @author vm
+	 */
+	
+	public Product readById(int productId){
 		try {
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM product WHERE id = ? LIMIT 1");
 			
-			
 			query.setInt(1, productId);
+			this.result();
+			this.result.first();
+			this.setPropertiesFromResult();
 			
+		
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
-		this.execute();
-			return true;
+	
+	
+		System.out.println(getId());
+		System.out.println(getPrice());
+		System.out.println(getName());
+		return this;
 	}
 	
 	
 	/**
 	 * @author vm
-	 * @param
 	 * 
 	 * @return returns a true when there are products created, on error it returns false
 	 */
@@ -106,12 +128,30 @@ public class Product extends Model{
 			return false;
 		}
 		this.execute();
+
 		return true;
 		
 	}
 	
-	public void update(){
-		String query = "UPDATE product SET ? = ?";
+	public Boolean updateProduct(){
+		try {
+			PreparedStatement query =  this.query("UPDATE product SET "
+					+ "price = ?, "
+					+ "name = ?, "
+					+ "description = ?, "
+					+ "type = ?"
+					+ "WHERE id = ?;");
+			
+				query.setDouble(1, price);
+				query.setString(2, name);
+				query.setString(3, description);
+				query.setString(4, type);
+				
+		} catch (SQLException ex) {
+			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+		return false;
+		}
+		return true;
 	}
 	
 	@Override
@@ -119,7 +159,10 @@ public class Product extends Model{
 		return getName() + " " + getDecoratedPrice();
 	}
 
-
+	/**
+	 * 
+	 * 
+	 */
 	protected final void setPropertiesFromResult() {
 		try {
 
@@ -132,18 +175,19 @@ public class Product extends Model{
 			// Fill in all properties
 			this.id = this.result.getInt("id");
 			this.type = this.result.getString("type");
-                        this.price = this.result.getInt("price");
-                        this.name = this.result.getString("name");
-                        this.description = this.result.getString("description");
+            this.price = this.result.getDouble("price");
+            this.name = this.result.getString("name");
+            this.description = this.result.getString("description");
 			
-			
+			System.out.println("Set properties from result completed.");
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		
 	}
-	/*
-	 * @author daanvm
-	 * 
+	/**
+	 * @author daan
+	 * @return returns the table row objects
 	 */
 		public Object[] getTableRowObjects() {
 		

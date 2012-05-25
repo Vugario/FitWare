@@ -15,75 +15,81 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
-import main.Session;
-import model.Enrollment;
 import model.Product;
-import model.Subscription;
-import view.popups.EnrollmentPopup;
 
 /**
+ * BarProductOverview:
  * This is the view for the Overview of the Barporducts
+ * From this view it is possible to see all the barproducts and from
+ * here you can go to editing and adding products.
  * @author vm
  */
 public class BarProductOverview extends javax.swing.JPanel {
-	
+
 	private ListSelectionModel row;
 	protected DefaultTableModel model;
 	private final SearchTable searchTable;
-	private Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
-	
-	/** Creates new form BarProductOverview */
+
+	/**
+	 * This is the constructor for the BarProductOverview view.
+	 * Creates new form BarProductOverview
+	 */
 	public BarProductOverview() {
 		Product product = new Product();
 		initComponents();
-		
+
 		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonReset);
-		
-		
+		this.model = (DefaultTableModel) jTable1.getModel();
+
 		product.getTableRowObjects();
 		updateTable();
 	}
 
-	
+	/**
+	 * This method fills the jTable in the BarProductOverview.
+	 * @author daan
+	 * 
+	 */
 	private void updateTable() {
 		DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 		//User user = Session.get().getLoggedInUser();
-		
+
 		// First, empty it.
 		model.setRowCount(0);
-		
+
 		// Secondly, fill it with all products
 		ArrayList<Product> products = Product.readAll();
-		
-		for(Product product : products) {
+
+		for (Product product : products) {
 			model.addRow(product.getTableRowObjects());
 		}
 	}
-	
+
+	/**
+	 * 
+	 * @param productId the id of the selected product
+	 * @param rowNumber the number of the selected row
+	 * 
+	 * @author vm thx to daan
+	 */
 	private void showProduct() {
+
+		Product product = new Product();
 		// Get the currently selected subscription
+		System.out.println(jTable1.getSelectedRow());
+
 		int rowNumber = jTable1.getSelectedRow();
 		String productId = (String) model.getValueAt(rowNumber, 0);
-		Product product = new Product();
-		product.readById(Integer.parseInt(productId));
-		
-		//TODO Set the product data in the view
-		
-		
-		
 
-		// Show BarProductModify
-		Application.getInstance().showPopup(new view.admin.BarProductModify());
-				
-		
-		
-		}
-	
-	/**
-	 * Load the user data to the BarProductModify view
-	 */
-	public void loadProductData(){
-		
+		//System.out.println(productId);
+		product.readById(Integer.parseInt(productId));
+
+		//TODO Set the product data in the view
+		BarProductModify page = new BarProductModify();
+		Application.getInstance().showPanel(page);
+		page.loadProductData();
+
+		System.out.println("eind");
 	}
 
 	/** This method is called from within the constructor to
@@ -139,9 +145,16 @@ public class BarProductOverview extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -197,13 +210,14 @@ public class BarProductOverview extends javax.swing.JPanel {
 
 	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 		// When there is a double-click do this:
-		
+
 		if (evt.getClickCount() >= 2) {
 			// Double clicked!
 			showProduct();
-		}
-	}//GEN-LAST:event_jTable1MouseClicked
 
+		}
+
+	}//GEN-LAST:event_jTable1MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonProductAdd;
     private javax.swing.JButton jButtonReset;

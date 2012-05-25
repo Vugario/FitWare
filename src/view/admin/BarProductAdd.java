@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * BarProductAdd.java
  *
  * Created on May 18, 2012, 8:54:42 PM
@@ -16,12 +11,18 @@ import view.popups.ErrorPopup;
 import view.popups.SuccessPopup;
 
 /**
- *
+ * BarProductAdd:
+ * This class is made to add a product to the database. You only
+ * get here from the BarApp and then pressing 'Beheer Producten'
+ * and then pressing the '+'-Button.
  * @author vm
  */
 public class BarProductAdd extends javax.swing.JPanel {
 	Product product = new Product();
-	/** Creates new form BarProductAdd */
+	
+	/** Creates new form BarProductAdd.
+	 This is the constructer for the BarProductAdd view, it fills the
+	 jComboBoxType and initiates components.*/
 	public BarProductAdd() {
 		initComponents();
 		
@@ -29,11 +30,14 @@ public class BarProductAdd extends javax.swing.JPanel {
 		jComboBoxType.addItem("Drinken");
 		jComboBoxType.addItem("Eten");
 		jComboBoxType.addItem("Overig");
-
-		
 		
 	}
 	
+	/**
+	 * This sets the product from the view to the query that takes
+	 * it to the database (product.create()).
+	 * @author vm
+	 */
 	public void setProductData(){
 		String name = jTextFieldName.getText();
 		product.setName(name);
@@ -154,7 +158,7 @@ public class BarProductAdd extends javax.swing.JPanel {
                     .addComponent(jLabelDescription)
                     .addComponent(jTextFieldDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(jButtonSave)
                 .addContainerGap())
         );
@@ -171,9 +175,7 @@ public class BarProductAdd extends javax.swing.JPanel {
 		}else {
 			Application.getInstance().showPopup(new SuccessPopup("Het product is opgeslagen, u keert nu terug naar het overzicht."));
 		};
-		
-		
-		
+				
 		//return to the overview page to prevent query spam
 		Application.getInstance().showPanel(new view.admin.BarProductOverview());
 			
