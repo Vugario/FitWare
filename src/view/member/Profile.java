@@ -30,7 +30,7 @@ public class Profile extends javax.swing.JPanel {
 	
 	
 	
-	private	User user = new User().readUser(Session.get().getLoggedInUser().getId());
+	private	User sessionUser = new User().readUser(Session.get().getLoggedInUser().getId());
 
 	
 	/** Creates new form Profile */
@@ -47,29 +47,32 @@ public class Profile extends javax.swing.JPanel {
 
 	public void loadUserData() {
 		
-		jTextFieldId.setText(Integer.toString(user.getId()));
-		jTextFieldUsername.setText(user.getUsername());
-		jTextFieldFirstname.setText(user.getFirstname());
-		jTextFieldSubname.setText(user.getSubname());
-		jTextFieldLastname.setText(user.getLastname());
-		
-		helper.Datetime datetime = new helper.Datetime(user.getBirthdate());
+		jTextFieldId.setText(Integer.toString(sessionUser.getId()));
+		jTextFieldUsername.setText(sessionUser.getUsername());
+		jTextFieldFirstname.setText(sessionUser.getFirstname());
+		jTextFieldSubname.setText(sessionUser.getSubname());
+		jTextFieldLastname.setText(sessionUser.getLastname());
 		
 		
-		jTextFieldBirthdate.setText(datetime.format("yyyy-mm-dd"));
-		jTextFieldStreet.setText(user.getStreet());
-		jTextFieldCity.setText(user.getCity());
-		jTextFieldStreetnumber.setText(user.getHousenumber());
-		jTextFieldPostcode.setText(user.getPostcode());
-		jTextFieldEmail.setText(user.getEmail());
-		jTextFieldPhonenumber.setText(user.getPhonenumber());
-		jTextFieldMobilenumber.setText(user.getMobilenumber());
+		if(sessionUser.getBirthdate() != null){
+			helper.Datetime datetime = new helper.Datetime(sessionUser.getBirthdate());
+
+
+			jTextFieldBirthdate.setText(datetime.format("yyyy-mm-dd"));
+		}
+		jTextFieldStreet.setText(sessionUser.getStreet());
+		jTextFieldCity.setText(sessionUser.getCity());
+		jTextFieldStreetnumber.setText(sessionUser.getHousenumber());
+		jTextFieldPostcode.setText(sessionUser.getPostcode());
+		jTextFieldEmail.setText(sessionUser.getEmail());
+		jTextFieldPhonenumber.setText(sessionUser.getPhonenumber());
+		jTextFieldMobilenumber.setText(sessionUser.getMobilenumber());
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(jRadioButtonGenderMale);
 		group.add(jRadioButtonGenderFemale);
 
-		if (user.getGender() == User.MALE) {
+		if (sessionUser.getGender()) {
 			jRadioButtonGenderMale.setSelected(true);
 		} else {
 			jRadioButtonGenderFemale.setSelected(true);
@@ -77,8 +80,8 @@ public class Profile extends javax.swing.JPanel {
 
 	}
 
-	public void setUserData() {
-
+	public void setUserData(User user) {
+		
 		String username = jTextFieldUsername.getText();
 		user.setUsername(username);
 
@@ -89,10 +92,10 @@ public class Profile extends javax.swing.JPanel {
 		user.setSubname(subname);
 
 		String lastname = jTextFieldLastname.getText();
-		user.setUsername(username);
+		user.setLastname(lastname);
 
 		String birthdate = jTextFieldBirthdate.getText();
-		helper.Datetime datetime = new helper.Datetime(birthdate);	
+		helper.Datetime datetime = new helper.Datetime(birthdate+" 00:00:00");	
 		user.setBirthdate(datetime.timestamp());
 
 		String street = jTextFieldStreet.getText();
@@ -375,15 +378,12 @@ public class Profile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-		setUserData();
-		// passwordequal is to check if the two password fields match
-		/*String password1 = new String(jPasswordField1.getPassword());
-		String password2 = new String(jPasswordField2.getPassword());
-		Boolean passwordequal = password1.equals(password2);*/
 		
-		// TODO make an updatesql to upload new settings into database
-		System.out.println(user.save());
-		//System.exit(0);
+		//initiate new user to set new values
+		User user = new User();
+		
+		setUserData(user);
+
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
 		
@@ -409,6 +409,12 @@ public class Profile extends javax.swing.JPanel {
 			Application.getInstance().showPopup(new ErrorPopup(
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
+		}
+		
+		
+		if(!user.update()){
+			Application.getInstance().showPopup(new ErrorPopup(
+					"gegevens zijn niet goed opgeslagen. \nProbeer het nogmaals alstublieft."));
 		}
 		
 		Application.getInstance().showPanel(this);

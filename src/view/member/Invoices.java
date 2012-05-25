@@ -11,6 +11,14 @@
 package view.member;
 
 import helper.SearchTable;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import main.Application;
+import main.Session;
+import model.Invoice;
+import model.User;
+import view.popups.EnrollmentPopup;
+import view.popups.SuccessPopup;
 
 /**
  *
@@ -19,12 +27,43 @@ import helper.SearchTable;
 public class Invoices extends javax.swing.JPanel {
 
 	protected SearchTable searchTable;
+	protected DefaultTableModel model;
 
 	/** Creates new form Invoices */
 	public Invoices() {
 		initComponents();
-
+		
+		// Make the table searchable
 		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonReset);
+		this.model = (DefaultTableModel) jTable1.getModel();
+
+		// Update the table with all invoices of the currently logged in user
+		updateTable();
+	}
+	
+	private void updateTable() {
+		User user = Session.get().getLoggedInUser();
+		
+		// First, empty it.
+		model.setRowCount(0);
+		
+		// Secondly, fill it with all invoices
+		ArrayList<Invoice> invoices = Invoice.readByUserId(user.getId());
+		
+		for(Invoice invoice : invoices) {
+			model.addRow(invoice.getTableRowObjects());
+		}
+	}
+	
+	private void showInvoice() {
+		// Get the currently selected subscription
+		int rowNumber = jTable1.getSelectedRow();
+		String invoiceId = (String) model.getValueAt(rowNumber, 0);
+		Invoice invoice = new Invoice();
+		invoice.readInvoice(Integer.parseInt(invoiceId));
+		
+		// Show popup
+		Application.getInstance().showPopup(new SuccessPopup("Hoi"));
 	}
 
 	/** This method is called from within the constructor to
@@ -71,14 +110,14 @@ public class Invoices extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jTextFieldSearch.setText("zoekterm");
-        jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldSearchKeyTyped(evt);
-            }
-        });
 
         jButtonReset.setText("Reset");
 
@@ -112,9 +151,12 @@ public class Invoices extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-	private void jTextFieldSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyTyped
-		// TODO add your handling code here:
-	}//GEN-LAST:event_jTextFieldSearchKeyTyped
+	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+		if (evt.getClickCount() >= 2) {
+			// Double clicked!
+			showInvoice();
+		}
+	}//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonReset;

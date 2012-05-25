@@ -3,22 +3,19 @@
  *
  * Created on May 6, 2012, 5:01:37 PM
  */
-package view;
+package view.member;
 
 import helper.SearchTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
 import main.Session;
 import model.Enrollment;
 import model.Subscription;
 import view.popups.EnrollmentPopup;
-import view.popups.ErrorPopup;
 
 /**
  *
@@ -35,11 +32,9 @@ public class Enrollments extends javax.swing.JPanel {
 	 */
 	private ListSelectionModel row;
 	private final SearchTable searchTable;
-	private Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
+	private ArrayList<Enrollment> enrollments = Enrollment.readByUserId(Session.get().getLoggedInUser().getId());
 
-	/**
-	 * Creates new form Enrollments
-	 */
+	/** Creates new form Enrollments */
 	public Enrollments() {
 		initComponents();
 
@@ -54,7 +49,7 @@ public class Enrollments extends javax.swing.JPanel {
 			Subscription item = items.get(i);
 			model.insertRow(0, new Object[]{item.getId(), item.getTitle(), "€ " + item.getPrice(), item.getMinimumAge(), item.getMaximumAge()});
 		}
-
+		
 		// Make a selection listener
 		this.row = jEnrollments.getSelectionModel();
 		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -74,8 +69,23 @@ public class Enrollments extends javax.swing.JPanel {
 		});
 	}
 
-	/**
-	 * This method is called from within the constructor to initialize the form.
+	private void showEnrollment() {
+		// Get the currently selected subscription
+		int rowNumber = jEnrollments.getSelectedRow();
+		int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
+		Subscription subscription = new Subscription(subscriptionId);
+
+		// Show popup
+		Application.getInstance().showPopup(new EnrollmentPopup(
+				"Naam: " + subscription.getTitle()
+				+ "\nLeeftijdscategorie: " + subscription.getMinimumAge()
+				+ " tot " + subscription.getMaximumAge()
+				+ "\nOmschrijving: " + subscription.getDescription(),
+				subscription));
+	}
+
+	/** This method is called from within the constructor to
+	 * initialize the form.
 	 */
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -85,7 +95,6 @@ public class Enrollments extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jEnrollments = new javax.swing.JTable();
         jTextFieldSearch = new javax.swing.JTextField();
-        jButtonSearch = new javax.swing.JButton();
         jButtonReset = new javax.swing.JButton();
 
         jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18));
@@ -107,11 +116,14 @@ public class Enrollments extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jEnrollments.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jEnrollmentsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jEnrollments);
 
         jTextFieldSearch.setText("zoekterm");
-
-        jButtonSearch.setText("Zoek");
 
         jButtonReset.setText("Reset");
 
@@ -122,17 +134,15 @@ public class Enrollments extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonReset)))
-                        .addGap(0, 106, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -143,7 +153,6 @@ public class Enrollments extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearch)
                     .addComponent(jButtonReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
@@ -152,9 +161,15 @@ public class Enrollments extends javax.swing.JPanel {
 
         jButtonReset.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jEnrollmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEnrollmentsMouseClicked
+		if (evt.getClickCount() >= 2) {
+			// Double clicked!
+			showEnrollment();
+		}
+	}//GEN-LAST:event_jEnrollmentsMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonReset;
-    private javax.swing.JButton jButtonSearch;
     private javax.swing.JTable jEnrollments;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JScrollPane jScrollPane1;

@@ -10,15 +10,49 @@
  */
 package view.admin;
 
+import main.Application;
+import model.Product;
+import view.popups.ErrorPopup;
+import view.popups.SuccessPopup;
+
 /**
  *
  * @author vm
  */
 public class BarProductAdd extends javax.swing.JPanel {
-
+	Product product = new Product();
 	/** Creates new form BarProductAdd */
 	public BarProductAdd() {
 		initComponents();
+		
+		jComboBoxType.removeAllItems();
+		jComboBoxType.addItem("Drinken");
+		jComboBoxType.addItem("Eten");
+		jComboBoxType.addItem("Overig");
+
+		
+		
+	}
+	
+	public void setProductData(){
+		String name = jTextFieldName.getText();
+		product.setName(name);
+		
+		String type = jComboBoxType.getSelectedItem().toString();
+		if (type.equals("Drinken")){
+			type = "drink";
+		}else if(type.equals("Eten")){
+			type = "food";
+		} 
+		
+	
+		product.setType(type);
+		
+		double price = Double.parseDouble(jTextFieldPrice.getText());
+		product.setPrice(price);
+		
+		String description = jTextFieldDescription.getText();
+		product.setDescription(description);
 	}
 
 	/** This method is called from within the constructor to
@@ -33,14 +67,12 @@ public class BarProductAdd extends javax.swing.JPanel {
         jLabelProductName = new javax.swing.JLabel();
         jLabelProductType = new javax.swing.JLabel();
         jLabelProductPrice = new javax.swing.JLabel();
-        jLabelExtraInfo = new javax.swing.JLabel();
         jLabelDescription = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        jTextFieldName = new javax.swing.JTextField();
+        jTextFieldPrice = new javax.swing.JTextField();
+        jTextFieldDescription = new javax.swing.JTextField();
+        jComboBoxType = new javax.swing.JComboBox();
         jButtonBack = new javax.swing.JButton();
         jButtonSave = new javax.swing.JButton();
 
@@ -50,17 +82,25 @@ public class BarProductAdd extends javax.swing.JPanel {
 
         jLabelProductPrice.setText("Prijs");
 
-        jLabelExtraInfo.setText("Extra Informatie");
-
         jLabelDescription.setText("Omschrijving");
 
         jLabel5.setText("min / cl / beleg / smaak");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButtonBack.setText("Terug");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         jButtonSave.setText("Opslaan");
+        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -69,23 +109,19 @@ public class BarProductAdd extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDescription)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelProductName)
-                            .addComponent(jLabelProductType)
-                            .addComponent(jLabelProductPrice)
-                            .addComponent(jLabelExtraInfo))
-                        .addGap(85, 85, 85)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelProductName)
+                    .addComponent(jLabelProductType)
+                    .addComponent(jLabelProductPrice)
+                    .addComponent(jLabelDescription))
+                .addGap(85, 85, 85)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldDescription)
+                    .addComponent(jTextFieldPrice)
+                    .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(jComboBoxType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(521, Short.MAX_VALUE)
                 .addComponent(jButtonBack)
@@ -103,42 +139,61 @@ public class BarProductAdd extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelProductName)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelProductType)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelProductPrice)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelExtraInfo)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jTextFieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDescription)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
+                    .addComponent(jTextFieldDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
                 .addComponent(jButtonSave)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+		//Set the product data from the textfields
+		setProductData();
+				
+		// TODO Save the new product in the database
+		if(!product.create()){
+			//If product.create fails show error message
+			Application.getInstance().showPopup(new ErrorPopup("Het is niet gelukt om op te slaan, probeer het nogmaals alstublieft."));
+		}else {
+			Application.getInstance().showPopup(new SuccessPopup("Het product is opgeslagen, u keert nu terug naar het overzicht."));
+		};
+		
+		
+		
+		//return to the overview page to prevent query spam
+		Application.getInstance().showPanel(new view.admin.BarProductOverview());
+			
+	}//GEN-LAST:event_jButtonSaveActionPerformed
+
+	private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+		// Return to overview view
+		Application.getInstance().showPanel(new view.admin.BarProductOverview());
+	}//GEN-LAST:event_jButtonBackActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonSave;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBoxType;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelDescription;
-    private javax.swing.JLabel jLabelExtraInfo;
     private javax.swing.JLabel jLabelProductName;
     private javax.swing.JLabel jLabelProductPrice;
     private javax.swing.JLabel jLabelProductType;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextFieldDescription;
+    private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldPrice;
     // End of variables declaration//GEN-END:variables
 }

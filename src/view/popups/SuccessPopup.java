@@ -12,7 +12,7 @@ public class SuccessPopup extends BasePopup {
 	public SuccessPopup(String message) {
 		super(message);
 		
-		this.setColor(Color.GREEN);
+		this.setColor(Color.ORANGE);
 		this.setTitle("GESLAAGD");
 	}
 	

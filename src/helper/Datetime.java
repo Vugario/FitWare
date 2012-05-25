@@ -5,12 +5,9 @@
 package helper;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -35,7 +32,7 @@ public class Datetime{
 	public Datetime(String dateString){
 	
 		this.timestamp = Timestamp.valueOf(dateString);
-
+		
 		this.unixTimestamp = timestamp.getTime();
 		
 	}
@@ -59,8 +56,6 @@ public class Datetime{
 
 		dateFormat.setTimeZone(tZ);
 		String diff = dateFormat.format(parsedDate);
-		//timestamp = parsedDate.getTime();
-		System.out.println(diff);
 
 		
 		return diff;

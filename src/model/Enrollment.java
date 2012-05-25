@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,21 +27,35 @@ public class Enrollment extends Model {
 
 	public Enrollment() {
 	}
+	
+	public Enrollment(ResultSet result) {
+		super();
+		
+		this.result = result;
+		this.setPropertiesFromResult();
+	}
 
-	public Enrollment readEnrollmentByUserId(int id) {
+	public static ArrayList<Enrollment> readByUserId(int id) {
+		
+		ArrayList<Enrollment> enrollments = new ArrayList<Enrollment>();
+			
 		try {
-			this.open();
-			this.query("SELECT * FROM \"enrollment\" e LEFT JOIN \"user\" u ON e.user_id = u.id LEFT JOIN \"subscription\" s ON e.subscription_id = s.id WHERE user_id = ? LIMIT 1").setInt(1, id);
-			this.result();
-			this.result.first();
-
-			this.setPropertiesFromResult();
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT * FROM \"enrollment\" WHERE user_id = ?").setInt(1, id);
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				enrollments.add(new Enrollment(model.result));
+			}
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		return this;
+		return enrollments;
 	}
 
 	public Enrollment readEnrollmentById(int id) {
