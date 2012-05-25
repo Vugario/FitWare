@@ -6,6 +6,8 @@
 package view.member;
 
 import helper.SearchTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -37,19 +39,34 @@ public class Enrollments extends javax.swing.JPanel {
 		initComponents();
 
 		this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonReset);
-		this.model = (DefaultTableModel) jEnrollments.getModel();
 
 		// Retrieve all subscriptions
 		ArrayList<Subscription> items = Subscription.readAll();
 
 		// Fill the model with data
+		this.model = (DefaultTableModel) jEnrollments.getModel();
 		for (int i = 0; i < items.size(); i++) {
 			Subscription item = items.get(i);
 			model.insertRow(0, new Object[]{item.getId(), item.getTitle(), "€ " + item.getPrice(), item.getMinimumAge(), item.getMaximumAge()});
 		}
-
-		// Only one row may be selected at a time
-		jEnrollments.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		// Make a selection listener
+		this.row = jEnrollments.getSelectionModel();
+		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		
+		jEnrollments.addMouseListener( new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked( MouseEvent e ) {
+				if( e.getClickCount() == 2 )
+				{
+					int id = Integer.parseInt( jEnrollments.getModel().getValueAt( jEnrollments.getSelectedRow(), 0 ).toString() );
+					
+					Subscription subscription = new Subscription( id );
+					Application.getInstance().showPopup(new EnrollmentPopup("Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription));
+				}
+			}
+		});
 	}
 
 	private void showEnrollment() {
@@ -158,4 +175,10 @@ public class Enrollments extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
+
+	private class jLayeredPaneWrapper {
+
+		public jLayeredPaneWrapper() {
+		}
+	}
 }
