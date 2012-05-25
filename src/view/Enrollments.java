@@ -6,6 +6,8 @@
 package view;
 
 import helper.SearchTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -23,67 +25,59 @@ import view.popups.ErrorPopup;
  * @author mennowolvers
  */
 public class Enrollments extends javax.swing.JPanel {
-    /**
-     * Model for making the content of the table
-     */
-    private DefaultTableModel model;
-    
-    /**
-     * An individual row to attach the onclick event
-     */
-    private ListSelectionModel row;
-    private final SearchTable searchTable;
-    
-    private Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
 
-    /** Creates new form Enrollments */
-    public Enrollments() {
-        initComponents();
-        
-        this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonReset);
-        
-        // Retrieve all subscriptions
-        ArrayList<Subscription> items = Subscription.readAll();
-        
-        // Fill the model with data
-        this.model = (DefaultTableModel) jEnrollments.getModel();
-        for( int i = 0; i < items.size(); i++ )
-        {
-            Subscription item = items.get(i);
-            model.insertRow(0,new Object[]{ item.getId(), item.getTitle(), "€ " + item.getPrice(), item.getMinimumAge(), item.getMaximumAge() });
-        }
-        
-        // Make a selection listener
-        this.row = jEnrollments.getSelectionModel();
-        this.row.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.row.addListSelectionListener( new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-               if (! e.getValueIsAdjusting())
-                {
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    Object value = 0;
-                    if (!lsm.isSelectionEmpty()) {
-                        int minIndex = lsm.getMinSelectionIndex();
-                        int maxIndex = lsm.getMaxSelectionIndex();
-                        for (int i = minIndex; i <= maxIndex; i++) {
-                            if (lsm.isSelectedIndex(i)) {
-                                value = jEnrollments.getModel().getValueAt(i, 0);
-                            }
-                        }
-                    }
-                    
-                    Subscription subscription = new Subscription( Integer.parseInt( value.toString() ) );
-                    Application.getInstance().showPopup(new EnrollmentPopup( "Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription ));
-                }
-            }
-        });
-    }
+	/**
+	 * Model for making the content of the table
+	 */
+	private DefaultTableModel model;
+	/**
+	 * An individual row to attach the onclick event
+	 */
+	private ListSelectionModel row;
+	private final SearchTable searchTable;
+	private Enrollment enrollments = new Enrollment().readEnrollmentByUserId(Session.get().getLoggedInUser().getId());
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     */
-    @SuppressWarnings("unchecked")
+	/**
+	 * Creates new form Enrollments
+	 */
+	public Enrollments() {
+		initComponents();
+
+		this.searchTable = new SearchTable(jEnrollments, jTextFieldSearch, jButtonReset);
+
+		// Retrieve all subscriptions
+		ArrayList<Subscription> items = Subscription.readAll();
+
+		// Fill the model with data
+		this.model = (DefaultTableModel) jEnrollments.getModel();
+		for (int i = 0; i < items.size(); i++) {
+			Subscription item = items.get(i);
+			model.insertRow(0, new Object[]{item.getId(), item.getTitle(), "€ " + item.getPrice(), item.getMinimumAge(), item.getMaximumAge()});
+		}
+
+		// Make a selection listener
+		this.row = jEnrollments.getSelectionModel();
+		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		
+		jEnrollments.addMouseListener( new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked( MouseEvent e ) {
+				if( e.getClickCount() == 2 )
+				{
+					int id = Integer.parseInt( jEnrollments.getModel().getValueAt( jEnrollments.getSelectedRow(), 0 ).toString() );
+					
+					Subscription subscription = new Subscription( id );
+					Application.getInstance().showPopup(new EnrollmentPopup("Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription));
+				}
+			}
+		});
+	}
+
+	/**
+	 * This method is called from within the constructor to initialize the form.
+	 */
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -167,9 +161,9 @@ public class Enrollments extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
 
-    private class jLayeredPaneWrapper {
+	private class jLayeredPaneWrapper {
 
-        public jLayeredPaneWrapper() {
-        }
-    }
+		public jLayeredPaneWrapper() {
+		}
+	}
 }
