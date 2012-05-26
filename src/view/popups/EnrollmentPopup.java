@@ -27,12 +27,6 @@ public class EnrollmentPopup extends DetailPopup {
 			} else {
 				jButtonConfirm.setText("Uitschrijven");
 			}
-			System.out.println("test");
-
-			System.out.println(enrollment);
-			System.out.println(subscription.getId());
 		}
-
-		//jButtonConfirm.setText("Inschrijven");
 	}
 }

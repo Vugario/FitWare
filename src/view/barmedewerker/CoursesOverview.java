@@ -75,8 +75,6 @@ public class CoursesOverview extends javax.swing.JPanel {
 		int rowNumber = jEnrollments.getSelectedRow();
 		int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
 		Subscription subscription = new Subscription(subscriptionId);
-                
-                boolean subscripted = this.hasSubscription(1);
 
 		// Show popup
 		Application.getInstance().showPopup(new EnrollmentPopup(
@@ -86,11 +84,6 @@ public class CoursesOverview extends javax.swing.JPanel {
 				+ "\nOmschrijving: " + subscription.getDescription(),
 				subscription));
 	}
-        
-        private boolean hasSubscription( int id )
-        {
-            return true;
-        }
 
 	/** This method is called from within the constructor to
 	 * initialize the form.
