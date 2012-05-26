@@ -95,6 +95,22 @@ public class Enrollment extends Model {
 
         return this;
     }
+    
+    public void subscribe()
+    {
+        
+        try {
+            this.open();
+            PreparedStatement query = this.query("INSERT INTO \"enrollment\" (user_id, subscription_id, datetime, branch_id) VALUES (?, ?, NOW(), ?)");
+            query.setInt(1, 2);
+            query.setInt(2, 3);
+            query.setInt(3, 2);
+            this.result();
+
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     protected boolean setPropertiesFromResult() {
 
