@@ -17,196 +17,196 @@ import java.util.logging.Logger;
  */
 public class Enrollment extends Model {
 
-	private int id;
-	private int user_id;
-	private int subscription_id;
-	private Timestamp timestamp;
-	private User user;
-	private Subscription subscription;
-	private boolean enrolled;
+    private int id;
+    private int user_id;
+    private int subscription_id;
+    private Timestamp timestamp;
+    private User user;
+    private Subscription subscription;
+    private boolean enrolled;
 
-	public Enrollment() {
-	}
-	
-	public Enrollment(ResultSet result) {
-		super();
-		
-		this.result = result;
-		this.setPropertiesFromResult();
-	}
+    public Enrollment() {
+    }
 
-	public static ArrayList<Enrollment> readByUserId(int id) {
-		
-		ArrayList<Enrollment> enrollments = new ArrayList<Enrollment>();
-			
-		try {
-			// Execute the query
-			Model model = new Model();
-			model.open();
-			model.query("SELECT * FROM \"enrollment\" WHERE user_id = ?").setInt(1, id);
-			model.result();
-			
-			// Loop over all results
-			while(model.result.next()) {
-				enrollments.add(new Enrollment(model.result));
-			}
+    public Enrollment(ResultSet result) {
+        super();
 
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
+        this.result = result;
+        this.setPropertiesFromResult();
+    }
 
-		return enrollments;
-	}
+    public static ArrayList<Enrollment> readByUserId(int id) {
 
-	public Enrollment readEnrollmentById(int id) {
-		try {
-			this.open();
-			this.query("SELECT * FROM \"enrollment\" e LEFT JOIN \"user\" u ON e.user_id = u.id LEFT JOIN \"subscription\" s ON e.subscription_id = s.id WHERE e.id = ? LIMIT 1").setInt(1, id);
-			this.result();
-			this.result.first();
+        ArrayList<Enrollment> enrollments = new ArrayList<Enrollment>();
 
-			this.setPropertiesFromResult();
+        try {
+            // Execute the query
+            Model model = new Model();
+            model.open();
+            model.query("SELECT * FROM \"enrollment\" WHERE user_id = ?").setInt(1, id);
+            model.result();
 
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
+            // Loop over all results
+            while (model.result.next()) {
+                enrollments.add(new Enrollment(model.result));
+            }
 
-		return this;
-	}
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-	public Enrollment readEnrollmentBySubscriptionIdAndUserId(int id, int user_id) {
-		try {
-			this.open();
-			PreparedStatement query = this.query("SELECT * FROM \"enrollment\" WHERE subscription_id = ? AND user_id = ? LIMIT 1");
-			query.setInt(1, id);
-			query.setInt(2, user_id);
-			this.result();
-			this.result.first();
+        return enrollments;
+    }
 
-			if (this.setPropertiesFromResult() == false) {
-				this.enrolled = false;
-			} else {
-				this.enrolled = true;
-			}
+    public Enrollment readEnrollmentById(int id) {
+        try {
+            this.open();
+            this.query("SELECT * FROM \"enrollment\" e LEFT JOIN \"user\" u ON e.user_id = u.id LEFT JOIN \"subscription\" s ON e.subscription_id = s.id WHERE e.id = ? LIMIT 1").setInt(1, id);
+            this.result();
+            this.result.first();
 
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
+            this.setPropertiesFromResult();
 
-		return this;
-	}
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-	protected boolean setPropertiesFromResult() {
+        return this;
+    }
 
-		try {
+    public Enrollment readEnrollmentBySubscriptionIdAndUserId(int id, int user_id) {
+        try {
+            this.open();
+            PreparedStatement query = this.query("SELECT * FROM \"enrollment\" WHERE subscription_id = ? AND user_id = ? LIMIT 1");
+            query.setInt(1, id);
+            query.setInt(2, user_id);
+            this.result();
+            this.result.first();
 
-			// Check if there is a result
-			if (this.result.getRow() == 0) {
+            if (this.setPropertiesFromResult() == false) {
+                this.enrolled = false;
+            } else {
+                this.enrolled = true;
+            }
 
-				// There is no result, so return without doing anything
-				return false;
-			}
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-			// Fill in all properties
-			this.setId(this.result.getInt("id"));
-			this.setUser_id(this.result.getInt("user_id"));
-			this.setSubscription_id(this.result.getInt("subscription_id"));
+        return this;
+    }
 
-			this.setSubscription(new Subscription(this.getSubscription_id()));
+    protected boolean setPropertiesFromResult() {
 
-		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
-		}
+        try {
 
-		return true;
-	}
+            // Check if there is a result
+            if (this.result.getRow() == 0) {
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+                // There is no result, so return without doing anything
+                return false;
+            }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+            // Fill in all properties
+            this.setId(this.result.getInt("id"));
+            this.setUser_id(this.result.getInt("user_id"));
+            this.setSubscription_id(this.result.getInt("subscription_id"));
 
-	/**
-	 * @return the user_id
-	 */
-	public int getUser_id() {
-		return user_id;
-	}
+            this.setSubscription(new Subscription(this.getSubscription_id()));
 
-	/**
-	 * @param user_id the user_id to set
-	 */
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
 
-	/**
-	 * @return the subscription_id
-	 */
-	public int getSubscription_id() {
-		return subscription_id;
-	}
+        return true;
+    }
 
-	/**
-	 * @param subscription_id the subscription_id to set
-	 */
-	public void setSubscription_id(int subscription_id) {
-		this.subscription_id = subscription_id;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @return the timestamp
-	 */
-	public Timestamp getTimestamp() {
-		return timestamp;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param timestamp the timestamp to set
-	 */
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
+    /**
+     * @return the user_id
+     */
+    public int getUser_id() {
+        return user_id;
+    }
 
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
+    /**
+     * @param user_id the user_id to set
+     */
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
+    /**
+     * @return the subscription_id
+     */
+    public int getSubscription_id() {
+        return subscription_id;
+    }
 
-	/**
-	 * @return the subscription
-	 */
-	public Subscription getSubscription() {
-		return subscription;
-	}
+    /**
+     * @param subscription_id the subscription_id to set
+     */
+    public void setSubscription_id(int subscription_id) {
+        this.subscription_id = subscription_id;
+    }
 
-	/**
-	 * @param subscription the subscription to set
-	 */
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
-	}
+    /**
+     * @return the timestamp
+     */
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
 
-	public boolean isEnrolled() {
-		return this.enrolled;
-	}
+    /**
+     * @param timestamp the timestamp to set
+     */
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * @return the subscription
+     */
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    /**
+     * @param subscription the subscription to set
+     */
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
+
+    public boolean isEnrolled() {
+        return this.enrolled;
+    }
 }
