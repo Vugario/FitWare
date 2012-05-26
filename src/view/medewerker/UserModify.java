@@ -19,13 +19,14 @@ import view.popups.ErrorPopup;
  */
 public class UserModify extends javax.swing.JPanel {
 
-	private User user = new User();
+//	private User user = new User();
 	
 	
 	
     /** Creates new form Profile */
     public UserModify() {
         initComponents();
+
     }
 	
 	
@@ -98,6 +99,92 @@ public class UserModify extends javax.swing.JPanel {
 				
 		user.update();
 	}
+	
+	public void loadUserData() {
+		User user = new User();
+		
+		jTextFieldId.setText(Integer.toString(user.getId()));
+		jTextFieldUsername.setText(user.getUsername());
+		jTextFieldFirstname.setText(user.getFirstname());
+		jTextFieldSubname.setText(user.getSubname());
+		jTextFieldLastname.setText(user.getLastname());
+		
+		
+		if(user.getBirthdate() != null){
+			helper.Datetime datetime = new helper.Datetime(user.getBirthdate());
+
+
+			jTextFieldBirthdate.setText(datetime.format("yyyy-mm-dd"));
+		}
+		jTextFieldStreet.setText(user.getStreet());
+		jTextFieldCity.setText(user.getCity());
+		jTextFieldStreetnumber.setText(user.getHousenumber());
+		jTextFieldPostcode.setText(user.getPostcode());
+		jTextFieldEmail.setText(user.getEmail());
+		jTextFieldPhonenumber.setText(user.getPhonenumber());
+		jTextFieldMobilenumber.setText(user.getMobilenumber());
+
+		ButtonGroup group = new ButtonGroup();
+		group.add(jRadioButtonGenderMale);
+		group.add(jRadioButtonGenderFemale);
+
+		if (user.getGender()) {
+			jRadioButtonGenderMale.setSelected(true);
+		} else {
+			jRadioButtonGenderFemale.setSelected(true);
+		}
+
+	}
+
+	public void setUserData(User user) {
+		
+		String username = jTextFieldUsername.getText();
+		user.setUsername(username);
+
+		String firstname = jTextFieldFirstname.getText();
+		user.setFirstname(firstname);
+
+		String subname = jTextFieldSubname.getText();
+		user.setSubname(subname);
+
+		String lastname = jTextFieldLastname.getText();
+		user.setLastname(lastname);
+
+		String birthdate = jTextFieldBirthdate.getText();
+		helper.Datetime datetime = new helper.Datetime(birthdate+" 00:00:00");	
+		user.setBirthdate(datetime.timestamp());
+
+		String street = jTextFieldStreet.getText();
+		user.setStreet(street);
+
+		String city = jTextFieldCity.getText();
+		user.setCity(city);
+
+		String housenumber = jTextFieldStreetnumber.getText();
+		user.setHousenumber(housenumber);
+
+		String postcode = jTextFieldPostcode.getText();
+		user.setPostcode(postcode);
+
+		String phonenumber = jTextFieldPhonenumber.getText();
+		user.setPhonenumber(phonenumber);
+
+		String mobilenumber = jTextFieldMobilenumber.getText();
+		user.setMobilenumber(mobilenumber);
+
+		String email = jTextFieldEmail.getText();
+		user.setEmail(email);
+
+		if (jRadioButtonGenderMale.isSelected() == true) {
+			user.setGender(true);
+		} else {
+			user.setGender(false);
+		}
+		
+		String id = jTextFieldId.getText();
+		user.setId(Integer.parseInt(id));
+
+	}
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -149,7 +236,7 @@ public class UserModify extends javax.swing.JPanel {
         jRadioButtonFullTime = new javax.swing.JRadioButton();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
-        jTextFieldID = new javax.swing.JTextField();
+        jTextFieldId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldAccountNumber = new javax.swing.JTextField();
         jTextFieldTNV = new javax.swing.JTextField();
@@ -227,7 +314,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel19.setText("Primaire locatie");
 
-        jTextFieldID.setEnabled(false);
+        jTextFieldId.setEnabled(false);
 
         jLabel1.setText("Rekeningnummer");
 
@@ -247,8 +334,8 @@ public class UserModify extends javax.swing.JPanel {
                             .add(jLabel17))
                         .add(22, 22, 22)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-                            .add(jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)))
+                            .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                            .add(jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -281,7 +368,7 @@ public class UserModify extends javax.swing.JPanel {
                                         .add(10, 10, 10)
                                         .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldID)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldId)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldUsername, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jTextFieldLastname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -297,7 +384,7 @@ public class UserModify extends javax.swing.JPanel {
                                     .add(jRadioButtonFullTime)
                                     .add(jRadioButtonSenior)))
                             .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(jLabel12)
                         .add(454, 454, 454))
@@ -312,8 +399,8 @@ public class UserModify extends javax.swing.JPanel {
                             .add(jLabel1))
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextFieldEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
-                            .add(jTextFieldMobilenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                            .add(jTextFieldEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                            .add(jTextFieldMobilenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                     .add(jTextFieldCity)
@@ -322,7 +409,7 @@ public class UserModify extends javax.swing.JPanel {
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jTextFieldPostcode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jTextFieldStreetnumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .add(jTextFieldPhonenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                            .add(jTextFieldPhonenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                             .add(layout.createSequentialGroup()
                                 .add(jTextFieldAccountNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 43, Short.MAX_VALUE)
@@ -339,7 +426,7 @@ public class UserModify extends javax.swing.JPanel {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
-                    .add(jTextFieldID, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextFieldId, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
@@ -488,7 +575,7 @@ public class UserModify extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldCity;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldFirstname;
-    private javax.swing.JTextField jTextFieldID;
+    private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldLastname;
     private javax.swing.JTextField jTextFieldMobilenumber;
     private javax.swing.JTextField jTextFieldPhonenumber;

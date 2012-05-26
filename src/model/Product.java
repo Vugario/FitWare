@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import view.admin.BarProductModify;
+import main.Application;
+import view.popups.NotificationPopup;
 /**
  * This class is used to use define queries for the product table in the database.
  * 
@@ -185,6 +186,7 @@ public class Product extends Model{
 		}
 		
 	}
+	
 	/**
 	 * @author daan
 	 * @return returns the table row objects
@@ -199,6 +201,24 @@ public class Product extends Model{
 			String.format("€ %.2f", price)
 		};
 	}
+		
+		/**
+		 * Delete the selected product in the BarProductModify view.
+		 */
+		public void deleteProduct(){
+		try {
+			this.open();
+			PreparedStatement query = this.query("DELETE FROM product WHERE id = ?;");
+			
+			query.setInt(1, id);
+		} catch (SQLException ex) {
+			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		this.execute();
+		Application.getInstance().showPopup(new NotificationPopup("Het product is verwijderd."));
+		Application.getInstance().showPanel(new view.admin.BarProductOverview());
+		}
+		
 
     public String getDescription() {
         return description;
@@ -208,10 +228,12 @@ public class Product extends Model{
         this.description = description;
     }
 
+	@Override
     public int getId() {
         return id;
     }
 
+	@Override
     public void setId(int id) {
         this.id = id;
     }
