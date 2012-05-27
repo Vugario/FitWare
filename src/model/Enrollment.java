@@ -97,15 +97,29 @@ public class Enrollment extends Model {
 		return this;
 	}
 
-	public void subscribe() {
+	public void subscribe( int id, int user_id ) {
 
 		try {
 			this.open();
 			PreparedStatement query = this.query("INSERT INTO \"enrollment\" (user_id, subscription_id, datetime, branch_id) VALUES (?, ?, NOW(), ?)");
-			query.setInt(1, 2);
-			query.setInt(2, 3);
-			query.setInt(3, 2);
-			this.result();
+			query.setInt( 1, user_id );
+			query.setInt( 2, id );
+			query.setInt( 3, 2 );
+			this.execute();
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void unsubscribe( int id, int user_id ) {
+
+		try {
+			this.open();
+			PreparedStatement query = this.query("DELETE FROM \"enrollment\" WHERE user_id = ? AND subscription_id = ?");
+			query.setInt( 1, user_id );
+			query.setInt( 2, id );
+			this.execute();
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
