@@ -41,7 +41,7 @@ public final class Application {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		db.open();
+		
 		startup();
 
 	}

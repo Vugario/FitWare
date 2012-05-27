@@ -97,10 +97,11 @@ public class User extends Model {
 	public static ArrayList<User> readAll() {
 			
 		ArrayList<User> users = new ArrayList<User>();
-			
+		Model model = new Model();
+		
 		try {
 			// Execute the query
-			Model model = new Model();
+			
 			model.open();
 			model.query(
 					"SELECT * FROM \"user\" ORDER BY id DESC");
@@ -113,6 +114,8 @@ public class User extends Model {
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			model.close();
 		}
 		
 		return users;
@@ -181,12 +184,13 @@ public class User extends Model {
 					+ "phonenumber = ?,"
 					+ "mobilenumber = ?,"
 					+ "email = ?,"
-					+ "gender = ?"
-					+ "role_id = ?"
+					+ "gender = ?,"
+					+ "role_id = ?,"
+					+ "bankaccount = ?"
 					+ (passwordChanged ? ", password = MD5(?)" : "")
 					+ "WHERE id = ?"
 				);
-			
+
 			query.setString(1, username.toLowerCase());
 			query.setString(2, firstname);
 			query.setString(3, subname);
@@ -199,12 +203,14 @@ public class User extends Model {
 			query.setString(10, email);
 			query.setBoolean(11, gender);
 			query.setInt(12, roleId);
-
+			
+			query.setInt(13, bankaccount);
+			
 			if (passwordChanged) {
-				query.setString(13, password);
-				query.setInt(14, id);
+				query.setString(14, password);
+				query.setInt(15, id);
 			}else{
-				query.setInt(13, id);
+				query.setInt(14, id);
 			}
 
 			this.execute();
@@ -212,6 +218,8 @@ public class User extends Model {
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 			return false;
+		} finally{
+			this.close();
 		}
 
 		return true;
