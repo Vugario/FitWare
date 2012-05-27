@@ -10,6 +10,7 @@ import main.Application;
 
 import model.User;
 import view.popups.ErrorPopup;
+import view.popups.NotificationPopup;
 
 
 /**
@@ -183,7 +184,7 @@ public class UserModify extends javax.swing.JPanel {
         jTextFieldAccountNumber = new javax.swing.JTextField();
         jTextFieldTNV = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jButtonDisable = new javax.swing.JButton();
+        jButtonActive = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         passwordChanged = new javax.swing.JCheckBox();
 
@@ -265,7 +266,12 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel20.setText("Ter name van");
 
-        jButtonDisable.setText("Non-actief");
+        jButtonActive.setText("Non-actief");
+        jButtonActive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActiveActionPerformed(evt);
+            }
+        });
 
         jLabel21.setText("Wachtwoord aanpassen?");
 
@@ -469,7 +475,7 @@ public class UserModify extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(profileSaveButton)
-                    .add(jButtonDisable)))
+                    .add(jButtonActive)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -539,8 +545,17 @@ public class UserModify extends javax.swing.JPanel {
 		}
 	}//GEN-LAST:event_passwordChangedActionPerformed
 
+	private void jButtonActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActiveActionPerformed
+		// Set the user !active.		
+		user.setActive(false);
+		user.update();
+		Application.getInstance().showPopup(new NotificationPopup("De gebruiker is op non-actief. \n U keert nu terug naar het overzicht."));
+		Application.getInstance().showPanel(new view.medewerker.UserOverview());
+		
+	}//GEN-LAST:event_jButtonActiveActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDisable;
+    private javax.swing.JButton jButtonActive;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

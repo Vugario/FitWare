@@ -136,7 +136,11 @@
                           <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jButtonActive" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="profileSaveButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jButtonDisable" min="-2" max="-2" attributes="0"/>
@@ -257,7 +261,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="profileSaveButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonDisable" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonActive" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -480,10 +484,13 @@
         <Property name="text" type="java.lang.String" value="Ter name van"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonDisable">
+    <Component class="javax.swing.JButton" name="jButtonActive">
       <Properties>
         <Property name="text" type="java.lang.String" value="Non-actief"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonActiveActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel21">
       <Properties>

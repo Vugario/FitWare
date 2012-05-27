@@ -79,18 +79,20 @@ public class BarProductOverview extends javax.swing.JPanel {
 		System.out.println(jTable1.getSelectedRow());
 
 		int rowNumber = jTable1.getSelectedRow();
-		String productId = (String) model.getValueAt(rowNumber, 0);
+		Object productId = model.getValueAt(rowNumber, 0);
+                
+                Application.getInstance().showPanel(new view.admin.BarProductModify(Integer.parseInt(productId.toString())));
 
 		//System.out.println(productId);
-		product.readById(Integer.parseInt(productId));
+		//product.readById(Integer.parseInt(productId));
 		
 		//TODO This Doesn't work yet, the data isn't loaded into the view
 		//TODO Set the product data in the view
-		BarProductModify page = new BarProductModify();
-		Application.getInstance().showPanel(page);
-		page.loadProductData();
+		//BarProductModify page = new BarProductModify();
+		//Application.getInstance().showPanel(page);
+		//page.loadProductData();
 
-		System.out.println("eind");
+		//System.out.println("eind");
 	}
 
 	/** This method is called from within the constructor to
