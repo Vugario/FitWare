@@ -1,13 +1,13 @@
 package model;
 
 import helper.db.Model;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import view.member.Profile;
 
 /**
  * A user is someone using this application. It can be a member, barmedewerker or
@@ -41,6 +41,13 @@ public class User extends Model {
 	public final static boolean FEMALE = false;
 
 	public User() {
+	}
+
+	private User(ResultSet result) {
+		super();
+		
+		this.result = result;
+		this.setPropertiesFromResult();
 	}
 
 	public User readUser(int id) {
@@ -82,6 +89,35 @@ public class User extends Model {
 		}
 
 		return this;
+	}
+	
+	/**
+	 * 
+	 * @return returns an array list of Product
+	 */
+	public static ArrayList<User> readAll() {
+			
+		ArrayList<User> users = new ArrayList<User>();
+			
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query(
+					"SELECT * FROM \"user\"");
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				users.add(new User(model.result));
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return users;
+
 	}
 
 	public boolean create(){
@@ -236,6 +272,21 @@ public class User extends Model {
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+	
+	/**
+	 * @author daan
+	 * @return returns the table row objects
+	 */
+		public Object[] getTableRowObjects() {
+		
+		return new Object[] {
+			String.format("%04d", id),
+			String.format(firstname +" "+ lastname),
+			birthdate,
+			roleId,
+			email
+			};
 	}
 
 	/**

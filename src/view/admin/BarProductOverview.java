@@ -75,7 +75,7 @@ public class BarProductOverview extends javax.swing.JPanel {
 	private void showProduct() {
 
 		Product product = new Product();
-		// Get the currently selected subscription
+		// Get the currently selected product
 		System.out.println(jTable1.getSelectedRow());
 
 		int rowNumber = jTable1.getSelectedRow();
@@ -83,7 +83,8 @@ public class BarProductOverview extends javax.swing.JPanel {
 
 		//System.out.println(productId);
 		product.readById(Integer.parseInt(productId));
-
+		
+		//TODO This Doesn't work yet, the data isn't loaded into the view
 		//TODO Set the product data in the view
 		BarProductModify page = new BarProductModify();
 		Application.getInstance().showPanel(page);

@@ -12,6 +12,7 @@ package view.admin;
 
 import main.Application;
 import model.Product;
+import view.popups.SuccessPopup;
 
 /**
  * BarProductModify:
@@ -84,6 +85,8 @@ public class BarProductModify extends javax.swing.JPanel {
         jButtonBack = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
         jButtonSave = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldId = new javax.swing.JTextField();
 
         jLabelProductName.setText("Naam");
 
@@ -105,6 +108,11 @@ public class BarProductModify extends javax.swing.JPanel {
         });
 
         jButtonDelete.setText("Verwijderen");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         jButtonSave.setText("Opslaan");
         jButtonSave.addActionListener(new java.awt.event.ActionListener() {
@@ -113,26 +121,19 @@ public class BarProductModify extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Product id");
+
+        jTextFieldId.setEnabled(false);
+        jTextFieldId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelProductName)
-                    .addComponent(jLabelProductType)
-                    .addComponent(jLabelProductPrice)
-                    .addComponent(jLabelExtraInfo))
-                .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldDescription)
-                    .addComponent(jTextFieldPrice)
-                    .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(jComboBoxType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(418, Short.MAX_VALUE)
                 .addComponent(jButtonDelete)
@@ -143,15 +144,39 @@ public class BarProductModify extends javax.swing.JPanel {
                 .addContainerGap(506, Short.MAX_VALUE)
                 .addComponent(jButtonSave)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelProductName)
+                    .addComponent(jLabelProductType)
+                    .addComponent(jLabelProductPrice)
+                    .addComponent(jLabelExtraInfo)
+                    .addComponent(jLabel1))
+                .addGap(85, 85, 85)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldId)
+                    .addComponent(jTextFieldDescription)
+                    .addComponent(jTextFieldPrice)
+                    .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBack)
-                    .addComponent(jButtonDelete))
-                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonBack)
+                            .addComponent(jButtonDelete))
+                        .addGap(53, 53, 53))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelProductName)
                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,7 +193,7 @@ public class BarProductModify extends javax.swing.JPanel {
                     .addComponent(jLabelExtraInfo)
                     .addComponent(jTextFieldDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(jButtonSave)
                 .addContainerGap())
         );
@@ -182,17 +207,32 @@ public class BarProductModify extends javax.swing.JPanel {
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
 		// TODO executing the update query from Product.java
 	}//GEN-LAST:event_jButtonSaveActionPerformed
+
+	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+		// Delete the information of the selected product
+		Product product = new Product();
+		product.setId(Integer.parseInt(jTextFieldId.getText()));
+		product.deleteProduct();
+		
+	}//GEN-LAST:event_jButtonDeleteActionPerformed
+
+	private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
+		// TODO add your handling code here:
+	}//GEN-LAST:event_jTextFieldIdActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonSave;
     private javax.swing.JComboBox jComboBoxType;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelExtraInfo;
     private javax.swing.JLabel jLabelProductName;
     private javax.swing.JLabel jLabelProductPrice;
     private javax.swing.JLabel jLabelProductType;
     private javax.swing.JTextField jTextFieldDescription;
+    private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldName;
     private javax.swing.JTextField jTextFieldPrice;
     // End of variables declaration//GEN-END:variables

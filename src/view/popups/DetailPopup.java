@@ -208,6 +208,7 @@ abstract public class DetailPopup extends javax.swing.JPanel {
 		// The KeyCode for an enter is 10
 		if (evt.getKeyCode() == 10) {
 			this.close();
+			
 		}
 	}//GEN-LAST:event_jButtonConfirmPopupKeyReleased
 

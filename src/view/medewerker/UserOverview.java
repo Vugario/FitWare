@@ -10,7 +10,11 @@
  */
 package view.medewerker;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import main.Application;
+import model.User;
+import view.admin.BarProductModify;
 
 /**
  * This is the class to view several users. From this view it's possible to go 
@@ -19,11 +23,59 @@ import main.Application;
  * @author vm
  */
 public class UserOverview extends javax.swing.JPanel {
-
+	protected DefaultTableModel model;
+	
 	/** Creates new form UserOverview */
 	public UserOverview() {
 		initComponents();
+		this.model = (DefaultTableModel) jTable1.getModel();
+		User user  = new User();
+		user.getTableRowObjects();
+		updateTable();
 	}
+	
+	/**
+	 * This method fills the jTable in the BarProductOverview.
+	 * @author daan
+	 * 
+	 */
+	private void updateTable() {
+		//DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+		//User user = Session.get().getLoggedInUser();
+
+		// First, empty it.
+		model.setRowCount(0);
+
+		// Secondly, fill it with all users
+		ArrayList<User> users = User.readAll();
+
+		for (User user : users) {
+			model.addRow(user.getTableRowObjects());
+		}
+	}
+	
+	private void showUser() {
+		
+		User user = new User();
+		// Get the currently selected user
+		System.out.println(jTable1.getSelectedRow());
+		
+		int rowNumber = jTable1.getSelectedRow();
+		System.out.println("rownumber" + rowNumber);
+		String id = (String) model.getValueAt(rowNumber, 0);
+		System.out.println("id is " + id);
+		
+		user.readUser(Integer.parseInt(id));
+		
+		//TODO This Doesn't work yet, the data isn't loaded into the view
+		//Set the product data in the view
+		UserModify page = new UserModify();
+		Application.getInstance().showPanel(page);
+		page.loadUserData();
+
+	}
+	
+	
  
  
 	/** This method is called from within the constructor to
@@ -72,8 +124,27 @@ public class UserOverview extends javax.swing.JPanel {
             new String [] {
                 "Klant-ID", "Naam", "Geboortedatum", "Rol", "E-mailadres"
             }
-        ));
-        jTable1.setSize(new java.awt.Dimension(200, 200));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setMinWidth(75);
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(75);
@@ -105,9 +176,9 @@ public class UserOverview extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(799, Short.MAX_VALUE)
+                .addContainerGap(843, Short.MAX_VALUE)
                 .addComponent(newUser)
                 .addContainerGap())
         );
@@ -124,11 +195,11 @@ public class UserOverview extends javax.swing.JPanel {
                             .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(21, Short.MAX_VALUE)
+                        .addContainerGap(22, Short.MAX_VALUE)
                         .addComponent(newUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -145,6 +216,16 @@ public class UserOverview extends javax.swing.JPanel {
 		// Clear the text when focussed
 		jTextField1.setText(null);
 	}//GEN-LAST:event_jTextField1FocusGained
+
+	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+		// Show the UserModify screen so there is detailed information 
+		//about the selected user
+				if (evt.getClickCount() >= 2) {
+			// Double clicked!
+			showUser();
+		}
+	}//GEN-LAST:event_jTable1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
