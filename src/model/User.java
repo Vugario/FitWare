@@ -184,6 +184,7 @@ public class User extends Model {
 					+ "email = ?,"
 					+ "gender = ?"
 					+ "role_id = ?"
+					+ "active = ?"
 					+ (passwordChanged ? ", password = MD5(?)" : "")
 					+ "WHERE id = ?"
 				);
@@ -200,12 +201,13 @@ public class User extends Model {
 			query.setString(10, email);
 			query.setBoolean(11, gender);
 			query.setInt(12, roleId);
+			query.setBoolean(13, active);
 
 			if (passwordChanged) {
-				query.setString(13, password);
-				query.setInt(14, id);
+				query.setString(14, password);
+				query.setInt(15, id);
 			}else{
-				query.setInt(13, id);
+				query.setInt(14, id);
 			}
 
 			this.execute();
