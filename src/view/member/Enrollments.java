@@ -49,20 +49,19 @@ public class Enrollments extends javax.swing.JPanel {
 			Subscription item = items.get(i);
 			model.insertRow(0, new Object[]{item.getId(), item.getTitle(), "€ " + item.getPrice(), item.getMinimumAge(), item.getMaximumAge()});
 		}
-		
+
 		// Make a selection listener
 		this.row = jEnrollments.getSelectionModel();
 		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		
-		jEnrollments.addMouseListener( new MouseAdapter() {
-			
+
+		jEnrollments.addMouseListener(new MouseAdapter() {
+
 			@Override
-			public void mouseClicked( MouseEvent e ) {
-				if( e.getClickCount() == 2 )
-				{
-					int id = Integer.parseInt( jEnrollments.getModel().getValueAt( jEnrollments.getSelectedRow(), 0 ).toString() );
-					
-					Subscription subscription = new Subscription( id );
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					int id = Integer.parseInt(jEnrollments.getModel().getValueAt(jEnrollments.getSelectedRow(), 0).toString());
+
+					Subscription subscription = new Subscription(id);
 					Application.getInstance().showPopup(new EnrollmentPopup("Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription));
 				}
 			}
@@ -75,13 +74,19 @@ public class Enrollments extends javax.swing.JPanel {
 		int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
 		Subscription subscription = new Subscription(subscriptionId);
 
+		boolean subscripted = this.hasSubscription(1);
+
 		// Show popup
 		Application.getInstance().showPopup(new EnrollmentPopup(
-				"Naam: " + subscription.getTitle()
-				+ "\nLeeftijdscategorie: " + subscription.getMinimumAge()
-				+ " tot " + subscription.getMaximumAge()
-				+ "\nOmschrijving: " + subscription.getDescription(),
-				subscription));
+			"Naam: " + subscription.getTitle()
+			+ "\nLeeftijdscategorie: " + subscription.getMinimumAge()
+			+ " tot " + subscription.getMaximumAge()
+			+ "\nOmschrijving: " + subscription.getDescription(),
+			subscription));
+	}
+
+	private boolean hasSubscription(int id) {
+		return true;
 	}
 
 	/** This method is called from within the constructor to

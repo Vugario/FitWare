@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import main.Application;
+import model.Enrollment;
 
 /**
  *
@@ -26,6 +27,7 @@ abstract public class DetailPopup extends javax.swing.JPanel {
 	protected JPanel popupBackground;
 	public JButton jButtonConfirm;
 	public JButton jButtonClose;
+        private Enrollment enrollment;
 
 	/**
 	 * Creates new form ErrorPopup
@@ -35,6 +37,8 @@ abstract public class DetailPopup extends javax.swing.JPanel {
 	public DetailPopup(String message) {
 		super();
 		initComponents();
+                
+                this.enrollment = new Enrollment();
 
 		// Convert private buttons to public buttons
 		jButtonConfirm = jButtonConfirmPopup;
@@ -196,7 +200,7 @@ abstract public class DetailPopup extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonConfirmPopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmPopupActionPerformed
-		this.close();
+		this.enrollment.subscribe();
 	}//GEN-LAST:event_jButtonConfirmPopupActionPerformed
 
 	private void jButtonConfirmPopupKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonConfirmPopupKeyReleased
