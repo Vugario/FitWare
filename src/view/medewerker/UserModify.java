@@ -19,89 +19,21 @@ import view.popups.ErrorPopup;
  */
 public class UserModify extends javax.swing.JPanel {
 
-//	private User user = new User();
-	
+	private User user = new User();
+	private User sessionuser = Session.get().getLoggedInUser();
 	
 	
     /** Creates new form Profile */
-    public UserModify() {
+    public UserModify(int id) {
+		
+		System.out.println(id);
+		
         initComponents();
-
+		user.readUser(id);
+		loadUserData();
     }
 	
-	
-	public void setUserData() {
-		User user = Session.get().getLoggedInUser();
-
-		String username = jTextFieldUsername.getText();
-		user.setUsername(username);
-
-		String firstname = jTextFieldFirstname.getText();
-		user.setFirstname(firstname);
-
-		String subname = jTextFieldSubname.getText();
-		user.setSubname(subname);
-
-		String lastname = jTextFieldLastname.getText();
-		user.setUsername(username);
-
-		String birthdate = jTextFieldBirthdate.getText();
-		user.setUsername(username);
-
-		String street = jTextFieldStreet.getText();
-		user.setStreet(street);
-
-		String city = jTextFieldCity.getText();
-		user.setCity(city);
-
-		String housenumber = jTextFieldStreetnumber.getText();
-		user.setHousenumber(housenumber);
-
-		String postcode = jTextFieldPostcode.getText();
-		user.setPostcode(postcode);
-
-		String phonenumber = jTextFieldPhonenumber.getText();
-		user.setPhonenumber(phonenumber);
-
-		String mobilenumber = jTextFieldMobilenumber.getText();
-		user.setMobilenumber(mobilenumber);
-
-		String email = jTextFieldEmail.getText();
-		user.setEmail(email);
-
-		ButtonGroup groupCategory = new ButtonGroup();
-		groupCategory.add(jRadioButtonYouth);
-		groupCategory.add(jRadioButtonAdult);
-		groupCategory.add(jRadioButtonSenior);
-		
-		ButtonGroup groupGender = new ButtonGroup();
-		groupGender.add(jRadioButtonGenderMale);
-		groupGender.add(jRadioButtonGenderFemale);
-		
-		ButtonGroup groupTime = new ButtonGroup();
-		groupTime.add(jRadioButtonDayTime);
-		groupTime.add(jRadioButtonFullTime);
-		
-		
-		if (jRadioButtonGenderMale.isSelected() == true) {
-			user.setGender(true);
-		} else {
-			user.setGender(false);
-		}
-		 
-		if (jRadioButtonYouth.isSelected() == true) {
-			user.setCategory("youth");
-		} else if (jRadioButtonAdult.isSelected() == true) {
-			user.setCategory("adult");
-		}else {
-			user.setCategory("senior");
-		}
-				
-		user.update();
-	}
-	
 	public void loadUserData() {
-		User user = new User();
 		
 		jTextFieldId.setText(Integer.toString(user.getId()));
 		jTextFieldUsername.setText(user.getUsername());
@@ -136,7 +68,7 @@ public class UserModify extends javax.swing.JPanel {
 
 	}
 
-	public void setUserData(User user) {
+	public void setUserData() {
 		
 		String username = jTextFieldUsername.getText();
 		user.setUsername(username);
@@ -180,9 +112,6 @@ public class UserModify extends javax.swing.JPanel {
 		} else {
 			user.setGender(false);
 		}
-		
-		String id = jTextFieldId.getText();
-		user.setId(Integer.parseInt(id));
 
 	}
 
@@ -512,12 +441,11 @@ public class UserModify extends javax.swing.JPanel {
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
         // TODO
-       User user = Session.get().getLoggedInUser();
 		
 		
 		
         //Check if a @ sign is in the emailadress field
-        int emailcheck = jTextFieldEmail.getText().indexOf('@');
+       int emailcheck = jTextFieldEmail.getText().indexOf('@');
         
        String password1 = new String(jPasswordField1.getPassword());
 		String password2 = new String(jPasswordField2.getPassword());
@@ -537,6 +465,8 @@ public class UserModify extends javax.swing.JPanel {
 					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 		}
         
+		Application.getInstance().showPanel(new view.medewerker.UserOverview());
+		
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

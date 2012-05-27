@@ -1,5 +1,6 @@
 package model;
 
+import helper.Datetime;
 import helper.db.Model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -10,9 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A user is someone using this application. It can be a member, barmedewerker or
- * admin.
- * 
+ * The user model for using CRUD methods
  * @author allentje
  */
 public class User extends Model {
@@ -219,24 +218,6 @@ public class User extends Model {
 		return true;
 	}
 
-	public boolean saveUserRole() {
-		try {
-			this.open();
-
-			PreparedStatement query = this.query("INSERT INTO user_role (\"userID\", \"roleID\")"
-					+ "VALUES (SELECT MAX(id) FROM \"user\";), ?);");
-
-			query.setInt(1, role.getId());
-			this.execute();
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-
-		return false;
-
-	}
-
 	protected void setPropertiesFromResult() {
 		try {
 			// Check if there is a result
@@ -276,18 +257,40 @@ public class User extends Model {
 	
 	/**
 	 * @author daan
+	 * @author allen how does the dat get set?
 	 * @return returns the table row objects
 	 */
 		public Object[] getTableRowObjects() {
-		
-		return new Object[] {
-			String.format("%04d", id),
-			String.format(firstname +" "+ lastname),
-			birthdate,
-			roleId,
-			email
-			};
-	}
+			
+			String roleTitle = null;
+			
+			switch(roleId){
+				case 1:
+					
+					roleTitle = "lid";
+					break;
+				case 2:
+					roleTitle = "barmedewerker";
+					break;
+				case 3:
+					roleTitle = "Admin";
+			}
+			
+			String fomatBirthdate = null;
+			
+			if(birthdate != null){
+				Datetime datetime = new Datetime(birthdate);
+				fomatBirthdate = datetime.format("dd-MM-yyyy");
+			}
+			
+			return new Object[] {
+				id,
+				String.format(firstname +" "+ lastname),
+				fomatBirthdate,//datetime.format("dd-MM-yyyy"),
+				roleTitle,
+				email
+				};
+		}
 
 	/**
 	 * Get the full name of this user
