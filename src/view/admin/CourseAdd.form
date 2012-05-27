@@ -66,18 +66,13 @@
                               <Component id="jTextFieldCourseName" alignment="0" max="32767" attributes="1"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
+                              <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jRadioButton5" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jComboBoxAgeGroup" min="-2" pref="96" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jRadioButton5" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jComboBoxAgeGroup" min="-2" pref="96" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

@@ -11,6 +11,7 @@
 package view.admin;
 
 import javax.swing.ButtonGroup;
+import model.Subscription;
 
 /**
  * This is the view for adding a course
@@ -70,6 +71,18 @@ public class CourseAdd extends javax.swing.JPanel {
 		jCheckBoxFriday.setEnabled(false);
 		jCheckBoxSaturday.setEnabled(false);
 		jCheckBoxSunday.setEnabled(false);
+	}
+	
+	public void setCourseData(){
+		Subscription subscription = new Subscription();
+		String name = jTextFieldCourseName.getText();
+		subscription.setTitle(name);
+		
+		String description = jTextAreaDescription.getText();
+		subscription.setDescription(description);
+		
+		
+		
 	}
 
 	/** This method is called from within the constructor to
