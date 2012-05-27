@@ -21,11 +21,11 @@ public class EnrollmentPopup extends DetailPopup {
 		if ("model.Subscription".equals(data.getClass().getName())) {
 			Subscription subscription = (Subscription) data;
 			Enrollment enrollment = new Enrollment().readEnrollmentBySubscriptionIdAndUserId(subscription.getId(), Session.get().getLoggedInUser().getId());
-
-			if (enrollment.isEnrolled()) {
-				jButtonConfirm.setText("Inschrijven");
-			} else {
+			
+			if ( enrollment.isEnrolled() ) {
 				jButtonConfirm.setText("Uitschrijven");
+			} else {
+				jButtonConfirm.setText("Inschrijven");
 			}
 		}
 	}

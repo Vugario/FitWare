@@ -53,19 +53,6 @@ public class Enrollments extends javax.swing.JPanel {
 		// Make a selection listener
 		this.row = jEnrollments.getSelectionModel();
 		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
-		jEnrollments.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					int id = Integer.parseInt(jEnrollments.getModel().getValueAt(jEnrollments.getSelectedRow(), 0).toString());
-
-					Subscription subscription = new Subscription(id);
-					Application.getInstance().showPopup(new EnrollmentPopup("Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription));
-				}
-			}
-		});
 	}
 
 	private void showEnrollment() {
@@ -74,8 +61,6 @@ public class Enrollments extends javax.swing.JPanel {
 		int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
 		Subscription subscription = new Subscription(subscriptionId);
 
-		boolean subscripted = this.hasSubscription(1);
-
 		// Show popup
 		Application.getInstance().showPopup(new EnrollmentPopup(
 			"Naam: " + subscription.getTitle()
@@ -83,10 +68,6 @@ public class Enrollments extends javax.swing.JPanel {
 			+ " tot " + subscription.getMaximumAge()
 			+ "\nOmschrijving: " + subscription.getDescription(),
 			subscription));
-	}
-
-	private boolean hasSubscription(int id) {
-		return true;
 	}
 
 	/** This method is called from within the constructor to

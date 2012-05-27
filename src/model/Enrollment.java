@@ -76,6 +76,7 @@ public class Enrollment extends Model {
 
 	public Enrollment readEnrollmentBySubscriptionIdAndUserId(int id, int user_id) {
 		try {
+			System.out.println("subscription_id = " + id + " AND user_id = " + user_id );
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM \"enrollment\" WHERE subscription_id = ? AND user_id = ? LIMIT 1");
 			query.setInt(1, id);
@@ -83,7 +84,7 @@ public class Enrollment extends Model {
 			this.result();
 			this.result.first();
 
-			if (this.setPropertiesFromResult() == false) {
+			if ( this.result.getRow() == 0 ) {
 				this.enrolled = false;
 			} else {
 				this.enrolled = true;
