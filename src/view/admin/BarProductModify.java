@@ -23,31 +23,24 @@ import view.popups.SuccessPopup;
  */
 public class BarProductModify extends javax.swing.JPanel {
 
-	//Product product = product.readById(productId);
-	Product product = new Product(); // I cant't get the above to work, help needed.
+	Product product = new Product(); 
 	
 	/** 
 	 * Constructor for the BarProductModify view.
 	 * It fills the jComboBoxType and initiates components.
 	 */
-	public BarProductModify() {
-		initComponents();
-
-		jComboBoxType.removeAllItems();
-		jComboBoxType.addItem("Drinken");
-		jComboBoxType.addItem("Eten");
-		jComboBoxType.addItem("Overig");
-
-	}
-
     BarProductModify(int productId) {
         System.out.println(productId);
 		
         initComponents();
 		product.readById(productId);
-                loadProductData();
+                loadProductData();                
+                jComboBoxType.removeAllItems();
+		jComboBoxType.addItem("Drinken");
+		jComboBoxType.addItem("Eten");
+		jComboBoxType.addItem("Overig");
     }
-
+    
 	/**
 	 * Load the product data from the Product.readById() method (query)
 	 * to the BarProductModify view
