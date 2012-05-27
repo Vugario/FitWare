@@ -79,6 +79,23 @@ public class BarProductModify extends javax.swing.JPanel {
 		jTextFieldDescription.setText(product.getDescription());
 
 	}
+        
+        public void setProductData (){
+
+            String name = jTextFieldName.getText();
+            product.setName(name);
+            
+            String price = jTextFieldPrice.getText().replace("," , ".");
+            product.setPrice(Double.parseDouble(price));
+            
+            String description = jTextFieldDescription.getText();
+            product.setDescription(description);
+            
+            String type = jComboBoxType.getSelectedItem().toString();
+            product.setType(type);
+                
+            System.out.println(name + " " + price + " " + description + " " + type);
+        }
 
 	/** This method is called from within the constructor to
 	 * initialize the form.
@@ -222,6 +239,9 @@ public class BarProductModify extends javax.swing.JPanel {
 
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
 		// TODO executing the update query from Product.java
+            setProductData();
+            Application.getInstance().showPanel(new view.admin.BarProductOverview());
+            Application.getInstance().showPopup(new SuccessPopup("Product met succes aangepast."));
 	}//GEN-LAST:event_jButtonSaveActionPerformed
 
 	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
