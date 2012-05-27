@@ -13,7 +13,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import main.Application;
+import main.Session;
 import model.Enrollment;
+import model.Subscription;
 
 /**
  *
@@ -28,28 +30,59 @@ abstract public class DetailPopup extends javax.swing.JPanel {
 	public JButton jButtonConfirm;
 	public JButton jButtonClose;
         private Enrollment enrollment;
+	private String message;
+	private Subscription data;
 
 	/**
-	 * Creates new form ErrorPopup
+	 * Creates new DetialPopup
+	 *
+	 * @param message The message to show
+	 * @param data I.e. Subscription or Enrollment data
+	 */
+	public DetailPopup(String message, Subscription data) {
+		super();
+		initComponents();
+		
+		this.message = message;
+		this.data = data;
+		
+		// Convert data object
+		if( "model.Subscription".equals(this.data.getClass().getName()) )
+		{
+			this.data = (Subscription)this.data;
+		}
+		
+		this.initPopup();
+	}
+
+	/**
+	 * Creates new DetailPopup
 	 *
 	 * @param message The message to show
 	 */
 	public DetailPopup(String message) {
 		super();
 		initComponents();
-                
-                this.enrollment = new Enrollment();
+		
+		this.message = message;
+		
+		this.initPopup();
+	}
+	
+	private void initPopup()
+	{
+		this.enrollment = new Enrollment();
 
 		// Convert private buttons to public buttons
 		jButtonConfirm = jButtonConfirmPopup;
 		jButtonClose = jButtonClosePopup;
 
 		// Fix newlines
-		message = "<html>" + message + "</html>";
-		message = message.replaceAll("(\n)", "<br>");
+		this.message = "<html>" + this.message + "</html>";
+		this.message = this.message.replaceAll("(\n)", "<br>");
 
 		// Set the message
-		jLabelMessage.setText(message);
+		jLabelMessage.setText( this.message );
 
 		// Update the size according to the message	
 		Dimension textSize = this.jLabelMessage.getPreferredSize();
@@ -63,7 +96,6 @@ abstract public class DetailPopup extends javax.swing.JPanel {
 				jButtonConfirmPopup.requestFocusInWindow();
 			}
 		});
-
 	}
 
 	/**
@@ -200,7 +232,18 @@ abstract public class DetailPopup extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonConfirmPopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmPopupActionPerformed
-		this.enrollment.subscribe();
+		if( "model.Subscription".equals(this.data.getClass().getName()) )
+		{
+			Enrollment enrolled = new Enrollment().readEnrollmentBySubscriptionIdAndUserId(this.data.getId(), Session.get().getLoggedInUser().getId());
+			
+			if ( enrolled.isEnrolled() ) {
+				this.enrollment.unsubscribe( this.data.getId(), Session.get().getLoggedInUser().getId() );
+			}else{
+				this.enrollment.subscribe( this.data.getId(), Session.get().getLoggedInUser().getId() );
+			}
+		}
+		
+		this.close();
 	}//GEN-LAST:event_jButtonConfirmPopupActionPerformed
 
 	private void jButtonConfirmPopupKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonConfirmPopupKeyReleased

@@ -12,8 +12,8 @@ import model.Subscription;
  */
 public class EnrollmentPopup extends DetailPopup {
 
-	public EnrollmentPopup(String message, Object data) {
-		super(message);
+	public EnrollmentPopup(String message, Subscription data) {
+		super(message, data);
 
 		this.setColor(Color.GRAY);
 		this.setTitle("Cursus");
