@@ -73,6 +73,35 @@ public class Subscription extends Model {
 		return items;
 
 	}
+	
+	public void create(){
+		try {
+			this.open();
+			PreparedStatement query =  this.query("INSERT INTO subscription"
+					+ "(title, description, \"minimumAge\", "
+					+ "\"maximumAge\", price, monthly, \"branchId\", gender)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+					);
+								
+					query.setString(1, title);
+					query.setString(2, description);
+					query.setInt(4, minimumAge);
+					query.setInt(5, maximumAge);
+					query.setDouble(6, price);
+					query.setBoolean(7, monthly);
+					query.setInt(8, branchId);
+					query.setBoolean(9, gender);
+					
+		} catch (SQLException ex) {
+			
+			Logger.getLogger(Subscription.class.getName()).log(Level.SEVERE, null, ex);
+		
+		}finally {
+			
+			this.close();
+		}
+		
+	}
 
 	protected void setPropertiesFromResult() {
 		try {
