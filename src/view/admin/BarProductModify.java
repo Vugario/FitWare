@@ -23,36 +23,21 @@ import view.popups.SuccessPopup;
  */
 public class BarProductModify extends javax.swing.JPanel {
 
-	Product product = new Product();
-
+	//Product product = product.readById(productId);
+	Product product = new Product(); // I cant't get the above to work, help needed.
+	
 	/** 
 	 * Constructor for the BarProductModify view.
 	 * It fills the jComboBoxType and initiates components.
 	 */
-	BarProductModify(int productId) {
-		System.out.println(productId);
-
+	public BarProductModify() {
 		initComponents();
-		product.readById(productId);
-		loadProductData();
-		if ("drink".equals(product.getType())) {
-			jComboBoxType.removeAllItems();
-			jComboBoxType.addItem("Drinken");
-			jComboBoxType.addItem("Eten");
-			jComboBoxType.addItem("Overig");
-		} else if ("food".equals(product.getType())) {
-			jComboBoxType.removeAllItems();
-			jComboBoxType.addItem("Eten");
-			jComboBoxType.addItem("Drinken");
-			jComboBoxType.addItem("Overig");
 
-		} else {
-			jComboBoxType.removeAllItems();
-			jComboBoxType.addItem("Overig");
-			jComboBoxType.addItem("Drinken");
-			jComboBoxType.addItem("Eten");
+		jComboBoxType.removeAllItems();
+		jComboBoxType.addItem("Drinken");
+		jComboBoxType.addItem("Eten");
+		jComboBoxType.addItem("Overig");
 
-		}
 	}
 
 	/**
@@ -61,7 +46,6 @@ public class BarProductModify extends javax.swing.JPanel {
 	 */
 	public void loadProductData() {
 		System.out.println("Filling the fields");
-		jTextFieldId.setText(Integer.toString(product.getId()));
 		jTextFieldName.setText(product.getName());
 
 		/*if (product.getType().equals("drink")) {
@@ -229,12 +213,13 @@ public class BarProductModify extends javax.swing.JPanel {
 		Product product = new Product();
 		product.setId(Integer.parseInt(jTextFieldId.getText()));
 		product.deleteProduct();
-
+		
 	}//GEN-LAST:event_jButtonDeleteActionPerformed
 
 	private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
 		// TODO add your handling code here:
 	}//GEN-LAST:event_jTextFieldIdActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonDelete;
