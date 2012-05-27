@@ -116,6 +116,10 @@ public class UserModify extends javax.swing.JPanel {
 
 		String mobilenumber = jTextFieldMobilenumber.getText();
 		user.setMobilenumber(mobilenumber);
+		
+		String bankaccount = jTextFieldAccountNumber.getText();
+		System.out.println(bankaccount);
+		user.setBankaccount(Integer.parseInt(bankaccount));
 
 		String email = jTextFieldEmail.getText();
 		user.setEmail(email);
@@ -501,15 +505,7 @@ public class UserModify extends javax.swing.JPanel {
 		}
 		
 		
-
-		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
-		if (emailcheck < 0) {
-
-			Application.getInstance().showPopup(new ErrorPopup(
-					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
-					+ "Probeer het nogmaals alstublieft."));
-		}
-		
+		setUserData();
 		
 		if(!user.update()){
 			Application.getInstance().showPopup(new ErrorPopup(
