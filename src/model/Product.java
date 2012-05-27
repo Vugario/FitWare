@@ -180,7 +180,6 @@ public class Product extends Model{
             this.name = this.result.getString("name");
             this.description = this.result.getString("description");
 			
-			System.out.println("Set properties from result completed.");
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}

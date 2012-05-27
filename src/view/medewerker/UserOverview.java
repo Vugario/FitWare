@@ -215,7 +215,7 @@ public class UserOverview extends javax.swing.JPanel {
 	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 		// Show the UserModify screen so there is detailed information 
 		//about the selected user
-				if (evt.getClickCount() >= 2) {
+		if (evt.getClickCount() >= 2) {
 			// Double clicked!
 			showUser();
 		}
