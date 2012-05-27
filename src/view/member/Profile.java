@@ -55,10 +55,13 @@ public class Profile extends javax.swing.JPanel {
 		
 		
 		if(sessionUser.getBirthdate() != null){
+			
+			System.out.println(sessionUser.getBirthdate());
+			
 			helper.Datetime datetime = new helper.Datetime(sessionUser.getBirthdate());
 
 
-			jTextFieldBirthdate.setText(datetime.format("yyyy-mm-dd"));
+			jTextFieldBirthdate.setText(datetime.format("yyyy-MM-dd"));
 		}
 		jTextFieldStreet.setText(sessionUser.getStreet());
 		jTextFieldCity.setText(sessionUser.getCity());
@@ -115,7 +118,7 @@ public class Profile extends javax.swing.JPanel {
 
 		String mobilenumber = jTextFieldMobilenumber.getText();
 		user.setMobilenumber(mobilenumber);
-
+		
 		String email = jTextFieldEmail.getText();
 		user.setEmail(email);
 

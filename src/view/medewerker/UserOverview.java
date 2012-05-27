@@ -58,20 +58,15 @@ public class UserOverview extends javax.swing.JPanel {
 		
 		User user = new User();
 		// Get the currently selected user
-		System.out.println(jTable1.getSelectedRow());
 		
 		int rowNumber = jTable1.getSelectedRow();
-		System.out.println("rownumber" + rowNumber);
-		String id = (String) model.getValueAt(rowNumber, 0);
-		System.out.println("id is " + id);
+
 		
-		user.readUser(Integer.parseInt(id));
+		Object id = model.getValueAt(rowNumber, 0);
+
 		
-		//TODO This Doesn't work yet, the data isn't loaded into the view
 		//Set the product data in the view
-		UserModify page = new UserModify();
-		Application.getInstance().showPanel(page);
-		page.loadUserData();
+		Application.getInstance().showPanel(new view.medewerker.UserModify(Integer.parseInt(id.toString())));
 
 	}
 	

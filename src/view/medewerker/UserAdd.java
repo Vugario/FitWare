@@ -6,6 +6,7 @@
 package view.medewerker;
 
 import java.util.ArrayList;
+import javax.media.j3d.View;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import main.Application;
@@ -96,7 +97,8 @@ public final class UserAdd extends javax.swing.JPanel {
 		user.setLastname(lastname);
 
 		String birthdate = jTextFieldBirthdate.getText();
-		user.setUsername(username);
+		helper.Datetime datetime = new helper.Datetime(birthdate+" 00:00:00");	
+		user.setBirthdate(datetime.timestamp());
 
 		String street = jTextFieldStreet.getText();
 		user.setStreet(street);
@@ -539,6 +541,8 @@ public final class UserAdd extends javax.swing.JPanel {
 		this.setUserData();
 		
 		user.create();
+		
+		Application.getInstance().showPanel(new view.medewerker.UserOverview());
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
