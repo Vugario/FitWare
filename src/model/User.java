@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The user model for using CRUD methods
+ * The user model for collecting and setting user data
  * @author allentje
  */
 public class User extends Model {
@@ -103,7 +103,7 @@ public class User extends Model {
 			Model model = new Model();
 			model.open();
 			model.query(
-					"SELECT * FROM \"user\"");
+					"SELECT * FROM \"user\" ORDER BY id DESC");
 			model.result();
 			
 			// Loop over all results
@@ -116,7 +116,6 @@ public class User extends Model {
 		}
 		
 		return users;
-
 	}
 
 	public boolean create(){
@@ -184,7 +183,6 @@ public class User extends Model {
 					+ "email = ?,"
 					+ "gender = ?"
 					+ "role_id = ?"
-					+ "active = ?"
 					+ (passwordChanged ? ", password = MD5(?)" : "")
 					+ "WHERE id = ?"
 				);
@@ -201,13 +199,12 @@ public class User extends Model {
 			query.setString(10, email);
 			query.setBoolean(11, gender);
 			query.setInt(12, roleId);
-			query.setBoolean(13, active);
 
 			if (passwordChanged) {
-				query.setString(14, password);
-				query.setInt(15, id);
-			}else{
+				query.setString(13, password);
 				query.setInt(14, id);
+			}else{
+				query.setInt(13, id);
 			}
 
 			this.execute();
