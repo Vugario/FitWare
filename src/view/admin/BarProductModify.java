@@ -23,36 +23,21 @@ import view.popups.SuccessPopup;
  */
 public class BarProductModify extends javax.swing.JPanel {
 
-	Product product = new Product();
-
+	//Product product = product.readById(productId);
+	Product product = new Product(); // I cant't get the above to work, help needed.
+	
 	/** 
 	 * Constructor for the BarProductModify view.
 	 * It fills the jComboBoxType and initiates components.
 	 */
-	BarProductModify(int productId) {
-		System.out.println(productId);
-
+	public BarProductModify() {
 		initComponents();
-		product.readById(productId);
-		loadProductData();
-		if ("drink".equals(product.getType())) {
-			jComboBoxType.removeAllItems();
-			jComboBoxType.addItem("Drinken");
-			jComboBoxType.addItem("Eten");
-			jComboBoxType.addItem("Overig");
-		} else if ("food".equals(product.getType())) {
-			jComboBoxType.removeAllItems();
-			jComboBoxType.addItem("Eten");
-			jComboBoxType.addItem("Drinken");
-			jComboBoxType.addItem("Overig");
 
-		} else {
-			jComboBoxType.removeAllItems();
-			jComboBoxType.addItem("Overig");
-			jComboBoxType.addItem("Drinken");
-			jComboBoxType.addItem("Eten");
+		jComboBoxType.removeAllItems();
+		jComboBoxType.addItem("Drinken");
+		jComboBoxType.addItem("Eten");
+		jComboBoxType.addItem("Overig");
 
-		}
 	}
 
 	/**
@@ -61,7 +46,6 @@ public class BarProductModify extends javax.swing.JPanel {
 	 */
 	public void loadProductData() {
 		System.out.println("Filling the fields");
-		jTextFieldId.setText(Integer.toString(product.getId()));
 		jTextFieldName.setText(product.getName());
 
 		/*if (product.getType().equals("drink")) {
@@ -79,6 +63,23 @@ public class BarProductModify extends javax.swing.JPanel {
 		jTextFieldDescription.setText(product.getDescription());
 
 	}
+        
+        public void setProductData (){
+
+            String name = jTextFieldName.getText();
+            product.setName(name);
+            
+            String price = jTextFieldPrice.getText().replace("," , ".");
+            product.setPrice(Double.parseDouble(price));
+            
+            String description = jTextFieldDescription.getText();
+            product.setDescription(description);
+            
+            String type = jComboBoxType.getSelectedItem().toString();
+            product.setType(type);
+                
+            System.out.println(name + " " + price + " " + description + " " + type);
+        }
 
 	/** This method is called from within the constructor to
 	 * initialize the form.
@@ -222,6 +223,9 @@ public class BarProductModify extends javax.swing.JPanel {
 
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
 		// TODO executing the update query from Product.java
+            setProductData();
+            Application.getInstance().showPanel(new view.admin.BarProductOverview());
+            Application.getInstance().showPopup(new SuccessPopup("Product met succes aangepast."));
 	}//GEN-LAST:event_jButtonSaveActionPerformed
 
 	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -229,12 +233,13 @@ public class BarProductModify extends javax.swing.JPanel {
 		Product product = new Product();
 		product.setId(Integer.parseInt(jTextFieldId.getText()));
 		product.deleteProduct();
-
+		
 	}//GEN-LAST:event_jButtonDeleteActionPerformed
 
 	private void jTextFieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdActionPerformed
 		// TODO add your handling code here:
 	}//GEN-LAST:event_jTextFieldIdActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonDelete;

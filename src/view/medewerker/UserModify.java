@@ -10,7 +10,6 @@ import main.Application;
 
 import model.User;
 import view.popups.ErrorPopup;
-import view.popups.NotificationPopup;
 
 
 /**
@@ -40,6 +39,10 @@ public class UserModify extends javax.swing.JPanel {
         initComponents();
 		user.readUser(id);
 		loadUserData();
+		jLabel17.setVisible(false);
+		jLabel18.setVisible(false);
+		jPasswordField1.setVisible(false);
+		jPasswordField2.setVisible(false);
     }
 	
 	public void loadUserData() {
@@ -55,7 +58,7 @@ public class UserModify extends javax.swing.JPanel {
 			helper.Datetime datetime = new helper.Datetime(user.getBirthdate());
 
 
-			jTextFieldBirthdate.setText(datetime.format("yyyy-mm-dd"));
+			jTextFieldBirthdate.setText(datetime.format("yyyy-MM-dd"));
 		}
 		jTextFieldStreet.setText(user.getStreet());
 		jTextFieldCity.setText(user.getCity());
@@ -64,6 +67,7 @@ public class UserModify extends javax.swing.JPanel {
 		jTextFieldEmail.setText(user.getEmail());
 		jTextFieldPhonenumber.setText(user.getPhonenumber());
 		jTextFieldMobilenumber.setText(user.getMobilenumber());
+		jTextFieldAccountNumber.setText(Long.toString(user.getBankaccount()));
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(jRadioButtonGenderMale);
@@ -179,11 +183,11 @@ public class UserModify extends javax.swing.JPanel {
         jTextFieldAccountNumber = new javax.swing.JTextField();
         jTextFieldTNV = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jButtonActive = new javax.swing.JButton();
+        jButtonDisable = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         passwordChanged = new javax.swing.JCheckBox();
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel4.setText("Gebruiker Aanmaken");
 
         jLabel5.setText("Klantnummer");
@@ -210,7 +214,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel11.setText("Woonplaats / postcode");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel12.setText("Contactgegevens");
 
         jLabel13.setText("Telefoonnummer");
@@ -219,7 +223,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel15.setText("E-mailadres");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel16.setText("Wachtwoord");
 
         jLabel17.setText("Wachtwoord herhalen");
@@ -261,12 +265,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel20.setText("Ter name van");
 
-        jButtonActive.setText("Non-actief");
-        jButtonActive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonActiveActionPerformed(evt);
-            }
-        });
+        jButtonDisable.setText("Non-actief");
 
         jLabel21.setText("Wachtwoord aanpassen?");
 
@@ -283,101 +282,101 @@ public class UserModify extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(layout.createSequentialGroup()
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jLabel18)
-                                .add(jLabel17))
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(jPasswordField2)
-                                .add(jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
-                        .add(layout.createSequentialGroup()
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel18)
+                            .add(jLabel17)
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(layout.createSequentialGroup()
+                                            .add(jLabel6)
+                                            .add(63, 63, 63))
+                                        .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                .add(jLabel7)
+                                                .add(jLabel8))
+                                            .add(68, 68, 68)))
+                                    .add(jLabel9)
+                                    .add(jLabel5)
+                                    .add(jLabel4)
+                                    .add(jLabel2)
+                                    .add(jLabel3)
+                                    .add(jLabel19))
+                                .add(18, 18, 18)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jTextFieldBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(layout.createSequentialGroup()
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                    .add(jTextFieldFirstname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                    .add(layout.createSequentialGroup()
+                                                        .add(jRadioButtonGenderMale)
+                                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                        .add(jRadioButtonGenderFemale)))
+                                                .add(10, 10, 10)
+                                                .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldId)
+                                                .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldUsername, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jTextFieldLastname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(layout.createSequentialGroup()
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(layout.createSequentialGroup()
+                                                .add(jRadioButtonYouth)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                                .add(jRadioButtonAdult))
+                                            .add(jRadioButtonDayTime))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jRadioButtonFullTime)
+                                            .add(jRadioButtonSenior)))
+                                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jLabel12)
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel11)
+                                    .add(jLabel10)
+                                    .add(jLabel13)
+                                    .add(jLabel14)
+                                    .add(jLabel15)
+                                    .add(jLabel1))
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(layout.createSequentialGroup()
-                                        .add(jLabel6)
-                                        .add(63, 63, 63))
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                                        .add(55, 55, 55)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(jTextFieldStreet, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                            .add(jTextFieldCity))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabel7)
-                                            .add(jLabel8))
-                                        .add(68, 68, 68)))
-                                .add(jLabel9)
-                                .add(jLabel5)
-                                .add(jLabel4)
-                                .add(jLabel2)
-                                .add(jLabel3)
-                                .add(jLabel19))
-                            .add(18, 18, 18)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jTextFieldBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(layout.createSequentialGroup()
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                .add(jTextFieldFirstname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .add(layout.createSequentialGroup()
-                                                    .add(jRadioButtonGenderMale)
-                                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                    .add(jRadioButtonGenderFemale)))
-                                            .add(10, 10, 10)
-                                            .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldId)
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldUsername, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(jTextFieldLastname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(layout.createSequentialGroup()
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(layout.createSequentialGroup()
-                                            .add(jRadioButtonYouth)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                            .add(jRadioButtonAdult))
-                                        .add(jRadioButtonDayTime))
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(jRadioButtonFullTime)
-                                        .add(jRadioButtonSenior)))
-                                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(jLabel12)
-                        .add(layout.createSequentialGroup()
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jLabel11)
-                                .add(jLabel10)
-                                .add(jLabel13)
-                                .add(jLabel14)
-                                .add(jLabel15)
-                                .add(jLabel1))
-                            .add(18, 18, 18)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(layout.createSequentialGroup()
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextFieldAccountNumber)
-                                        .add(jTextFieldCity)
-                                        .add(jTextFieldStreet, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(jTextFieldPostcode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(jTextFieldStreetnumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(layout.createSequentialGroup()
-                                            .add(jLabel20)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jTextFieldTNV, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldEmail)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldMobilenumber)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextFieldPhonenumber, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))))
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                            .add(jButtonActive)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(profileSaveButton)))
-                    .add(jLabel16)
-                    .add(layout.createSequentialGroup()
-                        .add(jLabel21)
-                        .add(18, 18, 18)
-                        .add(passwordChanged)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                                            .add(jTextFieldPostcode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(jTextFieldStreetnumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                    .add(layout.createSequentialGroup()
+                                        .add(60, 60, 60)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(passwordChanged)
+                                            .add(layout.createSequentialGroup()
+                                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextFieldAccountNumber)
+                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextFieldEmail)
+                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextFieldMobilenumber)
+                                                    .add(jTextFieldPhonenumber)
+                                                    .add(jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                                                    .add(jPasswordField1))
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                .add(jLabel20)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                .add(jTextFieldTNV, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
+                            .add(jLabel16)
+                            .add(jLabel21))
+                        .addContainerGap())
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(jButtonDisable)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(profileSaveButton)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -453,39 +452,55 @@ public class UserModify extends javax.swing.JPanel {
                     .add(jLabel20)
                     .add(jTextFieldTNV, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel16)
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(6, 6, 6)
-                        .add(jLabel21))
-                    .add(passwordChanged))
-                .add(7, 7, 7)
+                        .add(jLabel16)
+                        .add(18, 18, 18)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabel21)
+                            .add(passwordChanged))
+                        .add(13, 13, 13)
+                        .add(jLabel18))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(12, 12, 12)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel18)
-                    .add(jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel17)
                     .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(profileSaveButton)
-                    .add(jButtonActive)))
+                    .add(jButtonDisable)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-        // TODO
-		
-		
-		
+
         //Check if a @ sign is in the emailadress field
        int emailcheck = jTextFieldEmail.getText().indexOf('@');
         
-       String password1 = new String(jPasswordField1.getPassword());
-		String password2 = new String(jPasswordField2.getPassword());
-		Boolean passwordequal = password1.equals(password2);
+		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
+		if (emailcheck < 0) {
+
+			Application.getInstance().showPopup(new ErrorPopup(
+					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
+					+ "Probeer het nogmaals alstublieft."));
+		}
+
+				boolean passwordChanged1 = passwordChanged.isSelected();
+		
+		if(passwordChanged.isSelected()){
+			String password1 = new String(jPasswordField1.getPassword());
+			String password2 = new String(jPasswordField2.getPassword());
+			Boolean passwordequal = password1.equals(password2);
+			user.setPassword(password2);
+			
+			if (!passwordequal) {
+				Application.getInstance().showPopup(new ErrorPopup(
+					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
+			}
+		}
+		
+		
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
@@ -494,13 +509,13 @@ public class UserModify extends javax.swing.JPanel {
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
 		}
-		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
-		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
-		if (!passwordequal) {
+		
+		
+		if(!user.update()){
 			Application.getInstance().showPopup(new ErrorPopup(
-					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
+					"gegevens zijn niet goed opgeslagen. \nProbeer het nogmaals alstublieft."));
 		}
-        
+		
 		Application.getInstance().showPanel(new view.medewerker.UserOverview());
 		
     }//GEN-LAST:event_profileSaveButtonActionPerformed
@@ -524,17 +539,8 @@ public class UserModify extends javax.swing.JPanel {
 		}
 	}//GEN-LAST:event_passwordChangedActionPerformed
 
-	private void jButtonActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActiveActionPerformed
-		// Set the user !active.		
-		user.setActive(false);
-		user.update();
-		Application.getInstance().showPopup(new NotificationPopup("De gebruiker is op non-actief. \n U keert nu terug naar het overzicht."));
-		Application.getInstance().showPanel(new view.medewerker.UserOverview());
-		
-	}//GEN-LAST:event_jButtonActiveActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonActive;
+    private javax.swing.JButton jButtonDisable;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
