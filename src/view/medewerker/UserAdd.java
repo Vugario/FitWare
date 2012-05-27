@@ -6,7 +6,6 @@
 package view.medewerker;
 
 import java.util.ArrayList;
-import javax.media.j3d.View;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import main.Application;
