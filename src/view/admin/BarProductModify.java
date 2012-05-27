@@ -40,12 +40,21 @@ public class BarProductModify extends javax.swing.JPanel {
 
 	}
 
+    BarProductModify(int productId) {
+        System.out.println(productId);
+		
+        initComponents();
+		product.readById(productId);
+                loadProductData();
+    }
+
 	/**
 	 * Load the product data from the Product.readById() method (query)
 	 * to the BarProductModify view
 	 */
 	public void loadProductData() {
 		System.out.println("Filling the fields");
+                jTextFieldId.setText(Integer.toString(product.getId()));
 		jTextFieldName.setText(product.getName());
 
 		/*if (product.getType().equals("drink")) {
