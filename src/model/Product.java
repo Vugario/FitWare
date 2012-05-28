@@ -66,11 +66,14 @@ public class Product extends Model {
 			// Loop over all results
 			while (model.result.next()) {
 				products.add(new Product(model.result));
+                                
+                                
 			}
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
+
 
 		return products;
 
@@ -102,6 +105,9 @@ public class Product extends Model {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
 
 		}
+                finally {
+                    this.close();
+                }
 
 
 		System.out.println(getId());
@@ -128,6 +134,9 @@ public class Product extends Model {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
 			return false;
 		}
+                finally {
+                    this.close();
+                }
 		this.execute();
 
 		return true;
@@ -190,6 +199,9 @@ public class Product extends Model {
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
+                finally {
+                    this.close();
+                }
 
 	}
 
@@ -220,6 +232,9 @@ public class Product extends Model {
 		} catch (SQLException ex) {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
 		}
+                finally {
+                    this.close();
+                }
 		this.execute();
 		Application.getInstance().showPopup(new NotificationPopup("Het product is verwijderd."));
 		Application.getInstance().showPanel(new view.admin.BarProductOverview());
