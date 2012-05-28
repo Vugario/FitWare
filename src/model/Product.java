@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.Application;
+import view.popups.ErrorPopup;
 import view.popups.NotificationPopup;
+import view.popups.SuccessPopup;
+
 /**
  * This class is used to use define queries for the product table in the database.
  * 
@@ -22,36 +25,36 @@ import view.popups.NotificationPopup;
  * 
  * @author vm
  */
-public class Product extends Model{
-	
+public class Product extends Model {
+
 	int id;
 	double price;
 	String name;
-    String description;
+	String description;
 	String type;
-	
-	public Product() {	
+
+	public Product() {
 	}
-	
+
 	/**
 	 * 
 	 * @param result is the outcome of a query.
 	 */
 	public Product(ResultSet result) {
 		super();
-		
+
 		this.result = result;
 		this.setPropertiesFromResult();
 	}
-	
+
 	/**
 	 * 
 	 * @return returns an array list of Product
 	 */
 	public static ArrayList<Product> readAll() {
-			
+
 		ArrayList<Product> products = new ArrayList<Product>();
-			
+
 		try {
 			// Execute the query
 			Model model = new Model();
@@ -59,63 +62,60 @@ public class Product extends Model{
 			model.query(
 					"SELECT * from product");
 			model.result();
-			
+
 			// Loop over all results
-			while(model.result.next()) {
+			while (model.result.next()) {
 				products.add(new Product(model.result));
 			}
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		return products;
 
 	}
-	
 
-	public void readPerCategory(){
+	public void readPerCategory() {
 		String query = "SELECT * FROM product WHERE cs";
 	}
-	
+
 	/**
 	 * 
 	 * @param productId productId is the ID of the selected product in view.admin.BarProductOverview
 	 * @return returns object Product
 	 * @author vm
 	 */
-	
-	public Product readById(int productId){
+	public Product readById(int productId) {
 		try {
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM product WHERE id = ? LIMIT 1");
-			
+
 			query.setInt(1, productId);
 			this.result();
 			this.result.first();
 			this.setPropertiesFromResult();
-			
-		
-			
+
+
+
 		} catch (SQLException ex) {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
-			
+
 		}
-	
-	
+
+
 		System.out.println(getId());
 		System.out.println(getPrice());
 		System.out.println(getName());
 		return this;
 	}
-	
-	
+
 	/**
 	 * @author vm
 	 * 
 	 * @return returns a true when there are products created, on error it returns false
 	 */
-	public boolean create(){
+	public boolean create() {
 		try {
 			this.open();
 			PreparedStatement query = this.query("INSERT INTO \"product\" (price, name, description, type) VALUES (?, ?, ?, ?)");
@@ -131,30 +131,34 @@ public class Product extends Model{
 		this.execute();
 
 		return true;
-		
+
 	}
-	
-	public Boolean updateProduct(){
+
+	public Boolean updateProduct() {
 		try {
-			PreparedStatement query =  this.query("UPDATE product SET "
+			PreparedStatement query = this.query("UPDATE product SET "
 					+ "price = ?, "
 					+ "name = ?, "
 					+ "description = ?, "
 					+ "type = ?"
 					+ "WHERE id = ?;");
-			
-				query.setDouble(1, price);
-				query.setString(2, name);
-				query.setString(3, description);
-				query.setString(4, type);
-				
+
+			query.setDouble(1, price);
+			query.setString(2, name);
+			query.setString(3, description);
+			query.setString(4, type);
+			Application.getInstance().showPopup(new SuccessPopup("Product met succes aangepast."));
 		} catch (SQLException ex) {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
-		return false;
+			Application.getInstance().showPopup(new ErrorPopup("Er is iets misgegaan, probeer het nogmaals."));
+			return false;
+		} finally {
+			this.close();
 		}
 		return true;
+
 	}
-	
+
 	@Override
 	public String toString() {
 		return getName() + " " + getDecoratedPrice();
@@ -176,39 +180,39 @@ public class Product extends Model{
 			// Fill in all properties
 			this.id = this.result.getInt("id");
 			this.type = this.result.getString("type");
-            this.price = this.result.getDouble("price");
-            this.name = this.result.getString("name");
-            this.description = this.result.getString("description");
-			
+			this.price = this.result.getDouble("price");
+			this.name = this.result.getString("name");
+			this.description = this.result.getString("description");
+
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 	}
-	
+
 	/**
 	 * @author daan
 	 * @return returns the table row objects
 	 */
-		public Object[] getTableRowObjects() {
-		
-		return new Object[] {
-			String.format("%04d", id),
-			name,
-			this.type,
-			description,
-			String.format("€ %.2f", price)
-		};
+	public Object[] getTableRowObjects() {
+
+		return new Object[]{
+					String.format("%04d", id),
+					name,
+					this.type,
+					description,
+					String.format("€ %.2f", price)
+				};
 	}
-		
-		/**
-		 * Delete the selected product in the BarProductModify view.
-		 */
-		public void deleteProduct(){
+
+	/**
+	 * Delete the selected product in the BarProductModify view.
+	 */
+	public void deleteProduct() {
 		try {
 			this.open();
 			PreparedStatement query = this.query("DELETE FROM product WHERE id = ?;");
-			
+
 			query.setInt(1, id);
 		} catch (SQLException ex) {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
@@ -216,54 +220,52 @@ public class Product extends Model{
 		this.execute();
 		Application.getInstance().showPopup(new NotificationPopup("Het product is verwijderd."));
 		Application.getInstance().showPanel(new view.admin.BarProductOverview());
-		}
-		
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-	@Override
-    public int getId() {
-        return id;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	@Override
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public double getPrice() {
-        return price;
-    }
-    
-    public String getDecoratedPrice(){
-        return String.format("€ %.2f", getPrice());
-                
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+	public double getPrice() {
+		return price;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getDecoratedPrice() {
+		return String.format("€ %.2f", getPrice());
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	}
 
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

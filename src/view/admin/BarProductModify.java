@@ -242,8 +242,9 @@ public class BarProductModify extends javax.swing.JPanel {
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
 		// TODO executing the update query from Product.java
             setProductData();
+			product.updateProduct();
             Application.getInstance().showPanel(new view.admin.BarProductOverview());
-            Application.getInstance().showPopup(new SuccessPopup("Product met succes aangepast."));
+            
 	}//GEN-LAST:event_jButtonSaveActionPerformed
 
 	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
