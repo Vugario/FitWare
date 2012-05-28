@@ -147,7 +147,9 @@ public class Product extends Model {
 			query.setString(2, name);
 			query.setString(3, description);
 			query.setString(4, type);
+			query.setInt(5, id);
 			Application.getInstance().showPopup(new SuccessPopup("Product met succes aangepast."));
+			this.execute();
 		} catch (SQLException ex) {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
 			Application.getInstance().showPopup(new ErrorPopup("Er is iets misgegaan, probeer het nogmaals."));
@@ -155,6 +157,7 @@ public class Product extends Model {
 		} finally {
 			this.close();
 		}
+		
 		return true;
 
 	}

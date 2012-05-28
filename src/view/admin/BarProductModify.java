@@ -95,6 +95,9 @@ public class BarProductModify extends javax.swing.JPanel {
             
             String type = jComboBoxType.getSelectedItem().toString();
             product.setType(type);
+			
+			int id = Integer.parseInt(jTextFieldId.getText());
+			product.setId(id);
                 
             System.out.println(name + " " + price + " " + description + " " + type);
         }
