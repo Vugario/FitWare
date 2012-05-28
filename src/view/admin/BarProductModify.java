@@ -30,15 +30,32 @@ public class BarProductModify extends javax.swing.JPanel {
 	 * Constructor for the BarProductModify view.
 	 * It fills the jComboBoxType and initiates components.
 	 */
-	public BarProductModify() {
+    public BarProductModify(int productId) {
+		System.out.println(productId);
+
 		initComponents();
+		product.readById(productId);
+		loadProductData();
+		if ("drink".equals(product.getType())) {
+			jComboBoxType.removeAllItems();
+			jComboBoxType.addItem("Drinken");
+			jComboBoxType.addItem("Eten");
+			jComboBoxType.addItem("Overig");
+		} else if ("food".equals(product.getType())) {
+			jComboBoxType.removeAllItems();
+			jComboBoxType.addItem("Eten");
+			jComboBoxType.addItem("Drinken");
+			jComboBoxType.addItem("Overig");
 
-		jComboBoxType.removeAllItems();
-		jComboBoxType.addItem("Drinken");
-		jComboBoxType.addItem("Eten");
-		jComboBoxType.addItem("Overig");
+		} else {
+			jComboBoxType.removeAllItems();
+			jComboBoxType.addItem("Overig");
+			jComboBoxType.addItem("Drinken");
+			jComboBoxType.addItem("Eten");
 
-	}
+		
+    }
+    }
 
 	/**
 	 * Load the product data from the Product.readById() method (query)
@@ -46,6 +63,7 @@ public class BarProductModify extends javax.swing.JPanel {
 	 */
 	public void loadProductData() {
 		System.out.println("Filling the fields");
+		jTextFieldId.setText(Integer.toString(product.getId()));
 		jTextFieldName.setText(product.getName());
 
 		/*if (product.getType().equals("drink")) {
