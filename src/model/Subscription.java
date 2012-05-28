@@ -4,9 +4,12 @@ import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import helper.db.*;
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import main.Application;
+import view.popups.NotificationPopup;
 
 /**
  *
@@ -21,8 +24,12 @@ public class Subscription extends Model {
 	private boolean gender;
 	private int maximumAge;
 	private int minimumAge;
+
+	
 	private boolean monthly;
 	private double price;
+	private Timestamp startDate;
+	private Timestamp endDate;
 
 	public Subscription() {
 	}
@@ -79,25 +86,30 @@ public class Subscription extends Model {
 			this.open();
 			PreparedStatement query =  this.query("INSERT INTO subscription"
 					+ "(title, description, \"minimumAge\", "
-					+ "\"maximumAge\", price, monthly, \"branchId\", gender)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+					+ "\"maximumAge\", price, monthly, \"branchId\", gender, "
+					+ "startdate, enddate)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 					);
 								
 					query.setString(1, title);
-					query.setString(2, description);
-					query.setInt(4, minimumAge);
-					query.setInt(5, maximumAge);
-					query.setDouble(6, price);
-					query.setBoolean(7, monthly);
-					query.setInt(8, branchId);
-					query.setBoolean(9, gender);
+					query.setString(2, description);					
+					query.setInt(3, minimumAge);
+					query.setInt(4, maximumAge);
+					query.setDouble(5, price);
+					query.setBoolean(6, monthly);
+					query.setInt(7, 1);
+					query.setBoolean(8, gender);
+					query.setTimestamp(9, startDate);
+					query.setTimestamp(10, endDate);
 					
+					Application.getInstance().showPopup(new NotificationPopup("De cursus is toegevoegd."));
 		} catch (SQLException ex) {
 			
 			Logger.getLogger(Subscription.class.getName()).log(Level.SEVERE, null, ex);
-		
+			Application.getInstance().showPopup(new NotificationPopup("Er is iets mis gegaan. \n"
+					+ "Probeer het nogmaals."));
 		}finally {
-			
+			this.execute();
 			this.close();
 		}
 		
@@ -254,4 +266,31 @@ public class Subscription extends Model {
 	public void setBranchId(int branchId) {
 		this.branchId = branchId;
 	}
+
+	/**
+	 * @return the endDate 
+	 */
+	public Timestamp getEndDate() {
+		return endDate;
+	}
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Timestamp endDate) {
+		this.endDate = endDate;
+	}
+	/**
+	 * @return the startDate
+	 */
+	public Timestamp getStartDate() {
+		return startDate;
+	}
+	/**
+	 * @param startDate startDate to set
+	 */
+
+	public void setStartDate(Timestamp startDate) {
+		this.startDate = startDate;
+	}
+	
 }
