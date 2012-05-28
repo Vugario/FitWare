@@ -36,24 +36,25 @@ public class BarProductModify extends javax.swing.JPanel {
 		initComponents();
 		product.readById(productId);
 		loadProductData();
-		if ("drink".equals(product.getType())) {
+		
+                if ("drink".equals(product.getType())) {
 			jComboBoxType.removeAllItems();
 			jComboBoxType.addItem("Drinken");
 			jComboBoxType.addItem("Eten");
-			jComboBoxType.addItem("Overig");
+			jComboBoxType.addItem("Overige");
 		} else if ("food".equals(product.getType())) {
 			jComboBoxType.removeAllItems();
 			jComboBoxType.addItem("Eten");
 			jComboBoxType.addItem("Drinken");
-			jComboBoxType.addItem("Overig");
+			jComboBoxType.addItem("Overige");
 
 		} else {
 			jComboBoxType.removeAllItems();
-			jComboBoxType.addItem("Overig");
-			jComboBoxType.addItem("Drinken");
+			jComboBoxType.addItem("Overige");
+			jComboBoxType.addItem("Drinke");
 			jComboBoxType.addItem("Eten");
-
-		
+                        
+                        		
     }
     }
 
@@ -93,9 +94,19 @@ public class BarProductModify extends javax.swing.JPanel {
             String description = jTextFieldDescription.getText();
             product.setDescription(description);
             
+            
+		            
             String type = jComboBoxType.getSelectedItem().toString();
+            if (type.equals("Drinken")){
+			type = "drink";
+		}else if(type.equals("Eten")){
+			type = "food";
+		} else {
+			type = "other";
+		}
+            
             product.setType(type);
-			
+            
 			int id = Integer.parseInt(jTextFieldId.getText());
 			product.setId(id);
                 

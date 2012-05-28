@@ -53,7 +53,7 @@ public class BarProductAdd extends javax.swing.JPanel {
 			
 		product.setType(type);
 		
-		double price = Double.parseDouble(jTextFieldPrice.getText());
+		double price = Double.parseDouble(jTextFieldPrice.getText().replace("," , "."));
 		product.setPrice(price);
 		
 		String description = jTextFieldDescription.getText();
