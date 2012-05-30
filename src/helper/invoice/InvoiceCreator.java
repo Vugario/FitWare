@@ -78,7 +78,6 @@ public class InvoiceCreator {
 			// Create the invoice
 			InvoiceCreator invoiceCreator = new InvoiceCreator(user.getId(), processingMonth);
 			Invoice invoice = invoiceCreator.run();
-			System.out.println(invoice.getAmount());
 			
 			// Increase the processingMonth and invoiceCount
 			processingMonth.add(Calendar.MONTH, 1);
@@ -103,7 +102,6 @@ public class InvoiceCreator {
 		// Check if the month we want to create an invoice is completed yet.
 		// We cannot create an invoice for the current or upcomming months.
 		if(invoiceDate.after(getStartOfMonth(currentMonth))) {
-			System.out.println("Return null");
 			return null;
 		}
 		
@@ -151,7 +149,7 @@ public class InvoiceCreator {
 		invoice.setInvoiceDate(new Timestamp(invoiceDate.getTimeInMillis()));
 		
 		// Save it
-		// TODO
+		invoice.create();
 		
 		// Return it
 		return invoice;
@@ -170,11 +168,10 @@ public class InvoiceCreator {
 	protected static GregorianCalendar getFirstMonthForUser(User user) {
 
 		// Initialize the return variable with the current time
-		GregorianCalendar lastInvoiceCalendar = new GregorianCalendar();
+		GregorianCalendar nextInvoiceCalendar = new GregorianCalendar();
 
 		// Get all invoices
 		ArrayList<Invoice> invoices = Invoice.readByUserId(user.getId());
-		System.out.println("Invoices: " + invoices.size());
 
 		// Check if an invoice already exists
 		if (invoices.size() > 0) {
@@ -183,7 +180,11 @@ public class InvoiceCreator {
 
 			// Find the last invoice date
 			Date lastInvoiceDate = new Date(lastInvoice.getInvoiceDate().getTime());
-			lastInvoiceCalendar.setTime(lastInvoiceDate);
+			nextInvoiceCalendar.setTime(lastInvoiceDate);
+			
+			// And add one month
+			nextInvoiceCalendar.add(Calendar.MONTH, 1);
+			
 		} else {
 
 			// No invoice exists yet.
@@ -191,7 +192,6 @@ public class InvoiceCreator {
 
 			// Loop over each enrollment
 			ArrayList<Enrollment> enrollments = Enrollment.readByUserId(user.getId());
-			System.out.println("Enrollments: " + enrollments.size());
 			for (int i = 0; i < enrollments.size(); i++) {
 				Enrollment enrollment = enrollments.get(i);
 
@@ -199,15 +199,14 @@ public class InvoiceCreator {
 				Date enrollmentDate = new Date(enrollment.getTimestamp().getTime());
 				enrollmentCalendar.setTime(enrollmentDate);
 
-				if (enrollmentCalendar.before(lastInvoiceCalendar)) {
+				if (enrollmentCalendar.before(nextInvoiceCalendar)) {
 					// The enrollment time is before the time we found earlier
-					lastInvoiceCalendar = enrollmentCalendar;
+					nextInvoiceCalendar = enrollmentCalendar;
 				}
 			}
 
 			// Loop over each purchase
 			ArrayList<Purchase> purchases = Purchase.readByUserId(user.getId());
-			System.out.println("Purchases: " + purchases.size());
 			for (int i = 0; i < purchases.size(); i++) {
 				Purchase purchase = purchases.get(i);
 
@@ -215,15 +214,15 @@ public class InvoiceCreator {
 				Date purchaseDate = new Date(purchase.getDatetime().getTime());
 				purchaseCalendar.setTime(purchaseDate);
 
-				if (purchaseCalendar.before(lastInvoiceCalendar)) {
+				if (purchaseCalendar.before(nextInvoiceCalendar)) {
 					// The purchase time is before the time we found earlier
-					lastInvoiceCalendar = purchaseCalendar;
+					nextInvoiceCalendar = purchaseCalendar;
 				}
 			}
 		}
 
 		// Return it!
-		return lastInvoiceCalendar;
+		return nextInvoiceCalendar;
 	}
 	
 	/**
@@ -335,16 +334,5 @@ public class InvoiceCreator {
 		endMonth.set(Calendar.DAY_OF_MONTH, endMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
 		
 		return endMonth;
-	}
-	
-	/**
-	 * This prints a calendar object.
-	 * TEMP FUNCTION, REMOVE IT!! Thank you.
-	 * @author Daanvm
-	 * @param c 
-	 */
-	public static void a(GregorianCalendar c) {
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-		System.out.println(format.format(c.getTime()));
 	}
 }

@@ -2,6 +2,7 @@ package model;
 
 import helper.Datetime;
 import helper.db.Model;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -73,6 +74,33 @@ public class Invoice extends Model{
 		
 		return invoices;
 
+	}
+	
+	public boolean create(){
+		
+		try {
+			this.open();
+			
+			PreparedStatement query = this.query(
+					"INSERT INTO "
+					+ "invoice (\"userID\", payed, amount, \"invoiceDate\")"
+					+ "VALUES "
+					+ "(?, ?, ?, ?) RETURNING id"
+				);
+
+			query.setInt(1, userID);
+			query.setBoolean(2, payed);
+			query.setDouble(3, amount);
+			query.setTimestamp(4, invoiceDate);
+
+			this.execute();
+			
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
+		}
+		
+		return true;
 	}
 	
 	protected final void setPropertiesFromResult() {
