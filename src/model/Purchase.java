@@ -154,7 +154,7 @@ public class Purchase extends helper.db.Model {
 			this.id = this.result.getInt("id");
 			this.product_id = this.result.getInt("product_id");
 			this.datetime = this.result.getTimestamp("datetime");
-			this.paymentoption = this.result.getString("payment_option");
+			this.paymentoption = this.result.getString("paymentoption");
 			this.price = this.result.getDouble("price");
 			this.quantity = this.result.getShort("quantity");
 			this.user_id = this.result.getInt("user_id");
