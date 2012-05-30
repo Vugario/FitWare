@@ -54,20 +54,6 @@ public class CoursesOverview extends javax.swing.JPanel {
 		// Make a selection listener
 		this.row = jEnrollments.getSelectionModel();
 		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		
-		jEnrollments.addMouseListener( new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked( MouseEvent e ) {
-				if( e.getClickCount() == 2 )
-				{
-					int id = Integer.parseInt( jEnrollments.getModel().getValueAt( jEnrollments.getSelectedRow(), 0 ).toString() );
-					
-					Subscription subscription = new Subscription( id );
-					Application.getInstance().showPopup(new EnrollmentPopup("Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription));
-				}
-			}
-		});
 	}
 
 	private void showEnrollment() {
