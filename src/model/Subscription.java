@@ -110,7 +110,6 @@ public class Subscription extends Model {
 					+ "Probeer het nogmaals."));
 		}finally {
 			this.execute();
-			this.close();
 		}
 		
 	}

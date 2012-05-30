@@ -22,7 +22,7 @@ import model.User;
  */
 public final class Application {
 
-	private Manager db;
+	private Manager db = new Manager();
 	private JFrame window;
 	private static Application instance = new Application();
 	private JPanel popupBackground;
@@ -165,7 +165,7 @@ public final class Application {
 	}
 
 	private void close() {
-		//db.close();
+		db.close();
 		window.dispose();
 	}
 

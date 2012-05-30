@@ -58,11 +58,8 @@ public class User extends Model {
 
 			this.setPropertiesFromResult();
 			
-			this.close();
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			this.close();
 		}
 
 		return this;
@@ -83,8 +80,6 @@ public class User extends Model {
 			
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			this.close();
 		}
 
 		return this;
@@ -114,8 +109,6 @@ public class User extends Model {
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			model.close();
 		}
 		
 		return users;
@@ -218,8 +211,6 @@ public class User extends Model {
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 			return false;
-		} finally{
-			this.close();
 		}
 
 		return true;
