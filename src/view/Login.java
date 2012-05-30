@@ -59,7 +59,7 @@ public class Login extends javax.swing.JPanel {
 				Application.getInstance().showPanel(new view.barmedewerker.Dashboard());
 			} else if (user.getRole().getTitle().equals("admin")) {
 				//Load the admin Dashboard view
-				Application.getInstance().showPanel(new view.barmedewerker.Dashboard());
+				Application.getInstance().showPanel(new view.admin.Dashboard());
 			}
 		} else {
 			// Login failed
