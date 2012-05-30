@@ -56,6 +56,31 @@ public class InvoiceCreator {
 	}
 	
 	/**
+	 * Create all invoices for all users.
+	 * This method is Kim's best friend :)
+	 * 
+	 * @return The number of invoices created
+	 */
+	public static int createAllInvoices() {
+		
+		// Get all users
+		ArrayList<User> users = User.readAll();
+		
+		// Loop over all users and create the invoices
+		int invoiceCount = 0;
+		
+		for (int i = 0; i < users.size(); i++) {
+			
+			User user = users.get(i);
+			
+			// Create the invoices
+			invoiceCount += createAllInvoicesForUser(user);
+		}
+		
+		return invoiceCount;
+	}
+	
+	/**
 	 * Create all invoices for the given user
 	 * 
 	 * @param user The user to create all invoices for
