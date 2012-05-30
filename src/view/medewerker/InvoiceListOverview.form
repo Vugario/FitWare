@@ -19,7 +19,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="264" max="32767" attributes="0"/>
+              <EmptySpace pref="114" max="32767" attributes="0"/>
+              <Component id="jButtonCreateInvoices" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -27,8 +29,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="264" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonCreateInvoices" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="254" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -38,6 +43,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Facturen overzicht"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonCreateInvoices">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Maak facturen"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCreateInvoicesActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
