@@ -17,7 +17,6 @@ import view.popups.NotificationPopup;
  */
 public class Subscription extends Model {
 
-	private int id;
 	private int branchId;
 	private String title;
 	private String description;
@@ -138,20 +137,6 @@ public class Subscription extends Model {
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**

@@ -15,7 +15,6 @@ import java.util.logging.Logger;
  * @author daanvm
  */
 public class Invoice extends Model{
-	int id;
 	int userID;
 	boolean payed;
 	double amount;
@@ -149,7 +148,7 @@ public class Invoice extends Model{
 			payed ? "Betaald" : "Niet bataald"
 		};
 	}
-
+	
 	public double getAmount() {
 		return amount;
 	}

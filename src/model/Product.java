@@ -27,7 +27,6 @@ import view.popups.SuccessPopup;
  */
 public class Product extends Model {
 
-	int id;
 	double price;
 	String name;
 	String description;
@@ -232,16 +231,6 @@ public class Product extends Model {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@Override
-	public int getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {

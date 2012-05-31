@@ -19,7 +19,6 @@ import java.util.logging.Logger;
  */
 public class Purchase extends helper.db.Model {
 
-	int id;
 	private double price;
 	private int product_id;
 	private String paymentoption;
@@ -171,14 +170,6 @@ public class Purchase extends helper.db.Model {
 
 	public void setDatetime(Timestamp datetime) {
 		this.datetime = datetime;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getPaymentoption() {

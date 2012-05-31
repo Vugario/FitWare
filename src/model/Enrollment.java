@@ -17,7 +17,6 @@ import java.util.logging.Logger;
  */
 public class Enrollment extends Model {
 
-	private int id;
 	private int user_id;
 	private int subscription_id;
 	private Timestamp timestamp;
@@ -150,20 +149,6 @@ public class Enrollment extends Model {
 		}
 
 		return true;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**
