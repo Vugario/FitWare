@@ -17,8 +17,7 @@ import main.Application;
 import main.Session;
 import model.Invoice;
 import model.User;
-import view.popups.EnrollmentPopup;
-import view.popups.SuccessPopup;
+import view.popups.InvoicePopup;
 
 /**
  *
@@ -63,7 +62,7 @@ public class Invoices extends javax.swing.JPanel {
 		invoice.readInvoice(Integer.parseInt(invoiceId));
 		
 		// Show popup
-		Application.getInstance().showPopup(new SuccessPopup("Hoi"));
+		Application.getInstance().showPopup(new InvoicePopup(invoice));
 	}
 
 	/** This method is called from within the constructor to
