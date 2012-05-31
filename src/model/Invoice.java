@@ -34,7 +34,7 @@ public class Invoice extends Model{
 	public Invoice readInvoice(int invoiceId) {
 		try {
 			this.open();
-			this.query("SELECT * FROM \"invoice\" WHERE id = ? LIMIT 1").setInt(1, id);
+			this.query("SELECT * FROM \"invoice\" WHERE id = ? LIMIT 1").setInt(1, invoiceId);
 			this.result();
 			this.result.first();
 
