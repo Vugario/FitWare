@@ -122,6 +122,18 @@ public class Invoice extends Model{
 	}
 	
 	/**
+	 * Get the user of this invoice
+	 * 
+	 * @return The user of this invoice
+	 */
+	public User getUser() {
+		
+		User user = new User();
+		user.readUser(userID);
+		return user;
+	}
+	
+	/**
 	 * Get a list of objects that can be used to store this Invoice in a JTable
 	 * @return The row for in a JTable
 	 */
