@@ -10,7 +10,7 @@
  */
 package view.medewerker;
 
-import helper.invoice.InvoiceCreator;
+import helper.InvoiceCreator;
 
 /**
  *

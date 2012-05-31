@@ -1,4 +1,4 @@
-package helper.invoice;
+package helper;
 
 import helper.db.Model;
 import java.sql.PreparedStatement;
