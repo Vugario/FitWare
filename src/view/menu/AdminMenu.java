@@ -5,7 +5,12 @@
  */
 package view.menu;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.PropertyException;
 import main.Application;
+import org.jCharts.chartData.ChartDataException;
+import view.admin.DashboardTest;
 
 /**
  *
@@ -115,7 +120,13 @@ public class AdminMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDashboardActionPerformed
-		Application.getInstance().showPanel(new view.admin.Dashboard());
+        try {
+            DashboardTest dashboardTest = new view.admin.DashboardTest();
+        } catch (ChartDataException ex) {
+            Logger.getLogger(AdminMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PropertyException ex) {
+            Logger.getLogger(AdminMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	}//GEN-LAST:event_jButtonDashboardActionPerformed
 
 	private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
