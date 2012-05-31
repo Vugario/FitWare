@@ -117,7 +117,9 @@ public class Manager {
      */
     public void close() {
         try {
-            dbConnection.close();
+			if(dbConnection != null) {
+	            dbConnection.close();
+			}
         } catch (Exception ex) {
             ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
