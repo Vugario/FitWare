@@ -19,7 +19,6 @@ import java.util.logging.Logger;
  */
 public class Purchase extends helper.db.Model {
 
-	int id;
 	private double price;
 	private int product_id;
 	private String paymentoption;
@@ -140,6 +139,19 @@ public class Purchase extends helper.db.Model {
 		return false;
 
 	}
+	
+	/**
+	 * Get the purchased Product object
+	 * 
+	 * @return The purchased Product
+	 */
+	public Product getProduct() {
+		
+		Product product = new Product();
+		product.readById(product_id);
+		return product;
+		
+	}
 
 	protected void setPropertiesFromResult() {
 		try {
@@ -154,7 +166,7 @@ public class Purchase extends helper.db.Model {
 			this.id = this.result.getInt("id");
 			this.product_id = this.result.getInt("product_id");
 			this.datetime = this.result.getTimestamp("datetime");
-			this.paymentoption = this.result.getString("payment_option");
+			this.paymentoption = this.result.getString("paymentoption");
 			this.price = this.result.getDouble("price");
 			this.quantity = this.result.getShort("quantity");
 			this.user_id = this.result.getInt("user_id");
@@ -171,14 +183,6 @@ public class Purchase extends helper.db.Model {
 
 	public void setDatetime(Timestamp datetime) {
 		this.datetime = datetime;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getPaymentoption() {

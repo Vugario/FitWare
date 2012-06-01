@@ -1,11 +1,16 @@
 package model;
 
 import helper.Datetime;
+import helper.InvoiceCreator;
 import helper.db.Model;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +19,6 @@ import java.util.logging.Logger;
  * @author daanvm
  */
 public class Invoice extends Model{
-	int id;
 	int userID;
 	boolean payed;
 	double amount;
@@ -33,17 +37,14 @@ public class Invoice extends Model{
 	public Invoice readInvoice(int invoiceId) {
 		try {
 			this.open();
-			this.query("SELECT * FROM \"invoice\" WHERE id = ? LIMIT 1").setInt(1, id);
+			this.query("SELECT * FROM \"invoice\" WHERE id = ? LIMIT 1").setInt(1, invoiceId);
 			this.result();
 			this.result.first();
 
 			this.setPropertiesFromResult();
 			
-			this.close();
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			this.close();
 		}
 
 		return this;
@@ -75,6 +76,106 @@ public class Invoice extends Model{
 
 	}
 	
+	public boolean create(){
+		
+		try {
+			this.open();
+			
+			PreparedStatement query = this.query(
+					"INSERT INTO "
+					+ "invoice (\"userID\", payed, amount, \"invoiceDate\")"
+					+ "VALUES "
+					+ "(?, ?, ?, ?) RETURNING id"
+				);
+
+			query.setInt(1, userID);
+			query.setBoolean(2, payed);
+			query.setDouble(3, amount);
+			query.setTimestamp(4, invoiceDate);
+
+			this.execute();
+			
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Find all enrollments in the month we are creating the invoice for
+	 * 
+	 * @todo Return also the repeating enrollments
+	 * @return All enrollments that need to be put on this invoice
+	 */
+	public ArrayList<Enrollment> getEnrollments() {
+		
+		ArrayList<Enrollment> enrollments = new ArrayList<Enrollment>();
+		
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			PreparedStatement query = model.query(
+					"SELECT * FROM enrollment "
+					+ "WHERE user_id = ?"
+					+ "  AND EXTRACT(YEAR FROM \"datetime\") = ?"
+					+ "  AND EXTRACT(MONTH FROM \"datetime\") = ?");
+			query.setInt(1, getUserID());
+			query.setInt(2, getYear());
+			query.setInt(3, getMonth());
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				enrollments.add(new Enrollment(model.result));
+			}
+			
+		} catch (SQLException ex) {
+			Logger.getLogger(InvoiceCreator.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return enrollments;
+	}
+	
+	/**
+	 * Find all purchases in the month we are creating the invoice for
+	 * 
+	 * @return All purchases that need to be put on this invoice
+	 */
+	public ArrayList<Purchase> getPurchases() {
+		
+		ArrayList<Purchase> purchases = new ArrayList<Purchase>();
+		
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			PreparedStatement query = model.query(
+					"SELECT * FROM purchase "
+					+ "WHERE user_id = ?"
+					+ "  AND EXTRACT(YEAR FROM \"datetime\") = ?"
+					+ "  AND EXTRACT(MONTH FROM \"datetime\") = ?"
+					+ "  AND paymentoption = ?");
+			query.setInt(1, getUserID());
+			query.setInt(2, getYear());
+			query.setInt(3, getMonth() + 1);
+			query.setString(4, "Op rekening");
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				purchases.add(new Purchase(model.result));
+			}
+			
+		} catch (SQLException ex) {
+			Logger.getLogger(InvoiceCreator.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return purchases;
+	}
+	
 	protected final void setPropertiesFromResult() {
 		try {
 
@@ -97,6 +198,44 @@ public class Invoice extends Model{
 	}
 	
 	/**
+	 * Get the user of this invoice
+	 * 
+	 * @return The user of this invoice
+	 */
+	public User getUser() {
+		
+		User user = new User();
+		user.readUser(userID);
+		return user;
+	}
+	
+	/**
+	 * Get the year of this invoice
+	 * 
+	 * @return The year this invoice is created in
+	 */
+	public int getYear() {
+		Date date = new Date(getInvoiceDate().getTime());
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		
+		return calendar.get(Calendar.YEAR);
+	}
+	
+	/**
+	 * Get the month of this invoice (Jan = 0, Dec = 11)
+	 * 
+	 * @return The month this invoice is created in
+	 */
+	public int getMonth() {
+		Date date = new Date(getInvoiceDate().getTime());
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		
+		return calendar.get(Calendar.MONTH);
+	}
+	
+	/**
 	 * Get a list of objects that can be used to store this Invoice in a JTable
 	 * @return The row for in a JTable
 	 */
@@ -112,7 +251,7 @@ public class Invoice extends Model{
 			payed ? "Betaald" : "Niet bataald"
 		};
 	}
-
+	
 	public double getAmount() {
 		return amount;
 	}

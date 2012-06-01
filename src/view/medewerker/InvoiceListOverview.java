@@ -10,6 +10,8 @@
  */
 package view.medewerker;
 
+import helper.InvoiceCreator;
+
 /**
  *
  * @author Daan
@@ -31,8 +33,16 @@ public class InvoiceListOverview extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jButtonCreateInvoices = new javax.swing.JButton();
 
         jLabel1.setText("Facturen overzicht");
+
+        jButtonCreateInvoices.setText("Maak facturen");
+        jButtonCreateInvoices.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateInvoicesActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -41,17 +51,33 @@ public class InvoiceListOverview extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel1)
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 114, Short.MAX_VALUE)
+                .add(jButtonCreateInvoices)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel1)
-                .addContainerGap(264, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(jButtonCreateInvoices))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jButtonCreateInvoicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateInvoicesActionPerformed
+		
+		// Create all invoices
+		int count = InvoiceCreator.createAllInvoices();
+		
+		// Update the button
+		jButtonCreateInvoices.setEnabled(false);
+		jButtonCreateInvoices.setText(String.format("%d %s aangemaakt", count, count == 1 ? "factuur" : "facturen"));
+	}//GEN-LAST:event_jButtonCreateInvoicesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCreateInvoices;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

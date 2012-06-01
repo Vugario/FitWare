@@ -10,6 +10,5 @@ package model;
  */
 public class Attendance {
 
-	int id;
 	int enrollmentId;
 }

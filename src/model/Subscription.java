@@ -15,7 +15,6 @@ import view.popups.NotificationPopup;
  */
 public class Subscription extends Model {
 
-	private int id;
 	private int branchId;
 	private String title;
 	private String description;
@@ -114,7 +113,6 @@ public class Subscription extends Model {
 					+ "Probeer het nogmaals."));
 		}finally {
 			this.execute();
-			this.close();
 		}
 		
 	}
@@ -168,20 +166,6 @@ public class Subscription extends Model {
 		}
 		
 		return response;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**

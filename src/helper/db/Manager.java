@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class Manager {
 
-	private Connection dbConnection;
+	private static Connection dbConnection;
         
 	public ResultSet result;
 	private PreparedStatement dbQuery;
@@ -29,6 +29,12 @@ public class Manager {
 	}
 
 	public void open() {
+		
+		// Check if a connection already exists
+		if (dbConnection != null) {
+			return;
+		}
+		
 		try {
 			
 			String url = Settings.get("db-url");
@@ -106,12 +112,14 @@ public class Manager {
 		}
 	}
 	
-	 /**
+	/**
      * remember to close the connection when finished
      */
     public void close() {
         try {
-            dbConnection.close();
+			if(dbConnection != null) {
+	            dbConnection.close();
+			}
         } catch (Exception ex) {
             ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
