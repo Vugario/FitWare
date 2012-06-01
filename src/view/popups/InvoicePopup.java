@@ -7,9 +7,14 @@ package view.popups;
 
 import helper.Datetime;
 import helper.PdfCreator;
+import helper.db.Model;
+import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import main.Application;
+import model.Enrollment;
 import model.Invoice;
+import model.Purchase;
 import model.User;
 
 /**
@@ -17,7 +22,7 @@ import model.User;
  * @author Daan
  */
 public class InvoicePopup extends javax.swing.JPanel {
-	
+
 	private final Invoice invoice;
 
 	/**
@@ -26,12 +31,12 @@ public class InvoicePopup extends javax.swing.JPanel {
 	 * @param invoice The invoice to show
 	 */
 	public InvoicePopup(Invoice invoice) {
-		
+
 		this.invoice = invoice;
-		
+
 		initComponents();
 		fillData();
-		
+
 		// Give the close button focus
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -41,21 +46,64 @@ public class InvoicePopup extends javax.swing.JPanel {
 			}
 		});
 	}
-	
+
 	private void fillData() {
-		
+
 		// Update user data
 		User user = invoice.getUser();
 		Datetime birthdate = new Datetime(user.getBirthdate());
 		jLabelUserId.setText(Integer.toString(user.getId()));
 		jLabelUserName.setText(user.getFullName());
 		jLabelUserBirthdate.setText(birthdate.format("yyyy-MM-dd"));
-		
+
 		// Update invoice data
 		Datetime invoiceDate = new Datetime(invoice.getInvoiceDate());
 		jLabelInvoiceId.setText(Integer.toString(invoice.getId()));
 		jLabelInvoiceDate.setText(invoiceDate.format("yyyy-MM-dd"));
 		jLabelPrice.setText(String.format("%.2f", invoice.getAmount()));
+
+		// Get the Enrollments and Products
+		ArrayList<Enrollment> enrollments = invoice.getEnrollments();
+		ArrayList<Purchase> purchases = invoice.getPurchases();
+
+		// Add the enrollments
+		for (int i = 0; i < enrollments.size(); i++) {
+			
+			Enrollment enrollment = enrollments.get(i);
+			
+			// Description
+			JLabel description = new JLabel(enrollment.getSubscription().getTitle());
+			jPanelDescription.add(description);
+			
+			// Count is always 1 for enrollments
+			JLabel count = new JLabel("1");
+			jPanelCount.add(count);
+			
+			// Price
+			JLabel price = new JLabel(String.format("%.2f", enrollment.getSubscription().getPrice()));
+			jPanelPrice.add(price);
+		}
+		
+		// Add the purchases
+		for (int i = 0; i < purchases.size(); i++) {
+			
+			Purchase purchase = purchases.get(i);
+			
+			// Description
+			JLabel description = new JLabel(purchase.getProduct().getName());
+			jPanelDescription.add(description);
+			
+			// Count is always 1 for enrollments
+			JLabel count = new JLabel(Integer.toString(purchase.getQuantity()));
+			jPanelCount.add(count);
+			
+			// Price
+			JLabel price = new JLabel(String.format("%.2f", purchase.getPrice()));
+			jPanelPrice.add(price);
+		}
+		
+		this.revalidate();
+		this.repaint();
 	}
 
 	/**
@@ -64,19 +112,19 @@ public class InvoicePopup extends javax.swing.JPanel {
 	public void close() {
 		Application.getInstance().closePopup();
 	}
-	
+
 	/**
 	 * Open as PDF
 	 */
 	public void openPdf() {
-		
+
 		// Hide the buttons
 		jButtonShowPdf.setVisible(false);
 		jButtonClose.setVisible(false);
-		
+
 		// Create and open the pdf
 		new PdfCreator(this);
-		
+
 		// Show the buttons again
 		jButtonShowPdf.setVisible(true);
 		jButtonClose.setVisible(true);
@@ -92,11 +140,11 @@ public class InvoicePopup extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelDescription = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelCount = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelPrice = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabelPrice = new javax.swing.JLabel();
@@ -123,65 +171,26 @@ public class InvoicePopup extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18));
         jLabel1.setText("Fitshape Sportscholen");
 
-        jPanel1.setOpaque(false);
+        jPanelDescription.setOpaque(false);
+        jPanelDescription.setLayout(new javax.swing.BoxLayout(jPanelDescription, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 14));
         jLabel2.setText("Omschrijving");
+        jPanelDescription.add(jLabel2);
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(jLabel2)
-                .addContainerGap(320, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(jLabel2)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.setOpaque(false);
+        jPanelCount.setOpaque(false);
+        jPanelCount.setLayout(new javax.swing.BoxLayout(jPanelCount, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14));
         jLabel3.setText("Aantal");
+        jPanelCount.add(jLabel3);
 
-        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(jLabel3)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(jLabel3)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.setOpaque(false);
+        jPanelPrice.setOpaque(false);
+        jPanelPrice.setLayout(new javax.swing.BoxLayout(jPanelPrice, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14));
         jLabel4.setText("Prijs");
-
-        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .add(jLabel4)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .add(jLabel4)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanelPrice.add(jLabel4);
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 14));
         jLabel5.setText("Totaal:");
@@ -241,7 +250,7 @@ public class InvoicePopup extends javax.swing.JPanel {
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel10)
                     .add(jLabelUserBirthdate))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jPanel5.setOpaque(false);
@@ -286,7 +295,7 @@ public class InvoicePopup extends javax.swing.JPanel {
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel12)
                     .add(jLabelInvoiceDate))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         jButtonClose.setText("Sluiten");
@@ -319,16 +328,16 @@ public class InvoicePopup extends javax.swing.JPanel {
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(jPanelDescription, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                                 .add(18, 18, 18)
-                                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jPanelCount, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(18, 18, 18))
                             .add(layout.createSequentialGroup()
                                 .add(jLabel5)
                                 .add(438, 438, 438)))
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabelPrice)
-                            .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jPanelPrice, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jLabel1)
                     .add(layout.createSequentialGroup()
                         .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -348,9 +357,9 @@ public class InvoicePopup extends javax.swing.JPanel {
                 .add(jLabel1)
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanelDescription, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanelCount, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanelPrice, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
@@ -368,7 +377,7 @@ public class InvoicePopup extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        layout.linkSize(new java.awt.Component[] {jPanel1, jPanel2, jPanel3}, org.jdesktop.layout.GroupLayout.VERTICAL);
+        layout.linkSize(new java.awt.Component[] {jPanelCount, jPanelDescription, jPanelPrice}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -387,7 +396,6 @@ public class InvoicePopup extends javax.swing.JPanel {
 	private void jButtonShowPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowPdfActionPerformed
 		this.openPdf();
 	}//GEN-LAST:event_jButtonShowPdfActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonShowPdf;
@@ -409,11 +417,11 @@ public class InvoicePopup extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelUserBirthdate;
     private javax.swing.JLabel jLabelUserId;
     private javax.swing.JLabel jLabelUserName;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanelCount;
+    private javax.swing.JPanel jPanelDescription;
+    private javax.swing.JPanel jPanelPrice;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

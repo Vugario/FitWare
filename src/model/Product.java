@@ -98,17 +98,11 @@ public class Product extends Model {
 			this.result.first();
 			this.setPropertiesFromResult();
 
-
-
 		} catch (SQLException ex) {
 			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
 
 		}
 
-
-		System.out.println(getId());
-		System.out.println(getPrice());
-		System.out.println(getName());
 		return this;
 	}
 

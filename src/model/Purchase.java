@@ -139,6 +139,19 @@ public class Purchase extends helper.db.Model {
 		return false;
 
 	}
+	
+	/**
+	 * Get the purchased Product object
+	 * 
+	 * @return The purchased Product
+	 */
+	public Product getProduct() {
+		
+		Product product = new Product();
+		product.readById(product_id);
+		return product;
+		
+	}
 
 	protected void setPropertiesFromResult() {
 		try {
