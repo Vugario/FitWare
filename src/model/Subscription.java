@@ -4,9 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import helper.db.*;
-import java.sql.Timestamp;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import main.Application;
 import view.popups.NotificationPopup;
@@ -21,15 +19,18 @@ public class Subscription extends Model {
 	private int branchId;
 	private String title;
 	private String description;
-	private boolean gender;
+	private char gender;
 	private int maximumAge;
 	private int minimumAge;
+	private char type;
 
 	
 	private boolean monthly;
 	private double price;
-	private Timestamp startDate;
-	private Timestamp endDate;
+	private Date startDate;
+	private Date endDate;
+	private Time startTime;
+	private Time endTime;
 
 	public Subscription() {
 	}
@@ -87,20 +88,23 @@ public class Subscription extends Model {
 			PreparedStatement query =  this.query("INSERT INTO subscription"
 					+ "(title, description, \"minimumAge\", "
 					+ "\"maximumAge\", price, monthly, \"branchId\", gender, "
-					+ "startdate, enddate)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+					+ "startdate, enddate, starttime, endtime, \"type\")"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 					);
 								
-					query.setString(1, title);
-					query.setString(2, description);					
-					query.setInt(3, minimumAge);
-					query.setInt(4, maximumAge);
-					query.setDouble(5, price);
-					query.setBoolean(6, monthly);
+					query.setString(1, this.getTitle() );
+					query.setString(2, this.getDescription() );					
+					query.setInt(3, this.getMinimumAge() );
+					query.setInt(4, this.getMaximumAge() );
+					query.setDouble(5, this.getPrice() );
+					query.setBoolean(6, this.getMonthly() );
 					query.setInt(7, 1);
-					query.setBoolean(8, gender);
-					query.setTimestamp(9, startDate);
-					query.setTimestamp(10, endDate);
+					query.setString(8, String.valueOf( this.getGender() ) );
+					query.setDate(9, this.getStartDate() );
+					query.setDate(10, this.getEndDate() );
+					query.setTime(11, this.getStartTime() );
+					query.setTime(12, this.getEndTime() );
+					query.setString(13, String.valueOf( this.getType() ) );
 					
 					Application.getInstance().showPopup(new NotificationPopup("De cursus is toegevoegd."));
 		} catch (SQLException ex) {
@@ -129,16 +133,41 @@ public class Subscription extends Model {
 			this.setBranchId(this.result.getInt("branchid"));
 			this.setTitle(this.result.getString("title"));
 			this.setDescription(this.result.getString("description"));
-			this.setGender(this.result.getBoolean("gender"));
+			this.setGender(this.getChar( this.result.getString("gender") ));
+			this.setType(this.getChar( this.result.getString("type") ));
 			this.setMaximumAge(this.result.getInt("maximumage"));
 			this.setMinimumAge(this.result.getInt("minimumage"));
 			this.setMonthly(this.result.getBoolean("monthly"));
 			this.setPrice(this.result.getDouble("price"));
+			this.setStartDate(this.result.getDate("startDate"));
+			this.setEndDate(this.result.getDate("endDate"));
+			this.setStartTime(this.result.getTime("startTime"));
+			this.setEndTime(this.result.getTime("endTime"));
 
 
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+	
+	public char getChar( String string ) {
+		if( string == null)
+			return '0';
+		
+		if( string.isEmpty() )
+			return '0';
+			
+		char[] array = string.toCharArray();
+		char response = '0';
+		
+		if( array.length > 0 )
+		{
+			for( char c : array ) {
+				response = c;
+			}
+		}
+		
+		return response;
 	}
 
 	/**
@@ -186,14 +215,14 @@ public class Subscription extends Model {
 	/**
 	 * @return the gender
 	 */
-	public boolean isGender() {
+	public char getGender() {
 		return gender;
 	}
 
 	/**
 	 * @param gender the gender to set
 	 */
-	public void setGender(boolean gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 
@@ -228,7 +257,7 @@ public class Subscription extends Model {
 	/**
 	 * @return the monthly
 	 */
-	public boolean isMonthly() {
+	public boolean getMonthly() {
 		return monthly;
 	}
 
@@ -270,27 +299,69 @@ public class Subscription extends Model {
 	/**
 	 * @return the endDate 
 	 */
-	public Timestamp getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 	/**
 	 * @param endDate the endDate to set
 	 */
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	/**
 	 * @return the startDate
 	 */
-	public Timestamp getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 	/**
 	 * @param startDate startDate to set
 	 */
 
-	public void setStartDate(Timestamp startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public char getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(char type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the startTime
+	 */
+	public Time getStartTime() {
+		return startTime;
+	}
+
+	/**
+	 * @param startTime the startTime to set
+	 */
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
+	}
+
+	/**
+	 * @return the endTime
+	 */
+	public Time getEndTime() {
+		return endTime;
+	}
+
+	/**
+	 * @param endTime the endTime to set
+	 */
+	public void setEndTime(Time endTime) {
+		this.endTime = endTime;
 	}
 	
 }

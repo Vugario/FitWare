@@ -167,7 +167,9 @@ public class CoursesOverview extends javax.swing.JPanel {
 	private void jEnrollmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEnrollmentsMouseClicked
 		if (evt.getClickCount() >= 2) {
 			// Double clicked!
-			showEnrollment();
+			int rowNumber = jEnrollments.getSelectedRow();
+			int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
+			Application.getInstance().showPanel(new view.barmedewerker.CourseInfo( subscriptionId ));
 		}
 	}//GEN-LAST:event_jEnrollmentsMouseClicked
 

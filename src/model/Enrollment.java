@@ -58,6 +58,31 @@ public class Enrollment extends Model {
 		return enrollments;
 	}
 
+	public static ArrayList<User> readBySubscriptionId(int id) {
+
+		ArrayList<User> users = new ArrayList<User>();
+
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT e.* FROM \"enrollment\" e RIGHT JOIN \"user\" u ON e.user_id = u.id WHERE e.user_id = ?").setInt(1, id);
+			model.result();
+
+			// Loop over all results
+			while (model.result.next()) {
+				User user = new User();
+				user.readUser( model.result.getInt("id"));
+				users.add( user );
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return users;
+	}
+
 	public Enrollment readEnrollmentById(int id) {
 		try {
 			this.open();
