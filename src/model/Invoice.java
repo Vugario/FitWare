@@ -318,7 +318,7 @@ public class Invoice extends Model{
 			date.format("MMMM yyyy"),
 			String.format("€ %.2f", amount),
 			date.format("dd-MM-yyyy"),
-			payed ? "Betaald" : "Niet bataald"
+			payed ? "Betaald" : "Niet betaald"
 		};
 	}
 	
