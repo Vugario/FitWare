@@ -121,9 +121,9 @@ public class User extends Model {
 			
 			PreparedStatement query = this.query(
 					"INSERT INTO "
-					+ "\"user\"(active, username, firstname, subname, lastname, birthdate, street, housenumber, phonenumber, mobilenumber, email, gender, password, bankaccount, city, postcode)"
+					+ "\"user\"(active, username, firstname, subname, lastname, birthdate, street, housenumber, phonenumber, mobilenumber, email, gender, password, bankaccount, city, postcode, role_id)"
 					+ "VALUES "
-					+ "(true, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, MD5(?), ?, ?, ?) RETURNING id"
+					+ "(true, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, MD5(?), ?, ?, ?, ?) RETURNING id"
 				);
 
 			query.setString(1, username.toLowerCase());
@@ -141,6 +141,7 @@ public class User extends Model {
 			query.setInt(13, bankaccount);
 			query.setString(14, city);
 			query.setString(15, postcode);
+			query.setInt(16, roleId);
 
 						
 			this.execute();
