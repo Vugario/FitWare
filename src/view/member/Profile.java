@@ -171,7 +171,7 @@ public class Profile extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         passwordChanged = new javax.swing.JCheckBox();
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel4.setText("Mijn gegevens");
 
         jLabel5.setText("Klantnummer");
