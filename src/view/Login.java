@@ -12,7 +12,9 @@ import main.Session;
 import model.User;
 
 /**
- *
+ * This is the view for the Login screen.
+ * Here a user will try to login and get access to the rest of the application
+ * but only the parts he/she has access to.
  * @author vm
  */
 public class Login extends javax.swing.JPanel {
@@ -33,6 +35,8 @@ public class Login extends javax.swing.JPanel {
 
 	/**
 	 * Check if the given username and password are correct
+	 * @param username username is the username made for the user
+	 * @param password password is the password that the user choosed.
 	 */
 	protected void checkLogin() {
 
@@ -240,6 +244,7 @@ public class Login extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogInActionPerformed
+		//Check the login credentials, if it matches then enter the application.
 		checkLogin();
     }//GEN-LAST:event_jButtonLogInActionPerformed
 

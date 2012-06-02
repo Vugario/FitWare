@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * BarProductOverview.java
  *
  * Created on May 18, 2012, 8:54:23 PM
@@ -22,6 +17,7 @@ import model.Product;
  * This is the view for the Overview of the Barporducts
  * From this view it is possible to see all the barproducts and from
  * here you can go to editing and adding products.
+ * 
  * @author vm
  */
 public class BarProductOverview extends javax.swing.JPanel {
@@ -38,9 +34,12 @@ public class BarProductOverview extends javax.swing.JPanel {
 		Product product = new Product();
 		initComponents();
 
+		//Make the table searchable.
 		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonReset);
+
 		this.model = (DefaultTableModel) jTable1.getModel();
 
+		//Get the format of the objects
 		product.getTableRowObjects();
 		updateTable();
 	}
@@ -66,11 +65,10 @@ public class BarProductOverview extends javax.swing.JPanel {
 	}
 
 	/**
-	 * 
-	 * @param productId the id of the selected product
-	 * @param rowNumber the number of the selected row
-	 * 
-	 * @author vm thx to daan
+	 * This method will show a product which is selected in a row. The product
+	 * will be shown in a different view, the view.admin.BarProductModify.java view.
+	 *
+	 * @author vm
 	 */
 	private void showProduct() {
 
@@ -195,17 +193,15 @@ public class BarProductOverview extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonProductAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductAddActionPerformed
-
+		// Go to the view of view.admin.BarProductAdd
 		Application.getInstance().showPanel(new view.admin.BarProductAdd());
 	}//GEN-LAST:event_jButtonProductAddActionPerformed
 
 	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 		// When there is a double-click do this:
-
 		if (evt.getClickCount() >= 2) {
 			// Double clicked!
 			showProduct();
-
 		}
 
 	}//GEN-LAST:event_jTable1MouseClicked

@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * CourseAdd.java
  *
  * Created on May 18, 2012, 8:53:21 PM
@@ -17,25 +12,38 @@ import model.Subscription;
 import view.popups.SuccessPopup;
 
 /**
- * This is the view for adding a course
+ * This is the view for adding a course.
+ * When a course is created members can subscribe to the course.
  * @author vm
  */
 public class CourseAdd extends javax.swing.JPanel {
 
-	String days;
+	/**
+	 * The type of course, either a single course or on multiple days.
+	 */
 	String type;
+	/**
+	 * The day(s) when the course will be given
+	 */
+	String days;
+	/**
+	 * The instantiate the object Subscription
+	 */
 	Subscription subscription = new Subscription();
 
 	/** Creates new form CourseAdd */
 	public CourseAdd() {
 		initComponents();
-
+		//Remove the items
 		jComboBoxAgeGroup.removeAllItems();
+
+		//Add items to the combobox
 		jComboBoxAgeGroup.addItem("< 16");
 		jComboBoxAgeGroup.addItem("16 - 18");
 		jComboBoxAgeGroup.addItem("18 - 65");
 		jComboBoxAgeGroup.addItem("65 +");
 
+		//Group the buttons so there can be only one button seleted in the group
 		ButtonGroup buttongroupType = new ButtonGroup();
 		buttongroupType.add(jRadioButtonCourseType1);
 		buttongroupType.add(jRadioButtonCourseType2);
@@ -46,61 +54,69 @@ public class CourseAdd extends javax.swing.JPanel {
 		buttongroupGender.add(jRadioButtonMixed);
 
 	}
+
+	/**
+	 * Sets all the variables from the view, this way the Subscription model
+	 * can use this info to do a insert or update on table in the database.
+	 * @author vm
+	 */
 	public void setSubscriptionData() {
-		
-			
-			String name = jTextFieldCourseName.getText();
-			subscription.setTitle(name);
-			
-			String startTime = jTextFieldStartTime.getText();
-			String endTime = jTextFieldEndTime.getText();
-			
-		
-			if(jRadioButtonCourseType1.isSelected()){
-				type = jRadioButtonCourseType1.getText();
-			} else {
-				type = jRadioButtonCourseType2.getText() +" : " + days;
-			}
+		// The name to set into the Subscription model			
+		String name = jTextFieldCourseName.getText();
+		subscription.setTitle(name);
 
-			String description = "Type: " + type + "\n" + 
-					jTextAreaDescription.getText();
-			subscription.setDescription(description);
-						
+		// The start- and endtime to set into the Subscription model
+		String startTime = jTextFieldStartTime.getText();
+		String endTime = jTextFieldEndTime.getText();
 
-			if (jRadioButtonMale.isSelected()) {
-				subscription.setGender('m');
-			} else if (jRadioButtonFemale.isSelected()) {
-				subscription.setGender('f');
-			} else {
-				//Don't set the gender.
-			}
-			
-			if (jComboBoxAgeGroup.getSelectedIndex() == 1) {
-				subscription.setMinimumAge(0);
-				subscription.setMaximumAge(16);
-			} else if (jComboBoxAgeGroup.getSelectedIndex() == 2) {
-				subscription.setMinimumAge(16);
-				subscription.setMaximumAge(18);
-			} else if (jComboBoxAgeGroup.getSelectedIndex() == 3) {
-				subscription.setMinimumAge(18);
-				subscription.setMaximumAge(65);
-			} else if (jComboBoxAgeGroup.getSelectedIndex() == 4) {
-				subscription.setMinimumAge(65);
-				subscription.setMaximumAge(150);
-			}
-			
-			String jStartDate = jTextFieldStartDate.getText();
-			//Date startDate = new Date();
-			//helper.DateTime datetime = new helper.Datetime(startDate);	
-			//subscription.setStartDate(datetime.format("yyyy-mm-dd"));
-			
-			//String endDate = jTextFieldStartDate.getText();
-			//helper.Datetime datetime2 = new helper.Datetime(endDate);	
-			//subscription.setEndDate(datetime2.timestamp());
-			
-			double price = Double.parseDouble(jTextFieldPrice.getText());
-			subscription.setPrice(price);
-					
+		// Get the data for type.
+		if (jRadioButtonCourseType1.isSelected()) {
+			type = jRadioButtonCourseType1.getText();
+		} else {
+			type = jRadioButtonCourseType2.getText() + " : " + days;
+		}
+		// Description to set in the Subscription model
+		String description = "Type: " + type + "\n"
+				+ jTextAreaDescription.getText();
+		subscription.setDescription(description);
+
+		// The gender to set into the Subcription model
+		if (jRadioButtonMale.isSelected()) {
+			subscription.setGender('m');
+		} else if (jRadioButtonFemale.isSelected()) {
+			subscription.setGender('f');
+		} else {
+			//Don't set the gender.
+		}
+
+		// The age selection to set into the Subscription model
+		if (jComboBoxAgeGroup.getSelectedIndex() == 1) {
+			subscription.setMinimumAge(0);
+			subscription.setMaximumAge(16);
+		} else if (jComboBoxAgeGroup.getSelectedIndex() == 2) {
+			subscription.setMinimumAge(16);
+			subscription.setMaximumAge(18);
+		} else if (jComboBoxAgeGroup.getSelectedIndex() == 3) {
+			subscription.setMinimumAge(18);
+			subscription.setMaximumAge(65);
+		} else if (jComboBoxAgeGroup.getSelectedIndex() == 4) {
+			subscription.setMinimumAge(65);
+			subscription.setMaximumAge(150);
+		}
+
+		// The Startdate to set into the Subscription model
+		String jStartDate = jTextFieldStartDate.getText();
+		//Date startDate = new Date();
+		//helper.DateTime datetime = new helper.Datetime(startDate);	
+		//subscription.setStartDate(datetime.format("yyyy-mm-dd"));
+
+		// String endDate = jTextFieldStartDate.getText();
+		//helper.Datetime datetime2 = new helper.Datetime(endDate);	
+		//subscription.setEndDate(datetime2.timestamp());
+
+		// The price to set into the Subscription model
+		double price = Double.parseDouble(jTextFieldPrice.getText());
+		subscription.setPrice(price);
 	}
 
 	/** This method is called from within the constructor to
@@ -354,23 +370,19 @@ public class CourseAdd extends javax.swing.JPanel {
 
 	private void jRadioButtonCourseType2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2StateChanged
 		//When the RadioButton's state is chaged go to selectionCheck
-
 	}//GEN-LAST:event_jRadioButtonCourseType2StateChanged
 
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-		// TODO add your handling code here:
+		// Save the subscription data into the database with the button
 		setSubscriptionData();
 		subscription.create();
-		
+
 		Application.getInstance().showPanel(new view.barmedewerker.CoursesOverview());
-		
-		
 	}//GEN-LAST:event_jButtonSaveActionPerformed
 
 private void jCheckBoxMondayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMondayActionPerformed
-		// TODO add your handling code here:
+	// TODO add your handling code here:
 }//GEN-LAST:event_jCheckBoxMondayActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSave;
     private javax.swing.JCheckBox jCheckBoxFriday;
