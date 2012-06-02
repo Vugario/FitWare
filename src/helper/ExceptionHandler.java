@@ -1,10 +1,12 @@
-package main;
+package helper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Application;
+import main.Settings;
 import model.User;
 import view.popups.ErrorPopup;
 
@@ -81,12 +83,22 @@ public class ExceptionHandler {
 	 * @param exception The exception to add
 	 */
 	public void handle(Exception exception) {
+
+		// Add the exception
 		exceptions.add(exception);
 
+		// Make sure the exception has a message
+		String message = exception.getMessage();
+		if (message == null || message.length() == 0) {
+			message = "Fatal: " + exception.getClass();
+		}
+
 		Application application = Application.getInstance();
-		
+
 		// Actions that are always performed
-		Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, exception);
+		if(Settings.get("debug-mode").equals("on")) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, exception);
+		}
 
 		// Actions per type
 		switch (type) {
@@ -99,7 +111,7 @@ public class ExceptionHandler {
 				break;
 
 			case ExceptionHandler.TYPE_USER_ERROR:
-				application.showPopup(new ErrorPopup(exception.getMessage()));
+				application.showPopup(new ErrorPopup(message));
 				break;
 		}
 	}
