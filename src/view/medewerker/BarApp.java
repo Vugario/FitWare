@@ -162,6 +162,11 @@ public class BarApp extends javax.swing.JPanel {
 				// Set the label
 				jLabelCustomerName.setText(user.getFullName());
 			}
+			if(user.getId() == 0){
+				Application.getInstance().showPopup(new ErrorPopup("Deze gebruiker is niet gevonden.\n"
+						+ "Controleer de zoekterm alstublieft."));
+				jTextFieldSearch.setText(null);
+			}
 		} catch (Exception ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
