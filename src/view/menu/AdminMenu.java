@@ -127,7 +127,7 @@ public class AdminMenu extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonInvoicesActionPerformed
 
 	private void jButtonEnrollmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnrollmentsActionPerformed
-         Application.getInstance().showPanel(new view.barmedewerker.CoursesOverview());
+         Application.getInstance().showPanel(new view.medewerker.CoursesOverview());
 	}//GEN-LAST:event_jButtonEnrollmentsActionPerformed
 
 	private void jButtonBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBarActionPerformed
