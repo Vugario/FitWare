@@ -173,7 +173,7 @@ public class Dashboard extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Datum", "Prijs", "Product", "Betaald met"
+                "Datum", "Prijs", "Product", "Betaald"
             }
         ) {
             Class[] types = new Class [] {
@@ -296,12 +296,12 @@ public class Dashboard extends javax.swing.JPanel {
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel4Layout.createSequentialGroup()
-                        .add(userSearchField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(26, 26, 26)
-                        .add(jButtonSearchUser))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .add(userSearchField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jButtonSearchUser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jLabelFullname1))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -351,23 +351,24 @@ public class Dashboard extends javax.swing.JPanel {
         userFoundPanel.setLayout(userFoundPanelLayout);
         userFoundPanelLayout.setHorizontalGroup(
             userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(userFoundPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(userCourses, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(34, 34, 34)
-                .add(userCheckin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(92, 92, 92))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
-            .add(userFoundPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabelCustomerName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-                .add(81, 81, 81))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
             .add(userFoundPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabelCustomerBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabelCustomerGender, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, userFoundPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(userFoundPanelLayout.createSequentialGroup()
+                        .add(jLabelCustomerName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                        .add(37, 37, 37))
+                    .add(userFoundPanelLayout.createSequentialGroup()
+                        .add(userCourses, 0, 319, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                .add(userCheckin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         userFoundPanelLayout.setVerticalGroup(
             userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -429,7 +430,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(userFoundPanel, 0, 456, Short.MAX_VALUE)
+                    .add(userFoundPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -469,6 +470,8 @@ public class Dashboard extends javax.swing.JPanel {
 	private void jButtonUserCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUserCheckinActionPerformed
 		// TODO add your handling code here:
 		
+		userCheckin.setEnabled(false);
+		
 		Enrollment selectedEnrollment = (Enrollment)userCourses.getSelectedItem();
 		Attendance attendance = new Attendance();
 		attendance.setEnrollmentId(selectedEnrollment.getId());
@@ -476,7 +479,7 @@ public class Dashboard extends javax.swing.JPanel {
 			
 			Datetime currentDate = new Datetime();
 			
-			String success = user.getFullName()+" is succesvol ingecheckt in de vestiging op "+currentDate.format("dd MMMMM yyyy")+" om "+currentDate.format("hh:mm");
+			String success = user.getFullName()+" is succesvol ingecheckt in de vestiging "+selectedEnrollment.getBranch().getCity()+" op "+currentDate.format("dd MM yyyy")+" om "+currentDate.format("hh:mm");
 			checkinSuccessPanel.setVisible(true);
 			checkinSuccessText.setVisible(true);
 			checkinSuccessText.setText(success);

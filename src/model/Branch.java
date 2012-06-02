@@ -33,31 +33,22 @@ public class Branch extends Model {
 		this.result = result;
 		this.setPropertiesFromResult();
 	}
+	
+	public Branch(int id) {
+		super();
 
-	/*public int readBranchById() {
 		try {
-			
-			//Set city variable
-			UserAdd useradd = new UserAdd();
-			city = useradd.getjComboBox1().getSelectedItem().toString();
-			
-			
-			// Execute the query
 			this.open();
-			
-			PreparedStatement query = this.query("SELECT id FROM \"branch\" WHERE city = '?' LIMIT 1");
-			
-			query.setString(1, city);
-			
-			this.execute();
+			this.query("SELECT * FROM \"branch\" WHERE id = ? LIMIT 1").setInt(1, id);
+			this.result();
+			this.result.first();
 
+			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
-		return id;
-	}*/
+	}
 
 	public static ArrayList<Branch> readAll() {
 

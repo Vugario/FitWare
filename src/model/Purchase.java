@@ -47,7 +47,7 @@ public class Purchase extends Model {
 			// Execute the query
 			Model model = new Model();
 			model.open();
-			model.query("SELECT * FROM \"purchase\" WHERE user_id = ? LIMIT 10").setInt(1, id);
+			model.query("SELECT * FROM \"purchase\" WHERE user_id = ? LIMIT 10 ORDER BY datetime DESC").setInt(1, id);
 			model.result();
 			
 			// Loop over all results
@@ -62,40 +62,40 @@ public class Purchase extends Model {
 		return purchases;
 	}
 
-	public Purchase readLastPurchase(int userId) {
+	/**
+	 * read latest purchases, give limit for different overviews
+	 * @param limit
+	 * @return Purchase objects in array list
+	 */
+	public ArrayList<Purchase> readLastPurchase(int limit) {
+	
+		ArrayList<Purchase> purchases = new ArrayList<Purchase>();
+		
 		try {
 			this.open();
 			this.query(
 				"SELECT "
-					+ "pur.datetime, "
-					+ "p.name, "
-					+ "pur.quantity*p.price as \"price\", "
-					+ "pur.user_id "
+					+ "*"
 				+ "FROM "
-					+ "\"user\" u "
-				+ "JOIN "
 					+ "purchase pur "
-				+ "ON "
-					+ "u.id = pur.user_id "
-				+ "JOIN "
-					+ "product p "
-				+ "ON "
-					+ "p.id = pur.product_id "
-				+ "WHERE u.id = ? "
 				+ "LIMIT "
-					+ "10"
-				).setInt(1, userId);
+					+ "?"
+				).setInt(1, limit);
 			this.result();
 		
+			
+			// Loop over all results
+			while(this.result.next()) {
+				purchases.add(new Purchase(this.result));
+			}
 
-			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
 
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		return this;
+		return purchases;
 	}
 
 	public boolean savePurchase() {

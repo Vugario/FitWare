@@ -20,11 +20,14 @@ public class Enrollment extends Model {
 
 	private int user_id;
 	private int subscription_id;
+	private int branch_id;
 	private Timestamp datetime;
 	private User user;
 	private Subscription subscription;
 	private boolean enrolled;
-
+	private Branch branch;
+	
+	
 	public Enrollment() {
 	}
 
@@ -173,8 +176,9 @@ public class Enrollment extends Model {
 			this.setUser_id(this.result.getInt("user_id"));
 			this.setSubscription_id(this.result.getInt("subscription_id"));
 			this.setDatetime(this.result.getTimestamp("datetime"));
-						
-
+			this.setBranch_id(this.result.getInt("branch_id"));		
+			
+			this.setBranch(new Branch(this.getBranch_id()));
 			this.setSubscription(new Subscription(this.getSubscription_id()));
 
 		} catch (SQLException ex) {
@@ -300,6 +304,28 @@ public class Enrollment extends Model {
 		this.subscription = subscription;
 	}
 
+	/**
+	 * @return the branch
+	 */
+	public Branch getBranch() {
+		return branch;
+	}
+
+	/**
+	 * @param Branch the branch to set
+	 */
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+	
+	public int getBranch_id() {
+		return branch_id;
+	}
+
+	public void setBranch_id(int branch_id) {
+		this.branch_id = branch_id;
+	}
+	
 	public boolean isEnrolled() {
 		return this.enrolled;
 	}
