@@ -1,5 +1,6 @@
 package model;
 
+import helper.Datetime;
 import helper.db.Model;
 import java.sql.Timestamp;
 
@@ -20,7 +21,7 @@ public class Enrollment extends Model {
 	private int id;
 	private int user_id;
 	private int subscription_id;
-	private Timestamp timestamp;
+	private Timestamp datetime;
 	private User user;
 	private Subscription subscription;
 	private boolean enrolled;
@@ -34,6 +35,13 @@ public class Enrollment extends Model {
 		this.result = result;
 		this.setPropertiesFromResult();
 	}
+	
+
+	/**
+	 * collect all the subscriptions for the member dashboard
+	 * @param user_id
+	 * @return 
+	 */
 
 	public static ArrayList<Enrollment> readByUserId(int id) {
 
@@ -141,7 +149,8 @@ public class Enrollment extends Model {
 			this.setId(this.result.getInt("id"));
 			this.setUser_id(this.result.getInt("user_id"));
 			this.setSubscription_id(this.result.getInt("subscription_id"));
-
+			this.setDatetime(this.result.getTimestamp("datetime"));
+						
 			this.setSubscription(new Subscription(this.getSubscription_id()));
 
 		} catch (SQLException ex) {
@@ -152,6 +161,35 @@ public class Enrollment extends Model {
 		return true;
 	}
 
+	/**
+	 * @author daan
+	 * @return returns the table row objects
+	 */
+	public Object[] getTableRowObjects() {
+
+		String fomatDatetime = null;
+
+		System.out.println(this.datetime);
+		
+		if(this.datetime != null){
+			Datetime enrollmentDatetime = new Datetime(this.datetime);
+			fomatDatetime = enrollmentDatetime.format("dd-MM-yyyy HH:mm");
+		}
+		
+		return new Object[] {
+			fomatDatetime,
+			this.subscription.getTitle()
+			};
+	}
+	
+	/**
+	 * override to string for combo box
+	 * @return 
+	 */
+	@Override
+	public String toString() {
+		return subscription.getTitle();
+    }
 	/**
 	 * @return the id
 	 */
@@ -197,15 +235,15 @@ public class Enrollment extends Model {
 	/**
 	 * @return the timestamp
 	 */
-	public Timestamp getTimestamp() {
-		return timestamp;
+	public Timestamp getDatetime() {
+		return datetime;
 	}
 
 	/**
 	 * @param timestamp the timestamp to set
 	 */
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
+	public void setDatetime(Timestamp datetime) {
+		this.datetime = datetime;
 	}
 
 	/**

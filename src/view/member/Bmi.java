@@ -48,7 +48,7 @@ public class Bmi extends javax.swing.JPanel {
         
         //Leeftijd uitrekenen:
         //Dag omzetten in integers
-        String bday = user.getBirthdate().toString();
+		String bday = user.getBirthdate().toString();
 
         int day = Integer.parseInt(bday.substring(8, 10));
         //Maand omzetten in integers
