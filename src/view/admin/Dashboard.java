@@ -103,7 +103,7 @@ public class Dashboard extends javax.swing.JPanel {
 				addUserCoursesToComboBox(userId);
 				
 			}else{
-				jLabelCustomerName.setText("Gebruiker niet gevonden");
+				jLabelCustomerName.setText("Gebru2iker niet gevonden");
 			}
 		} catch (Exception ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
