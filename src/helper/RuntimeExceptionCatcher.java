@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
  * 
  * @see main.Main
  * @see EventQueue
+ * @see http://ruben42.wordpress.com/2009/03/30/catching-all-runtime-exceptions-in-swing/
  * @author Daan
  */
 public class RuntimeExceptionCatcher extends EventQueue {
