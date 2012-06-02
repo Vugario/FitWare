@@ -348,7 +348,7 @@ public class Invoice extends Model{
 			return new Object[] {
 				String.format("%04d", id),
 				String.format("%04d", user.getId()),
-				String.format("%s (%s)", user.getFullName(), user.getUsername()),
+				user.getFullName(),
 				date.format("MMMM yyyy"),
 				String.format("€ %.2f", amount),
 				date.format("dd-MM-yyyy"),
