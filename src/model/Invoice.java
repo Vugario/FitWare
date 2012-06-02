@@ -191,7 +191,7 @@ public class Invoice extends Model{
 					+ "  AND paymentoption = ?");
 			query.setInt(1, getUserID());
 			query.setInt(2, getYear());
-			query.setInt(3, getMonth() + 1);
+			query.setInt(3, getMonth());
 			query.setString(4, "Op rekening");
 			model.result();
 			
@@ -295,12 +295,14 @@ public class Invoice extends Model{
 	}
 	
 	/**
-	 * Get the month of this invoice (Jan = 0, Dec = 11)
+	 * Get the month of this invoice (Jan = 1, Dec = 12)
 	 * 
 	 * @return The month this invoice is created in
 	 */
 	public int getMonth() {
-		return getInvoiceCalendar().get(Calendar.MONTH);
+		
+		// Add 1, because the calendar object uses jan = 0 and dec = 11.
+		return getInvoiceCalendar().get(Calendar.MONTH) + 1;
 	}
 	
 	/**
