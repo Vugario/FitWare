@@ -164,6 +164,7 @@ public class Enrollment extends Model {
 			this.setId(this.result.getInt("id"));
 			this.setUser_id(this.result.getInt("user_id"));
 			this.setSubscription_id(this.result.getInt("subscription_id"));
+			this.setTimestamp(this.result.getTimestamp("datetime"));
 
 			this.setSubscription(new Subscription(this.getSubscription_id()));
 

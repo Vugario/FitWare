@@ -178,9 +178,7 @@ public class Profile extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         passwordChanged = new javax.swing.JCheckBox();
 
-        setOpaque(false);
-
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel4.setText("Mijn gegevens");
 
         jLabel5.setText("Klantnummer");
@@ -201,7 +199,7 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel11.setText("Woonplaats / postcode");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel12.setText("Contactgegevens");
 
         jLabel13.setText("Telefoonnummer");
@@ -210,7 +208,7 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel15.setText("E-mailadres");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel16.setText("Wachtwoord");
 
         jLabel17.setText("Wachtwoord herhalen");
@@ -374,7 +372,7 @@ public class Profile extends javax.swing.JPanel {
                     .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(profileSaveButton)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         passwordChanged.getAccessibleContext().setAccessibleName("passwordChanged");

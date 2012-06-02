@@ -12,6 +12,7 @@ package view.member;
 
 import helper.SearchTable;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
 import main.Session;
@@ -48,6 +49,9 @@ public class Invoices extends javax.swing.JPanel {
 		
 		// Secondly, fill it with all invoices
 		ArrayList<Invoice> invoices = Invoice.readByUserId(user.getId());
+		
+		// In reverse order (so newest is on top)
+		Collections.reverse(invoices);
 		
 		for(Invoice invoice : invoices) {
 			model.addRow(invoice.getTableRowObjects());
