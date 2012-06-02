@@ -2,7 +2,6 @@ package helper;
 
 import java.awt.AWTEvent;
 import java.awt.EventQueue;
-import javax.swing.JOptionPane;
 
 /**
  * This class overrides the default EventQueue that is used by the Swing
