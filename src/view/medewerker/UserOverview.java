@@ -61,17 +61,17 @@ public class UserOverview extends javax.swing.JPanel {
 	 */
 	private void showUser() {
 		
-		User user = new User();
 		// Get the currently selected user
+		int rowNumber = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+		String stringId = (String) model.getValueAt(rowNumber, 0);
+		int userId = Integer.parseInt(stringId);
 		
-		int rowNumber = jTable1.getSelectedRow();
-
-		
-		Object id = model.getValueAt(rowNumber, 0);
-
+		System.out.println("hoi");
+		System.out.println(userId);
+		System.out.println("doei");
 		
 		//Set the product data in the view
-		Application.getInstance().showPanel(new view.medewerker.UserModify(Integer.parseInt(id.toString())));
+		Application.getInstance().showPanel(new view.medewerker.UserModify(userId));
 
 	}
 	
@@ -173,7 +173,7 @@ public class UserOverview extends javax.swing.JPanel {
                         .addComponent(jButtonReset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(newUser)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,11 +186,11 @@ public class UserOverview extends javax.swing.JPanel {
                             .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonReset)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(20, Short.MAX_VALUE)
+                        .addContainerGap(21, Short.MAX_VALUE)
                         .addComponent(newUser)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

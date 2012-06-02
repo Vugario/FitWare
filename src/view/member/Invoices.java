@@ -60,7 +60,7 @@ public class Invoices extends javax.swing.JPanel {
 	
 	private void showInvoice() {
 		// Get the currently selected subscription
-		int rowNumber = jTable1.getSelectedRow();
+		int rowNumber = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
 		String invoiceId = (String) model.getValueAt(rowNumber, 0);
 		Invoice invoice = new Invoice();
 		invoice.readInvoice(Integer.parseInt(invoiceId));

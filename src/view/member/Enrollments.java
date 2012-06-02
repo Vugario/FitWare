@@ -57,7 +57,7 @@ public class Enrollments extends javax.swing.JPanel {
 
 	private void showEnrollment() {
 		// Get the currently selected subscription
-		int rowNumber = jEnrollments.getSelectedRow();
+		int rowNumber = jEnrollments.convertRowIndexToModel(jEnrollments.getSelectedRow());
 		int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
 		Subscription subscription = new Subscription(subscriptionId);
 

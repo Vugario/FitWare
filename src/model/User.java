@@ -265,11 +265,10 @@ public class User extends Model {
 			
 			switch(roleId){
 				case 1:
-					
-					roleTitle = "lid";
+					roleTitle = "Lid";
 					break;
 				case 2:
-					roleTitle = "barmedewerker";
+					roleTitle = "Barmedewerker";
 					break;
 				case 3:
 					roleTitle = "Admin";
@@ -283,9 +282,9 @@ public class User extends Model {
 			}
 			
 			return new Object[] {
-				id,
-				String.format(firstname +" "+ lastname),
-				fomatBirthdate,//datetime.format("dd-MM-yyyy"),
+				String.format("%04d", id),
+				getFullName(),
+				fomatBirthdate,
 				roleTitle,
 				email
 				};
