@@ -66,10 +66,6 @@ public class UserOverview extends javax.swing.JPanel {
 		String stringId = (String) model.getValueAt(rowNumber, 0);
 		int userId = Integer.parseInt(stringId);
 		
-		System.out.println("hoi");
-		System.out.println(userId);
-		System.out.println("doei");
-		
 		//Set the product data in the view
 		Application.getInstance().showPanel(new view.medewerker.UserModify(userId));
 
