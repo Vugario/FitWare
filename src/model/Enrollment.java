@@ -65,13 +65,13 @@ public class Enrollment extends Model {
 			// Execute the query
 			Model model = new Model();
 			model.open();
-			model.query("SELECT e.* FROM \"enrollment\" e RIGHT JOIN \"user\" u ON e.user_id = u.id WHERE e.user_id = ?").setInt(1, id);
+			model.query("SELECT e.* FROM \"enrollment\" e RIGHT JOIN \"user\" u ON e.user_id = u.id WHERE e.subscription_id = ?").setInt(1, id);
 			model.result();
 
 			// Loop over all results
 			while (model.result.next()) {
 				User user = new User();
-				user.readUser( model.result.getInt("id"));
+				user.readUser( model.result.getInt("user_id"));
 				users.add( user );
 			}
 
@@ -100,7 +100,6 @@ public class Enrollment extends Model {
 
 	public Enrollment readEnrollmentBySubscriptionIdAndUserId(int id, int user_id) {
 		try {
-			System.out.println("subscription_id = " + id + " AND user_id = " + user_id );
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM \"enrollment\" WHERE subscription_id = ? AND user_id = ? LIMIT 1");
 			query.setInt(1, id);

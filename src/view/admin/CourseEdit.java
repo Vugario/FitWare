@@ -1,10 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * CourseAdd.java
+ * CourseEdit.java
  *
  * Created on May 18, 2012, 8:53:21 PM
  */
@@ -17,18 +12,20 @@ import model.Subscription;
 import view.popups.SuccessPopup;
 
 /**
- * This is the view for adding a course
- * @author vm
+ * This is the view for editing a course
+ * @author mennowolvers
  */
-public class CourseAdd extends javax.swing.JPanel {
+public class CourseEdit extends javax.swing.JPanel {
 
 	String days;
 	String type;
-	Subscription subscription = new Subscription();
+	Subscription subscription;
 
 	/** Creates new form CourseAdd */
-	public CourseAdd() {
+	public CourseEdit( int id ) {
 		initComponents();
+		
+		this.subscription = new Subscription( id );
 
 		jComboBoxAgeGroup.removeAllItems();
 		jComboBoxAgeGroup.addItem("< 16");
@@ -44,8 +41,46 @@ public class CourseAdd extends javax.swing.JPanel {
 		buttongroupGender.add(jRadioButtonMale);
 		buttongroupGender.add(jRadioButtonFemale);
 		buttongroupGender.add(jRadioButtonMixed);
+		
+		this.populate();
 
 	}
+	
+	public void populate()
+	{
+		jTextFieldCourseName.setText( this.subscription.getTitle() );
+		
+		if( this.subscription.getType() == 'd' )
+			jRadioButtonCourseType2.setSelected(true);
+		else
+			jRadioButtonCourseType1.setSelected(true);
+		
+		jTextFieldStartTime.setText( String.valueOf( this.subscription.getStartTime() ) );
+		jTextFieldEndTime.setText( String.valueOf( this.subscription.getEndTime() ) );
+		jTextFieldStartDate.setText( String.valueOf( this.subscription.getStartDate() ) );
+		jTextFieldEndDate.setText( String.valueOf( this.subscription.getEndDate() ) );
+		
+		if( this.subscription.getGender() == 'm' )
+			jRadioButtonMale.setSelected(true);
+		else if( this.subscription.getGender() == 'f' )
+			jRadioButtonMale.setSelected(true);
+		else
+			jRadioButtonMixed.setSelected(true);
+		
+		jTextFieldPrice.setText( String.valueOf( this.subscription.getPrice() ) );
+		
+		if( this.subscription.getMaximumAge() <= 16 )
+			jComboBoxAgeGroup.setSelectedIndex(0);
+		else if( this.subscription.getMaximumAge() <= 18 )
+			jComboBoxAgeGroup.setSelectedIndex(1);
+		else if( this.subscription.getMaximumAge() <= 65 )
+			jComboBoxAgeGroup.setSelectedIndex(2);
+		else if( this.subscription.getMaximumAge() <= 150 )
+			jComboBoxAgeGroup.setSelectedIndex(3);
+		
+		jTextAreaDescription.setText( this.subscription.getDescription() );
+	}
+
 	public void setSubscriptionData() {
 		
 			
@@ -126,13 +161,6 @@ public class CourseAdd extends javax.swing.JPanel {
                 jLabelDescription = new javax.swing.JLabel();
                 jRadioButtonCourseType1 = new javax.swing.JRadioButton();
                 jRadioButtonCourseType2 = new javax.swing.JRadioButton();
-                jCheckBoxMonday = new javax.swing.JCheckBox();
-                jCheckBoxTuesday = new javax.swing.JCheckBox();
-                jCheckBoxWednesday = new javax.swing.JCheckBox();
-                jCheckBoxThursday = new javax.swing.JCheckBox();
-                jCheckBoxFriday = new javax.swing.JCheckBox();
-                jCheckBoxSaturday = new javax.swing.JCheckBox();
-                jCheckBoxSunday = new javax.swing.JCheckBox();
                 jTextFieldStartDate = new javax.swing.JTextField();
                 jTextFieldEndDate = new javax.swing.JTextField();
                 jTextFieldStartTime = new javax.swing.JTextField();
@@ -148,6 +176,13 @@ public class CourseAdd extends javax.swing.JPanel {
                 jButtonSave = new javax.swing.JButton();
                 jLabel2 = new javax.swing.JLabel();
                 jTextFieldPrice = new javax.swing.JTextField();
+                jCheckBoxMonday = new javax.swing.JCheckBox();
+                jCheckBoxTuesday = new javax.swing.JCheckBox();
+                jCheckBoxThursday = new javax.swing.JCheckBox();
+                jCheckBoxWednesday = new javax.swing.JCheckBox();
+                jCheckBoxFriday = new javax.swing.JCheckBox();
+                jCheckBoxSaturday = new javax.swing.JCheckBox();
+                jCheckBoxSunday = new javax.swing.JCheckBox();
 
                 setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -171,16 +206,16 @@ public class CourseAdd extends javax.swing.JPanel {
 
                 jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 16));
                 jLabel7.setText("Omschrijving");
-                add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+                add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 316, -1, -1));
 
                 jLabelFocusGroup.setText("Doelgroep");
-                add(jLabelFocusGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 348, -1, -1));
+                add(jLabelFocusGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 344, -1, -1));
 
                 jLabelAgeGroup.setText("Leeftijds groep");
-                add(jLabelAgeGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 376, -1, -1));
+                add(jLabelAgeGroup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 374, -1, -1));
 
                 jLabelDescription.setText("Omschrijving");
-                add(jLabelDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 409, -1, -1));
+                add(jLabelDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
 
                 jRadioButtonCourseType1.setText("Los");
                 add(jRadioButtonCourseType1, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 61, -1, -1));
@@ -191,37 +226,16 @@ public class CourseAdd extends javax.swing.JPanel {
                                 jRadioButtonCourseType2StateChanged(evt);
                         }
                 });
-                add(jRadioButtonCourseType2, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 85, -1, -1));
-
-                jCheckBoxMonday.setText("Ma");
-                jCheckBoxMonday.addActionListener(new java.awt.event.ActionListener() {
+                jRadioButtonCourseType2.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                jCheckBoxMondayActionPerformed(evt);
+                                jRadioButtonCourseType2ActionPerformed(evt);
                         }
                 });
-                add(jCheckBoxMonday, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 108, -1, -1));
-
-                jCheckBoxTuesday.setText("Di");
-                add(jCheckBoxTuesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 108, -1, -1));
-
-                jCheckBoxWednesday.setText("Wo");
-                add(jCheckBoxWednesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 108, -1, -1));
-
-                jCheckBoxThursday.setText("Do");
-                add(jCheckBoxThursday, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 108, -1, -1));
-
-                jCheckBoxFriday.setText("Vr");
-                add(jCheckBoxFriday, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 108, -1, -1));
-
-                jCheckBoxSaturday.setText("Za");
-                add(jCheckBoxSaturday, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 108, -1, -1));
-
-                jCheckBoxSunday.setText("Zo");
-                add(jCheckBoxSunday, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 108, -1, -1));
-                add(jTextFieldStartDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 136, 108, -1));
-                add(jTextFieldEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 172, 108, -1));
-                add(jTextFieldStartTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 208, 108, -1));
-                add(jTextFieldEndTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 244, 108, -1));
+                add(jRadioButtonCourseType2, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 85, -1, -1));
+                add(jTextFieldStartDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 136, 150, -1));
+                add(jTextFieldEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 172, 150, -1));
+                add(jTextFieldStartTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 208, 150, -1));
+                add(jTextFieldEndTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 244, 150, -1));
 
                 jRadioButtonMale.setText("Man");
                 add(jRadioButtonMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, -1, -1));
@@ -239,11 +253,11 @@ public class CourseAdd extends javax.swing.JPanel {
                 jTextAreaDescription.setRows(5);
                 jScrollPane1.setViewportView(jTextAreaDescription);
 
-                add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 510, -1));
-                add(jTextFieldCourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 29, 380, -1));
+                add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, 520, -1));
+                add(jTextFieldCourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 29, 340, -1));
 
-                jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 16));
-                jLabel1.setText("Cursus Aanmaken");
+                jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+                jLabel1.setText("Cursus wijzigen");
                 add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
                 jButtonSave.setText("Opslaan");
@@ -252,11 +266,37 @@ public class CourseAdd extends javax.swing.JPanel {
                                 jButtonSaveActionPerformed(evt);
                         }
                 });
-                add(jButtonSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(667, 500, -1, -1));
+                add(jButtonSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 500, -1, -1));
 
                 jLabel2.setText("Prijs");
                 add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 286, -1, -1));
-                add(jTextFieldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 280, 108, -1));
+                add(jTextFieldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 280, 150, -1));
+
+                jCheckBoxMonday.setText("Ma");
+                jCheckBoxMonday.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jCheckBoxMondayActionPerformed(evt);
+                        }
+                });
+                add(jCheckBoxMonday, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 108, -1, -1));
+
+                jCheckBoxTuesday.setText("Di");
+                add(jCheckBoxTuesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 108, -1, -1));
+
+                jCheckBoxThursday.setText("Do");
+                add(jCheckBoxThursday, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 108, -1, -1));
+
+                jCheckBoxWednesday.setText("Wo");
+                add(jCheckBoxWednesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 108, -1, -1));
+
+                jCheckBoxFriday.setText("Vr");
+                add(jCheckBoxFriday, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 108, -1, -1));
+
+                jCheckBoxSaturday.setText("Za");
+                add(jCheckBoxSaturday, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 108, -1, -1));
+
+                jCheckBoxSunday.setText("Zo");
+                add(jCheckBoxSunday, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 108, -1, -1));
         }// </editor-fold>//GEN-END:initComponents
 
 	private void jRadioButtonCourseType2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2StateChanged
@@ -267,12 +307,16 @@ public class CourseAdd extends javax.swing.JPanel {
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
 		// TODO add your handling code here:
 		setSubscriptionData();
-		subscription.create();
+		subscription.edit();
 		
 		Application.getInstance().showPanel(new view.barmedewerker.CoursesOverview());
 		
 		
 	}//GEN-LAST:event_jButtonSaveActionPerformed
+
+private void jRadioButtonCourseType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jRadioButtonCourseType2ActionPerformed
 
 private void jCheckBoxMondayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMondayActionPerformed
 		// TODO add your handling code here:

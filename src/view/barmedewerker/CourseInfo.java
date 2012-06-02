@@ -6,6 +6,7 @@
 package view.barmedewerker;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
@@ -13,6 +14,7 @@ import main.ExceptionHandler;
 import model.Enrollment;
 import model.Subscription;
 import model.User;
+import view.popups.ErrorPopup;
 import view.popups.SuccessPopup;
 
 /**
@@ -21,6 +23,7 @@ import view.popups.SuccessPopup;
  * @author mennowolvers
  */
 public class CourseInfo extends javax.swing.JPanel {
+
 	private Subscription subscription;
 	private DefaultTableModel model;
 	private ListSelectionModel row;
@@ -30,57 +33,65 @@ public class CourseInfo extends javax.swing.JPanel {
 	public CourseInfo() {
 		initComponents();
 	}
-	
-	public CourseInfo( int subscriptionId ) {
+
+	public CourseInfo(int subscriptionId) {
 		initComponents();
-		
-		this.subscription = new Subscription( subscriptionId );
-		this.model = (DefaultTableModel)jTableUsers.getModel();
-		
+
+		this.subscription = new Subscription(subscriptionId);
+		this.model = (DefaultTableModel) jTableUsers.getModel();
+
 		this.render();
 	}
-	
+
 	public void render() {
-		jLabelName.setText( this.subscription.getTitle() );
-		jLabelGender.setText( "Man" );
-		jLabelAge.setText( String.valueOf( this.subscription.getMinimumAge() ) );
-		jLabelDays.setText( "Maandag, Woensdag" );
-		jLabelDuration.setText( String.valueOf( this.subscription.getStartTime() ) + " - " + String.valueOf( this.subscription.getEndTime() ) );
-		jLabelDescription.setText( this.subscription.getDescription() );
+		jLabelName.setText(this.subscription.getTitle());
+		jLabelGender.setText("Man");
+		jLabelAge.setText(String.valueOf(this.subscription.getMinimumAge()));
+		jLabelDays.setText("Maandag, Woensdag");
+		jLabelDuration.setText(String.valueOf(this.subscription.getStartTime()) + " - " + String.valueOf(this.subscription.getEndTime()));
+		jLabelDescription.setText(this.subscription.getDescription());
 		
+		// Empty results
+		jLabelUser.setText( "" );
+		jBtnSubmit.setVisible( false );
+
 		// Enrollments
-		ArrayList<User> users = Enrollment.readBySubscriptionId( this.subscription.getId() );
-		
-		for( User user : users ) {
-			if( user.getFullName() != "" && user.getFirstname() != null ) {
-				this.model.insertRow( 0, new Object[]{ user.getId(), user.getFullName() } );
+		ArrayList<User> users = Enrollment.readBySubscriptionId(this.subscription.getId());
+
+		for (User user : users) {
+			if (user.getFullName() != "" && user.getFirstname() != null) {
+				this.model.insertRow(0, new Object[]{user.getId(), user.getFullName()});
 			}
 		}
-		
+
 		// Make a selection listener
 		this.row = jTableUsers.getSelectionModel();
 		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		
+
 	}
-	
+
 	public void searchUser() {
-		// Search a user and return a result
-		// TODO: search by name, etc.
-		User user = new User();
+		// Empty results
+		jLabelUser.setText( "" );
+		jBtnSubmit.setVisible( false );
 		
+		// Search a user and return a result
+		User user = new User();
+
 		try {
 			int id = Integer.parseInt(jTextId.getText());
 			user.readUser(id);
-			if(user.getId() > 0){
+			if (user.getId() > 0) {
 				this.userId = user.getId();
 				// Set the label
 				jLabelUser.setText(user.getFullName());
+				jBtnSubmit.setVisible( true );
 			}
 		} catch (Exception ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
-		
-		
+
+
 
 	}
 
@@ -111,11 +122,12 @@ public class CourseInfo extends javax.swing.JPanel {
                 jBtnSearch = new javax.swing.JButton();
                 jSeparator2 = new javax.swing.JSeparator();
                 jLabelUser = new javax.swing.JLabel();
-                jLabelBirthdate = new javax.swing.JLabel();
                 jBtnSubmit = new javax.swing.JButton();
                 jLabel8 = new javax.swing.JLabel();
                 jScrollPane1 = new javax.swing.JScrollPane();
                 jTableUsers = new javax.swing.JTable();
+                jBtnEdit = new javax.swing.JButton();
+                jBtnEdit1 = new javax.swing.JButton();
 
                 jLabel1.setText("Naam");
 
@@ -159,8 +171,6 @@ public class CourseInfo extends javax.swing.JPanel {
                 jLabelUser.setFont(new java.awt.Font("Lucida Grande", 1, 13));
                 jLabelUser.setText("Menno Wolvers");
 
-                jLabelBirthdate.setText("18-09-1991");
-
                 jBtnSubmit.setText("Aanmelden");
                 jBtnSubmit.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +197,26 @@ public class CourseInfo extends javax.swing.JPanel {
                                 return canEdit [columnIndex];
                         }
                 });
+                jTableUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                jTableUsersMouseClicked(evt);
+                        }
+                });
                 jScrollPane1.setViewportView(jTableUsers);
+
+                jBtnEdit.setText("Wijzigen");
+                jBtnEdit.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jBtnEditActionPerformed(evt);
+                        }
+                });
+
+                jBtnEdit1.setText("Verwijderen");
+                jBtnEdit1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jBtnEdit1ActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
@@ -232,18 +261,23 @@ public class CourseInfo extends javax.swing.JPanel {
                                                                 .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(23, 23, 23)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabelBirthdate)
-                                                                        .addComponent(jLabelUser))
+                                                                .addComponent(jLabelUser)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                                                                 .addComponent(jBtnSubmit)))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addGap(76, 76, 76)
+                                                .addComponent(jBtnEdit)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jBtnEdit1)
+                                                .addGap(17, 17, 17))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                                                .addContainerGap())))
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,16 +321,20 @@ public class CourseInfo extends javax.swing.JPanel {
                                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(jLabelUser)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jLabelBirthdate))
+                                                        .addComponent(jLabelUser)
                                                         .addComponent(jBtnSubmit)))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(16, 16, 16)
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(36, 36, 36)
+                                                                .addComponent(jLabel8))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                        .addComponent(jBtnEdit)
+                                                                        .addComponent(jBtnEdit1))))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
         }// </editor-fold>//GEN-END:initComponents
@@ -307,18 +345,63 @@ private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void jBtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitActionPerformed
 	Enrollment enrollment = new Enrollment();
-	enrollment.subscribe( this.subscription.getId(), this.userId );
 	
+	enrollment.readEnrollmentBySubscriptionIdAndUserId( this.subscription.getId(), this.userId );
 	
-	User user = new User();
-	user.readUser( this.userId );
-	
-	this.model.insertRow( 0, new Object[] { user.getId(), user.getFullName() } );
-	
-	Application.getInstance().showPopup(new SuccessPopup("Deelnemer " + user.getFullName() + " is ingeschreven."));
+	if( enrollment.isEnrolled() == false ) {
+		enrollment.subscribe(this.subscription.getId(), this.userId);
+
+
+		User user = new User();
+		user.readUser(this.userId);
+
+		this.model.insertRow(0, new Object[]{user.getId(), user.getFullName()});
+
+		Application.getInstance().showPopup(new SuccessPopup("Deelnemer " + user.getFullName() + " is ingeschreven."));
+	}else{
+		Application.getInstance().showPopup(new ErrorPopup("De deelnemer is al ingeschreven."));
+	}
 }//GEN-LAST:event_jBtnSubmitActionPerformed
 
+private void jTableUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsersMouseClicked
+	if (evt.getClickCount() >= 2) {
+		// Double clicked!
+
+		int response = JOptionPane.showConfirmDialog(null, "Weet je zeker dat je deze deelnemer wilt uitschrijven?", "Deelnemer uitschrijven", JOptionPane.YES_NO_OPTION);
+		
+		if( response == 0 ) {
+			// Get the currently selected subscription
+			int rowNumber = jTableUsers.getSelectedRow();
+			int user_id = (Integer) model.getValueAt(rowNumber, 0);
+
+			Enrollment enrollment = new Enrollment();
+			enrollment.unsubscribe(this.subscription.getId(), user_id);
+			
+			this.model.removeRow(rowNumber);
+
+			Application.getInstance().showPopup(new SuccessPopup("De deelnemer is succesvol uitgeschreven."));
+		}
+	}
+}//GEN-LAST:event_jTableUsersMouseClicked
+
+private void jBtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditActionPerformed
+	Application.getInstance().showPanel( new view.admin.CourseEdit( this.subscription.getId() ) );
+}//GEN-LAST:event_jBtnEditActionPerformed
+
+private void jBtnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEdit1ActionPerformed
+	int response = JOptionPane.showConfirmDialog(null, "Weet je zeker dat je de cursus wilt verwijderen?", "Cursus verwijderen", JOptionPane.YES_NO_OPTION);
+		
+	if( response == 0 ) {
+		// Get the currently selected subscription
+		this.subscription.delete();
+		
+		Application.getInstance().showPanel( new view.barmedewerker.CoursesOverview() );
+	}
+}//GEN-LAST:event_jBtnEdit1ActionPerformed
+
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JButton jBtnEdit;
+        private javax.swing.JButton jBtnEdit1;
         private javax.swing.JButton jBtnSearch;
         private javax.swing.JButton jBtnSubmit;
         private javax.swing.JLabel jLabel1;
@@ -330,7 +413,6 @@ private void jBtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         private javax.swing.JLabel jLabel7;
         private javax.swing.JLabel jLabel8;
         private javax.swing.JLabel jLabelAge;
-        private javax.swing.JLabel jLabelBirthdate;
         private javax.swing.JLabel jLabelDays;
         private javax.swing.JLabel jLabelDescription;
         private javax.swing.JLabel jLabelDuration;

@@ -116,6 +116,66 @@ public class Subscription extends Model {
 		}
 		
 	}
+	
+	public void edit(){
+		try {
+			this.open();
+			PreparedStatement query =  this.query("UPDATE subscription"
+					+ "SET title = ?, description = ?, minimumAge = ?, maximumage = ?"
+					+ "price = ?, monthly = ?, \"branchId\" = ?, gender = ?, "
+					+ "startdate = ?, enddate = ?, starttime = ?, endtime = ?, \"type\" = ?)"
+					+ "WHERE id = ?"
+					);
+								
+					query.setString(1, this.getTitle() );
+					query.setString(2, this.getDescription() );					
+					query.setInt(3, this.getMinimumAge() );
+					query.setInt(4, this.getMaximumAge() );
+					query.setDouble(5, this.getPrice() );
+					query.setBoolean(6, this.getMonthly() );
+					query.setInt(7, 1);
+					query.setString(8, String.valueOf( this.getGender() ) );
+					query.setDate(9, this.getStartDate() );
+					query.setDate(10, this.getEndDate() );
+					query.setTime(11, this.getStartTime() );
+					query.setTime(12, this.getEndTime() );
+					query.setString(13, String.valueOf( this.getType() ) );
+					query.setInt(14, this.getId() );
+					
+					Application.getInstance().showPopup(new NotificationPopup("De cursus is toegevoegd."));
+		} catch (SQLException ex) {
+			
+			Logger.getLogger(Subscription.class.getName()).log(Level.SEVERE, null, ex);
+			Application.getInstance().showPopup(new NotificationPopup("Er is iets mis gegaan. \n"
+					+ "Probeer het nogmaals."));
+		}finally {
+			this.execute();
+		}
+		
+	}
+	
+	
+	
+	public void delete(){
+		try {
+			this.open();
+			PreparedStatement enrollment_query =  this.query("DELETE FROM enrollment WHERE subscription_id = ?");
+			enrollment_query.setInt(1, this.getId() );
+			
+			PreparedStatement query =  this.query("DELETE FROM subscription WHERE id = ?");
+			query.setInt(1, this.getId() );
+			
+			Application.getInstance().showPopup(new NotificationPopup("De cursus is verwijderd."));
+		} catch (SQLException ex) {
+			
+			Logger.getLogger(Subscription.class.getName()).log(Level.SEVERE, null, ex);
+			Application.getInstance().showPopup(new NotificationPopup("Er is iets mis gegaan. \n"
+					+ "Probeer het nogmaals."));
+		}finally {
+			this.execute();
+		}
+		
+	}
 
 	protected void setPropertiesFromResult() {
 		try {
