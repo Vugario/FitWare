@@ -72,7 +72,9 @@ public class Dashboard extends javax.swing.JPanel {
 	public void searchUser() {
 		
 		try {
+						
 			int id = Integer.parseInt(userSearchField.getText());
+			
 			user.readUser(id);
 			
 			jLabelCustomerName.setVisible(true);
@@ -97,7 +99,7 @@ public class Dashboard extends javax.swing.JPanel {
 				}else{
 					jLabelCustomerGender.setText("Vrouw");
 				}
-				
+				userCheckin.setEnabled(true);
 				addUserCoursesToComboBox(userId);
 				
 			}else{
@@ -134,8 +136,207 @@ public class Dashboard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        recentPayments = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        totalMembers = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        userSearchField = new javax.swing.JTextField();
+        jLabelFullname1 = new javax.swing.JLabel();
+        jButtonSearchUser = new javax.swing.JButton();
+        userFoundPanel = new javax.swing.JPanel();
+        jLabelCustomerName = new javax.swing.JLabel();
+        jLabelCustomerBirthdate = new javax.swing.JLabel();
+        jLabelCustomerGender = new javax.swing.JLabel();
+        userCourses = new javax.swing.JComboBox();
+        userCheckin = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        checkinSuccessPanel = new javax.swing.JPanel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabelFullname2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        checkinSuccessText = new javax.swing.JTextPane();
+
+        setPreferredSize(new java.awt.Dimension(831, 501));
+
+        recentPayments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Datum", "Prijs", "Product", "Betaald"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(recentPayments);
+        recentPayments.getColumnModel().getColumn(0).setResizable(false);
+        recentPayments.getColumnModel().getColumn(1).setResizable(false);
+        recentPayments.getColumnModel().getColumn(2).setResizable(false);
+        recentPayments.getColumnModel().getColumn(3).setResizable(false);
+
+        jPanel2.setBackground(new java.awt.Color(242, 241, 240));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        totalMembers.setFont(new java.awt.Font("Lucida Grande", 1, 18));
+        totalMembers.setText("Welkom terug, ");
+
+        jLabel1.setText("jLabel1");
+
+        jButton1.setText("jButton1");
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(28, 28, 28)
+                .add(totalMembers, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 234, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(jLabel1)
+                .addContainerGap(127, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(338, Short.MAX_VALUE)
+                .add(jButton1)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(totalMembers)
+                    .add(jLabel1))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButton1))
+        );
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel3.setText("Aangemeld voor cursussen");
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(8, 8, 8)
+                .add(jLabel3)
+                .addContainerGap(215, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(jLabel3)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel2.setText("Recente activiteiten");
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel2)
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(jLabel2)
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(242, 241, 240));
+
+        userSearchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userSearchFieldActionPerformed(evt);
+            }
+        });
+
+        jLabelFullname1.setFont(new java.awt.Font("Ubuntu", 1, 18));
+        jLabelFullname1.setText("Gebruiker inchecken");
+
+        jButtonSearchUser.setText("Zoeken");
+        jButtonSearchUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchUserActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .add(userSearchField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jButtonSearchUser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabelFullname1))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+                .add(13, 13, 13)
+                .add(jLabelFullname1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(userSearchField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButtonSearchUser))
+                .add(23, 23, 23))
+        );
+
+        userFoundPanel.setBackground(new java.awt.Color(242, 241, 240));
+
+        jLabelCustomerName.setFont(new java.awt.Font("Ubuntu", 1, 14));
+        jLabelCustomerName.setText("gebruiker");
+
+        jLabelCustomerBirthdate.setFont(new java.awt.Font("Ubuntu", 0, 14));
+        jLabelCustomerBirthdate.setText("21-05-2012");
+
+        jLabelCustomerGender.setFont(new java.awt.Font("Ubuntu", 0, 14));
+        jLabelCustomerGender.setText("gender");
 
         userCourses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         userCourses.addActionListener(new java.awt.event.ActionListener() {
@@ -247,8 +448,8 @@ public class Dashboard extends javax.swing.JPanel {
                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -315,7 +516,9 @@ public class Dashboard extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel checkinSuccessPanel;
     private javax.swing.JTextPane checkinSuccessText;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSearchUser;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelCustomerBirthdate;
