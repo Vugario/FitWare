@@ -23,17 +23,35 @@ import view.popups.SuccessPopup;
  * @author mennowolvers
  */
 public class CourseInfo extends javax.swing.JPanel {
-
+	
+	/**
+	 * subscription is the variable of the Subscription class
+	 */
 	private Subscription subscription;
+	/**
+	 * model is the variable used to fill and search the jTable's 
+	 * information
+	 */
 	private DefaultTableModel model;
+	
+	/**
+	 * row is the variable used to get the selected row
+	 */
 	private ListSelectionModel row;
+	/**
+	 * userId is a integer that is used to give a user identifier
+	 */
 	private int userId;
 
 	/** Creates new form CourseInfo */
 	public CourseInfo() {
 		initComponents();
 	}
-
+	
+	/**
+	 * This method gets the course info of a particular course (subscription)
+	 * @param subscriptionId is the identifier of a course (subscription)
+	 */
 	public CourseInfo(int subscriptionId) {
 		initComponents();
 
@@ -43,11 +61,15 @@ public class CourseInfo extends javax.swing.JPanel {
 		this.render();
 	}
 
+	/**
+	 * This method is used to 
+	 * @todo 
+	 */
 	public void render() {
 		jLabelName.setText(this.subscription.getTitle());
 		jLabelGender.setText("Man");
 		jLabelAge.setText(String.valueOf(this.subscription.getMinimumAge()));
-		jLabelDays.setText(this.implode( this.subscription.getDays(), ", " ) );
+		jLabelDays.setText(CourseInfo.implode( this.subscription.getDays(), ", " ) );
 		jLabelDuration.setText(String.valueOf(this.subscription.getStartTime()) + " - " + String.valueOf(this.subscription.getEndTime()));
 		jLabelDescription.setText(this.subscription.getDescription());
 		
@@ -79,7 +101,11 @@ public class CourseInfo extends javax.swing.JPanel {
 		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 	}
-
+	
+	/**
+	 * This method searches the user you type in the textfield. The user is 
+	 * searched to add him to the course.
+	 */
 	public void searchUser() {
 		// Empty results
 		jLabelUser.setText( "" );
@@ -104,7 +130,12 @@ public class CourseInfo extends javax.swing.JPanel {
 
 
 	}
-	
+	/**
+	 * This method makes visible which days the course is held.
+	 * @param ary array of days
+	 * @param delim delimiter is used to add a , and a space to separate the days
+	 * @return 
+	 */
 	public static String implode(String[] ary, String delim) {
 	    String out = "";
 	    if( ary != null && ary.length > 0 ) {
