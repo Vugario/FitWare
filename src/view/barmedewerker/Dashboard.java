@@ -271,7 +271,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(230, 228, 228));
 
         userSearchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,7 +315,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .add(22, 22, 22))
         );
 
-        userFoundPanel.setBackground(new java.awt.Color(255, 255, 255));
+        userFoundPanel.setBackground(new java.awt.Color(230, 228, 228));
 
         jLabelCustomerName.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabelCustomerName.setText("gebruiker");
@@ -386,11 +386,12 @@ public class Dashboard extends javax.swing.JPanel {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        checkinSuccessPanel.setBackground(new java.awt.Color(255, 255, 255));
+        checkinSuccessPanel.setBackground(new java.awt.Color(230, 228, 228));
 
         jLabelFullname2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabelFullname2.setText("Succesvol ingecheckt");
 
+        checkinSuccessText.setBackground(new java.awt.Color(230, 228, 228));
         checkinSuccessText.setBorder(null);
         checkinSuccessText.setEditable(false);
         jScrollPane2.setViewportView(checkinSuccessText);
@@ -417,7 +418,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .add(jLabelFullname2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -456,7 +457,7 @@ public class Dashboard extends javax.swing.JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(userFoundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 115, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 116, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
