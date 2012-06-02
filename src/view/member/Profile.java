@@ -5,12 +5,12 @@
  */
 package view.member;
 
-import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import main.Application;
 import main.Session;
 import model.User;
 import view.popups.ErrorPopup;
+import view.popups.SuccessPopup;
 
 /**
  *
@@ -19,7 +19,7 @@ import view.popups.ErrorPopup;
 public class Profile extends javax.swing.JPanel {
 
 	boolean passwordChange;
-	
+
 	public boolean isPasswordChange() {
 		return passwordChange;
 	}
@@ -27,17 +27,13 @@ public class Profile extends javax.swing.JPanel {
 	public void setPasswordChange(boolean passwordChange) {
 		this.passwordChange = passwordChange;
 	}
-	
-	
-	
-	private	User sessionUser = new User().readUser(Session.get().getLoggedInUser().getId());
+	private User sessionUser = new User().readUser(Session.get().getLoggedInUser().getId());
 
-	
 	/** Creates new form Profile */
 	public Profile() {
 		initComponents();
 		loadUserData();
-		
+
 		jLabel17.setVisible(false);
 		jLabel18.setVisible(false);
 
@@ -45,19 +41,19 @@ public class Profile extends javax.swing.JPanel {
 		jPasswordField2.setVisible(false);
 	}
 
-	public void loadUserData() {
-		
+	public final void loadUserData() {
+
 		jTextFieldId.setText(Integer.toString(sessionUser.getId()));
 		jTextFieldUsername.setText(sessionUser.getUsername());
 		jTextFieldFirstname.setText(sessionUser.getFirstname());
 		jTextFieldSubname.setText(sessionUser.getSubname());
 		jTextFieldLastname.setText(sessionUser.getLastname());
-		
-		
-		if(sessionUser.getBirthdate() != null){
-			
+
+
+		if (sessionUser.getBirthdate() != null) {
+
 			System.out.println(sessionUser.getBirthdate());
-			
+
 			helper.Datetime datetime = new helper.Datetime(sessionUser.getBirthdate());
 
 
@@ -84,7 +80,7 @@ public class Profile extends javax.swing.JPanel {
 	}
 
 	public void setUserData(User user) {
-		
+
 		String username = jTextFieldUsername.getText();
 		user.setUsername(username);
 
@@ -98,7 +94,7 @@ public class Profile extends javax.swing.JPanel {
 		user.setLastname(lastname);
 
 		String birthdate = jTextFieldBirthdate.getText();
-		helper.Datetime datetime = new helper.Datetime(birthdate+" 00:00:00");	
+		helper.Datetime datetime = new helper.Datetime(birthdate + " 00:00:00");
 		user.setBirthdate(datetime.timestamp());
 
 		String street = jTextFieldStreet.getText();
@@ -118,18 +114,15 @@ public class Profile extends javax.swing.JPanel {
 
 		String mobilenumber = jTextFieldMobilenumber.getText();
 		user.setMobilenumber(mobilenumber);
-		
+
 		String email = jTextFieldEmail.getText();
 		user.setEmail(email);
 
 		if (jRadioButtonGenderMale.isSelected() == true) {
-			user.setGender(true);
+			user.setGender(User.MALE);
 		} else {
-			user.setGender(false);
+			user.setGender(User.FEMALE);
 		}
-		
-		String id = jTextFieldId.getText();
-		user.setId(Integer.parseInt(id));
 
 	}
 
@@ -379,67 +372,72 @@ public class Profile extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-		
+
 		//initiate new user to set new values
-		User user = new User();
-		
+		User user = Session.get().getLoggedInUser();
+
 		setUserData(user);
 
 		//Check if a @ sign is in the emailadress field
 		int emailcheck = jTextFieldEmail.getText().indexOf('@');
-		
+
 		boolean passwordChanged1 = passwordChanged.isSelected();
-		
-		if(passwordChanged.isSelected()){
+
+		if (passwordChanged.isSelected()) {
 			String password1 = new String(jPasswordField1.getPassword());
 			String password2 = new String(jPasswordField2.getPassword());
 			Boolean passwordequal = password1.equals(password2);
 			user.setPassword(password2);
-			
+
 			if (!passwordequal) {
 				Application.getInstance().showPopup(new ErrorPopup(
-					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
+						"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
+				return;
 			}
 		}
-		
-		
 
 		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
 		if (emailcheck < 0) {
-
 			Application.getInstance().showPopup(new ErrorPopup(
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
+			return;
 		}
-		
-		
-		if(!user.update()){
+
+		if (user.update()) {
+			
+			// Reload panel
+			Application.getInstance().showPanel(new Profile());
+			
+			// Update succesfull
+			Application.getInstance().showPopup(new SuccessPopup(
+					"Uw gegevens zijn opgeslagen."));
+			
+		} else {
+			
+			// Something went wrong
 			Application.getInstance().showPopup(new ErrorPopup(
-					"gegevens zijn niet goed opgeslagen. \nProbeer het nogmaals alstublieft."));
+					"Gegevens zijn niet goed opgeslagen. \nProbeer het nogmaals alstublieft."));
 		}
-		
-		Application.getInstance().showPanel(this);
-		
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
 	private void passwordChangedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordChangedActionPerformed
-		
-		if(passwordChanged.isSelected()){
+
+		if (passwordChanged.isSelected()) {
 			jLabel17.setVisible(true);
 			jLabel18.setVisible(true);
-			
+
 			jPasswordField1.setVisible(true);
 			jPasswordField2.setVisible(true);
 			passwordChange = true;
-		}else{
+		} else {
 			jLabel17.setVisible(false);
 			jLabel18.setVisible(false);
-			
+
 			jPasswordField1.setVisible(false);
 			jPasswordField2.setVisible(false);
 		}
 	}//GEN-LAST:event_passwordChangedActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -478,19 +476,3 @@ public class Profile extends javax.swing.JPanel {
     private javax.swing.JButton profileSaveButton;
     // End of variables declaration//GEN-END:variables
 }
-
-
-/*
- * 
-		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
-		if (emailcheck < 0) {
-
-			new ErrorPopup().showError("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
-					+ "Probeer het nogmaals alstublieft.");
-		}
-		//passwordequal check doesn't work, the SOUT works, it gives false or true but it will not show a panel. (Jeroen)
-		// That was because you checked with passwordequal = false. You needed the ==, or none at all.
-		if (!passwordequal) {
-			new ErrorPopup().showError("Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft.");
-		}
- */
