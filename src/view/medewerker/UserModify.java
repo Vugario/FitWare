@@ -34,8 +34,6 @@ public class UserModify extends javax.swing.JPanel {
     /** Creates new form Profile */
     public UserModify(int id) {
 		
-		System.out.println(id);
-		
         initComponents();
 		user.readUser(id);
 		loadUserData();
@@ -45,7 +43,7 @@ public class UserModify extends javax.swing.JPanel {
 		jPasswordField2.setVisible(false);
     }
 	
-	public void loadUserData() {
+	public final void loadUserData() {
 		
 		jTextFieldId.setText(Integer.toString(user.getId()));
 		jTextFieldUsername.setText(user.getUsername());
