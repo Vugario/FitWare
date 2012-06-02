@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -120,8 +121,8 @@ public class Invoice extends Model{
 			PreparedStatement query = model.query(
 					"SELECT * FROM enrollment "
 					+ "WHERE user_id = ?"
-					+ "  AND EXTRACT(YEAR FROM \"datetime\") = ?"
-					+ "  AND EXTRACT(MONTH FROM \"datetime\") = ?");
+					+ "  AND EXTRACT(YEAR FROM \"datetime\") <= ?"
+					+ "  AND EXTRACT(MONTH FROM \"datetime\") <= ?");
 			query.setInt(1, getUserID());
 			query.setInt(2, getYear());
 			query.setInt(3, getMonth());
@@ -134,6 +135,28 @@ public class Invoice extends Model{
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(InvoiceCreator.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		// Loop over each enrollment
+		// If an enrollment is non-monthly (thus for a fixed period), the whole amount is paid in advance
+		// Don't include these enrollments every month, only the first month it must be paid
+		Iterator<Enrollment> iterator = enrollments.iterator();
+		while (iterator.hasNext()) {
+			Enrollment enrollment = iterator.next();
+			Subscription subscription = enrollment.getSubscription();
+			
+			// Only add non-monthly subscriptions if the enrollment was this month
+			Date enrollmentDate = new Date(enrollment.getTimestamp().getTime());
+			GregorianCalendar enrollmentCalendar = new GregorianCalendar();
+			enrollmentCalendar.setTime(enrollmentDate);
+			
+			if(!subscription.getMonthly()
+					&& enrollmentCalendar.get(Calendar.YEAR) != getInvoiceCalendar().get(Calendar.YEAR)
+					&& enrollmentCalendar.get(Calendar.MONTH) != getInvoiceCalendar().get(Calendar.MONTH)) {
+				// Remove this subscription
+				// It is paid already
+				iterator.remove();
+			}
 		}
 		
 		return enrollments;
@@ -176,6 +199,38 @@ public class Invoice extends Model{
 		return purchases;
 	}
 	
+	/**
+	 * Recalculate the price of this invoice
+	 */
+	public void recalculatePrice() {
+		
+		Double newAmount = 0.0;
+		
+		// Loop over each enrollment
+		ArrayList<Enrollment> enrollments = getEnrollments();
+		for (int i = 0; i < enrollments.size(); i++) {
+			
+			Enrollment enrollment = enrollments.get(i);
+			Subscription subscription = enrollment.getSubscription();
+			
+			// Add the amount
+			newAmount += subscription.getPrice();
+		}
+		
+		// Loop over each purchase
+		ArrayList<Purchase> purchases = getPurchases();
+		for (int i = 0; i < purchases.size(); i++) {
+			
+			Purchase purchase = purchases.get(i);
+			
+			// Add the amount
+			newAmount += purchase.getPrice();
+		}
+		
+		// Update the amount
+		this.setAmount(newAmount);
+	}
+	
 	protected final void setPropertiesFromResult() {
 		try {
 
@@ -210,16 +265,25 @@ public class Invoice extends Model{
 	}
 	
 	/**
+	 * Get the GregorianCalendar object for this invoiceDate
+	 * 
+	 * @return The invoiceDate as GregorianCalendar object
+	 */
+	public GregorianCalendar getInvoiceCalendar() {
+		Date date = new Date(getInvoiceDate().getTime());
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		
+		return calendar;
+	}
+	
+	/**
 	 * Get the year of this invoice
 	 * 
 	 * @return The year this invoice is created in
 	 */
 	public int getYear() {
-		Date date = new Date(getInvoiceDate().getTime());
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(date);
-		
-		return calendar.get(Calendar.YEAR);
+		return getInvoiceCalendar().get(Calendar.YEAR);
 	}
 	
 	/**
@@ -228,11 +292,7 @@ public class Invoice extends Model{
 	 * @return The month this invoice is created in
 	 */
 	public int getMonth() {
-		Date date = new Date(getInvoiceDate().getTime());
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(date);
-		
-		return calendar.get(Calendar.MONTH);
+		return getInvoiceCalendar().get(Calendar.MONTH);
 	}
 	
 	/**
