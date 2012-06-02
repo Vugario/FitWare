@@ -66,6 +66,11 @@ public class Manager {
 		return dbQuery;
 	}
 	
+	public static Connection getConnection()
+	{
+		return dbConnection;
+	}
+	
 	
 	/**
 	 * Execute a query returning the last 

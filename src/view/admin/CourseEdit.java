@@ -5,6 +5,9 @@
  */
 package view.admin;
 
+import helper.Datetime;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import main.Application;
@@ -24,6 +27,7 @@ public class CourseEdit extends javax.swing.JPanel {
 	/** Creates new form CourseAdd */
 	public CourseEdit( int id ) {
 		initComponents();
+		selectionCheck();
 		
 		this.subscription = new Subscription( id );
 
@@ -78,7 +82,84 @@ public class CourseEdit extends javax.swing.JPanel {
 		else if( this.subscription.getMaximumAge() <= 150 )
 			jComboBoxAgeGroup.setSelectedIndex(3);
 		
+		if( subscription.getDays() != null && subscription.getDays().length > 0 ) {
+			for( String day : subscription.getDays() ) {
+				if( day.equals( "Maandag" ) )
+					jCheckBoxMonday.setSelected(true);
+				else if( day.equals( "Dinsdag" ) )
+					jCheckBoxTuesday.setSelected(true);
+				else if( day.equals( "Woensdag" ) )
+					jCheckBoxWednesday.setSelected(true);
+				else if( day.equals( "Donderdag" ) )
+					jCheckBoxThursday.setSelected(true);
+				else if( day.equals( "Vrijdag" ) )
+					jCheckBoxFriday.setSelected(true);
+				else if( day.equals( "Zaterdag" ) )
+					jCheckBoxSaturday.setSelected(true);
+				else if( day.equals( "Zondag" ) )
+					jCheckBoxSunday.setSelected(true);
+			}
+		}
+		
 		jTextAreaDescription.setText( this.subscription.getDescription() );
+	}
+	
+	/*
+	 * Check on selection of the JRadioButtonCourseType2
+	 * @author vm
+	 * 
+	 */
+	public void selectionCheck() {
+
+		if (jRadioButtonCourseType2.isSelected()) {
+			enableCheckBox();
+		} else {
+			disableCheckBox();
+		}
+	}
+
+	public void enableCheckBox() {
+		//Enable all the checkboxes
+		jCheckBoxMonday.setEnabled(true);
+		jCheckBoxTuesday.setEnabled(true);
+		jCheckBoxWednesday.setEnabled(true);
+		jCheckBoxThursday.setEnabled(true);
+		jCheckBoxFriday.setEnabled(true);
+		jCheckBoxSaturday.setEnabled(true);
+		jCheckBoxSunday.setEnabled(true);
+
+	}
+
+	public void disableCheckBox() {
+		//Disable all the checkboxes
+		jCheckBoxMonday.setEnabled(false);
+		jCheckBoxTuesday.setEnabled(false);
+		jCheckBoxWednesday.setEnabled(false);
+		jCheckBoxThursday.setEnabled(false);
+		jCheckBoxFriday.setEnabled(false);
+		jCheckBoxSaturday.setEnabled(false);
+		jCheckBoxSunday.setEnabled(false);
+	}
+
+	public ArrayList getDays() {
+		ArrayList days = new ArrayList();
+		
+		if( jCheckBoxMonday.isSelected() )
+			days.add( "Maandag" );
+		if( jCheckBoxTuesday.isSelected() )
+			days.add( "Dinsdag" );
+		if( jCheckBoxWednesday.isSelected() )
+			days.add( "Woensdag" );
+		if( jCheckBoxThursday.isSelected() )
+			days.add( "Donderdag" );
+		if( jCheckBoxFriday.isSelected() )
+			days.add( "Vrijdag" );
+		if( jCheckBoxSaturday.isSelected() )
+			days.add( "Zaterdag" );
+		if( jCheckBoxSunday.isSelected() )
+			days.add( "Zondag" );
+		
+		return days;
 	}
 
 	public void setSubscriptionData() {
@@ -89,6 +170,8 @@ public class CourseEdit extends javax.swing.JPanel {
 			
 			String startTime = jTextFieldStartTime.getText();
 			String endTime = jTextFieldEndTime.getText();
+			String startDate = jTextFieldStartDate.getText();
+			String endDate = jTextFieldEndDate.getText();
 			
 		
 			if(jRadioButtonCourseType1.isSelected()){
@@ -97,11 +180,13 @@ public class CourseEdit extends javax.swing.JPanel {
 				type = jRadioButtonCourseType2.getText() +" : " + days;
 			}
 
-			String description = "Type: " + type + "\n" + "Starttijd: " +
-					startTime + "\n" +
-					"Eindtijd: " + endTime + "\n" +
-					jTextAreaDescription.getText();
+			String description = jTextAreaDescription.getText();
 			subscription.setDescription(description);
+			
+			if( jRadioButtonCourseType2.isSelected() )
+				subscription.setType( 'd' );
+			else
+				subscription.setType( 'l' );
 						
 
 			if (jRadioButtonMale.isSelected()) {
@@ -112,28 +197,23 @@ public class CourseEdit extends javax.swing.JPanel {
 				//Don't set the gender.
 			}
 			
-			if (jComboBoxAgeGroup.getSelectedIndex() == 1) {
+			if (jComboBoxAgeGroup.getSelectedIndex() == 0) {
 				subscription.setMinimumAge(0);
 				subscription.setMaximumAge(16);
-			} else if (jComboBoxAgeGroup.getSelectedIndex() == 2) {
+			} else if (jComboBoxAgeGroup.getSelectedIndex() == 1) {
 				subscription.setMinimumAge(16);
 				subscription.setMaximumAge(18);
-			} else if (jComboBoxAgeGroup.getSelectedIndex() == 3) {
+			} else if (jComboBoxAgeGroup.getSelectedIndex() == 2) {
 				subscription.setMinimumAge(18);
 				subscription.setMaximumAge(65);
-			} else if (jComboBoxAgeGroup.getSelectedIndex() == 4) {
+			} else if (jComboBoxAgeGroup.getSelectedIndex() == 3) {
 				subscription.setMinimumAge(65);
 				subscription.setMaximumAge(150);
 			}
 			
-			String jStartDate = jTextFieldStartDate.getText();
-			//Date startDate = new Date();
-			//helper.DateTime datetime = new helper.Datetime(startDate);	
-			//subscription.setStartDate(datetime.format("yyyy-mm-dd"));
-			
-			//String endDate = jTextFieldStartDate.getText();
-			//helper.Datetime datetime2 = new helper.Datetime(endDate);	
-			//subscription.setEndDate(datetime2.timestamp());
+			subscription.setDays( this.getDays() );
+			subscription.setStartTime( startTime );
+			subscription.setEndTime( endTime );
 			
 			double price = Double.parseDouble(jTextFieldPrice.getText());
 			subscription.setPrice(price);
@@ -407,6 +487,7 @@ public class CourseEdit extends javax.swing.JPanel {
 
 	private void jRadioButtonCourseType2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2StateChanged
 		//When the RadioButton's state is chaged go to selectionCheck
+		selectionCheck();
 
 	}//GEN-LAST:event_jRadioButtonCourseType2StateChanged
 

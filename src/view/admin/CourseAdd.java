@@ -62,8 +62,7 @@ public class CourseAdd extends javax.swing.JPanel {
 				type = jRadioButtonCourseType2.getText() +" : " + days;
 			}
 
-			String description = "Type: " + type + "\n" + 
-					jTextAreaDescription.getText();
+			String description = jTextAreaDescription.getText();
 			subscription.setDescription(description);
 						
 

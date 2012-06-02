@@ -22,6 +22,7 @@ public class Subscription extends Model {
 	private int maximumAge;
 	private int minimumAge;
 	private char type;
+	private String[] days;
 
 	
 	private boolean monthly;
@@ -123,7 +124,7 @@ public class Subscription extends Model {
 			PreparedStatement query =  this.query("UPDATE subscription "
 					+ "SET title = ?, description = ?, \"minimumAge\" = ?, \"maximumAge\" = ?, "
 					+ "price = ?, monthly = ?, \"branchId\" = ?, gender = ?, "
-					+ "\"startdate\" = ?, \"enddate\" = ?, \"startTime\" = ?, \"endTime\" = ?, \"type\" = ? "
+					+ "\"startdate\" = ?, \"enddate\" = ?, \"startTime\" = ?, \"endTime\" = ?, \"type\" = ?, \"days\" = ?"
 					+ "WHERE id = ?"
 					);
 								
@@ -140,7 +141,10 @@ public class Subscription extends Model {
 					query.setTime(11, this.getStartTime() );
 					query.setTime(12, this.getEndTime() );
 					query.setString(13, String.valueOf( this.getType() ) );
-					query.setInt(14, this.getId() );
+					query.setArray(14, Manager.getConnection().createArrayOf("varchar", this.getDays() ) );
+					query.setInt(15, this.getId() );
+					
+					
 					
 					Application.getInstance().showPopup(new NotificationPopup("De cursus is gewijzigd."));
 		} catch (SQLException ex) {
@@ -201,6 +205,18 @@ public class Subscription extends Model {
 			this.setEndDate(this.result.getDate("endDate"));
 			this.setStartTime(this.result.getTime("startTime"));
 			this.setEndTime(this.result.getTime("endTime"));
+			//this.setDays( this.result.getArray("days"));
+			
+			Array res = this.result.getArray("days");
+			if( res != null ) {
+				ArrayList temp_days = new ArrayList();
+				Object obj = res.getArray();
+				String [] daysArray = (String []) obj;
+				int i;
+				for (i=0; i < daysArray.length; i++)
+					temp_days.add( daysArray[i] );
+				this.setDays( temp_days );
+			}
 
 
 		} catch (SQLException ex) {
@@ -346,24 +362,42 @@ public class Subscription extends Model {
 	public Date getEndDate() {
 		return endDate;
 	}
+	
 	/**
 	 * @param endDate the endDate to set
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(String endDate) {
+		this.endDate = Date.valueOf( endDate );
+	}
+	
 	/**
 	 * @return the startDate
 	 */
 	public Date getStartDate() {
 		return startDate;
 	}
+	
 	/**
 	 * @param startDate startDate to set
 	 */
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+	
+	/**
+	 * @param startDate startDate to set
+	 */
+
+	public void setStartDate(String startDate) {
+		this.startDate = Date.valueOf( startDate );
 	}
 
 	/**
@@ -395,6 +429,13 @@ public class Subscription extends Model {
 	}
 
 	/**
+	 * @param startTime the startTime to set
+	 */
+	public void setStartTime(String startTime) {
+		this.startTime = Time.valueOf( startTime + ":00" );
+	}
+
+	/**
 	 * @return the endTime
 	 */
 	public Time getEndTime() {
@@ -406,6 +447,33 @@ public class Subscription extends Model {
 	 */
 	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
+	}
+
+	/**
+	 * @param endTime the endTime to set
+	 */
+	public void setEndTime(String endTime) {
+		this.endTime = Time.valueOf( endTime + ":00" );
+	}
+
+	/**
+	 * @return the days
+	 */
+	public String[] getDays() {
+		return days;
+	}
+
+	/**
+	 * @param days the days to set
+	 */
+	public void setDays(ArrayList days) {
+		String[] data = new String[ days.size() ];
+		days.toArray(data);
+		
+		this.days = data;
+	}
+	
+	public void setDays( Array days ) {
 	}
 	
 }

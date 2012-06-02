@@ -47,13 +47,23 @@ public class CourseInfo extends javax.swing.JPanel {
 		jLabelName.setText(this.subscription.getTitle());
 		jLabelGender.setText("Man");
 		jLabelAge.setText(String.valueOf(this.subscription.getMinimumAge()));
-		jLabelDays.setText("Maandag, Woensdag");
+		jLabelDays.setText(this.implode( this.subscription.getDays(), ", " ) );
 		jLabelDuration.setText(String.valueOf(this.subscription.getStartTime()) + " - " + String.valueOf(this.subscription.getEndTime()));
 		jLabelDescription.setText(this.subscription.getDescription());
 		
 		// Empty results
 		jLabelUser.setText( "" );
 		jBtnSubmit.setVisible( false );
+		
+		// Age range
+		if( this.subscription.getMaximumAge() <= 16 )
+			jLabelAge.setText( "< 16" );
+		else if( this.subscription.getMaximumAge() <= 18 )
+			jLabelAge.setText( "16 - 18" );
+		else if( this.subscription.getMaximumAge() <= 65 )
+			jLabelAge.setText( "18 - 65" );
+		else if( this.subscription.getMaximumAge() <= 150 )
+			jLabelAge.setText( "65+" );
 
 		// Enrollments
 		ArrayList<User> users = Enrollment.readBySubscriptionId(this.subscription.getId());
@@ -93,6 +103,17 @@ public class CourseInfo extends javax.swing.JPanel {
 
 
 
+	}
+	
+	public static String implode(String[] ary, String delim) {
+	    String out = "";
+	    if( ary != null && ary.length > 0 ) {
+		    for(int i=0; i<ary.length; i++) {
+			if(i!=0) { out += delim; }
+			out += ary[i];
+		    }
+	    }
+	    return out;
 	}
 
 	/** This method is called from within the constructor to
