@@ -148,7 +148,7 @@ public class InvoiceCreator {
 			GregorianCalendar enrollmentCalendar = new GregorianCalendar();
 			enrollmentCalendar.setTime(enrollmentDate);
 			
-			if(subscription.isMonthly() && enrollmentCalendar.get(Calendar.MONTH) != this.month.get(Calendar.MONTH)) {
+			if(subscription.getMonthly() && enrollmentCalendar.get(Calendar.MONTH) != this.month.get(Calendar.MONTH)) {
 				// Skip this subscription
 				continue;
 			}
