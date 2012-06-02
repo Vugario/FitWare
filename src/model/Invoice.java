@@ -79,6 +79,14 @@ public class Invoice extends Model{
 	
 	public boolean create(){
 		
+		// Recalculate the price
+		recalculateAmount();
+		
+		// Set to paid if amount = 0
+		if(getAmount() == 0.0) {
+			setPayed(true);
+		}
+		
 		try {
 			this.open();
 			
@@ -202,7 +210,7 @@ public class Invoice extends Model{
 	/**
 	 * Recalculate the price of this invoice
 	 */
-	public void recalculatePrice() {
+	public void recalculateAmount() {
 		
 		Double newAmount = 0.0;
 		

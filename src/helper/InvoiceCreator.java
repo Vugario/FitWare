@@ -131,9 +131,9 @@ public class InvoiceCreator {
 		// Create the invoice
 		Invoice invoice = new Invoice();
 		invoice.setUserID(user.getId());
-		invoice.setPayed(false);
 		invoice.setInvoiceDate(new Timestamp(invoiceDate.getTimeInMillis()));
-		invoice.recalculatePrice();
+		
+		// Amount and paid-status will be calculated in the create() function
 		
 		// Save it
 		invoice.create();
