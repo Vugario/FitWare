@@ -32,3 +32,5 @@ Icon?
 Thumbs.db
 /nbproject/private/
 /build/
+!/lib/jPDF/jPDFWriter.jar
+!/lib/jPDF/jPDFViewer.jar

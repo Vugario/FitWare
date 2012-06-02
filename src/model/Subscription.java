@@ -87,7 +87,7 @@ public class Subscription extends Model {
 			PreparedStatement query =  this.query("INSERT INTO subscription"
 					+ "(title, description, \"minimumAge\", "
 					+ "\"maximumAge\", price, monthly, \"branchId\", gender, "
-					+ "startdate, enddate, starttime, endtime, \"type\")"
+					+ "startdate, enddate, \"startTime\", \"endTime\", \"type\")"
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 					);
 								
@@ -120,10 +120,10 @@ public class Subscription extends Model {
 	public void edit(){
 		try {
 			this.open();
-			PreparedStatement query =  this.query("UPDATE subscription"
-					+ "SET title = ?, description = ?, minimumAge = ?, maximumage = ?"
+			PreparedStatement query =  this.query("UPDATE subscription "
+					+ "SET title = ?, description = ?, \"minimumAge\" = ?, \"maximumAge\" = ?, "
 					+ "price = ?, monthly = ?, \"branchId\" = ?, gender = ?, "
-					+ "startdate = ?, enddate = ?, starttime = ?, endtime = ?, \"type\" = ?)"
+					+ "\"startdate\" = ?, \"enddate\" = ?, \"startTime\" = ?, \"endTime\" = ?, \"type\" = ? "
 					+ "WHERE id = ?"
 					);
 								
@@ -142,7 +142,7 @@ public class Subscription extends Model {
 					query.setString(13, String.valueOf( this.getType() ) );
 					query.setInt(14, this.getId() );
 					
-					Application.getInstance().showPopup(new NotificationPopup("De cursus is toegevoegd."));
+					Application.getInstance().showPopup(new NotificationPopup("De cursus is gewijzigd."));
 		} catch (SQLException ex) {
 			
 			Logger.getLogger(Subscription.class.getName()).log(Level.SEVERE, null, ex);
