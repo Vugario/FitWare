@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
-import main.ExceptionHandler;
+import helper.ExceptionHandler;
 import model.Enrollment;
 import model.Subscription;
 import model.User;

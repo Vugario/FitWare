@@ -25,7 +25,7 @@ import model.Purchase;
 import model.User;
 import view.popups.ErrorPopup;
 import view.popups.SuccessPopup;
-import main.ExceptionHandler;
+import helper.ExceptionHandler;
 
 /**
  *
