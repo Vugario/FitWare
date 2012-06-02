@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * Header.java
  *
  * Created on May 6, 2012, 8:44:06 PM
@@ -15,7 +10,8 @@ import main.Session;
 import model.User;
 
 /**
- *
+ *	This is the Graphic on the topside of the screen,
+ *	which is showed all the time.
  * @author vm
  */
 public class Header extends javax.swing.JPanel {
