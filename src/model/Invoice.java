@@ -178,7 +178,7 @@ public class Invoice extends Model{
 			Subscription subscription = enrollment.getSubscription();
 			
 			// Only add non-monthly subscriptions if the enrollment was this month
-			Date enrollmentDate = new Date(enrollment.getTimestamp().getTime());
+			Date enrollmentDate = new Date(enrollment.getDatetime().getTime());
 			GregorianCalendar enrollmentCalendar = new GregorianCalendar();
 			enrollmentCalendar.setTime(enrollmentDate);
 			

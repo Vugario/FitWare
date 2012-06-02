@@ -115,7 +115,7 @@ public class AdminMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDashboardActionPerformed
-		Application.getInstance().showPanel(new view.admin.Dashboard());
+		Application.getInstance().showPanel(new view.barmedewerker.Dashboard());
 	}//GEN-LAST:event_jButtonDashboardActionPerformed
 
 	private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
@@ -127,7 +127,7 @@ public class AdminMenu extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonInvoicesActionPerformed
 
 	private void jButtonEnrollmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnrollmentsActionPerformed
-         Application.getInstance().showPanel(new view.barmedewerker.CoursesOverview());
+         Application.getInstance().showPanel(new view.medewerker.CoursesOverview());
 	}//GEN-LAST:event_jButtonEnrollmentsActionPerformed
 
 	private void jButtonBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBarActionPerformed

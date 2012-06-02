@@ -33,6 +33,8 @@ public class User extends Model {
 	private String phonenumber;
 	private String mobilenumber;
 	private String category;
+	
+	//get model for relation
 	private Role role = new Role();
 	private int roleId;
 
@@ -256,7 +258,6 @@ public class User extends Model {
 	
 	/**
 	 * @author daan
-	 * @author allen how does the dat get set?
 	 * @return returns the table row objects
 	 */
 		public Object[] getTableRowObjects() {

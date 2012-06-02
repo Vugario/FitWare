@@ -486,7 +486,7 @@ private void jBtnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 		// Get the currently selected subscription
 		this.subscription.delete();
 		
-		Application.getInstance().showPanel( new view.barmedewerker.CoursesOverview() );
+		Application.getInstance().showPanel( new view.medewerker.CoursesOverview() );
 	}
 }//GEN-LAST:event_jBtnEdit1ActionPerformed
 

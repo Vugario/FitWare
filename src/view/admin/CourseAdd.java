@@ -369,7 +369,7 @@ public class CourseAdd extends javax.swing.JPanel {
 		setSubscriptionData();
 		subscription.create();
 
-		Application.getInstance().showPanel(new view.barmedewerker.CoursesOverview());
+		Application.getInstance().showPanel(new view.medewerker.CoursesOverview());
 	}//GEN-LAST:event_jButtonSaveActionPerformed
 
 private void jCheckBoxMondayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMondayActionPerformed

@@ -5,6 +5,7 @@
 package model;
 
 import helper.db.Model;
+import helper.Datetime;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author allentje
  */
-public class Purchase extends helper.db.Model {
+public class Purchase extends Model {
 
 	private double price;
 	private int product_id;
@@ -26,7 +27,8 @@ public class Purchase extends helper.db.Model {
 	private Timestamp datetime;
 	private int user_id;
 	private User user = new User();
-
+	private Product product = new Product();
+	
 	public Purchase() {
 	}
 	
@@ -45,7 +47,7 @@ public class Purchase extends helper.db.Model {
 			// Execute the query
 			Model model = new Model();
 			model.open();
-			model.query("SELECT * FROM \"purchase\" WHERE user_id = ?").setInt(1, id);
+			model.query("SELECT * FROM \"purchase\" WHERE user_id = ? LIMIT 10").setInt(1, id);
 			model.result();
 			
 			// Loop over all results
@@ -65,26 +67,26 @@ public class Purchase extends helper.db.Model {
 			this.open();
 			this.query(
 				"SELECT "
-						+ "pur.datetime, "
-						+ "p.name, "
-						+ "pur.quantity*p.price as \"price\", "
-						+ "pur.user_id "
+					+ "pur.datetime, "
+					+ "p.name, "
+					+ "pur.quantity*p.price as \"price\", "
+					+ "pur.user_id "
 				+ "FROM "
-								+ "\"user\" u "
+					+ "\"user\" u "
 				+ "JOIN "
-								+ "purchase pur "
+					+ "purchase pur "
 				+ "ON "
-								+ "u.id = pur.user_id "
+					+ "u.id = pur.user_id "
 				+ "JOIN "
-								+ "product p "
+					+ "product p "
 				+ "ON "
-								+ "p.id = pur.product_id "
+					+ "p.id = pur.product_id "
 				+ "WHERE u.id = ? "
 				+ "LIMIT "
-								+ "10"
+					+ "10"
 				).setInt(1, userId);
 			this.result();
-			System.out.println(this.result.getStatement());
+		
 
 			this.setPropertiesFromResult();
 
@@ -102,7 +104,7 @@ public class Purchase extends helper.db.Model {
 		try {
 			
 			boolean availableUser = (user_id > 0 ) ? true : false;
-			System.out.println((availableUser ? ",?" : ""));
+			
 			this.open();
 			PreparedStatement query = this.query(
 					"INSERT INTO purchase "
@@ -164,18 +166,43 @@ public class Purchase extends helper.db.Model {
 
 			// Fill in all properties
 			this.id = this.result.getInt("id");
-			this.product_id = this.result.getInt("product_id");
 			this.datetime = this.result.getTimestamp("datetime");
 			this.paymentoption = this.result.getString("paymentoption");
 			this.price = this.result.getDouble("price");
 			this.quantity = this.result.getShort("quantity");
 			this.user_id = this.result.getInt("user_id");
 
+			// Set the product
+			this.product_id = this.result.getInt("product_id");
+			this.product = product.readById(this.getProduct_id());
 
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	/**
+	 * @author daan
+	 * @return returns the table row objects
+	 */
+	public Object[] getTableRowObjects() {
+
+		String fomatDatetime = null;
+
+		if(this.datetime != null){
+			Datetime purchaseDatetime = new Datetime(this.datetime);
+			fomatDatetime = purchaseDatetime.format("dd-MM-yyyy HH:mm");
+		}
+
+		return new Object[] {
+			fomatDatetime,
+			"€"+price,
+			product.getName(),
+			paymentoption
+			};
+	}
+
+	
 
 	public Timestamp getDatetime() {
 		return datetime;
@@ -223,5 +250,9 @@ public class Purchase extends helper.db.Model {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+	
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

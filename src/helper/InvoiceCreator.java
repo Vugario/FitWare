@@ -183,7 +183,7 @@ public class InvoiceCreator {
 				Enrollment enrollment = enrollments.get(i);
 
 				GregorianCalendar enrollmentCalendar = new GregorianCalendar();
-				Date enrollmentDate = new Date(enrollment.getTimestamp().getTime());
+				Date enrollmentDate = new Date(enrollment.getDatetime().getTime());
 				enrollmentCalendar.setTime(enrollmentDate);
 
 				if (enrollmentCalendar.before(nextInvoiceCalendar)) {
