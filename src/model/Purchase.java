@@ -141,6 +141,19 @@ public class Purchase extends Model {
 		return false;
 
 	}
+	
+	/**
+	 * Get the purchased Product object
+	 * 
+	 * @return The purchased Product
+	 */
+	public Product getProduct() {
+		
+		Product product = new Product();
+		product.readById(product_id);
+		return product;
+		
+	}
 
 	protected void setPropertiesFromResult() {
 		try {
@@ -199,14 +212,6 @@ public class Purchase extends Model {
 		this.datetime = datetime;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getPaymentoption() {
 		return paymentoption;
 	}
@@ -247,10 +252,6 @@ public class Purchase extends Model {
 		this.user_id = user_id;
 	}
 	
-	public Product getProduct() {
-		return product;
-	}
-
 	public void setProduct(Product product) {
 		this.product = product;
 	}

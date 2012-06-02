@@ -16,7 +16,6 @@ public class Role extends Model{
 	/**
 	 * class attributes / table columns
 	 */
-	int id;
 	String title;
 	
 	/**
@@ -97,14 +96,6 @@ public class Role extends Model{
 		} catch (SQLException ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTitle() {

@@ -4,10 +4,11 @@
  */
 package model;
 
+import helper.ExceptionHandler;
 import helper.db.Model;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
-import main.ExceptionHandler;
+
 
 /**
  *

@@ -19,7 +19,6 @@ import view.medewerker.UserAdd;
  */
 public class Branch extends Model {
 
-	int id;
 	String city;
 	String street;
 	String postcode;
@@ -123,14 +122,6 @@ public class Branch extends Model {
 
 	public void setCity(String city) {
 		this.city = city;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getPhonenumber() {

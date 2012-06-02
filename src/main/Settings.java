@@ -34,6 +34,9 @@ public class Settings {
 //		settings.put("db-url", "jdbc:postgresql://allen.pb/fitshape");
 //		settings.put("db-user", "postgres");
 //		settings.put("db-password", "root");
+		
+		// Debug mode: either "on" or "off"
+		settings.put("debug-mode", "on");
 	}
 
 	/**

@@ -15,8 +15,8 @@ import java.util.logging.Logger;
  */
 public class Model extends Manager{
 	
-	public int id;
-	public String table;
+	protected int id;
+	protected String table;
 	
 	public Model()
 	{

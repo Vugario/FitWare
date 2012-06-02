@@ -10,11 +10,11 @@
  */
 package view.medewerker;
 
+import helper.SearchTable;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
 import model.User;
-import view.admin.BarProductModify;
 
 /**
  * This is the class to view several users. From this view it's possible to go 
@@ -24,10 +24,12 @@ import view.admin.BarProductModify;
  */
 public class UserOverview extends javax.swing.JPanel {
 	protected DefaultTableModel model;
+	private final SearchTable searchTable;
 	
 	/** Creates new form UserOverview */
 	public UserOverview() {
 		initComponents();
+		this.searchTable = new SearchTable(jTable1, jTextFieldSearch, jButtonReset);
 		this.model = (DefaultTableModel) jTable1.getModel();
 		User user  = new User();
 		user.getTableRowObjects();
@@ -54,19 +56,18 @@ public class UserOverview extends javax.swing.JPanel {
 		}
 	}
 	
+	/**
+	 * Show the user in a different view (userModify view)
+	 */
 	private void showUser() {
 		
-		User user = new User();
 		// Get the currently selected user
-		
-		int rowNumber = jTable1.getSelectedRow();
-
-		
-		Object id = model.getValueAt(rowNumber, 0);
-
+		int rowNumber = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+		String stringId = (String) model.getValueAt(rowNumber, 0);
+		int userId = Integer.parseInt(stringId);
 		
 		//Set the product data in the view
-		Application.getInstance().showPanel(new view.medewerker.UserModify(Integer.parseInt(id.toString())));
+		Application.getInstance().showPanel(new view.medewerker.UserModify(userId));
 
 	}
 	
@@ -82,32 +83,27 @@ public class UserOverview extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        jTextFieldSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         newUser = new javax.swing.JButton();
+        jButtonReset = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1000, 700));
         setPreferredSize(new java.awt.Dimension(510, 500));
 
-        jLabel1.setText("Toon:");
-
-        jTextField1.setText("Zoek op naam");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldSearch.setText("Zoek op naam");
+        jTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldSearchActionPerformed(evt);
             }
         });
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextFieldSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                jTextFieldSearchFocusGained(evt);
             }
         });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,8 +142,6 @@ public class UserOverview extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(0).setMaxWidth(75);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(12);
 
-        jButton1.setText("Zoek!");
-
         newUser.setText("+");
         newUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,62 +149,61 @@ public class UserOverview extends javax.swing.JPanel {
             }
         });
 
+        jButtonReset.setText("Reset");
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setText("Gebruikers");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addContainerGap(737, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(843, Short.MAX_VALUE)
-                .addComponent(newUser)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonReset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(newUser, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(22, Short.MAX_VALUE)
-                        .addComponent(newUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonReset))
+                    .addComponent(newUser, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-	private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+	private void jTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchActionPerformed
 		// TODO 
-	}//GEN-LAST:event_jTextField1ActionPerformed
+	}//GEN-LAST:event_jTextFieldSearchActionPerformed
 
 	private void newUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserActionPerformed
 		// TODO add new user (go to the profile panel)
 		Application.getInstance().showPanel(new UserAdd());
 	}//GEN-LAST:event_newUserActionPerformed
 
-	private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+	private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusGained
 		// Clear the text when focussed
-		jTextField1.setText(null);
-	}//GEN-LAST:event_jTextField1FocusGained
+		jTextFieldSearch.setText(null);
+	}//GEN-LAST:event_jTextFieldSearchFocusGained
 
 	private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 		// Show the UserModify screen so there is detailed information 
@@ -222,12 +215,11 @@ public class UserOverview extends javax.swing.JPanel {
 	}//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButtonReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldSearch;
     private javax.swing.JButton newUser;
     // End of variables declaration//GEN-END:variables
 }

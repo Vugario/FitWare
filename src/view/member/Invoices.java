@@ -12,13 +12,13 @@ package view.member;
 
 import helper.SearchTable;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.table.DefaultTableModel;
 import main.Application;
 import main.Session;
 import model.Invoice;
 import model.User;
-import view.popups.EnrollmentPopup;
-import view.popups.SuccessPopup;
+import view.popups.InvoicePopup;
 
 /**
  *
@@ -50,20 +50,23 @@ public class Invoices extends javax.swing.JPanel {
 		// Secondly, fill it with all invoices
 		ArrayList<Invoice> invoices = Invoice.readByUserId(user.getId());
 		
+		// In reverse order (so newest is on top)
+		Collections.reverse(invoices);
+		
 		for(Invoice invoice : invoices) {
-			model.addRow(invoice.getTableRowObjects());
+			model.addRow(invoice.getTableRowObjects(false));
 		}
 	}
 	
 	private void showInvoice() {
 		// Get the currently selected subscription
-		int rowNumber = jTable1.getSelectedRow();
+		int rowNumber = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
 		String invoiceId = (String) model.getValueAt(rowNumber, 0);
 		Invoice invoice = new Invoice();
 		invoice.readInvoice(Integer.parseInt(invoiceId));
 		
 		// Show popup
-		Application.getInstance().showPopup(new SuccessPopup("Hoi"));
+		Application.getInstance().showPopup(new InvoicePopup(invoice));
 	}
 
 	/** This method is called from within the constructor to
@@ -81,7 +84,7 @@ public class Invoices extends javax.swing.JPanel {
         jTextFieldSearch = new javax.swing.JTextField();
         jButtonReset = new javax.swing.JButton();
 
-        jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel19.setText("Mijn facturen");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -146,7 +149,7 @@ public class Invoices extends javax.swing.JPanel {
                     .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

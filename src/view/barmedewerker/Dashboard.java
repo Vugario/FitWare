@@ -6,11 +6,10 @@
 package view.barmedewerker;
 
 import helper.Datetime;
-import view.member.*;
+import helper.ExceptionHandler;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import main.ExceptionHandler;
+
 import main.Session;
 import model.Attendance;
 import model.Enrollment;

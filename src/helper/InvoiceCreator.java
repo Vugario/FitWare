@@ -1,10 +1,9 @@
-package helper.invoice;
+package helper;
 
 import helper.db.Model;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,7 +13,6 @@ import java.util.logging.Logger;
 import model.Enrollment;
 import model.Invoice;
 import model.Purchase;
-import model.Subscription;
 import model.User;
 
 /**
@@ -130,48 +128,12 @@ public class InvoiceCreator {
 			return null;
 		}
 		
-		// Add all enrollments and purchases to this invoice
-		this.enrollmentsOnInvoice = this.getEnrollments();
-		this.purchasesOnInvoice   = this.getPurchases();
-		
-		// Calculate the amount
-		Double amount = 0.0;
-		
-		// Loop over each enrollment
-		for (int i = 0; i < this.enrollmentsOnInvoice.size(); i++) {
-			
-			Enrollment enrollment = this.enrollmentsOnInvoice.get(i);
-			Subscription subscription = enrollment.getSubscription();
-			
-			// Only add non-monthly subscriptions if the enrollment was this month
-			Date enrollmentDate = new Date(enrollment.getTimestamp().getTime());
-			GregorianCalendar enrollmentCalendar = new GregorianCalendar();
-			enrollmentCalendar.setTime(enrollmentDate);
-			
-			if(subscription.isMonthly() && enrollmentCalendar.get(Calendar.MONTH) != this.month.get(Calendar.MONTH)) {
-				// Skip this subscription
-				continue;
-			}
-			
-			// Add the amount
-			amount += subscription.getPrice();
-		}
-		
-		// Loop over each purchase
-		for (int i = 0; i < this.purchasesOnInvoice.size(); i++) {
-			
-			Purchase purchase = this.purchasesOnInvoice.get(i);
-			
-			// Add the amount
-			amount += purchase.getPrice();
-		}
-		
 		// Create the invoice
 		Invoice invoice = new Invoice();
 		invoice.setUserID(user.getId());
-		invoice.setPayed(false);
-		invoice.setAmount(amount);
 		invoice.setInvoiceDate(new Timestamp(invoiceDate.getTimeInMillis()));
+		
+		// Amount and paid-status will be calculated in the create() function
 		
 		// Save it
 		invoice.create();
@@ -221,7 +183,7 @@ public class InvoiceCreator {
 				Enrollment enrollment = enrollments.get(i);
 
 				GregorianCalendar enrollmentCalendar = new GregorianCalendar();
-				Date enrollmentDate = new Date(enrollment.getTimestamp().getTime());
+				Date enrollmentDate = new Date(enrollment.getDatetime().getTime());
 				enrollmentCalendar.setTime(enrollmentDate);
 
 				if (enrollmentCalendar.before(nextInvoiceCalendar)) {

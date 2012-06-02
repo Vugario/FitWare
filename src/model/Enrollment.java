@@ -18,7 +18,6 @@ import java.util.logging.Logger;
  */
 public class Enrollment extends Model {
 
-	private int id;
 	private int user_id;
 	private int subscription_id;
 	private Timestamp datetime;
@@ -66,6 +65,31 @@ public class Enrollment extends Model {
 		return enrollments;
 	}
 
+	public static ArrayList<User> readBySubscriptionId(int id) {
+
+		ArrayList<User> users = new ArrayList<User>();
+
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT e.* FROM \"enrollment\" e RIGHT JOIN \"user\" u ON e.user_id = u.id WHERE e.subscription_id = ?").setInt(1, id);
+			model.result();
+
+			// Loop over all results
+			while (model.result.next()) {
+				User user = new User();
+				user.readUser( model.result.getInt("user_id"));
+				users.add( user );
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return users;
+	}
+
 	public Enrollment readEnrollmentById(int id) {
 		try {
 			this.open();
@@ -84,7 +108,6 @@ public class Enrollment extends Model {
 
 	public Enrollment readEnrollmentBySubscriptionIdAndUserId(int id, int user_id) {
 		try {
-			System.out.println("subscription_id = " + id + " AND user_id = " + user_id );
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM \"enrollment\" WHERE subscription_id = ? AND user_id = ? LIMIT 1");
 			query.setInt(1, id);
@@ -151,6 +174,7 @@ public class Enrollment extends Model {
 			this.setSubscription_id(this.result.getInt("subscription_id"));
 			this.setDatetime(this.result.getTimestamp("datetime"));
 						
+
 			this.setSubscription(new Subscription(this.getSubscription_id()));
 
 		} catch (SQLException ex) {
@@ -162,6 +186,7 @@ public class Enrollment extends Model {
 	}
 
 	/**
+
 	 * @author daan
 	 * @return returns the table row objects
 	 */
@@ -205,6 +230,7 @@ public class Enrollment extends Model {
 	}
 
 	/**
+
 	 * @return the user_id
 	 */
 	public int getUser_id() {

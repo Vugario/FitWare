@@ -57,7 +57,7 @@ public class Enrollments extends javax.swing.JPanel {
 
 	private void showEnrollment() {
 		// Get the currently selected subscription
-		int rowNumber = jEnrollments.getSelectedRow();
+		int rowNumber = jEnrollments.convertRowIndexToModel(jEnrollments.getSelectedRow());
 		int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
 		Subscription subscription = new Subscription(subscriptionId);
 
@@ -83,7 +83,7 @@ public class Enrollments extends javax.swing.JPanel {
         jTextFieldSearch = new javax.swing.JTextField();
         jButtonReset = new javax.swing.JButton();
 
-        jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel19.setText("Mijn cursussen");
 
         jEnrollments.setModel(new javax.swing.table.DefaultTableModel(
@@ -128,7 +128,7 @@ public class Enrollments extends javax.swing.JPanel {
                                 .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonReset)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -141,11 +141,9 @@ public class Enrollments extends javax.swing.JPanel {
                     .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        jButtonReset.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jEnrollmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEnrollmentsMouseClicked

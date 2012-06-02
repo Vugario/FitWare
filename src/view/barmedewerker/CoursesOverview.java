@@ -54,25 +54,11 @@ public class CoursesOverview extends javax.swing.JPanel {
 		// Make a selection listener
 		this.row = jEnrollments.getSelectionModel();
 		this.row.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		
-		jEnrollments.addMouseListener( new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked( MouseEvent e ) {
-				if( e.getClickCount() == 2 )
-				{
-					int id = Integer.parseInt( jEnrollments.getModel().getValueAt( jEnrollments.getSelectedRow(), 0 ).toString() );
-					
-					Subscription subscription = new Subscription( id );
-					Application.getInstance().showPopup(new EnrollmentPopup("Naam: " + subscription.getTitle() + "\nLeeftijdscategorie: " + subscription.getMinimumAge() + " tot " + subscription.getMaximumAge() + "\nOmschrijving: " + subscription.getDescription(), subscription));
-				}
-			}
-		});
 	}
 
 	private void showEnrollment() {
 		// Get the currently selected subscription
-		int rowNumber = jEnrollments.getSelectedRow();
+		int rowNumber = jEnrollments.convertRowIndexToModel(jEnrollments.getSelectedRow());
 		int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
 		Subscription subscription = new Subscription(subscriptionId);
 
@@ -99,7 +85,7 @@ public class CoursesOverview extends javax.swing.JPanel {
         jButtonReset = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        jLabel19.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel19.setText("Mijn cursussen");
 
         jEnrollments.setModel(new javax.swing.table.DefaultTableModel(
@@ -143,35 +129,31 @@ public class CoursesOverview extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonReset)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)))
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 580, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonReset)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonReset)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jButton1)))
+                .addContainerGap()
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReset)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -181,7 +163,9 @@ public class CoursesOverview extends javax.swing.JPanel {
 	private void jEnrollmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEnrollmentsMouseClicked
 		if (evt.getClickCount() >= 2) {
 			// Double clicked!
-			showEnrollment();
+			int rowNumber = jEnrollments.getSelectedRow();
+			int subscriptionId = (Integer) model.getValueAt(rowNumber, 0);
+			Application.getInstance().showPanel(new view.barmedewerker.CourseInfo( subscriptionId ));
 		}
 	}//GEN-LAST:event_jEnrollmentsMouseClicked
 
