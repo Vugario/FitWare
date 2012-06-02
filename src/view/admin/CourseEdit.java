@@ -496,7 +496,7 @@ public class CourseEdit extends javax.swing.JPanel {
 		setSubscriptionData();
 		subscription.edit();
 		
-		Application.getInstance().showPanel(new view.barmedewerker.CoursesOverview());
+		Application.getInstance().showPanel(new view.medewerker.CoursesOverview());
 		
 		
 	}//GEN-LAST:event_jButtonSaveActionPerformed
