@@ -54,7 +54,7 @@ public class Invoices extends javax.swing.JPanel {
 		Collections.reverse(invoices);
 		
 		for(Invoice invoice : invoices) {
-			model.addRow(invoice.getTableRowObjects());
+			model.addRow(invoice.getTableRowObjects(false));
 		}
 	}
 	
