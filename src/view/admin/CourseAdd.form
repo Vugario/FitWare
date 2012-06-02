@@ -16,203 +16,155 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelCourseName" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="173" pref="173" max="173" attributes="0"/>
-              <Component id="jTextFieldCourseName" min="-2" pref="380" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelCourseType" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="189" pref="189" max="189" attributes="0"/>
-              <Component id="jRadioButtonCourseType1" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="239" pref="239" max="239" attributes="0"/>
-              <Component id="jRadioButtonCourseType2" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="251" pref="251" max="251" attributes="0"/>
-              <Component id="jCheckBoxMonday" min="-2" max="-2" attributes="0"/>
-              <Component id="jCheckBoxTuesday" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="10" pref="10" max="10" attributes="0"/>
-              <Component id="jCheckBoxWednesday" min="-2" max="-2" attributes="0"/>
-              <Component id="jCheckBoxThursday" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-              <Component id="jCheckBoxFriday" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-              <Component id="jCheckBoxSaturday" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="7" pref="7" max="7" attributes="0"/>
-              <Component id="jCheckBoxSunday" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelCourseStartDate" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="146" pref="146" max="146" attributes="0"/>
-              <Component id="jTextFieldStartDate" min="-2" pref="108" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelCourseEndDate" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="148" pref="148" max="148" attributes="0"/>
-              <Component id="jTextFieldEndDate" min="-2" pref="108" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelCourseStart" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="139" pref="139" max="139" attributes="0"/>
-              <Component id="jTextFieldStartTime" min="-2" pref="108" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelCourseEnd" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="146" pref="146" max="146" attributes="0"/>
-              <Component id="jTextFieldEndTime" min="-2" pref="108" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="192" pref="192" max="192" attributes="0"/>
-              <Component id="jTextFieldPrice" min="-2" pref="108" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelFocusGroup" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="155" pref="155" max="155" attributes="0"/>
-              <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="2" pref="2" max="2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="70" pref="70" max="70" attributes="0"/>
-                      <Component id="jRadioButtonMixed" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="251" pref="251" max="251" attributes="0"/>
+                      <Component id="jCheckBoxMonday" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxTuesday" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                      <Component id="jCheckBoxWednesday" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxThursday" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBoxFriday" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
+                      <Component id="jCheckBoxSaturday" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="7" pref="7" max="7" attributes="0"/>
+                      <Component id="jCheckBoxSunday" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelCourseStartDate" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseEndDate" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseStart" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseEnd" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseType" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseName" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextFieldEndTime" min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jTextFieldStartTime" min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jTextFieldEndDate" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jTextFieldStartDate" min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jTextFieldPrice" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jTextFieldCourseName" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCourseType1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCourseType2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelFocusGroup" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelAgeGroup" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jComboBoxAgeGroup" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="2" pref="2" max="2" attributes="0"/>
+                              <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jRadioButtonMixed" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="jButtonSave" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="1" min="-2" pref="510" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelAgeGroup" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="126" pref="126" max="126" attributes="0"/>
-              <Component id="jComboBoxAgeGroup" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="136" pref="136" max="136" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="510" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="667" pref="667" max="667" attributes="0"/>
-              <Component id="jButtonSave" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="87" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="9" pref="9" max="9" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="jLabelCourseName" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jTextFieldCourseName" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextFieldCourseName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCourseName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="4" pref="4" max="4" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="4" pref="4" max="4" attributes="0"/>
-                      <Component id="jLabelCourseType" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jRadioButtonCourseType1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jRadioButtonCourseType1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCourseType" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="1" pref="1" max="1" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jRadioButtonCourseType2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jCheckBoxMonday" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCheckBoxTuesday" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCheckBoxWednesday" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCheckBoxThursday" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jCheckBoxMonday" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxTuesday" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxWednesday" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxThursday" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldStartDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseStartDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldEndDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseEndDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldStartTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldEndTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCourseEnd" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Component id="jCheckBoxFriday" min="-2" max="-2" attributes="0"/>
                   <Component id="jCheckBoxSaturday" min="-2" max="-2" attributes="0"/>
                   <Component id="jCheckBoxSunday" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="5" pref="5" max="5" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="jLabelCourseStartDate" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jTextFieldStartDate" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="8" pref="8" max="8" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="jLabelCourseEndDate" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jTextFieldEndDate" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="8" pref="8" max="8" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="jLabelCourseStart" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jTextFieldStartTime" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="8" pref="8" max="8" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="jLabelCourseEnd" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jTextFieldEndTime" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="8" pref="8" max="8" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jTextFieldPrice" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="12" pref="12" max="12" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="8" pref="8" max="8" attributes="0"/>
-                      <Component id="jLabelFocusGroup" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButtonMixed" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="jLabelAgeGroup" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jComboBoxAgeGroup" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="1" pref="1" max="1" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jLabelFocusGroup" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                      <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jRadioButtonFemale" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonMixed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace min="6" pref="6" max="6" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jComboBoxAgeGroup" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelAgeGroup" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelDescription" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonSave" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

@@ -34,8 +34,6 @@ public class UserModify extends javax.swing.JPanel {
     /** Creates new form Profile */
     public UserModify(int id) {
 		
-		System.out.println(id);
-		
         initComponents();
 		user.readUser(id);
 		loadUserData();
@@ -45,7 +43,7 @@ public class UserModify extends javax.swing.JPanel {
 		jPasswordField2.setVisible(false);
     }
 	
-	public void loadUserData() {
+	public final void loadUserData() {
 		
 		jTextFieldId.setText(Integer.toString(user.getId()));
 		jTextFieldUsername.setText(user.getUsername());
@@ -191,8 +189,8 @@ public class UserModify extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         passwordChanged = new javax.swing.JCheckBox();
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel4.setText("Gebruiker Aanmaken");
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel4.setText("Gebruiker Wijzigen");
 
         jLabel5.setText("Klantnummer");
 
@@ -218,7 +216,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel11.setText("Woonplaats / postcode");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel12.setText("Contactgegevens");
 
         jLabel13.setText("Telefoonnummer");
@@ -227,7 +225,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel15.setText("E-mailadres");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel16.setText("Wachtwoord");
 
         jLabel17.setText("Wachtwoord herhalen");
@@ -375,7 +373,7 @@ public class UserModify extends javax.swing.JPanel {
                                                 .add(jTextFieldTNV, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
                             .add(jLabel16)
                             .add(jLabel21))
-                        .addContainerGap())
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(jButtonDisable)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)

@@ -51,6 +51,30 @@ public class Invoice extends Model{
 		return this;
 	}
 	
+	public static ArrayList<Invoice> readAll() {
+			
+		ArrayList<Invoice> invoices = new ArrayList<Invoice>();
+			
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT * FROM invoice");
+			model.result();
+			
+			// Loop over all results
+			while(model.result.next()) {
+				invoices.add(new Invoice(model.result));
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return invoices;
+
+	}
+	
 	public static ArrayList<Invoice> readByUserId(int userId) {
 			
 		ArrayList<Invoice> invoices = new ArrayList<Invoice>();
@@ -307,19 +331,42 @@ public class Invoice extends Model{
 	
 	/**
 	 * Get a list of objects that can be used to store this Invoice in a JTable
+	 * 
+	 * @param includeUsers Set to true if the user info must be included
 	 * @return The row for in a JTable
 	 */
-	public Object[] getTableRowObjects() {
+	public Object[] getTableRowObjects(boolean includeUsers) {
 		
 		Datetime date = new Datetime(invoiceDate);
 		
-		return new Object[] {
-			String.format("%04d", id),
-			date.format("MMMM yyyy"),
-			String.format("€ %.2f", amount),
-			date.format("dd-MM-yyyy"),
-			payed ? "Betaald" : "Niet betaald"
-		};
+		if(includeUsers) {
+			
+			// Get the user
+			User user = getUser();
+			
+			// Return a table row with user id and username
+			return new Object[] {
+				String.format("%04d", id),
+				String.format("%04d", user.getId()),
+				user.getFullName(),
+				date.format("MMMM yyyy"),
+				String.format("€ %.2f", amount),
+				date.format("dd-MM-yyyy"),
+				payed ? "Betaald" : "Niet betaald"
+			};
+			
+		} else {
+			
+			// Return a table row without user id and username
+			return new Object[] {
+				String.format("%04d", id),
+				date.format("MMMM yyyy"),
+				String.format("€ %.2f", amount),
+				date.format("dd-MM-yyyy"),
+				payed ? "Betaald" : "Niet betaald"
+			};
+			
+		}
 	}
 	
 	public double getAmount() {

@@ -1,17 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Header.java
+ * Footer.java
  *
  * Created on May 6, 2012, 8:44:06 PM
  */
 package view;
 
 /**
- *
+ *	This is the Graphic on the bottomside of the screen,
+ *	which is showed all the time.
  * @author vm
  */
 public class Footer extends javax.swing.JPanel {
@@ -21,12 +17,6 @@ public class Footer extends javax.swing.JPanel {
         initComponents();
         
     }
-	
-
-	
-	
-
-	
 
     /** This method is called from within the constructor to
      * initialize the form.
