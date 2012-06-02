@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.Application;
+import main.Settings;
 import model.User;
 import view.popups.ErrorPopup;
 
@@ -95,7 +96,9 @@ public class ExceptionHandler {
 		Application application = Application.getInstance();
 
 		// Actions that are always performed
-		Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, exception);
+		if(Settings.get("debug-mode").equals("on")) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, exception);
+		}
 
 		// Actions per type
 		switch (type) {
