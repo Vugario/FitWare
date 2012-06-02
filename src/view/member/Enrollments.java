@@ -144,8 +144,6 @@ public class Enrollments extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        jButtonReset.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jEnrollmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEnrollmentsMouseClicked
