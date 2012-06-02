@@ -141,6 +141,7 @@ public class CourseInfo extends javax.swing.JPanel {
 
                 jLabelDescription.setText("Omschrijving");
                 jLabelDescription.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+                jLabelDescription.setAutoscrolls(true);
 
                 jLabelDuration.setText("Duratie");
 
