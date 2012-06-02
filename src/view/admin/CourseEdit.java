@@ -311,7 +311,7 @@ public class CourseEdit extends javax.swing.JPanel {
         jTextAreaDescription.setRows(5);
         jScrollPane1.setViewportView(jTextAreaDescription);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 16));
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Cursus wijzigen");
 
         jButtonSave.setText("Opslaan");
