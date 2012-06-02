@@ -189,7 +189,7 @@ public class UserModify extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         passwordChanged = new javax.swing.JCheckBox();
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel4.setText("Gebruiker Wijzigen");
 
         jLabel5.setText("Klantnummer");
