@@ -47,7 +47,7 @@ public class Purchase extends Model {
 			// Execute the query
 			Model model = new Model();
 			model.open();
-			model.query("SELECT * FROM \"purchase\" WHERE user_id = ? LIMIT 10 ORDER BY datetime DESC").setInt(1, id);
+			model.query("SELECT * FROM \"purchase\" WHERE user_id = ? ORDER BY datetime DESC LIMIT 10").setInt(1, id);
 			model.result();
 			
 			// Loop over all results
