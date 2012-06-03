@@ -464,13 +464,8 @@
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   <Component id="jLabelFullname2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-<<<<<<< HEAD
                   <Component id="jScrollPane2" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
-=======
-                  <Component id="jScrollPane2" pref="36" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
->>>>>>> 1724aa33284b649cd66e630625e8f4ae8c02fd31
               </Group>
           </Group>
         </DimensionLayout>
@@ -521,11 +516,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
                   <EmptySpace pref="210" max="32767" attributes="0"/>
-=======
-                  <EmptySpace pref="261" max="32767" attributes="0"/>
->>>>>>> 1724aa33284b649cd66e630625e8f4ae8c02fd31
               </Group>
           </Group>
         </DimensionLayout>
