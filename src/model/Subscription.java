@@ -1,3 +1,4 @@
+
 package model;
 
 import java.sql.PreparedStatement;
@@ -11,7 +12,7 @@ import main.Settings;
 import view.popups.NotificationPopup;
 
 /**
- *
+ * This class is used to read, create, delete and update a subscription
  * @author mennowolvers
  */
 public class Subscription extends Model {
