@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import helper.db.Model;
@@ -15,26 +11,50 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class is used to make, update and delete a purchase
  * @author allentje
  */
 public class Purchase extends Model {
 
-	private double price;
-	private int product_id;
-	private String paymentoption;
-	private short quantity;
-	private Timestamp datetime;
-	private int user_id;
-	private User user = new User();
-	private Product product = new Product();
-	
 	/**
-	 * This is the default constructor default constructor for purchase
+	 * is the price of the details
+	 */
+	private double price;
+	/**
+	 * is the identifier of a product
+	 */
+	private int product_id;
+	/**
+	 * Is the paymentoption, "Contant" or "Op Rekening"
+	 */
+	private String paymentoption;
+	/**
+	 * Quantity of the purchased products
+	 */
+	private short quantity;
+	/**
+	 * Date and time of a purchase
+	 */
+	private Timestamp datetime;
+	/**
+	 * Identifier of user
+	 */
+	private int user_id;
+	/**
+	 * User instantiated
+	 */
+	private User user = new User();
+	/**
+	 * Product Instantiated
+	 */
+	private Product product = new Product();
+
+	/**
+	 * This is the default constructor for purchase
 	 */
 	public Purchase() {
 	}
-	
+
 	/**
 	 * This method is a constructor with the result set in it.
 	 * 
@@ -42,30 +62,30 @@ public class Purchase extends Model {
 	 */
 	public Purchase(ResultSet result) {
 		super();
-		
+
 		this.result = result;
 		this.setPropertiesFromResult();
 	}
 
 	/**
-	 * This mehod reads the purchases by a userId and puts it in a array.
+	 * This method reads the purchases by a userId and puts it in a array.
 	 * 
 	 * @param id int id is the identiefier of a user
 	 * @return returns the Arraylist Purchase
 	 */
 	public static ArrayList<Purchase> readByUserId(int id) {
-		
+
 		ArrayList<Purchase> purchases = new ArrayList<Purchase>();
-			
+
 		try {
 			// Execute the query
 			Model model = new Model();
 			model.open();
 			model.query("SELECT * FROM \"purchase\" WHERE user_id = ? ORDER BY datetime DESC LIMIT 10").setInt(1, id);
 			model.result();
-			
+
 			// Loop over all results
-			while(model.result.next()) {
+			while (model.result.next()) {
 				purchases.add(new Purchase(model.result));
 			}
 
@@ -77,30 +97,31 @@ public class Purchase extends Model {
 	}
 
 	/**
-	 * read latest purchases, give limit for different overviews
-	 * @param limit
-	 * @return Purchase objects in array list
+	 * This method reads the latest purchases, give limit for different overviews
+	 * @param limit is the limit on the read of purchases
+	 * @return Purchase objects in array list purchases
 	 */
 	public ArrayList<Purchase> readLastPurchase(int limit) {
-	
+
 		ArrayList<Purchase> purchases = new ArrayList<Purchase>();
-		
+
 		try {
+			//execute query
 			this.open();
 			this.query(
-				"SELECT "
-					+ "*"
-				+ "FROM "
-					+ "purchase pur "
+					"SELECT "
+						+ "*"
+					+ "FROM "
+						+ "purchase pur "
 					+ "ORDER BY datetime DESC "
 				+ "LIMIT "
 					+ "?"
 				).setInt(1, limit);
 			this.result();
-		
-			
+
+
 			// Loop over all results
-			while(this.result.next()) {
+			while (this.result.next()) {
 				purchases.add(new Purchase(this.result));
 			}
 
@@ -115,40 +136,40 @@ public class Purchase extends Model {
 
 	/**
 	 * This method saves a purchase for a user.
-	 * @return true or false, if true then query is successful else gives a popup.
+	 * @return false if the query is successful
 	 */
 	public boolean savePurchase() {
 		// Save the purchase into the database
 		try {
-			
-			boolean availableUser = (user_id > 0 ) ? true : false;
-			
+			//check if a user is availeble
+			boolean availableUser = (user_id > 0) ? true : false;
+			//execute the query
 			this.open();
 			PreparedStatement query = this.query(
 					"INSERT INTO purchase "
-						+ "(user_id, product_id, price, paymentoption, quantity, datetime)"
+					+ "(user_id, product_id, price, paymentoption, quantity, datetime)"
 					+ "VALUES ("
-						+ " ?,"
-						+ " ?,"
-						+ " ?,"
-						+ " ?,"
-						+ " ?,"
-						+ " NOW()"
+					+ " ?,"
+					+ " ?,"
+					+ " ?,"
+					+ " ?,"
+					+ " ?,"
+					+ " NOW()"
 					+ ")");
 
-			if(availableUser){
+			if (availableUser) {
 				query.setInt(1, user_id);
-			}else{
-				
+			} else {
+
 				query.setNull(1, java.sql.Types.INTEGER);
 			}
-			
+
 			query.setInt(2, product_id);
 			query.setDouble(3, price);
 			query.setString(4, paymentoption);
 			query.setInt(5, quantity);
-			
-			
+
+
 			this.execute();
 
 		} catch (Exception ex) {
@@ -159,22 +180,22 @@ public class Purchase extends Model {
 		return false;
 
 	}
-	
+
 	/**
 	 * Get the purchased Product object
 	 * 
 	 * @return The purchased Product
 	 */
 	public Product getProduct() {
-		
+
 		Product product = new Product();
 		product.readById(product_id);
 		return product;
-		
+
 	}
-	
+
 	/**
-	 * Sets all the properties from the result of the query
+	 * This method sets all the properties from the result of the query
 	 */
 	protected void setPropertiesFromResult() {
 		try {
@@ -201,8 +222,9 @@ public class Purchase extends Model {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	/**
+	 * This methods gets the objects of a table row
 	 * @author daan
 	 * @return returns the table row objects
 	 */
@@ -210,17 +232,17 @@ public class Purchase extends Model {
 
 		String fomatDatetime = null;
 
-		if(this.datetime != null){
+		if (this.datetime != null) {
 			Datetime purchaseDatetime = new Datetime(this.datetime);
 			fomatDatetime = purchaseDatetime.format("dd-MM-yyyy HH:mm");
 		}
 
-		return new Object[] {
-			fomatDatetime,
-			"€"+price,
-			product.getName(),
-			paymentoption
-			};
+		return new Object[]{
+					fomatDatetime,
+					"€" + price,
+					product.getName(),
+					paymentoption
+				};
 	}
 
 	/**
@@ -230,7 +252,7 @@ public class Purchase extends Model {
 	public Timestamp getDatetime() {
 		return datetime;
 	}
-	
+
 	/**
 	 * 
 	 * @param datetime is the date and time
@@ -238,7 +260,7 @@ public class Purchase extends Model {
 	public void setDatetime(Timestamp datetime) {
 		this.datetime = datetime;
 	}
-	
+
 	/**
 	 * 
 	 * @return the paymentoption
@@ -246,6 +268,7 @@ public class Purchase extends Model {
 	public String getPaymentoption() {
 		return paymentoption;
 	}
+
 	/**
 	 * 
 	 * @param paymentoption the paymentoption String
@@ -253,7 +276,7 @@ public class Purchase extends Model {
 	public void setPaymentoption(String paymentoption) {
 		this.paymentoption = paymentoption;
 	}
-	
+
 	/**
 	 * 
 	 * @return returns the price
@@ -261,7 +284,7 @@ public class Purchase extends Model {
 	public double getPrice() {
 		return price;
 	}
-	
+
 	/**
 	 * 
 	 * @param price the double price
@@ -269,7 +292,7 @@ public class Purchase extends Model {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	/**
 	 * 
 	 * @return the product identifier
@@ -277,7 +300,7 @@ public class Purchase extends Model {
 	public int getProduct_id() {
 		return product_id;
 	}
-	
+
 	/**
 	 * 
 	 * @param product_id is the product identifier
@@ -285,7 +308,7 @@ public class Purchase extends Model {
 	public void setProduct_id(int product_id) {
 		this.product_id = product_id;
 	}
-	
+
 	/**
 	 * 
 	 * @return the quantity of the product
@@ -293,7 +316,7 @@ public class Purchase extends Model {
 	public short getQuantity() {
 		return quantity;
 	}
-	
+
 	/**
 	 * 
 	 * @param quantity is the number of products
@@ -301,7 +324,7 @@ public class Purchase extends Model {
 	public void setQuantity(short quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	/**
 	 * 
 	 * @return the user identifier
@@ -309,7 +332,7 @@ public class Purchase extends Model {
 	public int getUser_id() {
 		return user_id;
 	}
-	
+
 	/**
 	 * 
 	 * @param user_id is the user identifier
@@ -317,7 +340,7 @@ public class Purchase extends Model {
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	
+
 	/**
 	 * 
 	 * @param product is the product

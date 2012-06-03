@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import view.medewerker.UserAdd;
 
 /**
- *
+ * This class is used to read branches
  * @author allentje
  */
 public class Branch extends Model {

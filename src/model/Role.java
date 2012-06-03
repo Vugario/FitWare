@@ -1,3 +1,4 @@
+
 package model;
 
 import helper.db.Model;
@@ -8,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class is used to read roles
  * @author allentje
  */
 public class Role extends Model{
@@ -19,14 +20,14 @@ public class Role extends Model{
 	String title;
 	
 	/**
-	 * empty constructor for calling class
+	 * This is the default constructor for calling class
 	 */
 	public Role() {	
 		
 	}
 	
 	/**
-	 * constructor to set results, this is not one in user due to the amount of results
+	 * This method is the constructor to set results, this is not one in user due to the amount of results
 	 * @param id
 	 * @param title 
 	 */
@@ -35,12 +36,17 @@ public class Role extends Model{
 		setTitle(title);
 	}
 	
+	/**
+	 * This method is used to read a role by a user identifier
+	 * @param userId identifier of a user
+	 * @return the arraylist roles
+	 */
 	public ArrayList<Role> readByUserId(int userId) {
 				
 		ArrayList<Role> roles = new ArrayList<Role>();
 			
 		try {
-			
+			//execute the query
 			this.open();
 			this.query(
 					"SELECT role.* FROM \"role\""
@@ -60,7 +66,11 @@ public class Role extends Model{
 		return roles;
 
 	}
-	
+	/**
+	 * This method is used to read a role by the role identifier
+	 * @param roleId role identiefier
+	 * @return the result of the query (a role)
+	 */
 	public Role readRole(int roleId) {
 		
 		try {
@@ -79,7 +89,9 @@ public class Role extends Model{
 		
 		return this;
 	}
-	
+	/**
+	 * This method is used to set the properties from the result of the query
+	 */
 	protected void setPropertiesFromResult() {
 		try {
 			// Check if there is a result
@@ -97,11 +109,17 @@ public class Role extends Model{
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-
+	/**
+	 * 
+	 * @return the title of a role (member, barmedewerker or admin)
+	 */
 	public String getTitle() {
 		return title;
 	}
-
+	/**
+	 * 
+	 * @param title is the title of a role (member, barmedewerker or admin)
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
