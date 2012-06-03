@@ -303,7 +303,7 @@ public class UserModify extends javax.swing.JPanel {
 
         jLabel14.setText("Mobielnummer");
 
-        jLabel20.setText("Ter name van");
+        jLabel20.setText("Ten name van");
 
         jLabel7.setText("Volledige naam");
 
@@ -418,7 +418,7 @@ public class UserModify extends javax.swing.JPanel {
                         .add(profileSaveButton))
                     .add(layout.createSequentialGroup()
                         .add(jLabel12)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 731, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 734, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jLabel5))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

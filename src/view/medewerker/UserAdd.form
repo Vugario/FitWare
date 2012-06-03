@@ -466,7 +466,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel20">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ter name van"/>
+        <Property name="text" type="java.lang.String" value="Ten name van"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMember">

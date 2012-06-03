@@ -29,9 +29,17 @@ public class Purchase extends Model {
 	private User user = new User();
 	private Product product = new Product();
 	
+	/**
+	 * This is the default constructor default constructor for purchase
+	 */
 	public Purchase() {
 	}
 	
+	/**
+	 * This method is a constructor with the result set in it.
+	 * 
+	 * @param result returns the result of a query.
+	 */
 	public Purchase(ResultSet result) {
 		super();
 		
@@ -39,6 +47,12 @@ public class Purchase extends Model {
 		this.setPropertiesFromResult();
 	}
 
+	/**
+	 * This mehod reads the purchases by a userId and puts it in a array.
+	 * 
+	 * @param id int id is the identiefier of a user
+	 * @return returns the Arraylist Purchase
+	 */
 	public static ArrayList<Purchase> readByUserId(int id) {
 		
 		ArrayList<Purchase> purchases = new ArrayList<Purchase>();
@@ -98,8 +112,11 @@ public class Purchase extends Model {
 		return purchases;
 	}
 
+	/**
+	 * This method saves a purchase for a user.
+	 * @return true or false, if true then query is successful else gives a popup.
+	 */
 	public boolean savePurchase() {
-		//TODO create SQL for to save purchase
 		// Save the purchase into the database
 		try {
 			
@@ -154,7 +171,10 @@ public class Purchase extends Model {
 		return product;
 		
 	}
-
+	
+	/**
+	 * Sets all the properties from the result of the query
+	 */
 	protected void setPropertiesFromResult() {
 		try {
 
@@ -202,56 +222,105 @@ public class Purchase extends Model {
 			};
 	}
 
-	
-
+	/**
+	 * 
+	 * @return the date and time
+	 */
 	public Timestamp getDatetime() {
 		return datetime;
 	}
-
+	
+	/**
+	 * 
+	 * @param datetime is the date and time
+	 */
 	public void setDatetime(Timestamp datetime) {
 		this.datetime = datetime;
 	}
-
+	
+	/**
+	 * 
+	 * @return the paymentoption
+	 */
 	public String getPaymentoption() {
 		return paymentoption;
 	}
-
+	/**
+	 * 
+	 * @param paymentoption the paymentoption String
+	 */
 	public void setPaymentoption(String paymentoption) {
 		this.paymentoption = paymentoption;
 	}
-
+	
+	/**
+	 * 
+	 * @return returns the price
+	 */
 	public double getPrice() {
 		return price;
 	}
-
+	
+	/**
+	 * 
+	 * @param price the double price
+	 */
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
+	
+	/**
+	 * 
+	 * @return the product identifier
+	 */
 	public int getProduct_id() {
 		return product_id;
 	}
-
+	
+	/**
+	 * 
+	 * @param product_id is the product identifier
+	 */
 	public void setProduct_id(int product_id) {
 		this.product_id = product_id;
 	}
-
+	
+	/**
+	 * 
+	 * @return the quantity of the product
+	 */
 	public short getQuantity() {
 		return quantity;
 	}
-
+	
+	/**
+	 * 
+	 * @param quantity is the number of products
+	 */
 	public void setQuantity(short quantity) {
 		this.quantity = quantity;
 	}
-
+	
+	/**
+	 * 
+	 * @return the user identifier
+	 */
 	public int getUser_id() {
 		return user_id;
 	}
-
+	
+	/**
+	 * 
+	 * @param user_id is the user identifier
+	 */
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 	
+	/**
+	 * 
+	 * @param product is the product
+	 */
 	public void setProduct(Product product) {
 		this.product = product;
 	}

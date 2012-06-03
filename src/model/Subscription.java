@@ -7,6 +7,7 @@ import helper.db.*;
 import java.sql.*;
 import java.util.ArrayList;
 import main.Application;
+import main.Settings;
 import view.popups.NotificationPopup;
 
 /**
@@ -84,6 +85,11 @@ public class Subscription extends Model {
 	 * End time when the subscription ends
 	 */
 	private Time endTime;
+	
+	/**
+	 * The Branch where the Subscription (Course) will take place
+	 */
+	private Branch branch;
 
 	/**
 	 * Initialize a new Subscription model
@@ -169,7 +175,7 @@ public class Subscription extends Model {
 					query.setInt(4, this.getMaximumAge() );
 					query.setDouble(5, this.getPrice() );
 					query.setBoolean(6, this.getMonthly() );
-					query.setInt(7, 1);
+					query.setInt(7, Settings.getInt("branch") );
 					query.setString(8, String.valueOf( this.getGender() ) );
 					query.setDate(9, this.getStartDate() );
 					query.setDate(10, this.getEndDate() );
@@ -208,7 +214,7 @@ public class Subscription extends Model {
 					query.setInt(4, this.getMaximumAge() );
 					query.setDouble(5, this.getPrice() );
 					query.setBoolean(6, this.getMonthly() );
-					query.setInt(7, 1);
+					query.setInt(7, Settings.getInt("branch") );
 					query.setString(8, String.valueOf( this.getGender() ) );
 					query.setDate(9, this.getStartDate() );
 					query.setDate(10, this.getEndDate() );
@@ -283,7 +289,7 @@ public class Subscription extends Model {
 			this.setEndDate(this.result.getDate("endDate"));
 			this.setStartTime(this.result.getTime("startTime"));
 			this.setEndTime(this.result.getTime("endTime"));
-			//this.setDays( this.result.getArray("days"));
+			this.setBranch( new Branch( this.result.getInt("branchid") ) );
 			
 			Array res = this.result.getArray("days");
 			if( res != null ) {
@@ -554,6 +560,20 @@ public class Subscription extends Model {
 		days.toArray(data);
 		
 		this.days = data;
+	}
+
+	/**
+	 * @return the branch
+	 */
+	public Branch getBranch() {
+		return branch;
+	}
+
+	/**
+	 * @param branch the branch to set
+	 */
+	public void setBranch(Branch branch) {
+		this.branch = branch;
 	}
 	
 }
