@@ -128,9 +128,11 @@ public class User extends Model {
                 PreparedStatement query = this.query(
                         "SELECT COUNT(*) AS userCount "
                         + "FROM \"user\" "
-                        + "WHERE username = ?"
+                        + "WHERE username = ?  "
+                        + "AND id != ?"
                         );
                 query.setString(1, username);
+                query.setInt(2, id);
                 
                 this.result();
                 this.result.first();
