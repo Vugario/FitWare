@@ -45,7 +45,7 @@ public class AdminMenu extends javax.swing.JPanel {
             }
         });
 
-        jButtonProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/user_32.png"))); // NOI18N
+        jButtonProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/users_32.png"))); // NOI18N
         jButtonProfile.setText("Gebruikers");
         jButtonProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonProfile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
