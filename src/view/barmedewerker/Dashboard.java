@@ -7,129 +7,135 @@ package view.barmedewerker;
 
 import helper.Datetime;
 import helper.ExceptionHandler;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-
 import main.Session;
 import model.Attendance;
 import model.Enrollment;
 import model.Purchase;
 import model.User;
 
-
-
 /**
  *
  * @author Daan
  */
+@SuppressWarnings("serial")
 public class Dashboard extends javax.swing.JPanel {
-	protected DefaultTableModel purchaseModel;
-	protected DefaultTableModel enrollmentModel;
-	
-	private User sessionUser = Session.get().getLoggedInUser();
-	private User user = new User();
-	
-	
+
+    private DefaultTableModel purchaseModel;
+    private DefaultTableModel enrollmentModel;
+    private User sessionUser = Session.get().getLoggedInUser();
+    private User user = new User();
+
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
-        initComponents();	
+        initComponents();
 
-		purchaseModel = (DefaultTableModel)recentPayments.getModel();
-	
-		//disbale user elementes if no user has been found yet
-		jLabelCustomerName.setVisible(false);
-		userFoundPanel.setVisible(false);
-		jLabelCustomerBirthdate.setVisible(false);
-		jLabelCustomerGender.setVisible(false);
-		checkinSuccessText.setVisible(false);
-		checkinSuccessPanel.setVisible(false);
-		userCourses.setVisible(false);
-		
-		updateLatestPurchase();
-		updateUserInfo();
+        User usersession = Session.get().getLoggedInUser();
+        if (!usersession.getRole().getTitle().equals("admin")) {
+            access.setVisible(false);
+        }
+
+        purchaseModel = (DefaultTableModel) recentPayments.getModel();
+
+        //disbale user elementes if no user has been found yet
+        jLabelCustomerName.setVisible(false);
+        userFoundPanel.setVisible(false);
+        jLabelCustomerBirthdate.setVisible(false);
+        jLabelCustomerGender.setVisible(false);
+        checkinSuccessText.setVisible(false);
+        checkinSuccessPanel.setVisible(false);
+        userCourses.setVisible(false);
+
+        updateLatestPurchase();
+        updateUserInfo();
     }
 
     private void updateUserInfo() {
         this.jLabelFullname.setText(sessionUser.getFullName());
     }
-	
-	private void updateLatestPurchase (){
-		
-		purchaseModel.setRowCount(0);
 
-		// Secondly, fill it with all users
-		ArrayList<Purchase> purchases = Purchase.readByUserId(sessionUser.getId());
+    private void updateLatestPurchase() {
 
-		for (Purchase purchase : purchases) {
-			purchaseModel.addRow(purchase.getTableRowObjects());
-		}
-		
-	}
+        getPurchaseModel().setRowCount(0);
 
-	public void searchUser() {
-		
-		try {
-			int id = Integer.parseInt(userSearchField.getText());
-			user.readUser(id);
-			
-			jLabelCustomerName.setVisible(true);
-			userFoundPanel.setVisible(true);
+        // Secondly, fill it with all users
+        ArrayList<Purchase> purchases = Purchase.readByUserId(sessionUser.getId());
+
+        for (Purchase purchase : purchases) {
+            getPurchaseModel().addRow(purchase.getTableRowObjects());
+        }
+
+    }
+
+    public void searchUser() {
+
+        try {
+            int id = Integer.parseInt(userSearchField.getText());
+            user.readUser(id);
+
+            jLabelCustomerName.setVisible(true);
+            userFoundPanel.setVisible(true);
 
 
-			if(user.getId() > 0){
-				
-				jLabelCustomerBirthdate.setVisible(true);
-				jLabelCustomerGender.setVisible(true);
-				userCourses.setVisible(true);
-				
-				int userId = user.getId();
-				// Set the label
-				jLabelCustomerName.setText(user.getFullName());
-				
-				Datetime datetime = new Datetime(user.getBirthdate());
-				jLabelCustomerBirthdate.setText(datetime.format("dd-MM-yyyy"));
-				
-				if(user.getGender()){
-					jLabelCustomerGender.setText("Man");
-				}else{
-					jLabelCustomerGender.setText("Vrouw");
-				}
-				
-				addUserCoursesToComboBox(userId);
-				
-			}else{
-				jLabelCustomerName.setText("Gebruiker niet gevonden");
-			}
-		} catch (Exception ex) {
-			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
-		}
-		
-		
+            if (user.getId() > 0) {
 
-	}
-	
-	public void addUserCoursesToComboBox(int userId) {
-		userCourses.removeAllItems();
-		
-		ArrayList<Enrollment> enrollments = Enrollment.readByUserId(userId);
+                jLabelCustomerBirthdate.setVisible(true);
+                jLabelCustomerGender.setVisible(true);
+                userCourses.setVisible(true);
 
-		for(Enrollment enrollment : enrollments){
-			
-			Object lol = new Object();
-			
-			userCourses.addItem(enrollment);
-		}
+                int userId = user.getId();
+                // Set the label
+                jLabelCustomerName.setText(user.getFullName());
 
-	}
-	
-        /**
-         * This method is called from within the constructor to initialize the
-         * form. WARNING: Do NOT modify this code. The content of this method is
-         * always regenerated by the Form Editor.
-         */
-        @SuppressWarnings("unchecked")
+                Datetime datetime = new Datetime(user.getBirthdate());
+                jLabelCustomerBirthdate.setText(datetime.format("dd-MM-yyyy"));
+
+                if (user.getGender()) {
+                    jLabelCustomerGender.setText("Man");
+                } else {
+                    jLabelCustomerGender.setText("Vrouw");
+                }
+
+                addUserCoursesToComboBox(userId);
+
+            } else {
+                jLabelCustomerName.setText("Gebruiker niet gevonden");
+            }
+        } catch (Exception ex) {
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
+        }
+
+
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public void addUserCoursesToComboBox(int userId) {
+        userCourses.removeAllItems();
+
+        ArrayList<Enrollment> enrollments = Enrollment.readByUserId(userId);
+
+        for (Enrollment enrollment : enrollments) {
+
+            //  Object lol = new Object();
+
+            userCourses.addItem(enrollment);
+        }
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -158,6 +164,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabelFullname2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         checkinSuccessText = new javax.swing.JTextPane();
+        access = new javax.swing.JButton();
 
         recentPayments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -229,7 +236,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel3.setText("Aangemeld voor cursussen");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -246,12 +253,12 @@ public class Dashboard extends javax.swing.JPanel {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(10, 10, 10)
                 .add(jLabel3)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("Recente activiteiten");
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
@@ -261,21 +268,21 @@ public class Dashboard extends javax.swing.JPanel {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel2)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(10, 10, 10)
                 .add(jLabel2)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(242, 241, 240));
 
-        userSearchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userSearchFieldActionPerformed(evt);
+        userSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordFieldKeyReleased(evt);
             }
         });
 
@@ -333,10 +340,10 @@ public class Dashboard extends javax.swing.JPanel {
             }
         });
         userCourses.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 userCoursesCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -384,7 +391,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .add(userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(userCourses, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(userCheckin))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         checkinSuccessPanel.setBackground(new java.awt.Color(242, 241, 240));
@@ -404,11 +411,11 @@ public class Dashboard extends javax.swing.JPanel {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
             .add(checkinSuccessPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabelFullname2)
-                .addContainerGap(253, Short.MAX_VALUE))
-            .add(checkinSuccessPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                .add(checkinSuccessPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(checkinSuccessPanelLayout.createSequentialGroup()
+                        .add(jLabelFullname2)
+                        .add(0, 243, Short.MAX_VALUE))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                 .addContainerGap())
         );
         checkinSuccessPanelLayout.setVerticalGroup(
@@ -421,6 +428,13 @@ public class Dashboard extends javax.swing.JPanel {
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        access.setText("Open statistieken");
+        access.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accessActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -435,9 +449,12 @@ public class Dashboard extends javax.swing.JPanel {
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(access)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -448,7 +465,9 @@ public class Dashboard extends javax.swing.JPanel {
                     .add(layout.createSequentialGroup()
                         .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 347, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(access))
                     .add(layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(10, 10, 10)
@@ -456,16 +475,13 @@ public class Dashboard extends javax.swing.JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(userFoundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 115, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(userFoundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 13, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-	private void userSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSearchFieldActionPerformed
-		// TODO add your handling code here:
-	}//GEN-LAST:event_userSearchFieldActionPerformed
 
 	private void jButtonUserCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUserCheckinActionPerformed
 		// TODO add your handling code here:
@@ -487,21 +503,40 @@ public class Dashboard extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonUserCheckinActionPerformed
 
 	private void jButtonSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchUserActionPerformed
-		// TODO add your handling code here:
-		searchUser();
+            // TODO add your handling code here:
+            searchUser();
 	}//GEN-LAST:event_jButtonSearchUserActionPerformed
 
 	private void userCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userCoursesActionPerformed
-		// TODO add your handling code here:
+            // TODO add your handling code here:
 	}//GEN-LAST:event_userCoursesActionPerformed
 
 	private void userCoursesCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_userCoursesCaretPositionChanged
-		// TODO add your handling code here:
+            // TODO add your handling code here:
 	}//GEN-LAST:event_userCoursesCaretPositionChanged
 
-	
-	
+    private void accessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessActionPerformed
+
+
+        File accessFile = new File("src/resources/PASDB.accdb");
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().open(accessFile);
+            } catch (IOException ex) {
+            }
+        }
+    }//GEN-LAST:event_accessActionPerformed
+
+    private void jPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldKeyReleased
+        // If this is an enter, search user
+        // The KeyCode for an enter is 10
+
+        if (evt.getKeyCode() == 10) {
+            searchUser();
+        }
+    }//GEN-LAST:event_jPasswordFieldKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton access;
     private javax.swing.JPanel checkinSuccessPanel;
     private javax.swing.JTextPane checkinSuccessText;
     private javax.swing.JButton jButtonSearchUser;
@@ -528,4 +563,32 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JPanel userFoundPanel;
     private javax.swing.JTextField userSearchField;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the enrollmentModel
+     */
+    public DefaultTableModel getEnrollmentModel() {
+        return enrollmentModel;
+    }
+
+    /**
+     * @param enrollmentModel the enrollmentModel to set
+     */
+    public void setEnrollmentModel(DefaultTableModel enrollmentModel) {
+        this.enrollmentModel = enrollmentModel;
+    }
+
+    /**
+     * @return the purchaseModel
+     */
+    public DefaultTableModel getPurchaseModel() {
+        return purchaseModel;
+    }
+
+    /**
+     * @param purchaseModel the purchaseModel to set
+     */
+    public void setPurchaseModel(DefaultTableModel purchaseModel) {
+        this.purchaseModel = purchaseModel;
+    }
 }
