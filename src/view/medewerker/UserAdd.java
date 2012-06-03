@@ -297,8 +297,18 @@ public final class UserAdd extends javax.swing.JPanel {
         });
 
         jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusGained(evt);
+            }
+        });
 
         jPasswordField2.setText("jPasswordField2");
+        jPasswordField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField2FocusGained(evt);
+            }
+        });
 
         jLabel2.setText("Category");
 
@@ -563,6 +573,17 @@ public final class UserAdd extends javax.swing.JPanel {
 		// Set the textfield empty on focus
 		jTextFieldLastname.setText(null);
 	}//GEN-LAST:event_jTextFieldLastnameFocusGained
+
+	private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+		// Empty the password field on focus gain
+		jPasswordField1.setText(null);
+	}//GEN-LAST:event_jPasswordField1FocusGained
+
+	private void jPasswordField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField2FocusGained
+		// Empty the password field on focus gain
+		jPasswordField2.setText(null);
+	}//GEN-LAST:event_jPasswordField2FocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
