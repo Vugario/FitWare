@@ -118,6 +118,31 @@ public class User extends Model {
 		
 		return users;
 	}
+        
+        public boolean checkUserExist(){
+            
+            int userCount = 0;
+            
+            try{
+                this.open();
+                PreparedStatement query = this.query(
+                        "SELECT COUNT(*) AS userCount "
+                        + "FROM \"user\" "
+                        + "WHERE username = ?"
+                        );
+                query.setString(1, username);
+                
+                this.result();
+                this.result.first();
+                userCount = this.result.getInt("userCount");
+                
+            }
+            catch(Exception ex){
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
+            return (userCount > 0);
+        }
 
 	public boolean create(){
 		
@@ -491,7 +516,7 @@ public class User extends Model {
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = username.toLowerCase();
 	}
 
 	public String getCategory() {

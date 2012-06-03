@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Settings;
 
 /**
  *	This class is used to make enrollments and set subscriptions to enrollments.
@@ -169,7 +170,7 @@ public class Enrollment extends Model {
 			PreparedStatement query = this.query("INSERT INTO \"enrollment\" (user_id, subscription_id, datetime, branch_id) VALUES (?, ?, NOW(), ?)");
 			query.setInt( 1, user_id );
 			query.setInt( 2, id );
-			query.setInt( 3, 2 );
+			query.setInt( 3, Settings.getInt("branch") );
 			this.execute();
 
 		} catch (Exception ex) {

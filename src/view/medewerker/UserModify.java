@@ -554,6 +554,14 @@ public class UserModify extends javax.swing.JPanel {
 		
 		
 		setUserData();
+                
+                if (user.checkUserExist()) {
+            // User already exists
+            Application.getInstance().showPopup(new ErrorPopup(
+                    "Deze username is al in gebruik.\n"
+                    + "Kies een andere naam."));
+            return;
+        }
 		
 		if(!user.update()){
 			Application.getInstance().showPopup(new ErrorPopup(
