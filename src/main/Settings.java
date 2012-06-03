@@ -50,6 +50,12 @@ public class Settings {
 		
 		return settings.get(name);
 	}
+	
+	public static int getInt( String name ) {
+		Settings.init();
+		
+		return Integer.parseInt( settings.get(name) );
+	}
 
 	/**
 	 * Set a setting temporary for this process.
