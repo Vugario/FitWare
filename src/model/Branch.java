@@ -70,6 +70,26 @@ public class Branch extends Model {
 	}
 
 	/**
+	 * This method reads a branch by the city
+	 * @param city is the location of a branch
+	 */
+	public Branch(String city) {
+		super();
+		// Do the query
+		try {
+			this.open();
+			this.query("SELECT * FROM \"branch\" WHERE city = ? LIMIT 1").setString(1, city);
+			this.result();
+			this.result.first();
+
+			this.setPropertiesFromResult();
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	/**
 	 * This methods reads every branch there is and puts it in a ArrayList
 	 * @return returns the ArrayList Branch
 	 */

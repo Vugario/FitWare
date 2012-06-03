@@ -146,6 +146,38 @@ public class User extends Model {
 
 		return this;
 	}
+	
+	public User readByRole(int id, String role) {
+		try {
+			this.open();
+			PreparedStatement query = this.query(
+				"SELECT "
+					+ "u.* "
+				+ "FROM "
+					+ "\"user\" u "
+				+ "JOIN "
+					+ "role r "
+				+ "ON "
+					+ "r.id = u.role_id "
+				+ "WHERE "
+					+ "u.id = ? "
+				+ "AND "
+					+ "r.title = ?"
+				+ "LIMIT 1");
+			query.setInt(1, id);
+			query.setString(2, role);
+			
+			this.result();
+			this.result.first();
+
+			this.setPropertiesFromResult();
+			
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return this;
+	}
 
 	/**
 	 * This method is used to read a user by it's credentials (for login)
@@ -200,6 +232,33 @@ public class User extends Model {
 
 		return users;
 	}
+        
+        public boolean checkUserExist(){
+            
+            int userCount = 0;
+            
+            try{
+                this.open();
+                PreparedStatement query = this.query(
+                        "SELECT COUNT(*) AS userCount "
+                        + "FROM \"user\" "
+                        + "WHERE username = ?  "
+                        + "AND id != ?"
+                        );
+                query.setString(1, username);
+                query.setInt(2, id);
+                
+                this.result();
+                this.result.first();
+                userCount = this.result.getInt("userCount");
+                
+            }
+            catch(Exception ex){
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
+            return (userCount > 0);
+        }
 
 	/**
 	 * This method checks if a user exists
