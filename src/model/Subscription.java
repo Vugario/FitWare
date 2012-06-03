@@ -214,7 +214,7 @@ public class Subscription extends Model {
 					query.setInt(4, this.getMaximumAge() );
 					query.setDouble(5, this.getPrice() );
 					query.setBoolean(6, this.getMonthly() );
-					query.setInt(7, Settings.getInt("branch") );
+					query.setInt(7, this.getBranchId() );
 					query.setString(8, String.valueOf( this.getGender() ) );
 					query.setDate(9, this.getStartDate() );
 					query.setDate(10, this.getEndDate() );
@@ -521,7 +521,10 @@ public class Subscription extends Model {
 	 * @param startTime the startTime to set
 	 */
 	public void setStartTime(String startTime) {
-		this.startTime = Time.valueOf( startTime + ":00" );
+		if( startTime.length() >= 7 )
+			this.startTime = Time.valueOf( startTime );
+		else
+			this.startTime = Time.valueOf( startTime + ":00" );
 	}
 
 	/**
@@ -542,7 +545,10 @@ public class Subscription extends Model {
 	 * @param endTime the endTime to set
 	 */
 	public void setEndTime(String endTime) {
-		this.endTime = Time.valueOf( endTime + ":00" );
+		if( endTime.length() >= 7 )
+			this.endTime = Time.valueOf( endTime );
+		else
+			this.endTime = Time.valueOf( endTime + ":00" );
 	}
 
 	/**
