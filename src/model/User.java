@@ -99,6 +99,14 @@ public class User extends Model {
 	 * Role identifier
 	 */
 	private int roleId;
+	/**
+	 * Get model for relation
+	 */
+	private Branch branch;
+	/**
+	 * Branch identifier
+	 */
+	private int branchId;
 	/*
 	 * The male gender
 	 */
@@ -405,6 +413,8 @@ public class User extends Model {
 			this.roleId = this.result.getInt("role_id");
 			this.baccountname = this.result.getString("baccountname");
 
+			//set the branch
+			this.branch = new Branch(this.getBranchId());
 			// Set the role
 			this.role = role.readRole(this.getRoleId());
 
@@ -829,5 +839,37 @@ public class User extends Model {
 	 */
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+	
+	/**
+	 * 
+	 * @return the branch identifier for a user
+	 */
+	public int getBranchId() {
+		return branchId;
+	}
+
+	/**
+	 * 
+	 * @param branchId is the branch identifier for a user
+	 */
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
+	}
+	
+	/**
+	 * 
+	 * @param branch is the branch for a user
+	 */
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+	/**
+	 * 
+	 * @return the brach identifier for a user
+	 */
+	public int getBranch() {
+		return branchId;
 	}
 }

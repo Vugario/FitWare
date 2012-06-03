@@ -107,6 +107,7 @@ public class UserModify extends javax.swing.JPanel {
 				jRadioButtonAdmin.setSelected(true);
 				break;
 		}
+
 		
 		if (user.getGender()) {
 			jRadioButtonGenderMale.setSelected(true);
