@@ -35,11 +35,11 @@ public class Dashboard extends javax.swing.JPanel {
      */
     public Dashboard() {
         initComponents();
-        
+
         User usersession = Session.get().getLoggedInUser();
-        if (! usersession.getRole().getTitle().equals("admin")) {
-			access.setVisible(false);
-		}
+        if (!usersession.getRole().getTitle().equals("admin")) {
+            access.setVisible(false);
+        }
 
         purchaseModel = (DefaultTableModel) recentPayments.getModel();
 
@@ -123,7 +123,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         for (Enrollment enrollment : enrollments) {
 
-          //  Object lol = new Object();
+            //  Object lol = new Object();
 
             userCourses.addItem(enrollment);
         }
@@ -280,9 +280,9 @@ public class Dashboard extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(242, 241, 240));
 
-        userSearchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userSearchFieldActionPerformed(evt);
+        userSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordFieldKeyReleased(evt);
             }
         });
 
@@ -361,20 +361,21 @@ public class Dashboard extends javax.swing.JPanel {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1)
             .add(userFoundPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabelCustomerName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(81, 81, 81))
-            .add(userFoundPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .add(userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(userFoundPanelLayout.createSequentialGroup()
-                        .add(userCourses, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(34, 34, 34)
-                        .add(userCheckin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jLabelCustomerName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(81, 81, 81))
                     .add(userFoundPanelLayout.createSequentialGroup()
-                        .add(jLabelCustomerBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabelCustomerGender, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(userFoundPanelLayout.createSequentialGroup()
+                                .add(userCourses, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(34, 34, 34)
+                                .add(userCheckin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(userFoundPanelLayout.createSequentialGroup()
+                                .add(jLabelCustomerBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jLabelCustomerGender, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         userFoundPanelLayout.setVerticalGroup(
             userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -482,10 +483,6 @@ public class Dashboard extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-	private void userSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSearchFieldActionPerformed
-            // TODO add your handling code here:
-	}//GEN-LAST:event_userSearchFieldActionPerformed
-
 	private void jButtonUserCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUserCheckinActionPerformed
             // TODO add your handling code here:
 
@@ -517,8 +514,8 @@ public class Dashboard extends javax.swing.JPanel {
 	}//GEN-LAST:event_userCoursesCaretPositionChanged
 
     private void accessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessActionPerformed
-        
-        
+
+
         File accessFile = new File("src/resources/PASDB.accdb");
         if (Desktop.isDesktopSupported()) {
             try {
@@ -527,6 +524,15 @@ public class Dashboard extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_accessActionPerformed
+
+    private void jPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldKeyReleased
+        // If this is an enter, search user
+        // The KeyCode for an enter is 10
+
+        if (evt.getKeyCode() == 10) {
+            searchUser();
+        }
+    }//GEN-LAST:event_jPasswordFieldKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton access;
     private javax.swing.JPanel checkinSuccessPanel;
@@ -580,7 +586,7 @@ public class Dashboard extends javax.swing.JPanel {
     /**
      * @param purchaseModel the purchaseModel to set
      */
-   public void setPurchaseModel(DefaultTableModel purchaseModel) {
-       this.purchaseModel = purchaseModel;
-   }
+    public void setPurchaseModel(DefaultTableModel purchaseModel) {
+        this.purchaseModel = purchaseModel;
+    }
 }
