@@ -122,7 +122,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="731" max="-2" attributes="0"/>
+                      <EmptySpace pref="734" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -441,7 +441,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel20">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ter name van"/>
+        <Property name="text" type="java.lang.String" value="Ten name van"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
