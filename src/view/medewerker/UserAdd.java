@@ -330,7 +330,7 @@ public final class UserAdd extends javax.swing.JPanel {
 
         jLabel1.setText("Rekeningnummer");
 
-        jLabel20.setText("Ter name van");
+        jLabel20.setText("Ten name van");
 
         jRadioButtonMember.setText("Lid");
 

@@ -27,10 +27,16 @@ public class Enrollment extends Model {
 	private boolean enrolled;
 	private Branch branch;
 	
-	
+	/**
+	 * This method is the default constructor for Enrollment
+	 */
 	public Enrollment() {
 	}
-
+	
+	/**
+	 * This method is the constructor for Enrollment
+	 * @param result is the result of a query
+	 */
 	public Enrollment(ResultSet result) {
 		super();
 
@@ -40,9 +46,9 @@ public class Enrollment extends Model {
 	
 
 	/**
-	 * collect all the subscriptions for the member dashboard
+	 * This method collects all the subscriptions for the member dashboard
 	 * @param user_id
-	 * @return 
+	 * @return the ArrayList Enrollment
 	 */
 
 	public static ArrayList<Enrollment> readByUserId(int id) {
@@ -67,7 +73,13 @@ public class Enrollment extends Model {
 
 		return enrollments;
 	}
-
+	
+	/**
+	 * This method reads the enrollment information that belongs to a certain
+	 * subscription identifier.
+	 * @param id
+	 * @return the Arraylist of Users
+	 */
 	public static ArrayList<User> readBySubscriptionId(int id) {
 
 		ArrayList<User> users = new ArrayList<User>();
@@ -93,6 +105,11 @@ public class Enrollment extends Model {
 		return users;
 	}
 
+	/**
+	 * This method reads information about a enrollment.
+	 * @param id the identifier of the enrollment
+	 * @return the result of the query
+	 */
 	public Enrollment readEnrollmentById(int id) {
 		try {
 			this.open();
@@ -108,9 +125,17 @@ public class Enrollment extends Model {
 
 		return this;
 	}
-
+	
+	/**
+	 * This method reads information about a enrollment by the subscription identifier
+	 * and user identifier.
+	 * @param id identifier of a subscription
+	 * @param user_id identifier of a user
+	 * @return returns the result of the query.
+	 */
 	public Enrollment readEnrollmentBySubscriptionIdAndUserId(int id, int user_id) {
 		try {
+			//Execute the query
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM \"enrollment\" WHERE subscription_id = ? AND user_id = ? LIMIT 1");
 			query.setInt(1, id);
@@ -130,10 +155,16 @@ public class Enrollment extends Model {
 
 		return this;
 	}
-
+	
+	/**
+	 * This method is used to subscribe a user to an enrollment
+	 * @param id identifier of a subscription
+	 * @param user_id identifier of a user
+	 */
 	public void subscribe( int id, int user_id ) {
 
 		try {
+			//execute the query
 			this.open();
 			PreparedStatement query = this.query("INSERT INTO \"enrollment\" (user_id, subscription_id, datetime, branch_id) VALUES (?, ?, NOW(), ?)");
 			query.setInt( 1, user_id );
@@ -146,9 +177,15 @@ public class Enrollment extends Model {
 		}
 	}
 
+	/**
+	 * This method unsubscribes a user from an enrollement
+	 * @param id identifier of the subscription
+	 * @param user_id identifier of user
+	 */
 	public void unsubscribe( int id, int user_id ) {
 
 		try {
+			//execute the query
 			this.open();
 			PreparedStatement query = this.query("DELETE FROM \"enrollment\" WHERE user_id = ? AND subscription_id = ?");
 			query.setInt( 1, user_id );
@@ -159,7 +196,11 @@ public class Enrollment extends Model {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-
+	
+	/**
+	 * This method sets the  properties from a query result
+	 * @return true if all goes well, false when this method fails
+	 */
 	protected boolean setPropertiesFromResult() {
 
 		try {
@@ -190,7 +231,6 @@ public class Enrollment extends Model {
 	}
 
 	/**
-
 	 * @author daan
 	 * @return returns the table row objects
 	 */
@@ -212,8 +252,8 @@ public class Enrollment extends Model {
 	}
 	
 	/**
-	 * override to string for combo box
-	 * @return 
+	 * This method overrides to string for combobox
+	 * @return the title of a subscription subscription
 	 */
 	@Override
 	public String toString() {
@@ -317,15 +357,25 @@ public class Enrollment extends Model {
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-	
+	/**
+	 * Gets the branch identifier
+	 * @return the branch identifier
+	 */
 	public int getBranch_id() {
 		return branch_id;
 	}
-
+	/**
+	 * 
+	 * @param branch_id is the identfier of a branch
+	 */
 	public void setBranch_id(int branch_id) {
 		this.branch_id = branch_id;
 	}
 	
+	/**
+	 * 
+	 * @return true if someone is enrolled, false if someone isn't
+	 */
 	public boolean isEnrolled() {
 		return this.enrolled;
 	}
