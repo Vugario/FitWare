@@ -156,6 +156,56 @@ public class Subscription extends Model {
 		return items;
 
 	}
+        
+        /**
+	 * Retrieve multiple Subscription as an Arraylist where monthly is true
+	 * @return ArrayList<Subscription> An array populated with Subscription Models of existing Subscriptions
+	 */
+	public static ArrayList<Subscription> readAllMonthly() {
+
+		ArrayList<Subscription> items = new ArrayList<Subscription>();
+
+		try {
+			// Execute the query
+			Model model = new Model();
+			model.open();
+			model.query("SELECT * FROM subscription WHERE monthly = TRUE");
+			model.result();
+
+			// Loop over all results
+			while (model.result.next()) {
+				items.add(new Subscription(model.result));
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return items;
+	}
+        
+        /**
+	 * Read a subscription by its title to get its id
+	 * @return ArrayList<Subscription> An array populated with Subscription Models of existing Subscriptions
+	 */
+            public Subscription readByTitle() {
+
+		try {
+			// Execute the query
+			this.open();
+                        PreparedStatement query = this.query("SELECT * FROM \"subscription\" WHERE title = ?");
+                        query.setString(1, title);
+                        System.out.println(query);
+                        this.result();
+                        this.result.first();
+                        setPropertiesFromResult();
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return this;
+	}
 	
 	/**
 	 * Create a new subscription
