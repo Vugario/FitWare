@@ -50,18 +50,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRadioButtonMixed" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="jComboBoxAgeGroup" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldEndTime" min="-2" pref="108" max="-2" attributes="0"/>
-                          <Component id="jTextFieldStartTime" min="-2" pref="108" max="-2" attributes="0"/>
-                          <Component id="jTextFieldEndDate" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
-                          <Component id="jTextFieldStartDate" min="-2" pref="108" max="-2" attributes="0"/>
                           <Component id="jTextFieldPrice" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                           <Component id="jTextFieldCourseName" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
                           <Component id="jRadioButtonCourseType1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -69,6 +58,27 @@
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Component id="jButtonSave" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" alignment="1" min="-2" pref="510" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jTextFieldStartTime" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldEndDate" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldStartDate" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldEndTime" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jRadioButtonMixed" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -95,32 +105,39 @@
               <Component id="jRadioButtonCourseType2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="jCheckBoxSaturday" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxSunday" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jCheckBoxMonday" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBoxTuesday" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBoxWednesday" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBoxThursday" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxFriday" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldStartDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCourseStartDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldEndDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCourseEndDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldStartTime" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCourseStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldEndTime" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCourseEnd" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -128,9 +145,6 @@
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jCheckBoxFriday" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCheckBoxSaturday" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCheckBoxSunday" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
@@ -337,6 +351,38 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldPrice">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Voorbeeld: 20:00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Voorbeeld: 19:00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Voorbeeld: 2012-05-29"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Voorbeeld: 2012-01-29"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
