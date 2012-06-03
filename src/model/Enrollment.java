@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *	This class is used to make enrollments and set subscriptions to enrollments.
  * @author mennowolvers
  */
 public class Enrollment extends Model {
