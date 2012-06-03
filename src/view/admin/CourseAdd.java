@@ -5,6 +5,7 @@
  */
 package view.admin;
 
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import main.Application;
@@ -34,6 +35,8 @@ public class CourseAdd extends javax.swing.JPanel {
 	/** Creates new form CourseAdd */
 	public CourseAdd() {
 		initComponents();
+		selectionCheck();
+		
 		//Remove the items
 		jComboBoxAgeGroup.removeAllItems();
 
@@ -76,8 +79,7 @@ public class CourseAdd extends javax.swing.JPanel {
 			type = jRadioButtonCourseType2.getText() + " : " + days;
 		}
 		// Description to set in the Subscription model
-		String description = "Type: " + type + "\n"
-				+ jTextAreaDescription.getText();
+		String description = jTextAreaDescription.getText();
 		subscription.setDescription(description);
 
 		// The gender to set into the Subcription model
@@ -103,20 +105,87 @@ public class CourseAdd extends javax.swing.JPanel {
 			subscription.setMinimumAge(65);
 			subscription.setMaximumAge(150);
 		}
+		
+		// Set the days
+		subscription.setDays( this.getDays() );
+		
+		// Set the starting time
+		subscription.setStartTime( startTime );
+		
+		// Set the end time
+		subscription.setEndTime( endTime );
 
-		// The Startdate to set into the Subscription model
-		String jStartDate = jTextFieldStartDate.getText();
-		//Date startDate = new Date();
-		//helper.DateTime datetime = new helper.Datetime(startDate);	
-		//subscription.setStartDate(datetime.format("yyyy-mm-dd"));
-
-		// String endDate = jTextFieldStartDate.getText();
-		//helper.Datetime datetime2 = new helper.Datetime(endDate);	
-		//subscription.setEndDate(datetime2.timestamp());
-
-		// The price to set into the Subscription model
+		// Set the price
 		double price = Double.parseDouble(jTextFieldPrice.getText());
 		subscription.setPrice(price);
+	}
+	
+	/*
+	 * Check on selection of the JRadioButtonCourseType2
+	 * @author vm
+	 * 
+	 */
+	public void selectionCheck() {
+
+		if (jRadioButtonCourseType2.isSelected()) {
+			enableCheckBox();
+		} else {
+			disableCheckBox();
+		}
+	}
+
+	/**
+	 * Enable the days checkboxes
+	 */
+	public void enableCheckBox() {
+		//Enable all the checkboxes
+		jCheckBoxMonday.setEnabled(true);
+		jCheckBoxTuesday.setEnabled(true);
+		jCheckBoxWednesday.setEnabled(true);
+		jCheckBoxThursday.setEnabled(true);
+		jCheckBoxFriday.setEnabled(true);
+		jCheckBoxSaturday.setEnabled(true);
+		jCheckBoxSunday.setEnabled(true);
+
+	}
+
+	/**
+	 * Disable the days checkboxes
+	 */
+	public void disableCheckBox() {
+		//Disable all the checkboxes
+		jCheckBoxMonday.setEnabled(false);
+		jCheckBoxTuesday.setEnabled(false);
+		jCheckBoxWednesday.setEnabled(false);
+		jCheckBoxThursday.setEnabled(false);
+		jCheckBoxFriday.setEnabled(false);
+		jCheckBoxSaturday.setEnabled(false);
+		jCheckBoxSunday.setEnabled(false);
+	}
+
+	/**
+	 * Retrieve an ArrayList of days the subscription is given
+	 * @return ArrayList Every day the subscription is given
+	 */
+	public ArrayList getDays() {
+		ArrayList days = new ArrayList();
+		
+		if( jCheckBoxMonday.isSelected() )
+			days.add( "Maandag" );
+		if( jCheckBoxTuesday.isSelected() )
+			days.add( "Dinsdag" );
+		if( jCheckBoxWednesday.isSelected() )
+			days.add( "Woensdag" );
+		if( jCheckBoxThursday.isSelected() )
+			days.add( "Donderdag" );
+		if( jCheckBoxFriday.isSelected() )
+			days.add( "Vrijdag" );
+		if( jCheckBoxSaturday.isSelected() )
+			days.add( "Zaterdag" );
+		if( jCheckBoxSunday.isSelected() )
+			days.add( "Zondag" );
+		
+		return days;
 	}
 
 	/**
@@ -362,6 +431,7 @@ public class CourseAdd extends javax.swing.JPanel {
 
 	private void jRadioButtonCourseType2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2StateChanged
 		//When the RadioButton's state is chaged go to selectionCheck
+		selectionCheck();
 	}//GEN-LAST:event_jRadioButtonCourseType2StateChanged
 
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed

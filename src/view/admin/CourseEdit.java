@@ -20,11 +20,25 @@ import view.popups.SuccessPopup;
  */
 public class CourseEdit extends javax.swing.JPanel {
 
+	/**
+	 * String with every day the subscription is given
+	 */
 	String days;
+	
+	/**
+	 * Type of the subscription
+	 */
 	String type;
+	
+	/**
+	 * A complete Subscription Model
+	 */
 	Subscription subscription;
 
-	/** Creates new form CourseAdd */
+	/**
+	 * Initialize a new Subscription edit form and populate
+	 * @param id The id of the Subscription
+	 */
 	public CourseEdit( int id ) {
 		initComponents();
 		selectionCheck();
@@ -50,6 +64,9 @@ public class CourseEdit extends javax.swing.JPanel {
 
 	}
 	
+	/**
+	 * Populate a form with the Subscription information
+	 */
 	public void populate()
 	{
 		jTextFieldCourseName.setText( this.subscription.getTitle() );
@@ -118,6 +135,9 @@ public class CourseEdit extends javax.swing.JPanel {
 		}
 	}
 
+	/**
+	 * Enable the days checkboxes
+	 */
 	public void enableCheckBox() {
 		//Enable all the checkboxes
 		jCheckBoxMonday.setEnabled(true);
@@ -130,6 +150,9 @@ public class CourseEdit extends javax.swing.JPanel {
 
 	}
 
+	/**
+	 * Disable the days checkboxes
+	 */
 	public void disableCheckBox() {
 		//Disable all the checkboxes
 		jCheckBoxMonday.setEnabled(false);
@@ -141,6 +164,10 @@ public class CourseEdit extends javax.swing.JPanel {
 		jCheckBoxSunday.setEnabled(false);
 	}
 
+	/**
+	 * Retrieve an ArrayList of days the subscription is given
+	 * @return ArrayList Every day the subscription is given
+	 */
 	public ArrayList getDays() {
 		ArrayList days = new ArrayList();
 		
@@ -162,6 +189,9 @@ public class CourseEdit extends javax.swing.JPanel {
 		return days;
 	}
 
+	/**
+	 * Write the form-data to the Subscription model
+	 */
 	public void setSubscriptionData() {
 		
 			
@@ -485,28 +515,34 @@ public class CourseEdit extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+	/**
+	 * When the Subscription type changes, check if the days need to be enabled or disabled
+	 * @param evt 
+	 */
 	private void jRadioButtonCourseType2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2StateChanged
 		//When the RadioButton's state is chaged go to selectionCheck
 		selectionCheck();
 
 	}//GEN-LAST:event_jRadioButtonCourseType2StateChanged
 
+	/**
+	 * Save the Subscription with new data and return to the Subscription Overview
+	 * @param evt 
+	 */
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
 		// TODO add your handling code here:
 		setSubscriptionData();
 		subscription.edit();
 		
 		Application.getInstance().showPanel(new view.medewerker.CoursesOverview());
-		
-		
 	}//GEN-LAST:event_jButtonSaveActionPerformed
 
 private void jRadioButtonCourseType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2ActionPerformed
-// TODO add your handling code here:
+
 }//GEN-LAST:event_jRadioButtonCourseType2ActionPerformed
 
 private void jCheckBoxMondayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMondayActionPerformed
-		// TODO add your handling code here:
+		
 }//GEN-LAST:event_jCheckBoxMondayActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
