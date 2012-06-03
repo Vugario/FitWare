@@ -22,165 +22,156 @@ import view.popups.ErrorPopup;
  */
 public final class UserAdd extends javax.swing.JPanel {
 
-	private User user = new User();
-	private User userSession = Session.get().getLoggedInUser();
+    private User user = new User();
+    private User userSession = Session.get().getLoggedInUser();
 
-	/** Creates new form Profile */
-	public UserAdd() {
+    /**
+     * Creates new form Profile
+     */
+    public UserAdd() {
 
-		initComponents();
+        initComponents();
 
-		// Empty the combo box
-		jComboBox1.removeAllItems();
+        // Empty the combo box
+        jComboBox1.removeAllItems();
 
-		//Set the radiobuttons in a group
-		ButtonGroup groupCategory = new ButtonGroup();
-		groupCategory.add(jRadioButtonYouth);
-		groupCategory.add(jRadioButtonAdult);
-		groupCategory.add(jRadioButtonSenior);
+        //Set the radiobuttons in a group
+        ButtonGroup groupCategory = new ButtonGroup();
+        groupCategory.add(jRadioButtonYouth);
+        groupCategory.add(jRadioButtonAdult);
+        groupCategory.add(jRadioButtonSenior);
 
-		ButtonGroup groupGender = new ButtonGroup();
-		groupGender.add(jRadioButtonGenderMale);
-		groupGender.add(jRadioButtonGenderFemale);
+        ButtonGroup groupGender = new ButtonGroup();
+        groupGender.add(jRadioButtonGenderMale);
+        groupGender.add(jRadioButtonGenderFemale);
 
-		ButtonGroup groupTime = new ButtonGroup();
-		groupTime.add(jRadioButtonDayTime);
-		groupTime.add(jRadioButtonFullTime);
+        ButtonGroup groupTime = new ButtonGroup();
+        groupTime.add(jRadioButtonDayTime);
+        groupTime.add(jRadioButtonFullTime);
 
-		ButtonGroup groupUserType = new ButtonGroup();
-		groupUserType.add(jRadioButtonAdmin);
-		groupUserType.add(jRadioButtonBarmedewerker);
-		groupUserType.add(jRadioButtonMember);
+        ButtonGroup groupUserType = new ButtonGroup();
+        groupUserType.add(jRadioButtonAdmin);
+        groupUserType.add(jRadioButtonBarmedewerker);
+        groupUserType.add(jRadioButtonMember);
 
-		//jComboBox1.setModel(new DefaultComboBoxModel());
-		//uncomment this one when the sql works
-		addBranchToComboBox();
-
-
-		jRadioButtonAdmin.setVisible(false);
-		jRadioButtonBarmedewerker.setVisible(false);
-		jRadioButtonMember.setVisible(false);
+        //jComboBox1.setModel(new DefaultComboBoxModel());
+        //uncomment this one when the sql works
+        addBranchToComboBox();
 
 
-		if (userSession.getRole().getTitle().equals("admin")) {
-			jRadioButtonAdmin.setVisible(true);
-			jRadioButtonBarmedewerker.setVisible(true);
-			jRadioButtonMember.setVisible(true);
+        jRadioButtonAdmin.setVisible(false);
+        jRadioButtonBarmedewerker.setVisible(false);
+        jRadioButtonMember.setVisible(false);
 
-		}
 
-	}
+        if (userSession.getRole().getTitle().equals("admin")) {
+            jRadioButtonAdmin.setVisible(true);
+            jRadioButtonBarmedewerker.setVisible(true);
+            jRadioButtonMember.setVisible(true);
 
-	public void addBranchToComboBox() {
-		ArrayList<Branch> branches = Branch.readAll();
+        }
 
-		//DefaultComboBoxModel comboModel = (DefaultComboBoxModel) jComboBox1.getModel();
-		for (int i = 0; i < branches.size(); i++) {
-			Branch branch = branches.get(i);
-			jComboBox1.addItem(branch.getCity());
-		}
-	}
+    }
 
-	public void setUserData() {
+    public void addBranchToComboBox() {
+        ArrayList<Branch> branches = Branch.readAll();
 
-		String username = jTextFieldUsername.getText();
-		user.setUsername(username);
+        //DefaultComboBoxModel comboModel = (DefaultComboBoxModel) jComboBox1.getModel();
+        for (int i = 0; i < branches.size(); i++) {
+            Branch branch = branches.get(i);
+            jComboBox1.addItem(branch.getCity());
+        }
+    }
 
-		String firstname = jTextFieldFirstname.getText();
-		user.setFirstname(firstname);
+    public void setUserData() {
 
-		String subname = jTextFieldSubname.getText();
-		user.setSubname(subname);
+        String username = jTextFieldUsername.getText();
+        user.setUsername(username);
 
-		String lastname = jTextFieldLastname.getText();
-		user.setLastname(lastname);
+        String firstname = jTextFieldFirstname.getText();
+        user.setFirstname(firstname);
 
-		String birthdate = jTextFieldBirthdate.getText();
-		helper.Datetime datetime = new helper.Datetime(birthdate+" 00:00:00");	
-		user.setBirthdate(datetime.timestamp());
+        String subname = jTextFieldSubname.getText();
+        user.setSubname(subname);
 
-		String street = jTextFieldStreet.getText();
-		user.setStreet(street);
+        String lastname = jTextFieldLastname.getText();
+        user.setLastname(lastname);
 
-		String city = jTextFieldCity.getText();
-		user.setCity(city);
+        String birthdate = jTextFieldBirthdate.getText();
+        helper.Datetime datetime = new helper.Datetime(birthdate + " 00:00:00");
+        user.setBirthdate(datetime.timestamp());
 
-		String housenumber = jTextFieldStreetnumber.getText();
-		user.setHousenumber(housenumber);
+        String street = jTextFieldStreet.getText();
+        user.setStreet(street);
 
-		String postcode = jTextFieldPostcode.getText();
-		user.setPostcode(postcode);
+        String city = jTextFieldCity.getText();
+        user.setCity(city);
 
-		String phonenumber = jTextFieldPhonenumber.getText();
-		user.setPhonenumber(phonenumber);
+        String housenumber = jTextFieldStreetnumber.getText();
+        user.setHousenumber(housenumber);
 
-		String mobilenumber = jTextFieldMobilenumber.getText();
-		user.setMobilenumber(mobilenumber);
+        String postcode = jTextFieldPostcode.getText();
+        user.setPostcode(postcode);
 
-		String email = jTextFieldEmail.getText();
-		user.setEmail(email);
+        String phonenumber = jTextFieldPhonenumber.getText();
+        user.setPhonenumber(phonenumber);
 
-		if (jRadioButtonGenderMale.isSelected() == true) {
-			user.setGender(true);
-		} else {
-			user.setGender(false);
-		}
+        String mobilenumber = jTextFieldMobilenumber.getText();
+        user.setMobilenumber(mobilenumber);
 
-		// Default is role ID 1 (members)
-		int role_id = 1;
+        String email = jTextFieldEmail.getText();
+        user.setEmail(email);
 
-		// Only admin users may change the user type
-		if (userSession.getRole().getTitle().equals("admin")) {
-			if (jRadioButtonAdmin.isSelected()) {
-				//TODOSet the userType Admin
-				role_id = 3;
+        if (jRadioButtonGenderMale.isSelected() == true) {
+            user.setGender(true);
+        } else {
+            user.setGender(false);
+        }
 
-			} else if (jRadioButtonBarmedewerker.isSelected()) {
-				//TODOSet the userType member
-				role_id = 2;
-			} else if (jRadioButtonMember.isSelected()) {
-				//TODOSet the userType member
-				role_id = 1;
-			}
-		}
-		user.setRoleId(role_id);
-		
-		int bankaccount = Integer.parseInt(jTextFieldBankAccount.getText());
-		user.setBankaccount(bankaccount);
-		
-		String baccountname = jTextFieldBaccountname.getText();
-		user.setBaccountname(baccountname);
+        // Default is role ID 1 (members)
+        int role_id = 1;
 
-		Subscription subscription = new Subscription();
+        // Only admin users may change the user type
+        if (userSession.getRole().getTitle().equals("admin")) {
+            if (jRadioButtonAdmin.isSelected()) {
+                //TODOSet the userType Admin
+                role_id = 3;
 
-		/*if (jRadioButtonYouth.isSelected()) {
-		subscription.setCategory("youth");
-		} else if (jRadioButtonAdult.isSelected()) {
-		subscription.setCategory("adult");
-		} else {
-		subscription.setCategory("senior");
-		}
-		
-		if(jRadioButtonDayTime.isSelected){
-		subscription.set
-		}*/
+            } else if (jRadioButtonBarmedewerker.isSelected()) {
+                //TODOSet the userType member
+                role_id = 2;
+            } else if (jRadioButtonMember.isSelected()) {
+                //TODOSet the userType member
+                role_id = 1;
+            }
+        }
+        user.setRoleId(role_id);
 
-	}
+        int bankaccount = Integer.parseInt(jTextFieldBankAccount.getText());
+        user.setBankaccount(bankaccount);
 
-	public JComboBox getjComboBox1() {
-		return jComboBox1;
-	}
+        String baccountname = jTextFieldBaccountname.getText();
+        user.setBaccountname(baccountname);
 
-	public void setjComboBox1(JComboBox jComboBox1) {
-		this.jComboBox1 = jComboBox1;
-	}
+        Subscription subscription = new Subscription();
+        // Todo: set default subscription.
 
-	/** This method is called from within the constructor to
-	 * initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is
-	 * always regenerated by the Form Editor.
-	 */
-	@SuppressWarnings("unchecked")
+    }
+
+    public JComboBox getjComboBox1() {
+        return jComboBox1;
+    }
+
+    public void setjComboBox1(JComboBox jComboBox1) {
+        this.jComboBox1 = jComboBox1;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -531,59 +522,71 @@ public final class UserAdd extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-		
-		//Check if a @ sign is in the emailadress field
-		int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
-		String password1 = new String(jPasswordField1.getPassword());
-		String password2 = new String(jPasswordField2.getPassword());
+        //Check if a @ sign is in the emailadress field
+        int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
-		if (password1.equals(password2)) {
-			user.setPassword(password1);
-		}
+        String password1 = new String(jPasswordField1.getPassword());
+        String password2 = new String(jPasswordField2.getPassword());
 
-		//If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
-		if (emailcheck < 0) {
+        if (password1.equals(password2)) {
+            user.setPassword(password1);
+        } else {
+            Application.getInstance().showPopup(new ErrorPopup(
+                    "De wachtwoorden komen niet overeen."));
+            return;
+        }
 
-			Application.getInstance().showPopup(new ErrorPopup(
-					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
-					+ "Probeer het nogmaals alstublieft."));
-		}
+        //If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
+        if (emailcheck < 0) {
 
-		this.setUserData();
-		
-		user.create();
-		
-		Application.getInstance().showPanel(new view.medewerker.UserOverview());
+            Application.getInstance().showPopup(new ErrorPopup(
+                    "U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
+                    + "Probeer het nogmaals alstublieft."));
+            return;
+        }
+
+        this.setUserData();
+
+        if (user.checkUserExist()) {
+            // User already exists
+            Application.getInstance().showPopup(new ErrorPopup(
+                    "Deze username is al in gebruik.\n"
+                    + "Kies een andere naam."));
+            return;
+        }
+
+        user.create();
+
+        Application.getInstance().showPanel(new view.medewerker.UserOverview());
 
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 
 	private void jTextFieldFirstnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldFirstnameFocusGained
-		// Set the textfield empty on focus
-		jTextFieldFirstname.setText(null);
+            // Set the textfield empty on focus
+            jTextFieldFirstname.setText(null);
 
 	}//GEN-LAST:event_jTextFieldFirstnameFocusGained
 
 	private void jTextFieldSubnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSubnameFocusGained
-		// Set the textfield empty on focus
-		jTextFieldSubname.setText(null);
+            // Set the textfield empty on focus
+            jTextFieldSubname.setText(null);
 	}//GEN-LAST:event_jTextFieldSubnameFocusGained
 
 	private void jTextFieldLastnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldLastnameFocusGained
-		// Set the textfield empty on focus
-		jTextFieldLastname.setText(null);
+            // Set the textfield empty on focus
+            jTextFieldLastname.setText(null);
 	}//GEN-LAST:event_jTextFieldLastnameFocusGained
 
 	private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
-		// Empty the password field on focus gain
-		jPasswordField1.setText(null);
+            // Empty the password field on focus gain
+            jPasswordField1.setText(null);
 	}//GEN-LAST:event_jPasswordField1FocusGained
 
 	private void jPasswordField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField2FocusGained
-		// Empty the password field on focus gain
-		jPasswordField2.setText(null);
+            // Empty the password field on focus gain
+            jPasswordField2.setText(null);
 	}//GEN-LAST:event_jPasswordField2FocusGained
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
