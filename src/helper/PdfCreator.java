@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import main.Application;
+import view.popups.ErrorPopup;
 
 /**
  * Create a pdf file for an invoice
@@ -21,7 +23,7 @@ public class PdfCreator {
 	 * The temporary pdf file
 	 */
 	protected File tempfile;
-	
+
 	/**
 	 * Create a pdf file for an invoice and save the pdf in the database
 	 * 
@@ -52,16 +54,32 @@ public class PdfCreator {
 			// Write to temp file
 			document.saveDocument(tempfile.getAbsolutePath());
 
-			// TEMP: Open PDF
-			if (Desktop.isDesktopSupported()) {
-				try {
-					Desktop.getDesktop().open(tempfile);
-				} catch (IOException ex) {
-					// no application registered for PDFs
-				}
-			}
 		} catch (IOException ex) {
 			Logger.getLogger(PdfCreator.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+
+	/**
+	 * Open the newly created PDF file
+	 */
+	public void openFile() {
+		if (Desktop.isDesktopSupported()) {
+			try {
+				Desktop.getDesktop().open(tempfile);
+			} catch (IOException ex) {
+				// no application registered for PDFs
+				Application.getInstance().showPopup(new ErrorPopup(
+						"There is no programm registered to open PDF's"));
+			}
+		}
+	}
+	
+	/**
+	 * Get the newly created PDF file
+	 * 
+	 * @return File The newly created file
+	 */
+	public File getFile() {
+		return tempfile;
 	}
 }
