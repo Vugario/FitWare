@@ -314,6 +314,40 @@ public class User extends Model {
 		return fullName;
 	}
 
+	public static int totalMembers()
+	{
+		Model model = new Model();
+
+		int count = 0;
+		try {
+			model.open();
+			model.query(
+				"SELECT"
+					+ " COUNT(u.id) "
+				+ "FROM "
+					+ "\"user\" u "
+				+ "JOIN "
+					+ "role r "
+				+ "ON "
+					+ "r.id = u.role_id "
+				+ "WHERE "
+					+ "r.title = 'member' "
+				+ "AND "
+					+ "u.active = true "
+				+ "GROUP BY "
+					+ "u.role_id");
+			
+			model.result();
+			model.result.first();
+						
+			count = model.result.getInt(1);
+		} catch (SQLException ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		return count;
+	}
+	
 	public boolean isActive() {
 		return active;
 	}

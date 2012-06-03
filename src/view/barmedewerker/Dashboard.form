@@ -83,7 +83,7 @@
                 <Column editable="false" title="Datum" type="java.lang.String"/>
                 <Column editable="false" title="Prijs" type="java.lang.String"/>
                 <Column editable="false" title="Product" type="java.lang.String"/>
-                <Column editable="false" title="Betaald met" type="java.lang.String"/>
+                <Column editable="false" title="Betaald" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -265,14 +265,14 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="userSearchField" min="-2" pref="283" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jButtonSearchUser" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="userSearchField" pref="318" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jButtonSearchUser" min="-2" pref="90" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabelFullname1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -325,30 +325,28 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
-              <Group type="102" attributes="0">
+              <Component id="jSeparator1" alignment="1" pref="456" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabelCustomerBirthdate" min="-2" pref="105" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabelCustomerGender" min="-2" pref="105" max="-2" attributes="0"/>
+                  <EmptySpace pref="218" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabelCustomerName" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabelCustomerName" pref="288" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="userCourses" min="-2" pref="290" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Component id="userCheckin" min="-2" pref="89" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabelCustomerBirthdate" min="-2" pref="105" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabelCustomerGender" min="-2" pref="105" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="userCourses" pref="319" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="userCheckin" min="-2" pref="94" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
