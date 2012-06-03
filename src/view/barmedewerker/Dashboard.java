@@ -7,9 +7,6 @@ package view.barmedewerker;
 
 import helper.Datetime;
 import helper.ExceptionHandler;
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import main.Session;
@@ -35,11 +32,6 @@ public class Dashboard extends javax.swing.JPanel {
      */
     public Dashboard() {
         initComponents();
-
-        User usersession = Session.get().getLoggedInUser();
-        if (!usersession.getRole().getTitle().equals("admin")) {
-            access.setVisible(false);
-        }
 
         purchaseModel = (DefaultTableModel) recentPayments.getModel();
 
@@ -164,7 +156,6 @@ public class Dashboard extends javax.swing.JPanel {
         jLabelFullname2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         checkinSuccessText = new javax.swing.JTextPane();
-        access = new javax.swing.JButton();
 
         recentPayments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,10 +198,10 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(242, 241, 240));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel1.setText("Welkom terug, ");
 
-        jLabelFullname.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabelFullname.setFont(new java.awt.Font("Ubuntu", 1, 18));
         jLabelFullname.setText("jLabelFullname");
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
@@ -222,7 +213,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabelFullname)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -236,7 +227,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel3.setText("Aangemeld voor cursussen");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -246,7 +237,7 @@ public class Dashboard extends javax.swing.JPanel {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(8, 8, 8)
                 .add(jLabel3)
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -258,7 +249,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18));
         jLabel2.setText("Recente activiteiten");
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
@@ -268,7 +259,7 @@ public class Dashboard extends javax.swing.JPanel {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel2)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -286,7 +277,7 @@ public class Dashboard extends javax.swing.JPanel {
             }
         });
 
-        jLabelFullname1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabelFullname1.setFont(new java.awt.Font("Ubuntu", 1, 18));
         jLabelFullname1.setText("Gebruiker inchecken");
 
         jButtonSearchUser.setText("Zoeken");
@@ -304,7 +295,7 @@ public class Dashboard extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .add(userSearchField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                        .add(userSearchField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jButtonSearchUser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jLabelFullname1))
@@ -324,13 +315,13 @@ public class Dashboard extends javax.swing.JPanel {
 
         userFoundPanel.setBackground(new java.awt.Color(242, 241, 240));
 
-        jLabelCustomerName.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabelCustomerName.setFont(new java.awt.Font("Ubuntu", 1, 14));
         jLabelCustomerName.setText("gebruiker");
 
-        jLabelCustomerBirthdate.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabelCustomerBirthdate.setFont(new java.awt.Font("Ubuntu", 0, 14));
         jLabelCustomerBirthdate.setText("21-05-2012");
 
-        jLabelCustomerGender.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabelCustomerGender.setFont(new java.awt.Font("Ubuntu", 0, 14));
         jLabelCustomerGender.setText("gender");
 
         userCourses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -340,10 +331,10 @@ public class Dashboard extends javax.swing.JPanel {
             }
         });
         userCourses.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 userCoursesCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -358,21 +349,21 @@ public class Dashboard extends javax.swing.JPanel {
         userFoundPanel.setLayout(userFoundPanelLayout);
         userFoundPanelLayout.setHorizontalGroup(
             userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
             .add(userFoundPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabelCustomerBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabelCustomerGender, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, userFoundPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(userFoundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(userFoundPanelLayout.createSequentialGroup()
-                        .add(jLabelCustomerName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                        .add(jLabelCustomerName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                         .add(37, 37, 37))
                     .add(userFoundPanelLayout.createSequentialGroup()
-                        .add(userCourses, 0, 319, Short.MAX_VALUE)
+                        .add(userCourses, 0, 243, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                 .add(userCheckin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -396,7 +387,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         checkinSuccessPanel.setBackground(new java.awt.Color(242, 241, 240));
 
-        jLabelFullname2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabelFullname2.setFont(new java.awt.Font("Ubuntu", 0, 18));
         jLabelFullname2.setText("Succesvol ingecheckt");
 
         checkinSuccessText.setBackground(new java.awt.Color(242, 241, 240));
@@ -408,14 +399,12 @@ public class Dashboard extends javax.swing.JPanel {
         checkinSuccessPanel.setLayout(checkinSuccessPanelLayout);
         checkinSuccessPanelLayout.setHorizontalGroup(
             checkinSuccessPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
             .add(checkinSuccessPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(checkinSuccessPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(checkinSuccessPanelLayout.createSequentialGroup()
-                        .add(jLabelFullname2)
-                        .add(0, 243, Short.MAX_VALUE))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .add(jLabelFullname2))
                 .addContainerGap())
         );
         checkinSuccessPanelLayout.setVerticalGroup(
@@ -425,16 +414,9 @@ public class Dashboard extends javax.swing.JPanel {
                 .add(2, 2, 2)
                 .add(jLabelFullname2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        access.setText("Open statistieken");
-        access.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accessActionPerformed(evt);
-            }
-        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -443,19 +425,16 @@ public class Dashboard extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(userFoundPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(userFoundPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(access)))
-                .addContainerGap())
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -465,9 +444,7 @@ public class Dashboard extends javax.swing.JPanel {
                     .add(layout.createSequentialGroup()
                         .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 347, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(access))
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(10, 10, 10)
@@ -477,8 +454,7 @@ public class Dashboard extends javax.swing.JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(userFoundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 13, Short.MAX_VALUE)))
+                        .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -515,18 +491,6 @@ public class Dashboard extends javax.swing.JPanel {
             // TODO add your handling code here:
 	}//GEN-LAST:event_userCoursesCaretPositionChanged
 
-    private void accessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessActionPerformed
-
-
-        File accessFile = new File("src/resources/PASDB.accdb");
-        if (Desktop.isDesktopSupported()) {
-            try {
-                Desktop.getDesktop().open(accessFile);
-            } catch (IOException ex) {
-            }
-        }
-    }//GEN-LAST:event_accessActionPerformed
-
     private void jPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldKeyReleased
         // If this is an enter, search user
         // The KeyCode for an enter is 10
@@ -535,8 +499,8 @@ public class Dashboard extends javax.swing.JPanel {
             searchUser();
         }
     }//GEN-LAST:event_jPasswordFieldKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton access;
     private javax.swing.JPanel checkinSuccessPanel;
     private javax.swing.JTextPane checkinSuccessText;
     private javax.swing.JButton jButtonSearchUser;
