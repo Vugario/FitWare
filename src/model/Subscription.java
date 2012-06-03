@@ -85,6 +85,11 @@ public class Subscription extends Model {
 	 * End time when the subscription ends
 	 */
 	private Time endTime;
+	
+	/**
+	 * The Branch where the Subscription (Course) will take place
+	 */
+	private Branch branch;
 
 	/**
 	 * Initialize a new Subscription model
@@ -284,7 +289,7 @@ public class Subscription extends Model {
 			this.setEndDate(this.result.getDate("endDate"));
 			this.setStartTime(this.result.getTime("startTime"));
 			this.setEndTime(this.result.getTime("endTime"));
-			//this.setDays( this.result.getArray("days"));
+			this.setBranch( new Branch( this.result.getInt("branchid") ) );
 			
 			Array res = this.result.getArray("days");
 			if( res != null ) {
@@ -555,6 +560,20 @@ public class Subscription extends Model {
 		days.toArray(data);
 		
 		this.days = data;
+	}
+
+	/**
+	 * @return the branch
+	 */
+	public Branch getBranch() {
+		return branch;
+	}
+
+	/**
+	 * @param branch the branch to set
+	 */
+	public void setBranch(Branch branch) {
+		this.branch = branch;
 	}
 	
 }
