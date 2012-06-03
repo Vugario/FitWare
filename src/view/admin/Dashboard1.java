@@ -25,7 +25,7 @@ import view.popups.ErrorPopup;
  *
  * @author Daan
  */
-public class Dashboard extends javax.swing.JPanel {
+public class Dashboard1 extends javax.swing.JPanel {
 
 	protected DefaultTableModel purchaseTableModel;
 	protected DefaultTableModel enrollmentTableModel;
@@ -35,7 +35,7 @@ public class Dashboard extends javax.swing.JPanel {
 	/**
 	 * Creates new form Dashboard
 	 */
-	public Dashboard() {
+	public Dashboard1() {
 		initComponents();
 
 		purchaseTableModel = (DefaultTableModel) recentPayments.getModel();
