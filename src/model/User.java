@@ -260,33 +260,6 @@ public class User extends Model {
             return (userCount > 0);
         }
 
-	/**
-	 * This method checks if a user exists
-	 * @return if the amount is > 0.
-	 */
-	public boolean checkUserExist() {
-
-		int userCount = 0;
-
-		try {
-			// Execute query
-			this.open();
-			PreparedStatement query = this.query(
-					"SELECT COUNT(*) AS userCount "
-					+ "FROM \"user\" "
-					+ "WHERE username = ?");
-			query.setString(1, username);
-
-			this.result();
-			this.result.first();
-			userCount = this.result.getInt("userCount");
-
-		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		return (userCount > 0);
-	}
 
 	/**
 	 * This method creates a user
