@@ -30,6 +30,8 @@ public class Settings {
 		settings.put("db-user", "fitware");
 		settings.put("db-password", "8T3m4577");
 		
+		settings.put("branch", "1");
+		
 		// Allen's database settings
 //		settings.put("db-url", "jdbc:postgresql://allen.pb/fitshape");
 //		settings.put("db-user", "postgres");

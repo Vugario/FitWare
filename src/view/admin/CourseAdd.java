@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import main.Application;
+import model.Branch;
 import model.Subscription;
 import view.popups.SuccessPopup;
 
@@ -31,6 +32,11 @@ public class CourseAdd extends javax.swing.JPanel {
 	 * The instantiate the object Subscription
 	 */
 	Subscription subscription = new Subscription();
+	
+	/**
+	 * All available branches where the subscription could take place
+	 */
+	ArrayList<Branch> branches;
 
 	/** Creates new form CourseAdd */
 	public CourseAdd() {
@@ -45,6 +51,13 @@ public class CourseAdd extends javax.swing.JPanel {
 		jComboBoxAgeGroup.addItem("16 - 18");
 		jComboBoxAgeGroup.addItem("18 - 65");
 		jComboBoxAgeGroup.addItem("65 +");
+		
+		this.branches = Branch.readAll();
+		
+		jComboBoxBranch.removeAllItems();
+		for( Branch branch : this.branches )
+			jComboBoxBranch.addItem( branch.getCity() );
+		
 
 		//Group the buttons so there can be only one button seleted in the group
 		ButtonGroup buttongroupType = new ButtonGroup();
@@ -71,6 +84,8 @@ public class CourseAdd extends javax.swing.JPanel {
 		// The start- and endtime to set into the Subscription model
 		String startTime = jTextFieldStartTime.getText();
 		String endTime = jTextFieldEndTime.getText();
+		String startDate = jTextFieldStartDate.getText();
+		String endDate = jTextFieldEndDate.getText();
 
 		// Get the data for type.
 		if (jRadioButtonCourseType1.isSelected()) {
@@ -81,6 +96,13 @@ public class CourseAdd extends javax.swing.JPanel {
 		// Description to set in the Subscription model
 		String description = jTextAreaDescription.getText();
 		subscription.setDescription(description);
+		
+		// Set the type of the course
+		if (jRadioButtonCourseType2.isSelected()) {
+			subscription.setType('d');
+		} else {
+			subscription.setType('l');
+		}
 
 		// The gender to set into the Subcription model
 		if (jRadioButtonMale.isSelected()) {
@@ -92,16 +114,16 @@ public class CourseAdd extends javax.swing.JPanel {
 		}
 
 		// The age selection to set into the Subscription model
-		if (jComboBoxAgeGroup.getSelectedIndex() == 1) {
+		if (jComboBoxAgeGroup.getSelectedIndex() == 0) {
 			subscription.setMinimumAge(0);
 			subscription.setMaximumAge(16);
-		} else if (jComboBoxAgeGroup.getSelectedIndex() == 2) {
+		} else if (jComboBoxAgeGroup.getSelectedIndex() == 1) {
 			subscription.setMinimumAge(16);
 			subscription.setMaximumAge(18);
-		} else if (jComboBoxAgeGroup.getSelectedIndex() == 3) {
+		} else if (jComboBoxAgeGroup.getSelectedIndex() == 2) {
 			subscription.setMinimumAge(18);
 			subscription.setMaximumAge(65);
-		} else if (jComboBoxAgeGroup.getSelectedIndex() == 4) {
+		} else if (jComboBoxAgeGroup.getSelectedIndex() == 3) {
 			subscription.setMinimumAge(65);
 			subscription.setMaximumAge(150);
 		}
@@ -114,10 +136,18 @@ public class CourseAdd extends javax.swing.JPanel {
 		
 		// Set the end time
 		subscription.setEndTime( endTime );
+		
+		// Set the starting date
+		subscription.setStartDate( startDate );
+		
+		// Set the end date
+		subscription.setEndDate( endDate );
 
 		// Set the price
 		double price = Double.parseDouble(jTextFieldPrice.getText());
 		subscription.setPrice(price);
+		
+		this.subscription.setBranchId( new Branch( jComboBoxBranch.getSelectedItem().toString() ).getId() );
 	}
 	
 	/*
@@ -236,6 +266,8 @@ public class CourseAdd extends javax.swing.JPanel {
                 jLabel5 = new javax.swing.JLabel();
                 jLabel4 = new javax.swing.JLabel();
                 jLabel3 = new javax.swing.JLabel();
+                jComboBoxBranch = new javax.swing.JComboBox();
+                jLabel8 = new javax.swing.JLabel();
 
                 jLabelCourseName.setText("Naam *");
 
@@ -249,7 +281,7 @@ public class CourseAdd extends javax.swing.JPanel {
 
                 jLabelCourseEnd.setText("Eind cursus");
 
-                jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 16));
+                jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
                 jLabel7.setText("Omschrijving");
 
                 jLabelFocusGroup.setText("Doelgroep");
@@ -322,6 +354,10 @@ public class CourseAdd extends javax.swing.JPanel {
                 jLabel3.setForeground(new java.awt.Color(51, 51, 51));
                 jLabel3.setText("Voorbeeld: 2012-01-29");
 
+                jComboBoxBranch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+                jLabel8.setText("Locatie");
+
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
@@ -343,7 +379,6 @@ public class CourseAdd extends javax.swing.JPanel {
                                                 .addComponent(jCheckBoxSaturday)
                                                 .addGap(7, 7, 7)
                                                 .addComponent(jCheckBoxSunday))
-                                        .addComponent(jLabel7)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabelCourseStartDate)
@@ -353,25 +388,16 @@ public class CourseAdd extends javax.swing.JPanel {
                                                         .addComponent(jLabel2)
                                                         .addComponent(jLabelCourseType)
                                                         .addComponent(jLabelCourseName)
-                                                        .addComponent(jLabelFocusGroup)
-                                                        .addComponent(jLabelAgeGroup)
-                                                        .addComponent(jLabelDescription))
-                                                .addGap(115, 115, 115)
+                                                        .addComponent(jLabel8))
+                                                .addGap(129, 129, 129)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jComboBoxAgeGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jComboBoxBranch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jTextFieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jTextFieldCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jRadioButtonCourseType1)
                                                         .addComponent(jRadioButtonCourseType2)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                .addComponent(jButtonSave)
-                                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(jRadioButtonMale)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(jRadioButtonFemale))
                                                                         .addComponent(jTextFieldStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(jTextFieldEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(jTextFieldStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,8 +407,25 @@ public class CourseAdd extends javax.swing.JPanel {
                                                                         .addComponent(jLabel3)
                                                                         .addComponent(jLabel4)
                                                                         .addComponent(jLabel5)
-                                                                        .addComponent(jLabel6)
-                                                                        .addComponent(jRadioButtonMixed))))))
+                                                                        .addComponent(jLabel6)))))
+                                        .addComponent(jLabel7)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabelFocusGroup)
+                                                        .addComponent(jLabelAgeGroup)
+                                                        .addComponent(jLabelDescription))
+                                                .addGap(115, 115, 115)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jComboBoxAgeGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(jButtonSave)
+                                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jRadioButtonMale)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jRadioButtonFemale)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jRadioButtonMixed)))))
                                 .addContainerGap(28, Short.MAX_VALUE))
                 );
                 layout.setVerticalGroup(
@@ -435,8 +478,14 @@ public class CourseAdd extends javax.swing.JPanel {
                                                         .addComponent(jTextFieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel2))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(jLabel8))
+                                        .addComponent(jComboBoxBranch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabelFocusGroup)
                                         .addComponent(jRadioButtonFemale)
@@ -452,7 +501,7 @@ public class CourseAdd extends javax.swing.JPanel {
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonSave)
-                                .addContainerGap())
+                                .addGap(17, 17, 17))
                 );
         }// </editor-fold>//GEN-END:initComponents
 
@@ -482,6 +531,7 @@ private void jCheckBoxMondayActionPerformed(java.awt.event.ActionEvent evt) {//G
         private javax.swing.JCheckBox jCheckBoxTuesday;
         private javax.swing.JCheckBox jCheckBoxWednesday;
         private javax.swing.JComboBox jComboBoxAgeGroup;
+        private javax.swing.JComboBox jComboBoxBranch;
         private javax.swing.JLabel jLabel1;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel3;
@@ -489,6 +539,7 @@ private void jCheckBoxMondayActionPerformed(java.awt.event.ActionEvent evt) {//G
         private javax.swing.JLabel jLabel5;
         private javax.swing.JLabel jLabel6;
         private javax.swing.JLabel jLabel7;
+        private javax.swing.JLabel jLabel8;
         private javax.swing.JLabel jLabelAgeGroup;
         private javax.swing.JLabel jLabelCourseEnd;
         private javax.swing.JLabel jLabelCourseEndDate;
