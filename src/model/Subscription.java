@@ -7,6 +7,7 @@ import helper.db.*;
 import java.sql.*;
 import java.util.ArrayList;
 import main.Application;
+import main.Settings;
 import view.popups.NotificationPopup;
 
 /**
@@ -169,7 +170,7 @@ public class Subscription extends Model {
 					query.setInt(4, this.getMaximumAge() );
 					query.setDouble(5, this.getPrice() );
 					query.setBoolean(6, this.getMonthly() );
-					query.setInt(7, 1);
+					query.setInt(7, Settings.getInt("branch") );
 					query.setString(8, String.valueOf( this.getGender() ) );
 					query.setDate(9, this.getStartDate() );
 					query.setDate(10, this.getEndDate() );
@@ -208,7 +209,7 @@ public class Subscription extends Model {
 					query.setInt(4, this.getMaximumAge() );
 					query.setDouble(5, this.getPrice() );
 					query.setBoolean(6, this.getMonthly() );
-					query.setInt(7, 1);
+					query.setInt(7, Settings.getInt("branch") );
 					query.setString(8, String.valueOf( this.getGender() ) );
 					query.setDate(9, this.getStartDate() );
 					query.setDate(10, this.getEndDate() );
