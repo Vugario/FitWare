@@ -62,8 +62,7 @@ public class CourseInfo extends javax.swing.JPanel {
 	}
 
 	/**
-	 * This method is used to 
-	 * @todo 
+	 * This method is used to retrieve data and show it on the screen
 	 */
 	public void render() {
 		jLabelName.setText(this.subscription.getTitle());

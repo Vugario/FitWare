@@ -144,8 +144,6 @@ public class Dashboard extends javax.swing.JPanel {
                 jPanel2 = new javax.swing.JPanel();
                 jLabel1 = new javax.swing.JLabel();
                 jLabelFullname = new javax.swing.JLabel();
-                jPanel1 = new javax.swing.JPanel();
-                jLabel3 = new javax.swing.JLabel();
                 jPanel3 = new javax.swing.JPanel();
                 jLabel2 = new javax.swing.JLabel();
                 jPanel4 = new javax.swing.JPanel();
@@ -232,28 +230,6 @@ public class Dashboard extends javax.swing.JPanel {
                                         .add(jLabel1)
                                         .add(jLabelFullname))
                                 .addContainerGap(34, Short.MAX_VALUE))
-                );
-
-                jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-
-                jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-                jLabel3.setText("Aangemeld voor cursussen");
-
-                org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-                jPanel1.setLayout(jPanel1Layout);
-                jPanel1Layout.setHorizontalGroup(
-                        jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(jPanel1Layout.createSequentialGroup()
-                                .add(8, 8, 8)
-                                .add(jLabel3)
-                                .addContainerGap(225, Short.MAX_VALUE))
-                );
-                jPanel1Layout.setVerticalGroup(
-                        jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(jPanel1Layout.createSequentialGroup()
-                                .add(10, 10, 10)
-                                .add(jLabel3)
-                                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
 
                 jPanel3.setBackground(new java.awt.Color(204, 204, 204));
@@ -446,7 +422,6 @@ public class Dashboard extends javax.swing.JPanel {
                                         .add(checkinSuccessPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .add(userFoundPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -470,9 +445,7 @@ public class Dashboard extends javax.swing.JPanel {
                                                 .add(access))
                                         .add(layout.createSequentialGroup()
                                                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .add(10, 10, 10)
-                                                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                .add(52, 52, 52)
                                                 .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(userFoundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -542,14 +515,12 @@ public class Dashboard extends javax.swing.JPanel {
         private javax.swing.JButton jButtonSearchUser;
         private javax.swing.JLabel jLabel1;
         private javax.swing.JLabel jLabel2;
-        private javax.swing.JLabel jLabel3;
         private javax.swing.JLabel jLabelCustomerBirthdate;
         private javax.swing.JLabel jLabelCustomerGender;
         private javax.swing.JLabel jLabelCustomerName;
         private javax.swing.JLabel jLabelFullname;
         private javax.swing.JLabel jLabelFullname1;
         private javax.swing.JLabel jLabelFullname2;
-        private javax.swing.JPanel jPanel1;
         private javax.swing.JPanel jPanel2;
         private javax.swing.JPanel jPanel3;
         private javax.swing.JPanel jPanel4;
