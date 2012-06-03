@@ -51,7 +51,7 @@ public class Dashboard extends javax.swing.JPanel {
 		
 		
 		
-        this.totalMembers.setText(User.totalMembers()+" totaal inschrivingen");
+        this.totalMembers.setText(User.totalMembers()+" totaal inschrijvingen");
     }
 	
 	private void updateLatestPurchase (){
