@@ -96,6 +96,18 @@ public class UserModify extends javax.swing.JPanel {
 		group.add(jRadioButtonGenderMale);
 		group.add(jRadioButtonGenderFemale);
 
+		switch(user.getRoleId()){
+			case 1:
+				jRadioButtonMember.setSelected(true);
+				break;
+			case 2:
+				jRadioButtonBarmedewerker.setSelected(true);
+				break;
+			case 3:
+				jRadioButtonAdmin.setSelected(true);
+				break;
+		}
+		
 		if (user.getGender()) {
 			jRadioButtonGenderMale.setSelected(true);
 		} else {

@@ -92,6 +92,7 @@ public class Purchase extends Model {
 					+ "*"
 				+ "FROM "
 					+ "purchase pur "
+					+ "ORDER BY datetime DESC "
 				+ "LIMIT "
 					+ "?"
 				).setInt(1, limit);

@@ -70,7 +70,7 @@ public class Dashboard extends javax.swing.JPanel {
         purchaseTableModel.setRowCount(0);
 
         // Secondly, fill it with all users
-        ArrayList<Purchase> purchases = purchaseModel.readLastPurchase(20);
+        ArrayList<Purchase> purchases = purchaseModel.readLastPurchase(13);
 
         for (Purchase purchase : purchases) {
             purchaseTableModel.addRow(purchase.getTableRowObjects());
@@ -220,7 +220,6 @@ public class Dashboard extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(recentPayments);
         recentPayments.getColumnModel().getColumn(0).setResizable(false);
-        recentPayments.getColumnModel().getColumn(1).setResizable(false);
         recentPayments.getColumnModel().getColumn(2).setResizable(false);
         recentPayments.getColumnModel().getColumn(3).setResizable(false);
 
@@ -290,7 +289,7 @@ public class Dashboard extends javax.swing.JPanel {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel2)
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -451,8 +450,8 @@ public class Dashboard extends javax.swing.JPanel {
                 .add(2, 2, 2)
                 .add(jLabelFullname2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
@@ -467,7 +466,7 @@ public class Dashboard extends javax.swing.JPanel {
             .add(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel4)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -512,7 +511,7 @@ public class Dashboard extends javax.swing.JPanel {
                         .add(jLabelFullname3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(totalMembers)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -523,7 +522,7 @@ public class Dashboard extends javax.swing.JPanel {
                     .add(totalMembers))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(access, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .add(access, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                     .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -542,7 +541,7 @@ public class Dashboard extends javax.swing.JPanel {
                     .add(userFoundPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                     .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
