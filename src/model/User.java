@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Application;
+import view.popups.SuccessPopup;
 
 /**
  * The user model for collecting and setting user data
@@ -26,6 +28,7 @@ public class User extends Model {
 	private boolean active;
 	private String password;
 	private int bankaccount;
+	private String baccountname;
 	private String street;
 	private String housenumber;
 	private String city;
@@ -123,9 +126,9 @@ public class User extends Model {
 			
 			PreparedStatement query = this.query(
 					"INSERT INTO "
-					+ "\"user\"(active, username, firstname, subname, lastname, birthdate, street, housenumber, phonenumber, mobilenumber, email, gender, password, bankaccount, city, postcode, role_id)"
+					+ "\"user\"(active, username, firstname, subname, lastname, birthdate, street, housenumber, phonenumber, mobilenumber, email, gender, password, bankaccount, city, postcode, role_id, baccountname)"
 					+ "VALUES "
-					+ "(true, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, MD5(?), ?, ?, ?, ?) RETURNING id"
+					+ "(true, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, MD5(?), ?, ?, ?, ?,?) RETURNING id"
 				);
 
 			query.setString(1, username.toLowerCase());
@@ -144,7 +147,7 @@ public class User extends Model {
 			query.setString(14, city);
 			query.setString(15, postcode);
 			query.setInt(16, roleId);
-
+			query.setString (17, baccountname);
 						
 			this.execute();
 			//this.result();
@@ -158,6 +161,8 @@ public class User extends Model {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 			return false;
 		}
+		Application.getInstance().showPopup(new SuccessPopup(
+					"De gebruiker is toegevoegd."));
 		
 		return true;
 	}
@@ -182,6 +187,7 @@ public class User extends Model {
 					+ "email = ?,"
 					+ "gender = ?,"
 					+ "role_id = ?,"
+					+ "baccountname = ?,"
 					+ "bankaccount = ?"
 					+ (passwordChanged ? ", password = MD5(?)" : "")
 					+ "WHERE id = ?"
@@ -199,15 +205,16 @@ public class User extends Model {
 			query.setString(10, email);
 			query.setBoolean(11, gender);
 			query.setInt(12, roleId);
-			
-			query.setInt(13, bankaccount);
+			query.setString(13, baccountname);
+			query.setInt(14, bankaccount);
 			
 			if (passwordChanged) {
-				query.setString(14, password);
-				query.setInt(15, id);
+				query.setString(15, password);
+				query.setInt(16, id);
 			}else{
-				query.setInt(14, id);
+				query.setInt(15, id);
 			}
+
 
 			this.execute();
 
@@ -247,6 +254,7 @@ public class User extends Model {
 			this.phonenumber = this.result.getString("phonenumber");
 			this.mobilenumber = this.result.getString("mobilenumber");
 			this.roleId = this.result.getInt("role_id");
+			this.baccountname = this.result.getString("baccountname");
 			
 			// Set the role
 			this.role = role.readRole(this.getRoleId());
@@ -364,6 +372,15 @@ public class User extends Model {
 		this.bankaccount = bankaccount;
 	}
 
+	public String getBaccountname() {
+		return baccountname;
+	}
+
+	public void setBaccountname(String baccountname) {
+		this.baccountname = baccountname;
+	}
+
+	
 	public Timestamp getBirthdate() {
 		return birthdate;
 	}

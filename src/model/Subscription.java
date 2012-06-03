@@ -15,26 +15,86 @@ import view.popups.NotificationPopup;
  */
 public class Subscription extends Model {
 
+	/**
+	 * Current branch (eg. Haarlem, Purmerend, etc.)
+	 */
 	private int branchId;
+	
+	/**
+	 * Title of the subscription
+	 */
 	private String title;
+	
+	/**
+	 * Description of the subscription
+	 */
 	private String description;
+	
+	/**
+	 * Gender specification for the subscription (optional)
+	 */
 	private char gender;
+	
+	/**
+	 * Maximum age for the subscription (optional)
+	 */
 	private int maximumAge;
+	
+	/**
+	 * Minimum age for the subscription (optional)
+	 */
 	private int minimumAge;
+	
+	/**
+	 * Type for subscription (eg. pakket, los)
+	 */
 	private char type;
+	
+	/**
+	 * Days in an array for the subscription (eg. Maandag, Dinsdag, Woensdag, etc. )
+	 */
 	private String[] days;
 
-	
+	/**
+	 * When true, montlhy paid for this subscription
+	 */
 	private boolean monthly;
+	
+	/**
+	 * Price for the subscription
+	 */
 	private double price;
+	
+	/**
+	 * Starting date when the subscription starts
+	 */
 	private Date startDate;
+	
+	/**
+	 * End date when the subscription ends
+	 */
 	private Date endDate;
+	
+	/**
+	 * Start time when the subscription starts
+	 */
 	private Time startTime;
+	
+	/**
+	 * End time when the subscription ends
+	 */
 	private Time endTime;
 
+	/**
+	 * Initialize a new Subscription model
+	 */
 	public Subscription() {
 	}
 
+	/**
+	 * Initialize a new Subscription model with an resultset (mainly used for method ReadAll)
+	 * @param result A complete resultset of the subscription table
+	 */
 	public Subscription(ResultSet result) {
 		super();
 
@@ -42,6 +102,10 @@ public class Subscription extends Model {
 		this.setPropertiesFromResult();
 	}
 
+	/**
+	 * Initilize a new Subscription model with an id, as this will retrieve it from the database
+	 * @param id The id of the subscription
+	 */
 	public Subscription(int id) {
 		super();
 
@@ -58,6 +122,10 @@ public class Subscription extends Model {
 		}
 	}
 
+	/**
+	 * Retrieve multiple Subscription as an Arraylist
+	 * @return ArrayList<Subscription> An array populated with Subscription Models of existing Subscriptions
+	 */
 	public static ArrayList<Subscription> readAll() {
 
 		ArrayList<Subscription> items = new ArrayList<Subscription>();
@@ -82,6 +150,9 @@ public class Subscription extends Model {
 
 	}
 	
+	/**
+	 * Create a new subscription
+	 */
 	public void create(){
 		try {
 			this.open();
@@ -118,6 +189,9 @@ public class Subscription extends Model {
 		
 	}
 	
+	/**
+	 * Edit a new subscription
+	 */
 	public void edit(){
 		try {
 			this.open();
@@ -158,8 +232,9 @@ public class Subscription extends Model {
 		
 	}
 	
-	
-	
+	/**
+	 * Delete a new subscription
+	 */
 	public void delete(){
 		try {
 			this.open();
@@ -181,6 +256,9 @@ public class Subscription extends Model {
 		
 	}
 
+	/**
+	 * Translate a ResultSet to a Java Model
+	 */
 	protected void setPropertiesFromResult() {
 		try {
 
@@ -224,6 +302,11 @@ public class Subscription extends Model {
 		}
 	}
 	
+	/**
+	 * Convert a String to a char
+	 * @param string
+	 * @return 
+	 */
 	public char getChar( String string ) {
 		if( string == null)
 			return '0';
@@ -471,9 +554,6 @@ public class Subscription extends Model {
 		days.toArray(data);
 		
 		this.days = data;
-	}
-	
-	public void setDays( Array days ) {
 	}
 	
 }
