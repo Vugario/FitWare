@@ -69,11 +69,10 @@ public class Dashboard extends javax.swing.JPanel {
 
         try {
             int id = Integer.parseInt(userSearchField.getText());
-            user.readUser(id);
+            user.readByRole(id, "member");
 
             jLabelCustomerName.setVisible(true);
             userFoundPanel.setVisible(true);
-
 
             if (user.getId() > 0) {
 
@@ -97,6 +96,10 @@ public class Dashboard extends javax.swing.JPanel {
                 addUserCoursesToComboBox(userId);
 
             } else {
+				jLabelCustomerBirthdate.setVisible(false);
+                jLabelCustomerGender.setVisible(false);
+                userCourses.setVisible(false);
+				
                 jLabelCustomerName.setText("Gebruiker niet gevonden");
             }
         } catch (Exception ex) {

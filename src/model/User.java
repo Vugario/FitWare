@@ -69,6 +69,38 @@ public class User extends Model {
 
 		return this;
 	}
+	
+	public User readByRole(int id, String role) {
+		try {
+			this.open();
+			PreparedStatement query = this.query(
+				"SELECT "
+					+ "u.* "
+				+ "FROM "
+					+ "\"user\" u "
+				+ "JOIN "
+					+ "role r "
+				+ "ON "
+					+ "r.id = u.role_id "
+				+ "WHERE "
+					+ "u.id = ? "
+				+ "AND "
+					+ "r.title = ?"
+				+ "LIMIT 1");
+			query.setInt(1, id);
+			query.setString(2, role);
+			
+			this.result();
+			this.result.first();
+
+			this.setPropertiesFromResult();
+			
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return this;
+	}
 
 	public User readByCredentials(String username, String password) {
 		try {

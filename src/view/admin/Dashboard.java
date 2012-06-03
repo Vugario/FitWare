@@ -84,18 +84,18 @@ public class Dashboard extends javax.swing.JPanel {
 
 			int id = Integer.parseInt(userSearchField.getText());
 
-			user.readUser(id);
+			user.readByRole(id, "member");
 
 			jLabelCustomerName.setVisible(true);
 			userFoundPanel.setVisible(true);
-
-
+			
 			if (user.getId() > 0) {
 
 				jLabelCustomerBirthdate.setVisible(true);
 				jLabelCustomerGender.setVisible(true);
 				userCourses.setVisible(true);
-
+				userCheckin.setVisible(true);
+				
 				int userId = user.getId();
 				// Set the label
 				jLabelCustomerName.setText(user.getFullName());
@@ -110,9 +110,14 @@ public class Dashboard extends javax.swing.JPanel {
 				}
 				userCheckin.setEnabled(true);
 				addUserCoursesToComboBox(userId);
+				user.setId(0);
 
 			} else {
-				jLabelCustomerName.setText("Gebru2iker niet gevonden");
+				jLabelCustomerBirthdate.setVisible(false);
+                jLabelCustomerGender.setVisible(false);
+                userCourses.setVisible(false);
+				userCheckin.setVisible(false);
+				jLabelCustomerName.setText("Gebruiker niet gevonden");
 			}
 		} catch (Exception ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
