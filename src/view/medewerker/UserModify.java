@@ -517,7 +517,8 @@ public class UserModify extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-
+		// Did an error occur?
+		boolean error = false;
         //Check if a @ sign is in the emailadress field
        int emailcheck = jTextFieldEmail.getText().indexOf('@');
         
@@ -527,9 +528,10 @@ public class UserModify extends javax.swing.JPanel {
 			Application.getInstance().showPopup(new ErrorPopup(
 					"U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
 					+ "Probeer het nogmaals alstublieft."));
+			error = true;
 		}
 
-				boolean passwordChanged1 = passwordChanged.isSelected();
+		boolean passwordChanged1 = passwordChanged.isSelected();
 		
 		if(passwordChanged.isSelected()){
 			String password1 = new String(jPasswordField1.getPassword());
@@ -541,6 +543,8 @@ public class UserModify extends javax.swing.JPanel {
 				Application.getInstance().showPopup(new ErrorPopup(
 					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 			}
+			
+			error = true;
 		}
 		
 		
@@ -551,18 +555,21 @@ public class UserModify extends javax.swing.JPanel {
             Application.getInstance().showPopup(new ErrorPopup(
                     "Deze gebruikersnaam is al in gebruik.\n"
                     + "Kies een andere naam."));
-            return;
+            error = true;
         }
+				
+		if( error == false ) {
 		
-		if(!user.update()){
-			Application.getInstance().showPopup(new ErrorPopup(
-					"Gegevens zijn niet goed opgeslagen. \nProbeer het nogmaals alstublieft."));
+			if(!user.update()){
+				Application.getInstance().showPopup(new ErrorPopup(
+						"Gegevens zijn niet goed opgeslagen. \nProbeer het nogmaals alstublieft."));
+			}
+			Enrollment enrollment = new Enrollment();
+
+			enrollment.subscribe(subscription.readByTitle().getId(), user.getId());
+
+			Application.getInstance().showPanel(new view.medewerker.UserOverview());
 		}
-		Enrollment enrollment = new Enrollment();
-       
-        enrollment.subscribe(subscription.readByTitle().getId(), user.getId());
-		
-		Application.getInstance().showPanel(new view.medewerker.UserOverview());
 		
     }//GEN-LAST:event_profileSaveButtonActionPerformed
 

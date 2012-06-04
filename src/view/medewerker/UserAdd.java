@@ -481,9 +481,7 @@ public final class UserAdd extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
-
-
-        //Check if a @ sign is in the emailadress field 
+		//Check if a @ sign is in the emailadress field 
         int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
         String password1 = new String(jPasswordField1.getPassword());

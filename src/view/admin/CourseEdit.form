@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -29,9 +29,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="260" pref="260" max="260" attributes="0"/>
                       <Component id="jCheckBoxMonday" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="jCheckBoxTuesday" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="7" pref="7" max="7" attributes="0"/>
                       <Component id="jCheckBoxWednesday" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="jCheckBoxThursday" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="7" pref="7" max="7" attributes="0"/>
                       <Component id="jCheckBoxFriday" min="-2" max="-2" attributes="0"/>
@@ -210,13 +212,10 @@
                       <Component id="jLabelFocusGroup" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonMixed" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                      <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonMixed" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -224,10 +223,7 @@
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="jLabelAgeGroup" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jComboBoxAgeGroup" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jComboBoxAgeGroup" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
