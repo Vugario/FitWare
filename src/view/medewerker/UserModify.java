@@ -185,7 +185,7 @@ public class UserModify extends javax.swing.JPanel {
 		}
 		
 		String title = (String) jComboBox2.getSelectedItem();
-        System.out.println(title);
+        
         subscription.setTitle(title);
 
 	}
@@ -529,7 +529,8 @@ public class UserModify extends javax.swing.JPanel {
 					+ "Probeer het nogmaals alstublieft."));
 		}
 
-				boolean passwordChanged1 = passwordChanged.isSelected();
+		
+		user.setPassword(null);
 		
 		if(passwordChanged.isSelected()){
 			String password1 = new String(jPasswordField1.getPassword());
