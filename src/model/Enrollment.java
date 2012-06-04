@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import main.Settings;
 
 /**
- *
+ *	This class is used to make enrollments and set subscriptions to enrollments.
  * @author mennowolvers
  */
 public class Enrollment extends Model {

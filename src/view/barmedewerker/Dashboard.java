@@ -54,10 +54,11 @@ public class Dashboard extends javax.swing.JPanel {
 
     private void updateLatestPurchase() {
 
+		Purchase purchaseModel = new Purchase();
         getPurchaseModel().setRowCount(0);
 
         // Secondly, fill it with all users
-        ArrayList<Purchase> purchases = Purchase.readByUserId(sessionUser.getId());
+        ArrayList<Purchase> purchases = purchaseModel.readLastPurchase(13);
 
         for (Purchase purchase : purchases) {
             getPurchaseModel().addRow(purchase.getTableRowObjects());

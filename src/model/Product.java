@@ -16,27 +16,35 @@ import view.popups.SuccessPopup;
 /**
  * This class is used to use define queries for the product table in the database.
  * 
- * 
- * @param id			this is the product id (integer)
- * @param price			this is the price of the product (double)
- * @param name			this is the name of the product (String)
- * @param description	this is the description for the product (String)
- * @param type			this is the type of the product, either food, drink or other (String)
- * 
  * @author vm
  */
 public class Product extends Model {
 
+	/**
+	 * this is the price of the product (double)
+	 */
 	double price;
+	/**
+	 * this is the name of the product (String)
+	 */
 	String name;
+	/**
+	 * this is the description for the product (String)
+	 */
 	String description;
+	/**
+	 * this is the type of the product, either food, drink or other (String)
+	 */
 	String type;
 
+	/**
+	 * The default constructor
+	 */
 	public Product() {
 	}
 
 	/**
-	 * 
+	 * This is the constructor for Product
 	 * @param result is the outcome of a query.
 	 */
 	public Product(ResultSet result) {
@@ -47,8 +55,8 @@ public class Product extends Model {
 	}
 
 	/**
-	 * 
-	 * @return returns an array list of Product
+	 * This method reads all the products and puts them in a ArrayList
+	 * @return returns an array list of products
 	 */
 	public static ArrayList<Product> readAll() {
 
@@ -65,31 +73,32 @@ public class Product extends Model {
 			// Loop over all results
 			while (model.result.next()) {
 				products.add(new Product(model.result));
-                                
-                                
+
 			}
 
 		} catch (Exception ex) {
 			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-
 		return products;
-
 	}
 
+	/**
+	 * This method reads the products per category
+	 */
 	public void readPerCategory() {
 		String query = "SELECT * FROM product WHERE cs";
 	}
 
 	/**
-	 * 
-	 * @param productId productId is the ID of the selected product in view.admin.BarProductOverview
+	 * This method reads the product by it's identifier
+	 * @param productId productId is the iodentifier of the selected product in view.admin.BarProductOverview
 	 * @return returns object Product
 	 * @author vm
 	 */
 	public Product readById(int productId) {
 		try {
+			//execute the query
 			this.open();
 			PreparedStatement query = this.query("SELECT * FROM product WHERE id = ? LIMIT 1");
 
@@ -107,12 +116,13 @@ public class Product extends Model {
 	}
 
 	/**
+	 * This method creates a product in the database
 	 * @author vm
-	 * 
 	 * @return returns a true when there are products created, on error it returns false
 	 */
 	public boolean create() {
 		try {
+			//execute the query
 			this.open();
 			PreparedStatement query = this.query("INSERT INTO \"product\" (price, name, description, type) VALUES (?, ?, ?, ?)");
 
@@ -130,8 +140,13 @@ public class Product extends Model {
 
 	}
 
+	/**
+	 * This method does an update on a product
+	 * @return true on succesful update false on a failure
+	 */
 	public Boolean updateProduct() {
 		try {
+			//execute the query
 			PreparedStatement query = this.query("UPDATE product SET "
 					+ "price = ?, "
 					+ "name = ?, "
@@ -151,18 +166,22 @@ public class Product extends Model {
 			Application.getInstance().showPopup(new ErrorPopup("Er is iets misgegaan, probeer het nogmaals."));
 			return false;
 		}
-		
+
 		return true;
 
 	}
 
+	/**
+	 * This method creates a decorative price description
+	 * @return The decorated  price in a String
+	 */
 	@Override
 	public String toString() {
 		return getName() + " " + getDecoratedPrice();
 	}
 
 	/**
-	 * 
+	 * This method sets the properties from the query result
 	 * 
 	 */
 	protected final void setPropertiesFromResult() {
@@ -188,6 +207,7 @@ public class Product extends Model {
 	}
 
 	/**
+	 * This methods gets the objects of a table row
 	 * @author daan
 	 * @return returns the table row objects
 	 */
@@ -207,6 +227,7 @@ public class Product extends Model {
 	 */
 	public void deleteProduct() {
 		try {
+			//execute the query
 			this.open();
 			PreparedStatement query = this.query("DELETE FROM product WHERE id = ?;");
 
@@ -219,39 +240,75 @@ public class Product extends Model {
 		Application.getInstance().showPanel(new view.admin.BarProductOverview());
 	}
 
+	/**
+	 * 
+	 * @return the description of a product
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * 
+	 * @param description is the description of a product
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * 
+	 * @return the name of a product
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @param name is the name of a product
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * 
+	 * @return the price of a product
+	 */
 	public double getPrice() {
 		return price;
 	}
 
+	/**
+	 * 
+	 * @return the decorated price, including eurosign and only 2 decimals
+	 */
 	public String getDecoratedPrice() {
 		return String.format("€ %.2f", getPrice());
 
 	}
 
+	/**
+	 * 
+	 * @param price is the price of a product
+	 */
 	public void setPrice(double price) {
 		this.price = price;
 	}
 
+	/**
+	 * 
+	 * @return the type of a product
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * 
+	 * @param type is the type of product (food, drink or other)
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}

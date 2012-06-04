@@ -511,7 +511,7 @@ private void jTextIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_jTextIdActionPerformed
 
 private void jTextIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextIdKeyPressed
-	jTextId.setText("");
+	//jTextId.setText("");
 }//GEN-LAST:event_jTextIdKeyPressed
 
 private void jTextIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextIdMouseClicked

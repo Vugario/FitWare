@@ -96,6 +96,19 @@ public class UserModify extends javax.swing.JPanel {
 		group.add(jRadioButtonGenderMale);
 		group.add(jRadioButtonGenderFemale);
 
+		switch(user.getRoleId()){
+			case 1:
+				jRadioButtonMember.setSelected(true);
+				break;
+			case 2:
+				jRadioButtonBarmedewerker.setSelected(true);
+				break;
+			case 3:
+				jRadioButtonAdmin.setSelected(true);
+				break;
+		}
+
+		
 		if (user.getGender()) {
 			jRadioButtonGenderMale.setSelected(true);
 		} else {
@@ -334,9 +347,13 @@ public class UserModify extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel4)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(jButtonDisable)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(profileSaveButton))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel4)
                             .add(jLabel18)
                             .add(jLabel17)
                             .add(layout.createSequentialGroup()
@@ -410,17 +427,19 @@ public class UserModify extends javax.swing.JPanel {
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField1)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))))
                             .add(jLabel16)
-                            .add(jLabel21))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 114, Short.MAX_VALUE))
+                            .add(jLabel21)
+                            .add(jLabel12)
+                            .add(jLabel5))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 11, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(jButtonDisable)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(profileSaveButton))
                     .add(layout.createSequentialGroup()
                         .add(jLabel12)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 734, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 609, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jLabel5))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -461,7 +480,6 @@ public class UserModify extends javax.swing.JPanel {
                     .add(jRadioButtonDayTime)
                     .add(jRadioButtonFullTime)
                     .add(jLabel3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)

@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import main.Application;
 import main.Session;
 import model.Branch;
+import model.Enrollment;
 import model.Subscription;
 import model.User;
 import view.popups.ErrorPopup;
@@ -24,6 +25,7 @@ public final class UserAdd extends javax.swing.JPanel {
 
     private User user = new User();
     private User userSession = Session.get().getLoggedInUser();
+    Subscription subscription = new Subscription();
 
     /**
      * Creates new form Profile
@@ -35,19 +37,9 @@ public final class UserAdd extends javax.swing.JPanel {
         // Empty the combo box
         jComboBox1.removeAllItems();
 
-        //Set the radiobuttons in a group
-        ButtonGroup groupCategory = new ButtonGroup();
-        groupCategory.add(jRadioButtonYouth);
-        groupCategory.add(jRadioButtonAdult);
-        groupCategory.add(jRadioButtonSenior);
-
         ButtonGroup groupGender = new ButtonGroup();
         groupGender.add(jRadioButtonGenderMale);
         groupGender.add(jRadioButtonGenderFemale);
-
-        ButtonGroup groupTime = new ButtonGroup();
-        groupTime.add(jRadioButtonDayTime);
-        groupTime.add(jRadioButtonFullTime);
 
         ButtonGroup groupUserType = new ButtonGroup();
         groupUserType.add(jRadioButtonAdmin);
@@ -58,7 +50,8 @@ public final class UserAdd extends javax.swing.JPanel {
         //uncomment this one when the sql works
         addBranchToComboBox();
 
-
+        addSubscriptionToComboBox();
+        //set the admin view buttons to false
         jRadioButtonAdmin.setVisible(false);
         jRadioButtonBarmedewerker.setVisible(false);
         jRadioButtonMember.setVisible(false);
@@ -69,6 +62,17 @@ public final class UserAdd extends javax.swing.JPanel {
             jRadioButtonBarmedewerker.setVisible(true);
             jRadioButtonMember.setVisible(true);
 
+        }
+
+    }
+
+    public void addSubscriptionToComboBox() {
+        jComboBox2.removeAllItems();
+        ArrayList<Subscription> items = Subscription.readAllMonthly();
+        //Fill the ComboBox with all the monthly subscriptions
+        for (int i = 0; i < items.size(); i++) {
+            Subscription item = items.get(i);
+            jComboBox2.addItem(item.getTitle());
         }
 
     }
@@ -153,9 +157,10 @@ public final class UserAdd extends javax.swing.JPanel {
         String baccountname = jTextFieldBaccountname.getText();
         user.setBaccountname(baccountname);
 
-        Subscription subscription = new Subscription();
-        // Todo: set default subscription.
 
+        String title = (String) jComboBox2.getSelectedItem();
+        System.out.println(title);
+        subscription.setTitle(title);
     }
 
     public JComboBox getjComboBox1() {
@@ -206,13 +211,7 @@ public final class UserAdd extends javax.swing.JPanel {
         profileSaveButton = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
         jPasswordField2 = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButtonYouth = new javax.swing.JRadioButton();
-        jRadioButtonAdult = new javax.swing.JRadioButton();
-        jRadioButtonSenior = new javax.swing.JRadioButton();
-        jRadioButtonDayTime = new javax.swing.JRadioButton();
-        jRadioButtonFullTime = new javax.swing.JRadioButton();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -223,8 +222,9 @@ public final class UserAdd extends javax.swing.JPanel {
         jLabel21 = new javax.swing.JLabel();
         jRadioButtonAdmin = new javax.swing.JRadioButton();
         jRadioButtonBarmedewerker = new javax.swing.JRadioButton();
+        jComboBox2 = new javax.swing.JComboBox();
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 24));
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel4.setText("Gebruiker Aanmaken");
 
         jLabel6.setText("Gebruikersnaam");
@@ -264,7 +264,7 @@ public final class UserAdd extends javax.swing.JPanel {
 
         jLabel11.setText("Woonplaats / postcode");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel12.setText("Contactgegevens");
 
         jLabel13.setText("Telefoonnummer");
@@ -273,7 +273,7 @@ public final class UserAdd extends javax.swing.JPanel {
 
         jLabel15.setText("E-mailadres");
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18));
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel16.setText("Wachtwoord");
 
         jLabel17.setText("Wachtwoord herhalen");
@@ -301,19 +301,7 @@ public final class UserAdd extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Category");
-
         jLabel3.setText("Abbonnement");
-
-        jRadioButtonYouth.setText("Jeugd (< 18)");
-
-        jRadioButtonAdult.setText("Volwassenen");
-
-        jRadioButtonSenior.setText("Senioren");
-
-        jRadioButtonDayTime.setText("Alleen overdag (weekdagen)");
-
-        jRadioButtonFullTime.setText("Volledig");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -331,6 +319,8 @@ public final class UserAdd extends javax.swing.JPanel {
 
         jRadioButtonBarmedewerker.setText("Barmedewerker");
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -341,25 +331,15 @@ public final class UserAdd extends javax.swing.JPanel {
                     .add(jLabel4)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel19)
                             .add(jLabel3)
-                            .add(jLabel2)
                             .add(jLabel9)
                             .add(jLabel8)
                             .add(jLabel7)
-                            .add(jLabel6)
-                            .add(jLabel21))
+                            .add(jLabel6))
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
                                 .add(55, 55, 55)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(layout.createSequentialGroup()
-                                        .add(jRadioButtonMember)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jRadioButtonBarmedewerker)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jRadioButtonAdmin))
                                     .add(layout.createSequentialGroup()
                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                             .add(jTextFieldBirthdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -372,21 +352,17 @@ public final class UserAdd extends javax.swing.JPanel {
                                         .add(jTextFieldSubname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jTextFieldLastname, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                        .add(layout.createSequentialGroup()
-                                            .add(jRadioButtonYouth)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jRadioButtonAdult)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .add(jRadioButtonSenior))
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                            .add(jRadioButtonDayTime)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                            .add(jRadioButtonFullTime)))))
+                                    .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 252, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(layout.createSequentialGroup()
+                                        .add(jRadioButtonMember)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jRadioButtonBarmedewerker)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jRadioButtonAdmin))))
                             .add(layout.createSequentialGroup()
                                 .add(54, 54, 54)
-                                .add(jTextFieldUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(94, 94, 94))
+                                .add(jTextFieldUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                     .add(profileSaveButton)
                     .add(jLabel16)
                     .add(jLabel12)
@@ -424,8 +400,10 @@ public final class UserAdd extends javax.swing.JPanel {
                                 .add(layout.createSequentialGroup()
                                     .add(2, 2, 2)
                                     .add(jPasswordField2))
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 325, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 325, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(jLabel19)
+                    .add(jLabel21))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -453,30 +431,20 @@ public final class UserAdd extends javax.swing.JPanel {
                     .add(jRadioButtonGenderMale))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(jRadioButtonYouth)
-                    .add(jRadioButtonAdult)
-                    .add(jRadioButtonSenior))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jRadioButtonDayTime)
-                    .add(jLabel3)
-                    .add(jRadioButtonFullTime))
+                    .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel3))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel19)
                     .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(42, 42, 42)
-                        .add(jLabel12))
-                    .add(layout.createSequentialGroup()
-                        .add(4, 4, 4)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jRadioButtonMember)
-                            .add(jRadioButtonBarmedewerker)
-                            .add(jRadioButtonAdmin)
-                            .add(jLabel21))))
+                .add(4, 4, 4)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jRadioButtonMember)
+                    .add(jRadioButtonBarmedewerker)
+                    .add(jRadioButtonAdmin)
+                    .add(jLabel21))
+                .add(35, 35, 35)
+                .add(jLabel12)
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel10)
@@ -517,13 +485,14 @@ public final class UserAdd extends javax.swing.JPanel {
                     .add(jPasswordField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(profileSaveButton)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSaveButtonActionPerformed
 
-        //Check if a @ sign is in the emailadress field
+
+        //Check if a @ sign is in the emailadress field 
         int emailcheck = jTextFieldEmail.getText().indexOf('@');
 
         String password1 = new String(jPasswordField1.getPassword());
@@ -532,16 +501,15 @@ public final class UserAdd extends javax.swing.JPanel {
         if (password1.equals(password2)) {
             user.setPassword(password1);
         } else {
-            Application.getInstance().showPopup(new ErrorPopup(
-                    "De wachtwoorden komen niet overeen."));
+            Application.getInstance().showPopup(new ErrorPopup("De"
+                    + " wachtwoorden komen niet overeen."));
             return;
         }
 
-        //If emailcheck returns <0 then the @ sign is missing, Message Dialog will be shown
+        //If emailcheck returns <0 then the @ sign is missing, 
+        //Message Dialog will be shown 
         if (emailcheck < 0) {
-
-            Application.getInstance().showPopup(new ErrorPopup(
-                    "U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
+            Application.getInstance().showPopup(new ErrorPopup("U vergeet een '@'-teken in uw e-mailadres te plaatsen.\n"
                     + "Probeer het nogmaals alstublieft."));
             return;
         }
@@ -550,13 +518,19 @@ public final class UserAdd extends javax.swing.JPanel {
 
         if (user.checkUserExist()) {
             // User already exists
-            Application.getInstance().showPopup(new ErrorPopup(
-                    "Deze username is al in gebruik.\n"
+            Application.getInstance().showPopup(new ErrorPopup("Deze username is al in gebruik.\n"
                     + "Kies een andere naam."));
             return;
         }
 
         user.create();
+
+
+        user.readLatestUser();
+        Enrollment enrollment = new Enrollment();
+        // int subscriptionId;
+        // subscriptionId = subscription.readByTitle().getId();
+        enrollment.subscribe(subscription.readByTitle().getId(), user.getId());
 
         Application.getInstance().showPanel(new view.medewerker.UserOverview());
 
@@ -589,6 +563,7 @@ public final class UserAdd extends javax.swing.JPanel {
 	}//GEN-LAST:event_jPasswordField2FocusGained
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -600,7 +575,6 @@ public final class UserAdd extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -612,15 +586,10 @@ public final class UserAdd extends javax.swing.JPanel {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JRadioButton jRadioButtonAdmin;
-    private javax.swing.JRadioButton jRadioButtonAdult;
     private javax.swing.JRadioButton jRadioButtonBarmedewerker;
-    private javax.swing.JRadioButton jRadioButtonDayTime;
-    private javax.swing.JRadioButton jRadioButtonFullTime;
     private javax.swing.JRadioButton jRadioButtonGenderFemale;
     private javax.swing.JRadioButton jRadioButtonGenderMale;
     private javax.swing.JRadioButton jRadioButtonMember;
-    private javax.swing.JRadioButton jRadioButtonSenior;
-    private javax.swing.JRadioButton jRadioButtonYouth;
     private javax.swing.JTextField jTextFieldBaccountname;
     private javax.swing.JTextField jTextFieldBankAccount;
     private javax.swing.JTextField jTextFieldBirthdate;
