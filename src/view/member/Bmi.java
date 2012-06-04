@@ -75,6 +75,7 @@ public class Bmi extends javax.swing.JPanel {
         catch(NumberFormatException nfe){
             Application.getInstance().showPopup(new ErrorPopup("U heeft niet alle velden ingevuld. \n"
                     + "Vul deze in en probeer opnieuw."));
+			return;
         }
         
 

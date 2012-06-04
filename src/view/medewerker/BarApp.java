@@ -305,11 +305,6 @@ public class BarApp extends javax.swing.JPanel {
             }
         });
 
-        jTextFieldSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldSearchActionPerformed(evt);
-            }
-        });
         jTextFieldSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldSearchFocusGained(evt);
@@ -326,7 +321,7 @@ public class BarApp extends javax.swing.JPanel {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                                .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addGap(116, 116, 116))
@@ -365,7 +360,7 @@ public class BarApp extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                         .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,11 +390,6 @@ public class BarApp extends javax.swing.JPanel {
         jRadioButtonPayCash.setText("Direct betalen");
 
         jRadioButtonPayCredit.setText("Op rekening zetten");
-        jRadioButtonPayCredit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonPayCreditActionPerformed(evt);
-            }
-        });
 
         jLabelPayment.setText("Afrekenen");
 
@@ -410,13 +400,13 @@ public class BarApp extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelPayment)
                             .addComponent(jRadioButtonPayCash)
                             .addComponent(jRadioButtonPayCredit))
-                        .addContainerGap(244, Short.MAX_VALUE))))
+                        .addContainerGap(245, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +418,7 @@ public class BarApp extends javax.swing.JPanel {
                 .addComponent(jRadioButtonPayCash)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButtonPayCredit)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         jLabelCustomerName.setText("Geen klant geselecteerd");
@@ -440,7 +430,7 @@ public class BarApp extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24));
         jLabel2.setText("Bar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -503,42 +493,17 @@ public class BarApp extends javax.swing.JPanel {
 		removeSelectedProductFromBasket();
 	}//GEN-LAST:event_jButtonDeleteActionPerformed
 
-	private void jRadioButtonPayCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPayCreditActionPerformed
-		// TODO add your handling code here:
-	}//GEN-LAST:event_jRadioButtonPayCreditActionPerformed
-
-	private void jTextFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSearchActionPerformed
-		// TODO add your handling code here:
-	}//GEN-LAST:event_jTextFieldSearchActionPerformed
-
 	private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusGained
 		// Clear the SearchField on click
 		jTextFieldSearch.setText(null);
 	}//GEN-LAST:event_jTextFieldSearchFocusGained
 
 	private void jButtonSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomerActionPerformed
-		// TODO
-		// Search user by user id
 		searchUser();
 	}//GEN-LAST:event_jButtonSearchCustomerActionPerformed
 
 	private void jButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrderActionPerformed
-            // TODO add your handling code here:
-         /*   try {
-                savePurchase();
-            } catch (NumberFormatException nfe) {
-                jTextFieldSearch.setText(null);
-            }
-
-            resetBasket();
-            Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
-            jTextFieldSearch.setText("Klantnummer");
-            
-            
-            */
-            
-            
-             String search = jTextFieldSearch.getText();
+            String search = jTextFieldSearch.getText();
             if (jRadioButtonPayCredit.isSelected()) {
 
                 if (search.equals("")){
@@ -556,7 +521,7 @@ public class BarApp extends javax.swing.JPanel {
               
                 resetBasket();
                 Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
-               // jTextFieldSearch.setText("Klantnummer");
+               
             }
 	}//GEN-LAST:event_jButtonOrderActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

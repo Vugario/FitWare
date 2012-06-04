@@ -1,5 +1,6 @@
 package model;
 
+import helper.ExceptionHandler;
 import helper.db.Model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,7 +78,7 @@ public class Product extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return products;
@@ -108,7 +109,7 @@ public class Product extends Model {
 			this.setPropertiesFromResult();
 
 		} catch (SQLException ex) {
-			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 
 		}
 
@@ -162,7 +163,6 @@ public class Product extends Model {
 			Application.getInstance().showPopup(new SuccessPopup("Product met succes aangepast."));
 			this.execute();
 		} catch (SQLException ex) {
-			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
 			Application.getInstance().showPopup(new ErrorPopup("Er is iets misgegaan, probeer het nogmaals."));
 			return false;
 		}
@@ -201,7 +201,7 @@ public class Product extends Model {
 			this.description = this.result.getString("description");
 
 		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 	}
@@ -233,7 +233,8 @@ public class Product extends Model {
 
 			query.setInt(1, id);
 		} catch (SQLException ex) {
-			Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
+			return;
 		}
 		this.execute();
 		Application.getInstance().showPopup(new NotificationPopup("Het product is verwijderd."));
