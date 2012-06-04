@@ -19,7 +19,7 @@
           <Group type="102" max="-2" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jPanel2" alignment="0" pref="384" max="32767" attributes="1"/>
                   <Component id="jPanel4" alignment="0" max="32767" attributes="1"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
                   <Component id="userFoundPanel" alignment="0" max="32767" attributes="1"/>
@@ -136,7 +136,7 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelFullname" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="74" max="32767" attributes="0"/>
+                  <EmptySpace pref="93" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -223,7 +223,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="205" max="32767" attributes="0"/>
+                  <EmptySpace pref="214" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -249,11 +249,6 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="f0" green="f1" red="f2" type="rgb"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -262,7 +257,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="userSearchField" pref="242" max="32767" attributes="0"/>
+                          <Component id="userSearchField" pref="258" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jButtonSearchUser" min="-2" pref="90" max="-2" attributes="0"/>
                       </Group>
@@ -312,32 +307,27 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="userFoundPanel">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="f0" green="f1" red="f2" type="rgb"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jSeparator1" alignment="1" pref="380" max="32767" attributes="0"/>
+              <Component id="jSeparator1" alignment="1" pref="384" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelCustomerBirthdate" min="-2" pref="105" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabelCustomerGender" min="-2" pref="105" max="-2" attributes="0"/>
-                  <EmptySpace pref="142" max="32767" attributes="0"/>
+                  <EmptySpace pref="156" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabelCustomerName" pref="212" max="32767" attributes="0"/>
+                          <Component id="jLabelCustomerName" pref="229" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="userCourses" pref="243" max="32767" attributes="0"/>
+                          <Component id="userCourses" pref="260" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -421,20 +411,15 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="checkinSuccessPanel">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="f0" green="f1" red="f2" type="rgb"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jSeparator2" alignment="1" pref="380" max="32767" attributes="0"/>
+              <Component id="jSeparator2" alignment="1" pref="384" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="340" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" pref="360" max="32767" attributes="0"/>
                       <Component id="jLabelFullname2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -448,7 +433,7 @@
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   <Component id="jLabelFullname2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="25" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="36" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -474,9 +459,6 @@
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="checkinSuccessText">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f0" green="f1" red="f2" type="rgb"/>
-                </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
