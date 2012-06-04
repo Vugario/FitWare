@@ -1,6 +1,7 @@
 package model;
 
 import helper.Datetime;
+import helper.ExceptionHandler;
 import helper.db.Model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -151,7 +152,7 @@ public class User extends Model {
             this.setPropertiesFromResult();
 
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
 
         return this;
@@ -183,7 +184,7 @@ public class User extends Model {
             this.setPropertiesFromResult();
 
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
 
         return this;
@@ -200,7 +201,7 @@ public class User extends Model {
             this.result.first();
             setPropertiesFromResult();
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
                
         return id;
@@ -223,7 +224,7 @@ public class User extends Model {
             this.setPropertiesFromResult();
 
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
 
         return this;
@@ -254,7 +255,7 @@ public class User extends Model {
             }
 
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
 
         return users;
@@ -279,7 +280,7 @@ public class User extends Model {
             userCount = this.result.getInt("userCount");
 
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
 
         return (userCount > 0);
@@ -322,10 +323,8 @@ public class User extends Model {
 
             this.execute();
 
-            System.out.println(this.getKey());
-
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
             return false;
         }
         Application.getInstance().showPopup(new SuccessPopup(
@@ -391,7 +390,7 @@ public class User extends Model {
             this.execute();
 
         } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
             return false;
         }
 
@@ -437,7 +436,7 @@ public class User extends Model {
             this.role = role.readRole(this.getRoleId());
 
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
     }
 
@@ -534,7 +533,7 @@ public class User extends Model {
 
             count = model.result.getInt(1);
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
         }
 
         return count;

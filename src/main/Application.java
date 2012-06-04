@@ -4,6 +4,7 @@
  */
 package main;
 
+import helper.ExceptionHandler;
 import helper.PopupMouseListener;
 import helper.db.Manager;
 import java.awt.BorderLayout;
@@ -39,7 +40,7 @@ public final class Application {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			ExceptionHandler.handle(e, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 		
 		startup();

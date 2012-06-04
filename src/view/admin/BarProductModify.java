@@ -26,7 +26,6 @@ public class BarProductModify extends javax.swing.JPanel {
 	 * It fills the jComboBoxType and initiates components.
 	 */
 	public BarProductModify(int productId) {
-		System.out.println(productId);
 
 		initComponents();
 

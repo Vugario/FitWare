@@ -159,7 +159,6 @@ public final class UserAdd extends javax.swing.JPanel {
 
 
         String title = (String) jComboBox2.getSelectedItem();
-        System.out.println(title);
         subscription.setTitle(title);
     }
 

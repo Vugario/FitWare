@@ -79,14 +79,6 @@ public class Manager {
 	{	
 		try {
 			dbQuery.execute();
-			
-			/*ResultSet generatedKeys = dbQuery.getGeneratedKeys();
-			
-			if (generatedKeys.next()) {
-				System.out.println("3");
-				key = generatedKeys.getInt(1);
-				
-			}*/
 
 		} catch (SQLException ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
@@ -113,7 +105,6 @@ public class Manager {
 			result = dbQuery.executeQuery();
 		} catch (SQLException ex){
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
-		//	return null;
 		}
 	}
 	

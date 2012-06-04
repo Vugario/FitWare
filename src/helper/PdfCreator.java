@@ -55,7 +55,7 @@ public class PdfCreator {
 			document.saveDocument(tempfile.getAbsolutePath());
 
 		} catch (IOException ex) {
-			Logger.getLogger(PdfCreator.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 

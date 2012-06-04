@@ -1,7 +1,7 @@
 
 package model;
 
-import java.sql.PreparedStatement;
+import helper.ExceptionHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import helper.db.*;
@@ -125,7 +125,7 @@ public class Subscription extends Model {
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 
@@ -150,7 +150,7 @@ public class Subscription extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return items;
@@ -178,7 +178,7 @@ public class Subscription extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return items;
@@ -195,13 +195,12 @@ public class Subscription extends Model {
 			this.open();
                         PreparedStatement query = this.query("SELECT * FROM \"subscription\" WHERE title = ?");
                         query.setString(1, title);
-                        System.out.println(query);
                         this.result();
                         this.result.first();
                         setPropertiesFromResult();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return this;
@@ -237,7 +236,6 @@ public class Subscription extends Model {
 					Application.getInstance().showPopup(new NotificationPopup("De cursus is toegevoegd."));
 		} catch (SQLException ex) {
 			
-			Logger.getLogger(Subscription.class.getName()).log(Level.SEVERE, null, ex);
 			Application.getInstance().showPopup(new NotificationPopup("Er is iets mis gegaan. \n"
 					+ "Probeer het nogmaals."));
 		}finally {
@@ -280,7 +278,6 @@ public class Subscription extends Model {
 					Application.getInstance().showPopup(new NotificationPopup("De cursus is gewijzigd."));
 		} catch (SQLException ex) {
 			
-			Logger.getLogger(Subscription.class.getName()).log(Level.SEVERE, null, ex);
 			Application.getInstance().showPopup(new NotificationPopup("Er is iets mis gegaan. \n"
 					+ "Probeer het nogmaals."));
 		}finally {
@@ -355,7 +352,7 @@ public class Subscription extends Model {
 
 
 		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 	

@@ -169,7 +169,6 @@ public class UserModify extends javax.swing.JPanel {
 		user.setMobilenumber(mobilenumber);
 		
 		String bankaccount = jTextFieldBankAccount.getText();
-		System.out.println(bankaccount);
 		user.setBankaccount(Integer.parseInt(bankaccount));
 
 		String email = jTextFieldEmail.getText();

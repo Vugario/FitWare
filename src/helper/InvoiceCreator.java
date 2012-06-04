@@ -241,7 +241,7 @@ public class InvoiceCreator {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(InvoiceCreator.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 		
 		return enrollments;
@@ -277,7 +277,7 @@ public class InvoiceCreator {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(InvoiceCreator.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 		
 		return purchases;

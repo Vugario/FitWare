@@ -1,13 +1,12 @@
 package model;
 
+import helper.ExceptionHandler;
 import helper.db.Model;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import view.medewerker.UserAdd;
 
 /**
  * This class is used to read branches
@@ -65,7 +64,7 @@ public class Branch extends Model {
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 
@@ -110,7 +109,7 @@ public class Branch extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return branches;
@@ -136,7 +135,7 @@ public class Branch extends Model {
 			this.phonenumber = this.result.getString("phonenumber");
 
 		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 
