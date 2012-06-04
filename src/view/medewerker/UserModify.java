@@ -46,10 +46,6 @@ public class UserModify extends javax.swing.JPanel {
 		jPasswordField1.setVisible(false);
 		jPasswordField2.setVisible(false);
 		
-		//empty the combobox Branch
-		//jComboBox1.removeAllItems();
-		//Fill it with all the possible branches
-		//addBranchToComboBox();
 		addSubscriptionToComboBox();
     }
 	
