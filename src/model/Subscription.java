@@ -195,7 +195,6 @@ public class Subscription extends Model {
 			this.open();
                         PreparedStatement query = this.query("SELECT * FROM \"subscription\" WHERE title = ?");
                         query.setString(1, title);
-                        System.out.println(query);
                         this.result();
                         this.result.first();
                         setPropertiesFromResult();

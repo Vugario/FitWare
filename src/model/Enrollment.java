@@ -238,8 +238,6 @@ public class Enrollment extends Model {
 	public Object[] getTableRowObjects() {
 
 		String fomatDatetime = null;
-
-		System.out.println(this.datetime);
 		
 		if(this.datetime != null){
 			Datetime enrollmentDatetime = new Datetime(this.datetime);

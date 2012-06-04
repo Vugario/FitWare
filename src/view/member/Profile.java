@@ -52,8 +52,6 @@ public class Profile extends javax.swing.JPanel {
 
 		if (sessionUser.getBirthdate() != null) {
 
-			System.out.println(sessionUser.getBirthdate());
-
 			helper.Datetime datetime = new helper.Datetime(sessionUser.getBirthdate());
 
 

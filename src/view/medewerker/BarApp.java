@@ -156,7 +156,6 @@ public class BarApp extends javax.swing.JPanel {
 		try {
 			int id = Integer.parseInt(jTextFieldSearch.getText());
 			user.readUser(id);
-			System.out.println(user.getId());
 			if(user.getId() > 0){
 				userId = user.getId();
 				// Set the label
@@ -192,7 +191,6 @@ public class BarApp extends javax.swing.JPanel {
 			Purchase purchase = new Purchase();
 
 			if(userId > 0){
-				System.out.println("lol");
 				purchase.setUser_id(userId);
 			}
 			

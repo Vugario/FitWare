@@ -322,8 +322,6 @@ public class User extends Model {
 
             this.execute();
 
-            System.out.println(this.getKey());
-
         } catch (Exception ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             return false;
