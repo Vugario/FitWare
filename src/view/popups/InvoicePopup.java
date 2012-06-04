@@ -123,7 +123,8 @@ public class InvoicePopup extends javax.swing.JPanel {
 		jButtonClose.setVisible(false);
 
 		// Create and open the pdf
-		new PdfCreator(this);
+		PdfCreator pdfCreator = new PdfCreator(this);
+		pdfCreator.openFile();
 
 		// Show the buttons again
 		jButtonShowPdf.setVisible(true);
