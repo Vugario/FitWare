@@ -4,9 +4,8 @@
  */
 package helper.db;
 
+import helper.ExceptionHandler;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -35,7 +34,7 @@ public class Model extends Manager{
 		try {
 			this.query("SELECT * FROM update WHERE ?").setBoolean(1, true);
 		} catch (SQLException ex) {
-			Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 		
 		this.result();

@@ -1,6 +1,7 @@
 package model;
 
 import helper.Datetime;
+import helper.ExceptionHandler;
 import helper.db.Model;
 import java.sql.Timestamp;
 
@@ -69,7 +70,7 @@ public class Enrollment extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return enrollments;
@@ -100,7 +101,7 @@ public class Enrollment extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return users;
@@ -121,7 +122,7 @@ public class Enrollment extends Model {
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return this;
@@ -151,7 +152,7 @@ public class Enrollment extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return this;
@@ -185,7 +186,7 @@ public class Enrollment extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return this;
@@ -208,7 +209,7 @@ public class Enrollment extends Model {
 			this.execute();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 
@@ -228,7 +229,7 @@ public class Enrollment extends Model {
 			this.execute();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 	
@@ -258,7 +259,7 @@ public class Enrollment extends Model {
 			this.setSubscription(new Subscription(this.getSubscription_id()));
 
 		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 			return false;
 		}
 

@@ -2,6 +2,7 @@ package model;
 
 import helper.db.Model;
 import helper.Datetime;
+import helper.ExceptionHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -90,7 +91,7 @@ public class Purchase extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return purchases;
@@ -128,7 +129,7 @@ public class Purchase extends Model {
 
 		} catch (Exception ex) {
 
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return purchases;
@@ -174,7 +175,7 @@ public class Purchase extends Model {
 
 		} catch (Exception ex) {
 
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return false;
@@ -219,7 +220,7 @@ public class Purchase extends Model {
 			this.product = product.readById(this.getProduct_id());
 
 		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 

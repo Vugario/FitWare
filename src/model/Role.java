@@ -1,8 +1,8 @@
 
 package model;
 
+import helper.ExceptionHandler;
 import helper.db.Model;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -60,7 +60,7 @@ public class Role extends Model{
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 		
 		return roles;
@@ -84,7 +84,7 @@ public class Role extends Model{
 			this.setPropertiesFromResult();
 		}
 		catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 		
 		return this;
@@ -106,7 +106,7 @@ public class Role extends Model{
 			this.title = this.result.getString("title");
 
 		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 	/**

@@ -105,7 +105,6 @@ public class Manager {
 			result = dbQuery.executeQuery();
 		} catch (SQLException ex){
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
-		//	return null;
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package model;
 
 import helper.Datetime;
+import helper.ExceptionHandler;
 import helper.InvoiceCreator;
 import helper.db.Model;
 import java.sql.PreparedStatement;
@@ -59,7 +60,7 @@ public class Invoice extends Model {
 			this.setPropertiesFromResult();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return this;
@@ -86,7 +87,7 @@ public class Invoice extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return invoices;
@@ -118,7 +119,7 @@ public class Invoice extends Model {
 			}
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return invoices;
@@ -158,7 +159,7 @@ public class Invoice extends Model {
 			this.execute();
 
 		} catch (Exception ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 			return false;
 		}
 
@@ -195,7 +196,7 @@ public class Invoice extends Model {
 			}
 
 		} catch (SQLException ex) {
-			Logger.getLogger(InvoiceCreator.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		// Loop over each enrollment
@@ -254,7 +255,7 @@ public class Invoice extends Model {
 			}
 
 		} catch (SQLException ex) {
-			Logger.getLogger(InvoiceCreator.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
 		return purchases;
@@ -312,7 +313,7 @@ public class Invoice extends Model {
 			this.invoiceDate = this.result.getTimestamp("invoicedate");
 
 		} catch (SQLException ex) {
-			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 	}
 
