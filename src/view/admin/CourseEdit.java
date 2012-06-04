@@ -13,6 +13,7 @@ import javax.swing.ButtonGroup;
 import main.Application;
 import model.Branch;
 import model.Subscription;
+import view.popups.ErrorPopup;
 import view.popups.SuccessPopup;
 
 /**
@@ -288,6 +289,38 @@ public class CourseEdit extends javax.swing.JPanel {
 
 		this.subscription.setBranchId(new Branch(jComboBoxBranch.getSelectedItem().toString()).getId());
 
+	}
+	
+	public boolean isEmpty() {
+		
+		if( jTextFieldCourseName.getText().isEmpty() )
+			return true;
+		
+		if( jRadioButtonCourseType1.isSelected() == false && jRadioButtonCourseType2.isSelected() == false )
+			return true;
+		
+		if( jTextFieldStartDate.getText().isEmpty() )
+			return true;
+		
+		if( jTextFieldEndDate.getText().isEmpty() )
+			return true;
+		
+		if( jTextFieldStartTime.getText().isEmpty() )
+			return true;
+		
+		if( jTextFieldEndTime.getText().isEmpty() )
+			return true;
+		
+		if( jTextFieldPrice.getText().isEmpty() )
+			return true;
+		
+		if( jRadioButtonMale.isSelected() == false && jRadioButtonFemale.isSelected() == false && jRadioButtonMixed.isSelected() == false )
+			return true;
+		
+		if( jTextAreaDescription.getText().isEmpty() )
+			return true;
+		
+		return false;
 	}
 
 	/** This method is called from within the constructor to
@@ -628,11 +661,14 @@ public class CourseEdit extends javax.swing.JPanel {
 	 * @param evt 
 	 */
 	private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-		// TODO add your handling code here:
-		setSubscriptionData();
-		subscription.edit();
+		if( this.isEmpty() ) {
+			Application.getInstance().showPopup(new ErrorPopup("Niet alle verplichte velden zijn ingevuld."));
+		}else{
+			setSubscriptionData();
+			subscription.edit();
 
-		Application.getInstance().showPanel(new view.medewerker.CoursesOverview());
+			Application.getInstance().showPanel(new view.medewerker.CoursesOverview());
+		}
 	}//GEN-LAST:event_jButtonSaveActionPerformed
 
 private void jRadioButtonCourseType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCourseType2ActionPerformed
