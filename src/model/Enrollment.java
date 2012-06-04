@@ -158,6 +158,40 @@ public class Enrollment extends Model {
 	}
 	
 	/**
+	 * This method is used to see what montly subscription is the latest
+	 * a user has registered
+	 * 
+	 * @param user_id the id of the user
+	 * @return the result of the query
+	 */
+	public Enrollment readMonthlyEnrollmentByUserId(int user_id) {
+		try {
+			//Execute the query
+			this.open();
+			PreparedStatement query = this.query("SELECT s.title "
+					+ "FROM \"enrollment\" e, subscription s"
+					+ "WHERE user_id = ? AND s.monthly = true AND e.subscription_id = s.id "
+					+ "AND e.id = (SELECT MAX(e.id) FROM \"enrollment\" e WHERE user_id = ?)");
+			query.setInt(1, user_id);
+			query.setInt(2, user_id);
+			
+			this.result();
+			this.result.first();
+
+			if ( this.result.getRow() == 0 ) {
+				this.enrolled = false;
+			} else {
+				this.enrolled = true;
+			}
+
+		} catch (Exception ex) {
+			Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return this;
+	}
+	
+	/**
 	 * This method is used to subscribe a user to an enrollment
 	 * @param id identifier of a subscription
 	 * @param user_id identifier of a user
