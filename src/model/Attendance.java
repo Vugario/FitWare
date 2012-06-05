@@ -1,3 +1,4 @@
+
 package model;
 
 import helper.ExceptionHandler;
@@ -7,7 +8,7 @@ import java.sql.Timestamp;
 
 
 /**
- *
+ *	This class is used to wright attendances to the database 
  * @author allentje
  */
 public class Attendance extends Model {
