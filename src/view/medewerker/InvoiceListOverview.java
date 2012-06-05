@@ -24,7 +24,7 @@ import view.popups.InvoicePopup;
 import view.popups.SuccessPopup;
 
 /**
- *
+ * This class is used to show all the invoices
  * @author Daan
  */
 public class InvoiceListOverview extends javax.swing.JPanel {
