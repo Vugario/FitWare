@@ -15,108 +15,116 @@ import model.User;
 import view.popups.ErrorPopup;
 
 /**
- *
- * @author vm
+ * This class is used to calculate someones bmi and show it to them
+ * @author kawa
  */
 public class Bmi extends javax.swing.JPanel {
 
-    private float bmi;
+	/**
+	 * float bmi is the calculated bmi
+	 */
+	private float bmi;
 
-    /**
-     * Creates new form Bmi
-     */
-    public Bmi() {
-        initComponents();
-        loadUserData();   
-    }
+	/**
+	 * Creates new form Bmi
+	 */
+	public Bmi() {
+		initComponents();
+		loadUserData();
+	}
 
-    @SuppressWarnings("deprecation")
-    public final void loadUserData() {
-        User user = Session.get().getLoggedInUser();
+	/**
+	 * This method loads the Age and the Gender
+	 */
+	@SuppressWarnings("deprecation")
+	public final void loadUserData() {
+		User user = Session.get().getLoggedInUser();
 
-        ButtonGroup group = new ButtonGroup();
-        group.add(jRadioButton3);
-        group.add(jRadioButton4);
+		ButtonGroup group = new ButtonGroup();
+		group.add(jRadioButton3);
+		group.add(jRadioButton4);
 
-        if (user.getGender() == User.MALE) {
-            jRadioButton3.setSelected(true);
-        } else {
-            jRadioButton4.setSelected(true);
-        }
-        
-       
-        
-        //Leeftijd uitrekenen:
-        //Dag omzetten in integers
+		if (user.getGender() == User.MALE) {
+			jRadioButton3.setSelected(true);
+		} else {
+			jRadioButton4.setSelected(true);
+		}
+
+		//Calculate age
+		//Sets day to integer
 		String bday = user.getBirthdate().toString();
 
-        int day = Integer.parseInt(bday.substring(8, 10));
-        //Maand omzetten in integers
-        int month = Integer.parseInt(bday.substring(5, 7));
-        
-        //Jaar omzetten in integers
-        int year = Integer.parseInt(bday.substring(0, 4));
-        
-        int age = age(year, month, day);
-        
-        String age2 = Integer.toString(age);
-        
-        jAge.setText(age2);
+		int day = Integer.parseInt(bday.substring(8, 10));
+		//Sets month to integer
+		int month = Integer.parseInt(bday.substring(5, 7));
+		//Sets year to integer
+		int year = Integer.parseInt(bday.substring(0, 4));
 
-        
-    }
+		int age = age(year, month, day);
 
-    private void bmiberekenen() {
-        try{
-        float weight = new Float(txtWeight.getText());
-        float length = new Float(txtLength.getText()) / 100;
-        this.bmi = weight / (length * length);
-        }
-        catch(NumberFormatException nfe){
-            Application.getInstance().showPopup(new ErrorPopup("U heeft niet alle velden ingevuld. \n"
-                    + "Vul deze in en probeer opnieuw."));
+		String age2 = Integer.toString(age);
+
+		jAge.setText(age2);
+
+
+	}
+
+	private void calculateBmi() {
+		try {
+			//Calculate the the bmi
+			float weight = new Float(txtWeight.getText());
+			float length = new Float(txtLength.getText()) / 100;
+			this.bmi = weight / (length * length);
+		} catch (NumberFormatException nfe) {
+			Application.getInstance().showPopup(new ErrorPopup("U heeft niet alle velden ingevuld. \n"
+					+ "Vul deze in en probeer opnieuw."));
 			return;
-        }
-        
+		}
+		//Format the outcome to a float with 2 decimals
+		txtResult.setText(String.format("Uw BMI is %.2f", this.bmi));
 
+		//Show the right text with an bmi outcome
+		if (this.bmi < 18.5) {
+			txtDescription.setText("U heeft ondergewicht");
+		}
+		if (this.bmi < 25 && this.bmi > 18.5) {
+			txtDescription.setText("U heeft het ideale gewicht");
+		}
+		if (this.bmi > 25) {
+			txtDescription.setText("U heeft overgewicht");
+		}
+		if (this.bmi > 30) {
+			txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
+		}
+	}
 
+	/**
+	 * This method Converts the birthdate to an age in a integer
+	 * @param y is the year
+	 * @param m is the month
+	 * @param d is the day
+	 * @return the age of someone
+	 */
+	private static int age(int y, int m, int d) {
+		Calendar cal = new GregorianCalendar(y, m, d);
+		Calendar now = new GregorianCalendar();
+		//calculate the birthday (today - birthdate = age) (<- is the simple version)
+		int res = now.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
+		if ((cal.get(Calendar.MONTH) > now.get(Calendar.MONTH))
+				|| (cal.get(Calendar.MONTH) == now.get(Calendar.MONTH)
+				&& cal.get(Calendar.DAY_OF_MONTH) > now.get(Calendar.DAY_OF_MONTH))) {
+			res--;
+		}
+		//age after calculation
+		return res;
+	}
 
-        
-
-        txtResult.setText(String.format("Uw BMI is %.2f", this.bmi));
-
-        if (this.bmi < 18.5) {
-            txtDescription.setText("U heeft ondergewicht");
-        }
-        if (this.bmi < 25 && this.bmi > 18.5) {
-            txtDescription.setText("U heeft het ideale gewicht");
-        }
-        if (this.bmi > 25) {
-            txtDescription.setText("U heeft overgewicht");
-        }
-        if (this.bmi > 30) {
-            txtDescription.setText("<html>U lijdt aan obesitas. <br> Neem contact op met uw huisarts!</html>");
-        }
-    }
-    
-    private static int age(int y, int m, int d) {
-        Calendar cal = new GregorianCalendar(y, m, d);
-        Calendar now = new GregorianCalendar();
-        int res = now.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
-        if ((cal.get(Calendar.MONTH) > now.get(Calendar.MONTH))
-                || (cal.get(Calendar.MONTH) == now.get(Calendar.MONTH)
-                && cal.get(Calendar.DAY_OF_MONTH) > now.get(Calendar.DAY_OF_MONTH))) {
-            res--;
-        }
-        return res;
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+	/**
+	 * This method is called from within the constructor to initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is always
+	 * regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -300,17 +308,16 @@ public class Bmi extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCalcBMIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcBMIActionPerformed
-        bmiberekenen();
+		calculateBmi();
     }//GEN-LAST:event_jButtonCalcBMIActionPerformed
 
     private void txtWeightKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtWeightKeyReleased
-        // If this is an enter, check the login
-        // The KeyCode for an enter is 10
-        if (evt.getKeyCode() == 10) {
-            bmiberekenen();
-        }
+		// If this is an enter, check the login
+		// The KeyCode for an enter is 10
+		if (evt.getKeyCode() == 10) {
+			calculateBmi();
+		}
     }//GEN-LAST:event_txtWeightKeyReleased
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField jAge;
