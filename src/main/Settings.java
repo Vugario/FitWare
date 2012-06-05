@@ -1,3 +1,4 @@
+
 package main;
 
 import java.util.HashMap;
@@ -31,12 +32,7 @@ public class Settings {
 		settings.put("db-password", "8T3m4577");
 		
 		settings.put("branch", "1");
-		
-		// Allen's database settings
-//		settings.put("db-url", "jdbc:postgresql://allen.pb/fitshape");
-//		settings.put("db-user", "postgres");
-//		settings.put("db-password", "root");
-		
+
 		// Debug mode: either "on" or "off"
 		settings.put("debug-mode", "on");
 	}
