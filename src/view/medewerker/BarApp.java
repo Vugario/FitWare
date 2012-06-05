@@ -28,13 +28,18 @@ import view.popups.SuccessPopup;
 import helper.ExceptionHandler;
 
 /**
- *
- * @author vm
+ * This class is used to show products and sell products to customers
+ * @author Kawa
  */
 public class BarApp extends javax.swing.JPanel {
 
+	/**
+	 * int userId is the user identifier
+	 */
 	private int userId;
-	
+	/**
+	 * double totalPrice is the total price of a purchase
+	 */
 	double totalPrice = 0.00;
 
 	/**
@@ -46,24 +51,28 @@ public class BarApp extends javax.swing.JPanel {
 		User usersession = Session.get().getLoggedInUser();
 
 		// If user role is !admin then jButtonProductmgnt is not visible
-		if (! usersession.getRole().getTitle().equals("admin")) {
+		if (!usersession.getRole().getTitle().equals("admin")) {
 			jButtonProductmgnt.setVisible(false);
 		}
 
-        jListBasket.setModel(new DefaultListModel());
-        ButtonGroup group = new ButtonGroup();
-        group.add(jRadioButtonPayCredit);
-        group.add(jRadioButtonPayCash);
-        
-        jRadioButtonPayCredit.setSelected(true);
+		jListBasket.setModel(new DefaultListModel());
+		ButtonGroup group = new ButtonGroup();
+		group.add(jRadioButtonPayCredit);
+		group.add(jRadioButtonPayCash);
+
+		jRadioButtonPayCredit.setSelected(true);
 
 
 	}
 
+	/**
+	 * This method adds the products to the panel, it makes buttons so the 
+	 * products are clickable
+	 */
 	private void addProductbuttons() {
 		ArrayList<Product> products = Product.readAll();
 
-
+		//For every product create a button
 		for (int i = 0; i < products.size(); i++) {
 
 			final Product product = products.get(i);
@@ -83,10 +92,11 @@ public class BarApp extends javax.swing.JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent evt) {
+					//add the products to the panel
 					addProductToBasket(product);
 				}
 			});
-
+			//Add the right type to the right panel
 			if (product.getType().equals("food")) {
 				jPanelFood.add(productButton);
 			} else if (product.getType().equals("drink")) {
@@ -99,6 +109,11 @@ public class BarApp extends javax.swing.JPanel {
 
 	}
 
+	/**
+	 * This method adds the product to the basket where the buyer and the 
+	 * Fitware user can see how much products and which products are bought.
+	 * @param product The product to be added to the basket
+	 */
 	public void addProductToBasket(Product product) {
 		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 		listModel.addElement(product);
@@ -107,9 +122,12 @@ public class BarApp extends javax.swing.JPanel {
 		recalculatePrice();
 	}
 
+	/**
+	 * This method removes the items from a basket which are selected
+	 */
 	public void removeSelectedProductFromBasket() {
 		try {
-
+			//Delete the item
 			DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 			int selectedItem = jListBasket.getSelectedIndex();
 			listModel.remove(selectedItem);
@@ -118,20 +136,24 @@ public class BarApp extends javax.swing.JPanel {
 			recalculatePrice();
 
 		} catch (ArrayIndexOutOfBoundsException aioobe) {
+			//On error show popup
 			Application.getInstance().showPopup(new ErrorPopup("Selecteer eerst een product om te verwijderen."));
 		}
 	}
 
+	/**
+	 * This method resets the basket to an empty basket
+	 */
 	public void resetBasket() {
 		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
+		//Removes all the products
 		listModel.removeAllElements();
 		recalculatePrice();
 	}
 
-	//  public void resetCustomernumber(){
-	//      if ()
-	//      jTextFieldSearch.setText(null);
-	// }
+	/**
+	 * This method calculates the price
+	 */
 	public void recalculatePrice() {
 		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
 
@@ -148,20 +170,24 @@ public class BarApp extends javax.swing.JPanel {
 
 	}
 
+	/**
+	 * This method searches a user
+	 */
 	public void searchUser() {
 		// Search a user and return a result
-		// TODO: search by name, etc.
 		User user = new User();
-		
+
 		try {
 			int id = Integer.parseInt(jTextFieldSearch.getText());
 			user.readUser(id);
-			if(user.getId() > 0){
+			//Show the user
+			if (user.getId() > 0) {
 				userId = user.getId();
 				// Set the label
 				jLabelCustomerName.setText(user.getFullName());
 			}
-			if(user.getId() == 0){
+			if (user.getId() == 0) {
+				//When there is no user found show popup
 				Application.getInstance().showPopup(new ErrorPopup("Deze gebruiker is niet gevonden.\n"
 						+ "Controleer de zoekterm alstublieft."));
 				jTextFieldSearch.setText(null);
@@ -169,16 +195,14 @@ public class BarApp extends javax.swing.JPanel {
 		} catch (Exception ex) {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
-		
-		
+
+
 
 	}
 
-	public void showSearchPopup() {
-		//TODO
-		//Shows a screen when multiple users are found
-	}
-
+	/**
+	 * This methods wrights the purchase to the database
+	 */
 	public void savePurchase() {
 		// Loop over all products
 		DefaultListModel listModel = (DefaultListModel) jListBasket.getModel();
@@ -190,22 +214,17 @@ public class BarApp extends javax.swing.JPanel {
 			// Create a purchase
 			Purchase purchase = new Purchase();
 
-			if(userId > 0){
+			if (userId > 0) {
 				purchase.setUser_id(userId);
 			}
-			
-			
-			
-            // Set the product
-            int product_id = product.getId();
-            purchase.setProduct_id(product_id);
+
+			// Set the product
+			int product_id = product.getId();
+			purchase.setProduct_id(product_id);
 
 			// Set the price
 			double price = product.getPrice();
 			purchase.setPrice(price);
-
-
-
 
 			// Set the payment option
 			if (jRadioButtonPayCash.isSelected()) {
@@ -216,9 +235,7 @@ public class BarApp extends javax.swing.JPanel {
 				purchase.setPaymentoption("Op rekening");
 			}
 
-
-			// Set the quantity
-			// For now: add each product 1 time.
+			// Set the quantity add each product 1 at a time
 			short quantity = 1;
 			purchase.setQuantity(quantity);
 
@@ -490,6 +507,7 @@ public class BarApp extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonProductmgntActionPerformed
 
 	private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+		//remove the selected products from the basket
 		removeSelectedProductFromBasket();
 	}//GEN-LAST:event_jButtonDeleteActionPerformed
 
@@ -499,30 +517,35 @@ public class BarApp extends javax.swing.JPanel {
 	}//GEN-LAST:event_jTextFieldSearchFocusGained
 
 	private void jButtonSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomerActionPerformed
+		//Search the user
 		searchUser();
 	}//GEN-LAST:event_jButtonSearchCustomerActionPerformed
 
 	private void jButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrderActionPerformed
-            String search = jTextFieldSearch.getText();
-            if (jRadioButtonPayCredit.isSelected()) {
+		//Make the order complete by saving it in the database
+		String search = jTextFieldSearch.getText();
+		if (jRadioButtonPayCredit.isSelected()) {
 
-                if (search.equals("")){
-                    Application.getInstance().showPopup(new ErrorPopup("Voer een klantnummer in."));
-                } else {
-                    savePurchase();
-                    resetBasket();
-                    Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
-                }
-            } else if (jRadioButtonPayCash.isSelected()) {
+			if (search.equals("")) {
+				/*Check on the user, when the radiobutton credit is selected then
+				 *there must be 1 user found
+				 *Show popup*/
+				Application.getInstance().showPopup(new ErrorPopup("Voer een klantnummer in."));
+			} else {
+				//save the purchase in the database and reset the basket
+				savePurchase();
+				resetBasket();
+				Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
+			}
+		} else if (jRadioButtonPayCash.isSelected()) {
+			/*When radiobutton cash is selected there is no need for a user
+			 *because the order will be payed directly
+			 */
+			savePurchase();
+			resetBasket();
+			Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
 
-                                            
-                savePurchase();
-              
-              
-                resetBasket();
-                Application.getInstance().showPopup(new SuccessPopup("De bestelling is geplaatst."));
-               
-            }
+		}
 	}//GEN-LAST:event_jButtonOrderActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
