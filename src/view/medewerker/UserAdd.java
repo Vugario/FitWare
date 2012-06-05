@@ -33,10 +33,7 @@ public final class UserAdd extends javax.swing.JPanel {
     public UserAdd() {
 
         initComponents();
-
-        // Empty the combo box
-       // jComboBox1.removeAllItems();
-
+    
         ButtonGroup groupGender = new ButtonGroup();
         groupGender.add(jRadioButtonGenderMale);
         groupGender.add(jRadioButtonGenderFemale);
@@ -45,10 +42,6 @@ public final class UserAdd extends javax.swing.JPanel {
         groupUserType.add(jRadioButtonAdmin);
         groupUserType.add(jRadioButtonBarmedewerker);
         groupUserType.add(jRadioButtonMember);
-
-        //jComboBox1.setModel(new DefaultComboBoxModel());
-        //uncomment this one when the sql works
-		//addBranchToComboBox();
 
         addSubscriptionToComboBox();
         //set the admin view buttons to false
@@ -77,15 +70,6 @@ public final class UserAdd extends javax.swing.JPanel {
 
     }
 
-   /* public void addBranchToComboBox() {
-        ArrayList<Branch> branches = Branch.readAll();
-
-        //DefaultComboBoxModel comboModel = (DefaultComboBoxModel) jComboBox1.getModel();
-        for (int i = 0; i < branches.size(); i++) {
-            Branch branch = branches.get(i);
-            jComboBox1.addItem(branch.getCity());
-        }
-    }*/
 
     public void setUserData() {
 
@@ -162,13 +146,6 @@ public final class UserAdd extends javax.swing.JPanel {
         subscription.setTitle(title);
     }
 
-   /* public JComboBox getjComboBox1() {
-        return jComboBox1;
-    }
-
-    public void setjComboBox1(JComboBox jComboBox1) {
-        this.jComboBox1 = jComboBox1;
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -486,10 +463,11 @@ public final class UserAdd extends javax.swing.JPanel {
 
         String password1 = new String(jPasswordField1.getPassword());
         String password2 = new String(jPasswordField2.getPassword());
-
+		//check if the passwords are the same
         if (password1.equals(password2)) {
             user.setPassword(password1);
         } else {
+			//on not equal show popup
             Application.getInstance().showPopup(new ErrorPopup("De"
                     + " wachtwoorden komen niet overeen."));
             return;
@@ -514,11 +492,10 @@ public final class UserAdd extends javax.swing.JPanel {
 
         user.create();
 
-
+		//Get the latest user to enroll him in to a monthly subscription
         user.readLatestUser();
         Enrollment enrollment = new Enrollment();
-        // int subscriptionId;
-        // subscriptionId = subscription.readByTitle().getId();
+    
         enrollment.subscribe(subscription.readByTitle().getId(), user.getId());
 
         Application.getInstance().showPanel(new view.medewerker.UserOverview());
