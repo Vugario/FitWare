@@ -14,7 +14,7 @@ import javax.swing.border.LineBorder;
 import main.Application;
 
 /**
- *
+ * This is the class for the Basepopup, that is the basis for every popup
  * @author Daan
  */
 abstract public class BasePopup extends javax.swing.JPanel {

@@ -18,7 +18,7 @@ import model.Enrollment;
 import model.Subscription;
 
 /**
- *
+ *	This is the class for the Detailpopup, this is the popu for a detailed view
  * @author Daan
  */
 abstract public class DetailPopup extends javax.swing.JPanel {

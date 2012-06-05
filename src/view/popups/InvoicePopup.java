@@ -18,7 +18,8 @@ import model.Purchase;
 import model.User;
 
 /**
- *
+ * This is the class for the invoice popup which shows the detailed view of a
+ * invoice and makes it possible to open it in a pdf
  * @author Daan
  */
 public class InvoicePopup extends javax.swing.JPanel {
@@ -46,7 +47,10 @@ public class InvoicePopup extends javax.swing.JPanel {
 			}
 		});
 	}
-
+	
+	/**
+	 * This method fills the popup with the invoice information
+	 */
 	private void fillData() {
 
 		// Update user data
@@ -395,6 +399,7 @@ public class InvoicePopup extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonCloseKeyReleased
 
 	private void jButtonShowPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowPdfActionPerformed
+		//Opens the invoice in a pdf reader
 		this.openPdf();
 	}//GEN-LAST:event_jButtonShowPdfActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
