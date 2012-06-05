@@ -60,19 +60,6 @@ public class UserModify extends javax.swing.JPanel {
         }
 	  }
 
-	/*
-	  /**
-	 * This method fills the ComboBox with all the possible branches
-	 *
-	public void addBranchToComboBox() {
-		ArrayList<Branch> branches = Branch.readAll();
-
-		//DefaultComboBoxModel comboModel = (DefaultComboBoxModel) jComboBox1.getModel();
-		for (int i = 0; i < branches.size(); i++) {
-			Branch branch = branches.get(i);
-			jComboBox1.addItem(branch.getCity());
-		}
-	}*/
 	
 	/**
 	 * This method loads all the userdata into the form.
@@ -525,21 +512,22 @@ public class UserModify extends javax.swing.JPanel {
 		}
 
 		user.setPassword(null);
-
+		
 		if(passwordChanged.isSelected()){
+			//When this is selected a user wants to change the password
 			String password1 = new String(jPasswordField1.getPassword());
 			String password2 = new String(jPasswordField2.getPassword());
 			Boolean passwordequal = password1.equals(password2);
 			user.setPassword(password2);
 			
 			if (!passwordequal) {
+				//if the passwords are not equal the popup is shown
 				Application.getInstance().showPopup(new ErrorPopup(
 					"Uw wachtwoorden komen niet overeen. \nProbeer het nogmaals alstublieft."));
 			}
 			
 		}
-		
-		
+				
 		setUserData();
                 
         if (user.checkUserExist()) {
