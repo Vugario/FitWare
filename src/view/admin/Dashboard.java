@@ -22,73 +22,85 @@ import model.User;
 import view.popups.ErrorPopup;
 
 /**
- *
+ * This is the First page that is shown to a user. It is the user's homepage.
  * @author Daan
  */
 public class Dashboard extends javax.swing.JPanel {
 
-    protected DefaultTableModel purchaseTableModel;
-    protected DefaultTableModel enrollmentTableModel;
-    private User sessionUser = Session.get().getLoggedInUser();
-    private User user = new User();
+	protected DefaultTableModel purchaseTableModel;
+	protected DefaultTableModel enrollmentTableModel;
+	private User sessionUser = Session.get().getLoggedInUser();
+	private User user = new User();
 
-    /**
-     * Creates new form Dashboard
-     */
-    public Dashboard() {
-        initComponents();
+	/**
+	 * Creates new form Dashboard
+	 */
+	public Dashboard() {
+		initComponents();
 
-        purchaseTableModel = (DefaultTableModel) recentPayments.getModel();
+		purchaseTableModel = (DefaultTableModel) recentPayments.getModel();
 
-        //disbale user elementes if no user has been found yet
-        jLabelCustomerName.setVisible(false);
-        userFoundPanel.setVisible(false);
-        jLabelCustomerBirthdate.setVisible(false);
-        jLabelCustomerGender.setVisible(false);
-        checkinSuccessText.setVisible(false);
-        checkinSuccessPanel.setVisible(false);
-        userCourses.setVisible(false);
+		//disbale user elementes if no user has been found yet
+		jLabelCustomerName.setVisible(false);
+		userFoundPanel.setVisible(false);
+		jLabelCustomerBirthdate.setVisible(false);
+		jLabelCustomerGender.setVisible(false);
+		checkinSuccessText.setVisible(false);
+		checkinSuccessPanel.setVisible(false);
+		userCourses.setVisible(false);
 
-        updateLatestPurchase();
-        updateTotalMembers();
-        updateUserInfo();
-    }
+		updateLatestPurchase();
+		updateTotalMembers();
+		updateUserInfo();
+	}
 
-    private void updateUserInfo() {
-        this.jLabelFullname.setText(sessionUser.getFullName());
-    }
+	/**
+	 * This method updates the user info
+	 */
+	private void updateUserInfo() {
+		this.jLabelFullname.setText(sessionUser.getFullName());
+	}
 
-    private void updateTotalMembers() {
+	/**
+	 * This method updates the total amount of members
+	 */
+	private void updateTotalMembers() {
 
-        this.totalMembers.setText(User.totalMembers() + " totaal inschrijvingen");
-    }
+		this.totalMembers.setText(User.totalMembers() + " totaal inschrijvingen");
+	}
 
-    private void updateLatestPurchase() {
+	/**
+	 * This method updates tha latest puchases
+	 */
+	private void updateLatestPurchase() {
 
-        Purchase purchaseModel = new Purchase();
+		Purchase purchaseModel = new Purchase();
 
-        purchaseTableModel.setRowCount(0);
+		purchaseTableModel.setRowCount(0);
 
-        // Secondly, fill it with all users
-        ArrayList<Purchase> purchases = purchaseModel.readLastPurchase(13);
+		// Secondly, fill it with all users
+		ArrayList<Purchase> purchases = purchaseModel.readLastPurchase(13);
 
-        for (Purchase purchase : purchases) {
-            purchaseTableModel.addRow(purchase.getTableRowObjects());
-        }
+		for (Purchase purchase : purchases) {
+			purchaseTableModel.addRow(purchase.getTableRowObjects());
+		}
 
-    }
+	}
 
-    public void searchUser() {
+	/**
+	 * This method searches a user
+	 */
+	public void searchUser() {
 
-        try {
-
-            int id = Integer.parseInt(userSearchField.getText());
+		try {
+			//Search the user
+			int id = Integer.parseInt(userSearchField.getText());
 
 			user.readByRole(id, "member");
-
+			//Show user
 			jLabelCustomerName.setVisible(true);
 			userFoundPanel.setVisible(true);
-			
+			//Do this when there is a found
 			if (user.getId() > 0) {
 
 				jLabelCustomerBirthdate.setVisible(true);
@@ -100,8 +112,8 @@ public class Dashboard extends javax.swing.JPanel {
 				// Set the label
 				jLabelCustomerName.setText(user.getFullName());
 
-                Datetime datetime = new Datetime(user.getBirthdate());
-                jLabelCustomerBirthdate.setText(datetime.format("dd-MM-yyyy"));
+				Datetime datetime = new Datetime(user.getBirthdate());
+				jLabelCustomerBirthdate.setText(datetime.format("dd-MM-yyyy"));
 
 				if (user.getGender()) {
 					jLabelCustomerGender.setText("Man");
@@ -113,9 +125,11 @@ public class Dashboard extends javax.swing.JPanel {
 				user.setId(0);
 
 			} else {
+				//Do this when there isn't a user found
+				//Set user info invisible
 				jLabelCustomerBirthdate.setVisible(false);
-                jLabelCustomerGender.setVisible(false);
-                userCourses.setVisible(false);
+				jLabelCustomerGender.setVisible(false);
+				userCourses.setVisible(false);
 				userCheckin.setVisible(false);
 				jLabelCustomerName.setText("Gebruiker niet gevonden");
 			}
@@ -123,31 +137,34 @@ public class Dashboard extends javax.swing.JPanel {
 			ExceptionHandler.handle(ex, ExceptionHandler.TYPE_SYSTEM_ERROR);
 		}
 
+	}
 
+	/**
+	 * This method is used show the courses where a user has a enrollment for
+	 * @param userId 
+	 */
+	public void addUserCoursesToComboBox(int userId) {
+		//Empty the courses combobox
+		userCourses.removeAllItems();
 
+		ArrayList<Enrollment> enrollments = Enrollment.readByUserId(userId);
+		//Add every course where the user has an enrollment for to the courses 
+		//combobox
+		for (Enrollment enrollment : enrollments) {
 
-    }
+			Object lol = new Object();
+			
+			userCourses.addItem(enrollment);
+		}
 
-    public void addUserCoursesToComboBox(int userId) {
-        userCourses.removeAllItems();
+	}
 
-        ArrayList<Enrollment> enrollments = Enrollment.readByUserId(userId);
-
-        for (Enrollment enrollment : enrollments) {
-
-            Object lol = new Object();
-
-            userCourses.addItem(enrollment);
-        }
-
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+	/**
+	 * This method is called from within the constructor to initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is always
+	 * regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -575,60 +592,60 @@ public class Dashboard extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void userSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSearchFieldActionPerformed
-            // TODO add your handling code here:
+		// TODO add your handling code here:
 	}//GEN-LAST:event_userSearchFieldActionPerformed
 
 	private void jButtonUserCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUserCheckinActionPerformed
-            // TODO add your handling code here:
+		// TODO add your handling code here:
 
-            userCheckin.setEnabled(false);
+		userCheckin.setEnabled(false);
 
-            Enrollment selectedEnrollment = (Enrollment) userCourses.getSelectedItem();
-            Attendance attendance = new Attendance();
-            attendance.setEnrollmentId(selectedEnrollment.getId());
-            if (attendance.create()) {
+		Enrollment selectedEnrollment = (Enrollment) userCourses.getSelectedItem();
+		Attendance attendance = new Attendance();
+		attendance.setEnrollmentId(selectedEnrollment.getId());
+		if (attendance.create()) {
 
-                Datetime currentDate = new Datetime();
+			Datetime currentDate = new Datetime();
 
-                String success = user.getFullName() + " is succesvol ingecheckt in de vestiging " + selectedEnrollment.getBranch().getCity() + " op " + currentDate.format("dd MM yyyy") + " om " + currentDate.format("hh:mm");
-                checkinSuccessPanel.setVisible(true);
-                checkinSuccessText.setVisible(true);
-                checkinSuccessText.setText(success);
-            }
+			String success = user.getFullName() + " is succesvol ingecheckt in de vestiging " + selectedEnrollment.getBranch().getCity() + " op " + currentDate.format("dd MM yyyy") + " om " + currentDate.format("hh:mm");
+			checkinSuccessPanel.setVisible(true);
+			checkinSuccessText.setVisible(true);
+			checkinSuccessText.setText(success);
+		}
 	}//GEN-LAST:event_jButtonUserCheckinActionPerformed
 
 	private void jButtonSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchUserActionPerformed
-            // TODO add your handling code here:
-            searchUser();
+		// TODO add your handling code here:
+		searchUser();
 	}//GEN-LAST:event_jButtonSearchUserActionPerformed
 
 	private void userCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userCoursesActionPerformed
-            // TODO add your handling code here:
+		// TODO add your handling code here:
 	}//GEN-LAST:event_userCoursesActionPerformed
 
 	private void userCoursesCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_userCoursesCaretPositionChanged
-            // TODO add your handling code here:
+		// TODO add your handling code here:
 	}//GEN-LAST:event_userCoursesCaretPositionChanged
 
 	private void accessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessActionPerformed
-            File accessFile = new File("src/resources/PASDB.accdb");
-            if (Desktop.isDesktopSupported()) {
-                try {
-                    Desktop.getDesktop().open(accessFile);
-                } catch (IOException ex) {
-                    // no application registered for Access files
-                    Application.getInstance().showPopup(new ErrorPopup(
-                            "Microsoft Access is niet geïnstalleerd"));
-                }
-            }
+		File accessFile = new File("src/resources/PASDB.accdb");
+		if (Desktop.isDesktopSupported()) {
+			try {
+				Desktop.getDesktop().open(accessFile);
+			} catch (IOException ex) {
+				// no application registered for Access files
+				Application.getInstance().showPopup(new ErrorPopup(
+						"Microsoft Access is niet geïnstalleerd"));
+			}
+		}
 	}//GEN-LAST:event_accessActionPerformed
 
     private void userSearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userSearchFieldKeyReleased
-        // If this is an enter, search user
-        // The KeyCode for an enter is 10
-        if (evt.getKeyCode() == 10) {
-            searchUser();
-        }        // TODO add your handling code here:
+		// If this is an enter, search user
+		// The KeyCode for an enter is 10
+		if (evt.getKeyCode() == 10) {
+			searchUser();
+		}        // TODO add your handling code here:
     }//GEN-LAST:event_userSearchFieldKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton access;
