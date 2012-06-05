@@ -34,12 +34,11 @@ public class UserOverview extends javax.swing.JPanel {
 	
 	/**
 	 * This method fills the jTable in the BarProductOverview.
-	 * @author daan
+	 * @author vm
 	 * 
 	 */
 	private void updateTable() {
-		//DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-		//User user = Session.get().getLoggedInUser();
+
 
 		// First, empty it.
 		model.setRowCount(0);
@@ -54,6 +53,7 @@ public class UserOverview extends javax.swing.JPanel {
 	
 	/**
 	 * Show the user in a different view (userModify view)
+	 * @author vm
 	 */
 	private void showUser() {
 		
@@ -67,9 +67,6 @@ public class UserOverview extends javax.swing.JPanel {
 
 	}
 	
-	
- 
- 
 	/** This method is called from within the constructor to
 	 * initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is
