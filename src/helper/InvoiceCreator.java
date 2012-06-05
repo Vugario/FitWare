@@ -1,3 +1,4 @@
+
 package helper;
 
 import helper.db.Model;
@@ -16,7 +17,7 @@ import model.Purchase;
 import model.User;
 
 /**
- *
+ * This class makes all the invoices that should be made.
  * @author Daan
  */
 public class InvoiceCreator {
