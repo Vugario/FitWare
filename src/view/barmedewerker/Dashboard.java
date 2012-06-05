@@ -16,7 +16,7 @@ import model.Purchase;
 import model.User;
 
 /**
- *
+ * This is the first page that is shown to a user. It is the user's homepage.
  * @author Daan
  */
 @SuppressWarnings("serial")
@@ -47,11 +47,18 @@ public class Dashboard extends javax.swing.JPanel {
         updateLatestPurchase();
         updateUserInfo();
     }
-
+	
+	/**
+	 * This method updates the userinfo and gets this info from the logged in user
+	 */
     private void updateUserInfo() {
         this.jLabelFullname.setText(sessionUser.getFullName());
     }
-
+	
+	/**
+	 * This method shows the latest purchases.
+	 * 
+	 */
     private void updateLatestPurchase() {
 
 		Purchase purchaseModel = new Purchase();
@@ -59,22 +66,26 @@ public class Dashboard extends javax.swing.JPanel {
 
         // Fill the arraylist with latest purchases
         ArrayList<Purchase> purchases = purchaseModel.readLastPurchase(13);
-
+		// Fill the combobox with the latest purchases
         for (Purchase purchase : purchases) {
             getPurchaseModel().addRow(purchase.getTableRowObjects());
         }
 
     }
-
+	
+	/**
+	 * This method searches a user
+	 */
     public void searchUser() {
 
         try {
+			//Search the user
             int id = Integer.parseInt(userSearchField.getText());
             user.readByRole(id, "member");
-
+			//Show user
             jLabelCustomerName.setVisible(true);
             userFoundPanel.setVisible(true);
-
+			//Do this when there is a user found
             if (user.getId() > 0) {
 
                 jLabelCustomerBirthdate.setVisible(true);
@@ -97,6 +108,8 @@ public class Dashboard extends javax.swing.JPanel {
                 addUserCoursesToComboBox(userId);
 
             } else {
+				//Do this when there isn't a user found
+				//Set user info invisible
 				jLabelCustomerBirthdate.setVisible(false);
                 jLabelCustomerGender.setVisible(false);
                 userCourses.setVisible(false);
@@ -110,17 +123,21 @@ public class Dashboard extends javax.swing.JPanel {
 
 
     }
-
+	
+	/**
+	 * This method is used show the courses where a user has a enrollment for
+	 * @param userId userId is the identifier of a user
+	 */
     @SuppressWarnings("unchecked")
     public void addUserCoursesToComboBox(int userId) {
+		//Empty the courses combobox
         userCourses.removeAllItems();
 
         ArrayList<Enrollment> enrollments = Enrollment.readByUserId(userId);
-
+		//Add every course where the user has an enrollment for to the courses 
+		//combobox
         for (Enrollment enrollment : enrollments) {
-
-            //  Object lol = new Object();
-
+			
             userCourses.addItem(enrollment);
         }
 
@@ -465,7 +482,7 @@ public class Dashboard extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonUserCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUserCheckinActionPerformed
-		// TODO add your handling code here:
+		// Check the user in
 		
 		userCheckin.setEnabled(false);
 		
@@ -484,7 +501,7 @@ public class Dashboard extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButtonUserCheckinActionPerformed
 
 	private void jButtonSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchUserActionPerformed
-            // TODO add your handling code here:
+            // Search the user
             searchUser();
 	}//GEN-LAST:event_jButtonSearchUserActionPerformed
 
