@@ -63,17 +63,6 @@ public class BarProductModify extends javax.swing.JPanel {
 		//Get the name and fill the form
 		jTextFieldName.setText(product.getName());
 
-		/*if (product.getType().equals("drink")) {
-		jComboBoxType.setSelectedIndex(1);
-		
-		} else if (product.getType().equals("food")) {
-		jComboBoxType.setSelectedIndex(2);
-		
-		} else {
-		
-		jComboBoxType.setSelectedIndex(3);
-		}*/
-
 		//Get the price and fill the form
 		jTextFieldPrice.setText(String.format("%.2f", product.getPrice()));
 		// Get the description and fill the form
