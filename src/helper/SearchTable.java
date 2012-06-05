@@ -1,3 +1,4 @@
+
 package helper;
 
 import java.awt.event.ActionEvent;
@@ -15,7 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- *
+ * This class it the class to create a searchtable. The searchtable is used
+ * to search a jTable filled with data
  * @author Daan
  */
 public class SearchTable {
