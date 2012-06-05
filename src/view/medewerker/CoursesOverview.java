@@ -19,7 +19,7 @@ import model.Subscription;
 import view.popups.EnrollmentPopup;
 
 /**
- *
+ * This class is the class that serves as a view to see all the courses
  * @author mennowolvers
  */
 public class CoursesOverview extends javax.swing.JPanel {

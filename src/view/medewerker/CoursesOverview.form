@@ -25,7 +25,7 @@
                       <Component id="jTextFieldSearch" min="-2" pref="169" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonReset" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="239" max="32767" attributes="0"/>
+                      <EmptySpace pref="269" max="32767" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
               </Group>
