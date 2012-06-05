@@ -1,3 +1,4 @@
+
 package main;
 
 import helper.RuntimeExceptionCatcher;
@@ -5,6 +6,10 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import javax.swing.SwingUtilities;
 
+/**
+ * This is the main application, from here the application will be run
+ * 
+ */
 public class Main {
 	
 	public static void main(String args[]) {
