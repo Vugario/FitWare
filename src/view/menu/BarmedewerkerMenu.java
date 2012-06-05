@@ -8,7 +8,7 @@ package view.menu;
 import main.Application;
 
 /**
- *
+ *	This is the class for the view of the Barmedewerkeruser menubar
  * @author Daan
  */
 public class BarmedewerkerMenu extends javax.swing.JPanel {

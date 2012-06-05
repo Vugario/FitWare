@@ -8,7 +8,7 @@ package view.menu;
 import main.Application;
 
 /**
- *
+ * This is the class for the view of the member user menubar
  * @author Daan
  */
 public class MemberMenu extends javax.swing.JPanel {
