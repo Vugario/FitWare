@@ -18,7 +18,7 @@ import javax.swing.*;
 import model.User;
 
 /**
- *
+ * This is the class for the main application
  * @author allentje
  */
 public final class Application {
@@ -34,7 +34,9 @@ public final class Application {
 	 */
 	private Application() {
 	}
-
+	/**
+	 * this method initializes the application
+	 */
 	public void initialize() {
 
 		try {
@@ -46,7 +48,9 @@ public final class Application {
 		startup();
 
 	}
-
+	/**
+	 * This method starts the application up
+	 */
 	public void startup() {
 
 		window = new JFrame("Fitware");
@@ -67,7 +71,11 @@ public final class Application {
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}
-
+	
+	/**
+	 * This method shows the panels that are used in the application
+	 * @param panel the jPanel
+	 */
 	public void showPanel(JPanel panel) {
 
 		JScrollPane scrollpane = new JScrollPane(panel);
@@ -78,14 +86,14 @@ public final class Application {
 
 
 		view.Header header = new view.Header();
-
+		//remove all panels and add the right panels
 		window.getContentPane().removeAll();
 		window.getContentPane().add(scrollpane, BorderLayout.CENTER);
 		window.getContentPane().add(header, BorderLayout.NORTH);
 		window.getContentPane().add(new view.Footer(), BorderLayout.SOUTH);
 
 		User userSession = Session.get().getLoggedInUser();
-
+		//show the userinfo in the header
 		if (userSession == null) {
 			header.showUserInfo(false);
 			window.getContentPane().add(new view.Login());
